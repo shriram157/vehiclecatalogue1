@@ -1,0 +1,220 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="com.sap.build.toyota-canada.vehiclesGuideV3.controller.AdminDetailsOption"
+	xmlns:uxap="sap.uxap" xmlns="sap.m">
+	<uxap:ObjectPageLayout showTitleInHeaderContent="false" showHeaderContent="true" showEditHeaderButton="false" showFooter="false"
+		class="sapUiSizeCompact">
+		<uxap:headerTitle>
+			<uxap:ObjectPageHeader objectTitle="2019 Toyota Camry" objectSubtitle="" isObjectIconAlwaysVisible="false" isObjectTitleAlwaysVisible="true"
+				isObjectSubtitleAlwaysVisible="true" showPlaceholder="true" objectImageURI="/build/uilibraries/content/static/image-canvas.svg">
+				<uxap:navigationBar>
+					<Bar>
+						<contentLeft>
+							<Button type="Back" press="_onFioriObjectPageHeaderPress"/>
+						</contentLeft>
+						<contentMiddle>
+							<Title text="Manage Vehicle Series Details"/>
+						</contentMiddle>
+						<contentRight/>
+					</Bar>
+				</uxap:navigationBar>
+				<uxap:actions>
+					<Button text="Create Vehicle Guide" icon="sap-icon://pdf-attachment" iconFirst="false" type="Default" enabled="true"
+						press="_onFioriObjectPageActionButtonPress">
+						<layoutData>
+							<OverflowToolbarLayoutData moveToOverflow="true"/>
+						</layoutData>
+					</Button>
+				</uxap:actions>
+				<uxap:breadCrumbsLinks/>
+			</uxap:ObjectPageHeader>
+		</uxap:headerTitle>
+		<uxap:headerContent/>
+		<uxap:sections>
+			<uxap:ObjectPageSection title="What's New">
+				<uxap:subSections>
+					<uxap:ObjectPageSubSection title="What's New">
+						<uxap:blocks>
+							<Table width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="SingleSelectLeft"
+								items="{path:'/WhatsNewAdminSet', templateShareable:true}">
+								<headerToolbar>
+									<OverflowToolbar design="Transparent">
+										<content>
+											<ToolbarSpacer/>
+											<Button text="New" icon="sap-icon://write-new" iconFirst="true" type="Transparent" press="_onFioriObjectPageTableActionPress">
+												<layoutData>
+													<OverflowToolbarLayoutData moveToOverflow="true"/>
+												</layoutData>
+											</Button>
+											<Button text="Update" icon="sap-icon://edit" iconFirst="false" type="Transparent" press="_onFioriObjectPageTableActionPress1">
+												<layoutData>
+													<OverflowToolbarLayoutData moveToOverflow="true"/>
+												</layoutData>
+											</Button>
+											<Button icon="sap-icon://action-settings" type="Transparent">
+												<layoutData>
+													<OverflowToolbarLayoutData moveToOverflow="true"/>
+												</layoutData>
+											</Button>
+										</content>
+									</OverflowToolbar>
+								</headerToolbar>
+								<columns>
+									<Column width="auto" minScreenWidth="Phone">
+										<header>
+											<Text text="File Name" width="auto"/>
+										</header>
+									</Column>
+									<Column width="auto" minScreenWidth="Tablet" demandPopin="true">
+										<header>
+											<Text text="Comments" width="auto"/>
+										</header>
+									</Column>
+									<Column width="auto" minScreenWidth="Phone">
+										<header>
+											<Text text="Effective Date" width="auto"/>
+										</header>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem type="Active">
+										<cells>
+											<Link text="{FileName}" href="{FileLocation}" target="_blank"/>
+											<ObjectStatus text="{Comments}"/>
+											<ObjectIdentifier title="{EffectiveDateDetail}" text="{EndDateDetails}"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+						</uxap:blocks>
+					</uxap:ObjectPageSubSection>
+				</uxap:subSections>
+			</uxap:ObjectPageSection>
+			<uxap:ObjectPageSection title="Walk-up">
+				<uxap:subSections>
+					<uxap:ObjectPageSubSection title="Walk-up">
+						<uxap:blocks>
+							<Table width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="SingleSelectLeft"
+								items="{path:'/WalkupAdminSet', templateShareable:true}">
+								<headerToolbar>
+									<OverflowToolbar design="Transparent">
+										<content>
+											<ToolbarSpacer/>
+											<Button text="New" icon="sap-icon://write-new" iconFirst="true" type="Transparent" press="_onFioriObjectPageTableActionPress2">
+												<layoutData>
+													<OverflowToolbarLayoutData moveToOverflow="true"/>
+												</layoutData>
+											</Button>
+											<Button text="Update" icon="sap-icon://edit" iconFirst="false" type="Transparent" press="_onFioriObjectPageTableActionPress3">
+												<layoutData>
+													<OverflowToolbarLayoutData moveToOverflow="true"/>
+												</layoutData>
+											</Button>
+											<Button icon="sap-icon://action-settings" type="Transparent">
+												<layoutData>
+													<OverflowToolbarLayoutData moveToOverflow="true"/>
+												</layoutData>
+											</Button>
+										</content>
+									</OverflowToolbar>
+								</headerToolbar>
+								<columns>
+									<Column width="auto" minScreenWidth="Phone">
+										<header>
+											<Text text="File Name" width="auto"/>
+										</header>
+									</Column>
+									<Column width="auto" minScreenWidth="Tablet" demandPopin="true">
+										<header>
+											<Text text="Comments" width="auto"/>
+										</header>
+									</Column>
+									<Column width="auto" minScreenWidth="Phone">
+										<header>
+											<Text text="Effective Date" width="auto"/>
+										</header>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem type="Active">
+										<cells>
+											<Link text="{FileName}" href="http://www.build.me" target="_blank"/>
+											<ObjectStatus text="{Comments}"/>
+											<ObjectIdentifier title="{EffectiveDateDetails}" text="{EndDateDetails}"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+						</uxap:blocks>
+					</uxap:ObjectPageSubSection>
+				</uxap:subSections>
+			</uxap:ObjectPageSection>
+			<uxap:ObjectPageSection title="Supplement Guide">
+				<uxap:subSections>
+					<uxap:ObjectPageSubSection title="Supplement Guide">
+						<uxap:blocks>
+							<Table width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="SingleSelectLeft"
+								items="{path:'/SupplementalAdminSet', templateShareable:true}">
+								<headerToolbar>
+									<OverflowToolbar design="Transparent">
+										<content>
+											<ToolbarSpacer/>
+											<Button text="New" icon="sap-icon://write-new" iconFirst="true" type="Transparent" press="_onFioriObjectPageTableActionPress4">
+												<layoutData>
+													<OverflowToolbarLayoutData moveToOverflow="true"/>
+												</layoutData>
+											</Button>
+											<Button text="Update" icon="sap-icon://edit" iconFirst="false" type="Transparent" press="_onFioriObjectPageTableActionPress5">
+												<layoutData>
+													<OverflowToolbarLayoutData moveToOverflow="true"/>
+												</layoutData>
+											</Button>
+											<Button icon="sap-icon://action-settings" type="Transparent">
+												<layoutData>
+													<OverflowToolbarLayoutData moveToOverflow="true"/>
+												</layoutData>
+											</Button>
+										</content>
+									</OverflowToolbar>
+								</headerToolbar>
+								<columns>
+									<Column width="auto" minScreenWidth="Phone">
+										<header>
+											<Text text="File Name" width="auto"/>
+										</header>
+									</Column>
+									<Column width="auto" minScreenWidth="Tablet" demandPopin="true">
+										<header>
+											<Text text="Comments" width="auto"/>
+										</header>
+									</Column>
+									<Column width="auto" minScreenWidth="Phone">
+										<header>
+											<Text text="Effective Date" width="auto"/>
+										</header>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem type="Active">
+										<cells>
+											<Link text="{FileName}" href="http://www.build.me" target="_blank"/>
+											<ObjectStatus text="{Comments}"/>
+											<ObjectIdentifier title="{EffectiveDateDetails}" text="{EndDateDetails}"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+						</uxap:blocks>
+					</uxap:ObjectPageSubSection>
+				</uxap:subSections>
+			</uxap:ObjectPageSection>
+		</uxap:sections>
+		<uxap:footer>
+			<OverflowToolbar design="auto">
+				<content>
+					<ToolbarSpacer/>
+					<Button text="Save" type="Emphasized" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
+					<Button text="Cancel" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
+				</content>
+			</OverflowToolbar>
+		</uxap:footer>
+	</uxap:ObjectPageLayout>
+</mvc:View>

@@ -1,0 +1,41 @@
+[{
+	"ID": "1",
+	"DimensionTxt": "Length mm (in.)",
+	"Dimension": "4880 (192.1)"
+}, {
+	"ID": "2",
+	"DimensionTxt": "Width mm (in.)",
+	"Dimension": "1840 (72.4)"
+}, {
+	"ID": "3",
+	"DimensionTxt": "Height mm (in.)",
+	"Dimension": "1,445 (56.9)"
+}, {
+	"ID": "4",
+	"DimensionTxt": "WheelBase mm (in.)",
+	"Dimension": "2,825 (111.2)"
+}, {
+	"ID": "5",
+	"DimensionTxt": "Ground Clearance mm (in.)",
+	"Dimension": "145 (5.7)"
+}, {
+	"ID": "6",
+	"DimensionTxt": "Headroom mm (in.)",
+	"Dimension": "Front: 972.8 (38.3)   Rear: 965.2 (38.0)"
+}, {
+	"ID": "7",
+	"DimensionTxt": "Legroom mm (in.)",
+	"Dimension": "Front: 1069.3 (42.1)    Rear: 965.2 (38.0)"
+}, {
+	"ID": "8",
+	"DimensionTxt": "Shoulder Room mm (in.)",
+	"Dimension": "1470 (3240.8)"
+}, {
+	"ID": "9",
+	"DimensionTxt": "CURB WEIGHT kg (lbs.)",
+	"Dimension": "1470 (3240.8)"
+}, {
+	"ID": "10",
+	"DimensionTxt": "Turning Circle m( ft.)",
+	"Dimension": "11.4 (37.4)"
+}]

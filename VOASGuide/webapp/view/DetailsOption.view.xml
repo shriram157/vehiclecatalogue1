@@ -1,0 +1,498 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="com.sap.build.toyota-canada.vehiclesGuideV3.controller.DetailsOption"
+	xmlns:uxap="sap.uxap" xmlns="sap.m" xmlns:core="sap.ui.core">
+	<uxap:ObjectPageLayout showTitleInHeaderContent="false" showHeaderContent="true" showEditHeaderButton="false" showFooter="false"
+		class="sapUiSizeCompact">
+		<uxap:headerTitle>
+			<uxap:ObjectPageHeader objectTitle="2019 Toyota Camry - See All Features" objectSubtitle="" isObjectIconAlwaysVisible="false"
+				isObjectTitleAlwaysVisible="true" isObjectSubtitleAlwaysVisible="true" showPlaceholder="true"
+				objectImageURI="/build/uilibraries/content/static/image-canvas.svg">
+				<uxap:navigationBar>
+					<Bar>
+						<contentLeft>
+							<Button type="Back" press="_onFioriObjectPageHeaderPress"/>
+						</contentLeft>
+						<contentMiddle>
+							<Title text="Vehicle Details"/>
+						</contentMiddle>
+						<contentRight/>
+					</Bar>
+				</uxap:navigationBar>
+				<uxap:actions>
+					<Button text="Create Vehicle Guide" icon="sap-icon://pdf-attachment" iconFirst="true" type="Default" enabled="true"
+						press="_onFioriObjectPageActionButtonPress">
+						<layoutData>
+							<OverflowToolbarLayoutData moveToOverflow="true"/>
+						</layoutData>
+					</Button>
+					<Button text="Create What's New Guide" icon="sap-icon://pdf-attachment" iconFirst="true" type="Default" enabled="true"
+						press="_onFioriObjectPageActionButtonPress1">
+						<layoutData>
+							<OverflowToolbarLayoutData moveToOverflow="true"/>
+						</layoutData>
+					</Button>
+					<Button text="Create Walk-up Guide" icon="sap-icon://pdf-attachment" iconFirst="true" type="Default" enabled="true"
+						press="_onFioriObjectPageActionButtonPress2">
+						<layoutData>
+							<OverflowToolbarLayoutData moveToOverflow="true"/>
+						</layoutData>
+					</Button>
+					<Button text="Create Supplemental Guide" icon="sap-icon://pdf-attachment" iconFirst="true" type="Default" enabled="true"
+						press="_onFioriObjectPageActionButtonPress3">
+						<layoutData>
+							<OverflowToolbarLayoutData moveToOverflow="true"/>
+						</layoutData>
+					</Button>
+					<Button text="Manage Series" icon="sap-icon://edit" iconFirst="true" type="Transparent" enabled="true"
+						press="_onFioriObjectPageActionButtonPress4">
+						<layoutData>
+							<OverflowToolbarLayoutData moveToOverflow="true"/>
+						</layoutData>
+					</Button>
+				</uxap:actions>
+				<uxap:breadCrumbsLinks/>
+			</uxap:ObjectPageHeader>
+		</uxap:headerTitle>
+		<uxap:headerContent>
+			<Label text="Include Std. Features" design="Standard" width="139px" required="false" textAlign="Right" textDirection="Inherit"
+				visible="true" class="sapUiTinyMargin"/>
+			<Switch state="true" customTextOff="On" customTextOn="Off" type="Default" enabled="true" visible="true" class="sapUiTinyMargin"/>
+			<ToolbarSpacer width="289.21875px"/>
+			<VBox>
+				<items>
+					<Title text="L - (B11HKT) - SFX A"/>
+					<HBox>
+						<items>
+							<Label text="Model"/>
+							<Label text=":" class="sapUiTinyMarginEnd"/>
+							<ObjectStatus text="Camry L"/>
+						</items>
+					</HBox>
+					<HBox>
+						<items>
+							<Label text="MSRP"/>
+							<Label text=":" class="sapUiTinyMarginEnd"/>
+							<ObjectStatus text="$27,799"/>
+						</items>
+					</HBox>
+					<HBox>
+						<items>
+							<Label text="Dealer Net"/>
+							<Label text=":" class="sapUiTinyMarginEnd"/>
+							<ObjectStatus text="$25,799"/>
+						</items>
+					</HBox>
+				</items>
+			</VBox>
+		</uxap:headerContent>
+		<uxap:sections>
+			<uxap:ObjectPageSection title="Interior">
+				<uxap:subSections>
+					<uxap:ObjectPageSubSection title="Interior">
+						<uxap:blocks>
+							<Table width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="None"
+								items="{path:'/CategoryInteriorSet', templateShareable:true}">
+								<headerToolbar>
+									<OverflowToolbar design="Transparent">
+										<content>
+											<ToolbarSpacer/>
+											<Button icon="sap-icon://action-settings" type="Transparent">
+												<layoutData>
+													<OverflowToolbarLayoutData moveToOverflow="true"/>
+												</layoutData>
+											</Button>
+										</content>
+									</OverflowToolbar>
+								</headerToolbar>
+								<columns>
+									<Column width="auto" minScreenWidth="Phone">
+										<header>
+											<Text text="" width="auto"/>
+										</header>
+									</Column>
+									<Column width="auto" hAlign="Left" vAlign="Middle" popinDisplay="Inline" mergeDuplicates="false" demandPopin="true" minScreenWidth="Tablet">
+										<header>
+											<Text text="L - SFX A"/>
+										</header>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem type="Active">
+										<cells>
+											<ObjectIdentifier title="{Name}" text="Customer Facing Description (1 or More Features)"/>
+											<core:Icon src="sap-icon://sys-enter" size="28px" height="48px" width="48px" hoverColor="green" visible="true"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+						</uxap:blocks>
+					</uxap:ObjectPageSubSection>
+				</uxap:subSections>
+			</uxap:ObjectPageSection>
+			<uxap:ObjectPageSection title="Exterior">
+				<uxap:subSections>
+					<uxap:ObjectPageSubSection title="Exterior">
+						<uxap:blocks>
+							<Table width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="None"
+								items="{path:'/CategoryExteriorSet', templateShareable:true}">
+								<headerToolbar>
+									<OverflowToolbar design="Transparent">
+										<content>
+											<ToolbarSpacer/>
+											<Button icon="sap-icon://action-settings" type="Transparent">
+												<layoutData>
+													<OverflowToolbarLayoutData moveToOverflow="true"/>
+												</layoutData>
+											</Button>
+										</content>
+									</OverflowToolbar>
+								</headerToolbar>
+								<columns>
+									<Column width="auto" minScreenWidth="Phone">
+										<header>
+											<Text text="" width="auto"/>
+										</header>
+									</Column>
+									<Column width="auto" hAlign="Left" vAlign="Middle" popinDisplay="Inline" mergeDuplicates="false" demandPopin="true" minScreenWidth="Tablet">
+										<header>
+											<Text text="L - SFX A"/>
+										</header>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem type="Active">
+										<cells>
+											<ObjectIdentifier title="{Name}" text="Customer Facing Description (1 or More Features)"/>
+											<core:Icon src="sap-icon://sys-enter" size="28px" height="48px" width="48px" hoverColor="green" visible="true"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+						</uxap:blocks>
+					</uxap:ObjectPageSubSection>
+				</uxap:subSections>
+			</uxap:ObjectPageSection>
+			<uxap:ObjectPageSection title="Powertrain &amp; Mechanical">
+				<uxap:subSections>
+					<uxap:ObjectPageSubSection title="Powertrain &amp; Mechanical">
+						<uxap:blocks>
+							<Table width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="None"
+								items="{path:'/CategoryPowerTrainSet', templateShareable:true}">
+								<headerToolbar>
+									<OverflowToolbar design="Transparent">
+										<content>
+											<ToolbarSpacer/>
+											<Button icon="sap-icon://action-settings" type="Transparent">
+												<layoutData>
+													<OverflowToolbarLayoutData moveToOverflow="true"/>
+												</layoutData>
+											</Button>
+										</content>
+									</OverflowToolbar>
+								</headerToolbar>
+								<columns>
+									<Column width="auto" minScreenWidth="Phone">
+										<header>
+											<Text text="" width="auto"/>
+										</header>
+									</Column>
+									<Column width="auto" hAlign="Left" vAlign="Middle" popinDisplay="Inline" mergeDuplicates="false" demandPopin="true" minScreenWidth="Tablet">
+										<header>
+											<Text text="L - SFX A"/>
+										</header>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem type="Active">
+										<cells>
+											<ObjectIdentifier title="{Name}" text="Customer Facing Description (1 or More Features)"/>
+											<core:Icon src="sap-icon://sys-enter" size="28px" height="48px" width="48px" hoverColor="green" visible="true"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+						</uxap:blocks>
+					</uxap:ObjectPageSubSection>
+				</uxap:subSections>
+			</uxap:ObjectPageSection>
+			<uxap:ObjectPageSection title="Safety &amp; Convenience">
+				<uxap:subSections>
+					<uxap:ObjectPageSubSection title="Safety &amp; Convenience">
+						<uxap:blocks>
+							<Table width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="None"
+								items="{path:'/CategorySafetySet', templateShareable:true}">
+								<headerToolbar>
+									<OverflowToolbar design="Transparent">
+										<content>
+											<ToolbarSpacer/>
+											<Button icon="sap-icon://action-settings" type="Transparent">
+												<layoutData>
+													<OverflowToolbarLayoutData moveToOverflow="true"/>
+												</layoutData>
+											</Button>
+										</content>
+									</OverflowToolbar>
+								</headerToolbar>
+								<columns>
+									<Column width="auto" minScreenWidth="Phone">
+										<header>
+											<Text text="" width="auto"/>
+										</header>
+									</Column>
+									<Column width="auto" hAlign="Left" vAlign="Middle" popinDisplay="Inline" mergeDuplicates="false" demandPopin="true" minScreenWidth="Tablet">
+										<header>
+											<Text text="L - SFX A"/>
+										</header>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem type="Active">
+										<cells>
+											<ObjectIdentifier title="{Name}" text="Customer Facing Description (1 or More Features)"/>
+											<core:Icon src="sap-icon://sys-enter" size="28px" height="48px" width="48px" hoverColor="green" visible="true"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+						</uxap:blocks>
+					</uxap:ObjectPageSubSection>
+				</uxap:subSections>
+			</uxap:ObjectPageSection>
+			<uxap:ObjectPageSection title="Infotainment">
+				<uxap:subSections>
+					<uxap:ObjectPageSubSection title="Infotainment">
+						<uxap:blocks>
+							<Table width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="None"
+								items="{path:'/CategoryInfotainmentSet', templateShareable:true}">
+								<headerToolbar>
+									<OverflowToolbar design="Transparent">
+										<content>
+											<ToolbarSpacer/>
+											<Button icon="sap-icon://action-settings" type="Transparent">
+												<layoutData>
+													<OverflowToolbarLayoutData moveToOverflow="true"/>
+												</layoutData>
+											</Button>
+										</content>
+									</OverflowToolbar>
+								</headerToolbar>
+								<columns>
+									<Column width="auto" minScreenWidth="Phone">
+										<header>
+											<Text text="" width="auto"/>
+										</header>
+									</Column>
+									<Column width="auto" hAlign="Left" vAlign="Middle" popinDisplay="Inline" mergeDuplicates="false" demandPopin="true" minScreenWidth="Tablet">
+										<header>
+											<Text text="L - SFX A"/>
+										</header>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem type="Active">
+										<cells>
+											<ObjectIdentifier title="{Name}" text="Customer Facing Description (1 or More Features)"/>
+											<core:Icon src="sap-icon://sys-enter" size="28px" height="48px" width="48px" hoverColor="green" visible="true"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+						</uxap:blocks>
+					</uxap:ObjectPageSubSection>
+				</uxap:subSections>
+			</uxap:ObjectPageSection>
+			<uxap:ObjectPageSection title="Color Options">
+				<uxap:subSections>
+					<uxap:ObjectPageSubSection title="Color Options">
+						<uxap:blocks>
+							<Table width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="None"
+								items="{path:'/CategoryColorSet', templateShareable:true}">
+								<headerToolbar>
+									<OverflowToolbar design="Transparent">
+										<content>
+											<ToolbarSpacer/>
+											<Button icon="sap-icon://action-settings" type="Transparent">
+												<layoutData>
+													<OverflowToolbarLayoutData moveToOverflow="true"/>
+												</layoutData>
+											</Button>
+										</content>
+									</OverflowToolbar>
+								</headerToolbar>
+								<columns>
+									<Column width="auto" minScreenWidth="Phone">
+										<header>
+											<Text text="" width="auto"/>
+										</header>
+									</Column>
+									<Column width="auto" minScreenWidth="Phone">
+										<header>
+											<Text text="Title" width="auto"/>
+										</header>
+									</Column>
+									<Column width="auto" minScreenWidth="Phone">
+										<header>
+											<Text text="L - SFX A" width="auto"/>
+										</header>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem type="Active">
+										<cells>
+											<ObjectIdentifier title="{DescriptionDetails}" text="{InteriorColorTrimDetails}"/>
+											<ObjectIdentifier title="{MSRPDetail}" text="{DealerNetDetails}"/>
+											<ObjectIdentifier title="{ColorSuffixCode}" text=""/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+						</uxap:blocks>
+					</uxap:ObjectPageSubSection>
+				</uxap:subSections>
+			</uxap:ObjectPageSection>
+			<uxap:ObjectPageSection title="Dimensions &amp; Specs">
+				<uxap:subSections>
+					<uxap:ObjectPageSubSection title="Dimensions &amp; Specs">
+						<uxap:blocks>
+							<Table width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="None"
+								items="{path:'/CategoryDimensionSpecSet', templateShareable:true}">
+								<headerToolbar>
+									<OverflowToolbar design="Transparent">
+										<content>
+											<ToolbarSpacer/>
+											<Button icon="sap-icon://action-settings" type="Transparent">
+												<layoutData>
+													<OverflowToolbarLayoutData moveToOverflow="true"/>
+												</layoutData>
+											</Button>
+										</content>
+									</OverflowToolbar>
+								</headerToolbar>
+								<columns>
+									<Column width="auto" minScreenWidth="Phone">
+										<header>
+											<Text text="" width="auto"/>
+										</header>
+									</Column>
+									<Column width="auto" minScreenWidth="Phone">
+										<header>
+											<Text text="L - SFX A" width="auto"/>
+										</header>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem type="Active">
+										<cells>
+											<ObjectIdentifier title="{DimensionTxt}" text=""/>
+											<ObjectIdentifier title="" text="{Dimension}"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+						</uxap:blocks>
+					</uxap:ObjectPageSubSection>
+				</uxap:subSections>
+			</uxap:ObjectPageSection>
+			<uxap:ObjectPageSection title="Option Packages">
+				<uxap:subSections>
+					<uxap:ObjectPageSubSection title="Option Packages">
+						<uxap:blocks>
+							<Table width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="None"
+								items="{path:'/OptionPkgSet', templateShareable:true}">
+								<headerToolbar>
+									<OverflowToolbar design="Transparent">
+										<content>
+											<ToolbarSpacer/>
+											<Button icon="sap-icon://action-settings" type="Transparent">
+												<layoutData>
+													<OverflowToolbarLayoutData moveToOverflow="true"/>
+												</layoutData>
+											</Button>
+										</content>
+									</OverflowToolbar>
+								</headerToolbar>
+								<columns>
+									<Column width="auto" minScreenWidth="Phone">
+										<header>
+											<Text text="" width="auto"/>
+										</header>
+									</Column>
+									<Column width="auto" minScreenWidth="Phone">
+										<header>
+											<Text text="L - SFX A" width="auto"/>
+										</header>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem type="Active">
+										<cells>
+											<ObjectIdentifier title="{PkgCode}" text="{PricingDetails}"/>
+											<ObjectIdentifier title="{PkgDescription}" text="{DetailContent}"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+						</uxap:blocks>
+					</uxap:ObjectPageSubSection>
+				</uxap:subSections>
+			</uxap:ObjectPageSection>
+			<uxap:ObjectPageSection title="APX">
+				<uxap:subSections>
+					<uxap:ObjectPageSubSection title="APX">
+						<uxap:blocks>
+							<Table width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="None"
+								items="{path:'/CategoryAPXSet', templateShareable:true}">
+								<headerToolbar>
+									<OverflowToolbar design="Transparent">
+										<content>
+											<ToolbarSpacer/>
+											<Button icon="sap-icon://action-settings" type="Transparent">
+												<layoutData>
+													<OverflowToolbarLayoutData moveToOverflow="true"/>
+												</layoutData>
+											</Button>
+										</content>
+									</OverflowToolbar>
+								</headerToolbar>
+								<columns>
+									<Column width="auto" minScreenWidth="Phone">
+										<header>
+											<Text text="" width="auto"/>
+										</header>
+									</Column>
+									<Column width="auto" minScreenWidth="Phone">
+										<header>
+											<Text text="L - SFX A" width="auto"/>
+										</header>
+									</Column>
+									<Column width="auto" hAlign="Left" vAlign="Middle" popinDisplay="Inline" mergeDuplicates="false" demandPopin="true" minScreenWidth="Tablet">
+										<header>
+											<Text text="Title"/>
+										</header>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem type="Active">
+										<cells>
+											<ObjectIdentifier title="{PkgAPXDetails}" text="{MSRPDlrNetDetails}"/>
+											<ObjectIdentifier title="" text="{DetailContent}"/>
+											<Label text="Label" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+						</uxap:blocks>
+					</uxap:ObjectPageSubSection>
+				</uxap:subSections>
+			</uxap:ObjectPageSection>
+		</uxap:sections>
+		<uxap:footer>
+			<OverflowToolbar design="auto">
+				<content>
+					<ToolbarSpacer/>
+					<Button text="Save" type="Emphasized" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
+					<Button text="Cancel" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
+				</content>
+			</OverflowToolbar>
+		</uxap:footer>
+	</uxap:ObjectPageLayout>
+</mvc:View>
