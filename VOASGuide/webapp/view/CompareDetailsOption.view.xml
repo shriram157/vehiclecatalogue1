@@ -3,7 +3,7 @@
 	<uxap:ObjectPageLayout showTitleInHeaderContent="false" showHeaderContent="true" showEditHeaderButton="false" showFooter="false"
 		class="sapUiSizeCompact">
 		<uxap:headerTitle>
-			<uxap:ObjectPageHeader objectTitle="2019 Toyota Camry - Compare" objectSubtitle="" isObjectIconAlwaysVisible="false"
+			<uxap:ObjectPageHeader objectTitle="{/0/Model} {Brand} {Series} - Compare" objectSubtitle="" isObjectIconAlwaysVisible="false"
 				isObjectTitleAlwaysVisible="true" isObjectSubtitleAlwaysVisible="true" showPlaceholder="true"
 				objectImageURI="/build/uilibraries/content/static/image-canvas.svg">
 				<uxap:navigationBar>
@@ -29,13 +29,48 @@
 			</uxap:ObjectPageHeader>
 		</uxap:headerTitle>
 		<uxap:headerContent>
-			<Label text="Include Std. Features" design="Standard" width="139px" required="false" textAlign="Right" textDirection="Inherit"
+			<!--<Label text="Include Std. Features" design="Standard" width="139px" required="false" textAlign="Right" textDirection="Inherit"
 				visible="true" class="sapUiTinyMargin"/>
 			<Switch state="true" customTextOff="On" customTextOn="Off" type="Default" enabled="true" visible="true" class="sapUiTinyMargin"/>
-			<ToolbarSpacer width="130px"/>
-			<VBox>
+			<ToolbarSpacer width="130px"/>-->
+			<HBox>
 				<items>
-					<Title text="L - (B11HKT) - SFX A"/>
+					<!--<HBox>
+						<items>
+							<Text text="jhcjckjckjdkj"></Text>
+								<Text text="1233jhcjckjckjdkj"></Text>
+						</items>
+					</HBox>-->
+						<HBox  width="100%" items="{path:'/', templateShareable:true}">
+				<items>
+					<VBox class="sapUiLargeMarginBegin sapUiLargeMarginEnd">
+						<items>
+							<Title text="{Category}"/>
+							<Text text="Model {Model}"></Text>
+							<Text text="MSRP {MSRP}"></Text>
+							<Text text="DealerNet {/DealerNet}"></Text>
+						</items>
+					</VBox>
+				</items>
+			</HBox>
+				</items>
+			</HBox>
+		<!--	<HBox id="hbx1" width="100%" items="{path:'/', templateShareable:true}">
+				<items>
+					<VBox>
+						<items>
+							<Title text="{Category}"/>
+							<Text text="Model {/Model}"></Text>
+							<Text text="MSRP {/MSRP}"></Text>
+							<Text text="DealerNet {/DealerNet}"></Text>
+						</items>
+					</VBox>
+				</items>
+			</HBox>-->
+			<!--	<VBox>
+				<items>
+					<Title text="{Category}"/>
+					
 					<HBox>
 						<items>
 							<Label text="Model"/>
@@ -62,7 +97,8 @@
 			<ToolbarSpacer width="70px"/>
 			<VBox>
 				<items>
-					<Title text="LE - (B12HKT) - SFX B"/>
+					<Title text="{Category}"/>
+					
 					<HBox>
 						<items>
 							<Label text="Model"/>
@@ -113,6 +149,61 @@
 					</HBox>
 				</items>
 			</VBox>
+			<ToolbarSpacer width="70px"/>
+			<VBox>
+				<items>
+					<Title text="{Category}"/>
+				
+					<HBox>
+						<items>
+							<Label text="Model"/>
+							<Label text=":" class="sapUiTinyMarginEnd"/>
+							<ObjectStatus text="Camry L"/>
+						</items>
+					</HBox>
+					<HBox>
+						<items>
+							<Label text="MSRP"/>
+							<Label text=":" class="sapUiTinyMarginEnd"/>
+							<ObjectStatus text="$27,799"/>
+						</items>
+					</HBox>
+					<HBox>
+						<items>
+							<Label text="Dealer Net"/>
+							<Label text=":" class="sapUiTinyMarginEnd"/>
+							<ObjectStatus text="$25,799"/>
+						</items>
+					</HBox>
+				</items>
+			</VBox>
+			<ToolbarSpacer width="70px"/>
+			<VBox>
+				<items>
+					<Title text="L - (B11HKT) - SFX C"/>
+					<HBox>
+						<items>
+							<Label text="Model"/>
+							<Label text=":" class="sapUiTinyMarginEnd"/>
+							<ObjectStatus text="Camry L"/>
+						</items>
+					</HBox>
+					<HBox>
+						<items>
+							<Label text="MSRP"/>
+							<Label text=":" class="sapUiTinyMarginEnd"/>
+							<ObjectStatus text="$29,799"/>
+						</items>
+					</HBox>
+					<HBox>
+						<items>
+							<Label text="Dealer Net"/>
+							<Label text=":" class="sapUiTinyMarginEnd"/>
+							<ObjectStatus text="$27,799"/>
+						</items>
+					</HBox>
+				</items>
+			</VBox>-->
 		</uxap:headerContent>
 		<uxap:sections>
 			<uxap:ObjectPageSection title="Interior">
@@ -121,7 +212,7 @@
 						<uxap:blocks>
 							<Table width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="None"
 								items="{path:'/CategoryInteriorSet', templateShareable:true}">
-								<headerToolbar>
+								<!--	<headerToolbar>
 									<OverflowToolbar design="Transparent">
 										<content>
 											<ToolbarSpacer/>
@@ -132,7 +223,7 @@
 											</Button>
 										</content>
 									</OverflowToolbar>
-								</headerToolbar>
+								</headerToolbar>-->
 								<columns>
 									<Column width="auto" minScreenWidth="Phone">
 										<header>
@@ -179,7 +270,7 @@
 						<uxap:blocks>
 							<Table width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="None"
 								items="{path:'/CategoryExteriorSet', templateShareable:true}">
-								<headerToolbar>
+								<!--	<headerToolbar>
 									<OverflowToolbar design="Transparent">
 										<content>
 											<ToolbarSpacer/>
@@ -190,7 +281,7 @@
 											</Button>
 										</content>
 									</OverflowToolbar>
-								</headerToolbar>
+								</headerToolbar>-->
 								<columns>
 									<Column width="auto" minScreenWidth="Phone">
 										<header>
@@ -237,7 +328,7 @@
 						<uxap:blocks>
 							<Table width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="None"
 								items="{path:'/CategoryPowerTrainSet', templateShareable:true}">
-								<headerToolbar>
+								<!--<headerToolbar>
 									<OverflowToolbar design="Transparent">
 										<content>
 											<ToolbarSpacer/>
@@ -248,7 +339,7 @@
 											</Button>
 										</content>
 									</OverflowToolbar>
-								</headerToolbar>
+								</headerToolbar>-->
 								<columns>
 									<Column width="auto" minScreenWidth="Phone">
 										<header>
@@ -295,7 +386,7 @@
 						<uxap:blocks>
 							<Table width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="None"
 								items="{path:'/CategorySafetySet', templateShareable:true}">
-								<headerToolbar>
+								<!--	<headerToolbar>
 									<OverflowToolbar design="Transparent">
 										<content>
 											<ToolbarSpacer/>
@@ -306,7 +397,7 @@
 											</Button>
 										</content>
 									</OverflowToolbar>
-								</headerToolbar>
+								</headerToolbar>-->
 								<columns>
 									<Column width="auto" minScreenWidth="Phone">
 										<header>
@@ -353,7 +444,7 @@
 						<uxap:blocks>
 							<Table width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="None"
 								items="{path:'/CategoryInfotainmentSet', templateShareable:true}">
-								<headerToolbar>
+								<!--	<headerToolbar>
 									<OverflowToolbar design="Transparent">
 										<content>
 											<ToolbarSpacer/>
@@ -364,7 +455,7 @@
 											</Button>
 										</content>
 									</OverflowToolbar>
-								</headerToolbar>
+								</headerToolbar>-->
 								<columns>
 									<Column width="auto" minScreenWidth="Phone">
 										<header>
@@ -411,7 +502,7 @@
 						<uxap:blocks>
 							<Table width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="None"
 								items="{path:'/CategoryColorSet', templateShareable:true}">
-								<headerToolbar>
+								<!--<headerToolbar>
 									<OverflowToolbar design="Transparent">
 										<content>
 											<ToolbarSpacer/>
@@ -422,7 +513,7 @@
 											</Button>
 										</content>
 									</OverflowToolbar>
-								</headerToolbar>
+								</headerToolbar>-->
 								<columns>
 									<Column width="auto" minScreenWidth="Phone">
 										<header>
@@ -472,7 +563,7 @@
 						<uxap:blocks>
 							<Table width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="None"
 								items="{path:'/CategoryDimensionSpecSet', templateShareable:true}">
-								<headerToolbar>
+								<!--<headerToolbar>
 									<OverflowToolbar design="Transparent">
 										<content>
 											<ToolbarSpacer/>
@@ -483,7 +574,7 @@
 											</Button>
 										</content>
 									</OverflowToolbar>
-								</headerToolbar>
+								</headerToolbar>-->
 								<columns>
 									<Column width="auto" minScreenWidth="Phone">
 										<header>
@@ -527,7 +618,7 @@
 						<uxap:blocks>
 							<Table width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="None"
 								items="{path:'/ComparePackagesSet', templateShareable:true}">
-								<headerToolbar>
+								<!--<headerToolbar>
 									<OverflowToolbar design="Transparent">
 										<content>
 											<ToolbarSpacer/>
@@ -538,7 +629,7 @@
 											</Button>
 										</content>
 									</OverflowToolbar>
-								</headerToolbar>
+								</headerToolbar>-->
 								<columns>
 									<Column width="auto" minScreenWidth="Phone">
 										<header>
@@ -570,7 +661,7 @@
 						<uxap:blocks>
 							<Table width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="None"
 								items="{path:'/CategoryAPXSet', templateShareable:true}">
-								<headerToolbar>
+								<!--	<headerToolbar>
 									<OverflowToolbar design="Transparent">
 										<content>
 											<ToolbarSpacer/>
@@ -581,7 +672,7 @@
 											</Button>
 										</content>
 									</OverflowToolbar>
-								</headerToolbar>
+								</headerToolbar>-->
 								<columns>
 									<Column width="auto" minScreenWidth="Phone">
 										<header>
@@ -624,7 +715,7 @@
 			</uxap:ObjectPageSection>
 		</uxap:sections>
 		<uxap:footer>
-			<OverflowToolbar design="auto">
+			<OverflowToolbar>
 				<content>
 					<ToolbarSpacer/>
 					<Button text="Save" type="Emphasized" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>

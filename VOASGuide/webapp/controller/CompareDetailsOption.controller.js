@@ -1,20 +1,46 @@
-sap.ui.define(["sap/ui/core/mvc/Controller",
+sap.ui.define([
+	"com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseController",
 	"sap/m/MessageBox",
-	"./CreateVehicleGuideDialog",
-	"./utilities",
+	"./util/CreateVehicleGuideDialog",
+	"./util/utilities",
 	"sap/ui/core/routing/History"
-], function (BaseController, MessageBox, CreateVehicleGuideDialog, Utilities, History) {
+], function (BaseController, MessageBox, CreateVehicleGuideDialog, Utilities,
+	History) {
 	"use strict";
 
 	return BaseController.extend("com.sap.build.toyota-canada.vehiclesGuideV3.controller.CompareDetailsOption", {
-		handleRouteMatched: function (oEvent) {
+		onInit: function () {
+		/*	var model = new sap.ui.getCore().getModel('employee');
+			this.getView().setModel(model);*/
+			this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			this.oRouter.getTarget("CompareDetailsOption").attachDisplay(jQuery.proxy(this.handleRouteMatched, this));
+		},
+	/*	onAfterRendering:function(){
+				var model = new sap.ui.getCore().getModel('employee');
+			console.log(model.getData());
+			this.getView().setModel(model);
+		},*/
+		
+			handleRouteMatched: function (oEvent) {
+			var arg2=oEvent.getParameters().data.num2;
+			var parseArg=JSON.parse(arg2);
+			var len=parseArg.length;
+			var model = new sap.ui.getCore().getModel('employee');
+			this.getView().setModel(model);
+			for(var i=0; i<len;i++){
+				var	oView = this.getView();
+				oView.bindElement({
+				path: "/"+(parseArg[i])
+			});
+			}
+		
+		},
+	
+		/*handleRouteMatched: function (oEvent) {
 			var sAppId = "App5bb531dd96990b5ac99be4fa";
-
 			var oParams = {};
-
 			if (oEvent.mParameters.data.context) {
 				this.sContext = oEvent.mParameters.data.context;
-
 			} else {
 				if (this.getOwnerComponent().getComponentData()) {
 					var patternConvert = function (oParam) {
@@ -26,14 +52,10 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 							}
 						}
 					};
-
 					this.sContext = patternConvert(this.getOwnerComponent().getComponentData().startupParameters);
-
 				}
 			}
-
 			var oPath;
-
 			if (this.sContext) {
 				oPath = {
 					path: "/" + this.sContext,
@@ -41,8 +63,8 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 				};
 				this.getView().bindObject(oPath);
 			}
-
 		},
+*/
 		_onFioriObjectPageHeaderPress: function () {
 			var oHistory = History.getInstance();
 			var sPreviousHash = oHistory.getPreviousHash();
@@ -82,11 +104,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			oDialog.open();
 
 		},
-		onInit: function () {
-			this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			this.oRouter.getTarget("CompareDetailsOption").attachDisplay(jQuery.proxy(this.handleRouteMatched, this));
 
-		},
 		onExit: function () {
 
 			// to destroy templates for bound aggregations when templateShareable is true on exit to prevent duplicateId issue

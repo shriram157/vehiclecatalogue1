@@ -3,7 +3,7 @@
 	<uxap:ObjectPageLayout showTitleInHeaderContent="false" showHeaderContent="true" showEditHeaderButton="false" showFooter="false"
 		class="sapUiSizeCompact">
 		<uxap:headerTitle>
-			<uxap:ObjectPageHeader objectTitle="2019 Toyota Camry - See All Features" objectSubtitle="" isObjectIconAlwaysVisible="false"
+			<uxap:ObjectPageHeader objectTitle="2019 Toyota Camry - See All Features" objectSubtitle="See All Features" isObjectIconAlwaysVisible="false"
 				isObjectTitleAlwaysVisible="true" isObjectSubtitleAlwaysVisible="true" showPlaceholder="true"
 				objectImageURI="/build/uilibraries/content/static/image-canvas.svg">
 				<uxap:navigationBar>
@@ -59,26 +59,26 @@
 			<ToolbarSpacer width="289.21875px"/>
 			<VBox>
 				<items>
-					<Title text="L - (B11HKT) - SFX A"/>
+					<Title text="{Category}"/>
 					<HBox>
 						<items>
 							<Label text="Model"/>
 							<Label text=":" class="sapUiTinyMarginEnd"/>
-							<ObjectStatus text="Camry L"/>
+							<ObjectStatus text="{Category}"/>
 						</items>
 					</HBox>
 					<HBox>
 						<items>
 							<Label text="MSRP"/>
 							<Label text=":" class="sapUiTinyMarginEnd"/>
-							<ObjectStatus text="$27,799"/>
+							<ObjectStatus text="{Category} $78"/>
 						</items>
 					</HBox>
 					<HBox>
 						<items>
 							<Label text="Dealer Net"/>
 							<Label text=":" class="sapUiTinyMarginEnd"/>
-							<ObjectStatus text="$25,799"/>
+							<ObjectStatus text="{Category}"/>
 						</items>
 					</HBox>
 				</items>
@@ -95,11 +95,11 @@
 									<OverflowToolbar design="Transparent">
 										<content>
 											<ToolbarSpacer/>
-											<Button icon="sap-icon://action-settings" type="Transparent">
+										<!--	<Button icon="sap-icon://action-settings" type="Transparent">
 												<layoutData>
 													<OverflowToolbarLayoutData moveToOverflow="true"/>
 												</layoutData>
-											</Button>
+											</Button>-->
 										</content>
 									</OverflowToolbar>
 								</headerToolbar>
@@ -138,11 +138,11 @@
 									<OverflowToolbar design="Transparent">
 										<content>
 											<ToolbarSpacer/>
-											<Button icon="sap-icon://action-settings" type="Transparent">
+										<!--	<Button icon="sap-icon://action-settings" type="Transparent">
 												<layoutData>
 													<OverflowToolbarLayoutData moveToOverflow="true"/>
 												</layoutData>
-											</Button>
+											</Button>-->
 										</content>
 									</OverflowToolbar>
 								</headerToolbar>
@@ -181,11 +181,11 @@
 									<OverflowToolbar design="Transparent">
 										<content>
 											<ToolbarSpacer/>
-											<Button icon="sap-icon://action-settings" type="Transparent">
+											<!--<Button icon="sap-icon://action-settings" type="Transparent">
 												<layoutData>
 													<OverflowToolbarLayoutData moveToOverflow="true"/>
 												</layoutData>
-											</Button>
+											</Button>-->
 										</content>
 									</OverflowToolbar>
 								</headerToolbar>
@@ -224,11 +224,11 @@
 									<OverflowToolbar design="Transparent">
 										<content>
 											<ToolbarSpacer/>
-											<Button icon="sap-icon://action-settings" type="Transparent">
+										<!--	<Button icon="sap-icon://action-settings" type="Transparent">
 												<layoutData>
 													<OverflowToolbarLayoutData moveToOverflow="true"/>
 												</layoutData>
-											</Button>
+											</Button>-->
 										</content>
 									</OverflowToolbar>
 								</headerToolbar>
@@ -267,11 +267,11 @@
 									<OverflowToolbar design="Transparent">
 										<content>
 											<ToolbarSpacer/>
-											<Button icon="sap-icon://action-settings" type="Transparent">
+											<!--<Button icon="sap-icon://action-settings" type="Transparent">
 												<layoutData>
 													<OverflowToolbarLayoutData moveToOverflow="true"/>
 												</layoutData>
-											</Button>
+											</Button>-->
 										</content>
 									</OverflowToolbar>
 								</headerToolbar>
@@ -310,11 +310,11 @@
 									<OverflowToolbar design="Transparent">
 										<content>
 											<ToolbarSpacer/>
-											<Button icon="sap-icon://action-settings" type="Transparent">
+											<!--<Button icon="sap-icon://action-settings" type="Transparent">
 												<layoutData>
 													<OverflowToolbarLayoutData moveToOverflow="true"/>
 												</layoutData>
-											</Button>
+											</Button>-->
 										</content>
 									</OverflowToolbar>
 								</headerToolbar>
@@ -359,11 +359,11 @@
 									<OverflowToolbar design="Transparent">
 										<content>
 											<ToolbarSpacer/>
-											<Button icon="sap-icon://action-settings" type="Transparent">
+											<!--<Button icon="sap-icon://action-settings" type="Transparent">
 												<layoutData>
 													<OverflowToolbarLayoutData moveToOverflow="true"/>
 												</layoutData>
-											</Button>
+											</Button>-->
 										</content>
 									</OverflowToolbar>
 								</headerToolbar>
@@ -402,11 +402,11 @@
 									<OverflowToolbar design="Transparent">
 										<content>
 											<ToolbarSpacer/>
-											<Button icon="sap-icon://action-settings" type="Transparent">
+											<!--<Button icon="sap-icon://action-settings" type="Transparent">
 												<layoutData>
 													<OverflowToolbarLayoutData moveToOverflow="true"/>
 												</layoutData>
-											</Button>
+											</Button>-->
 										</content>
 									</OverflowToolbar>
 								</headerToolbar>
@@ -445,11 +445,11 @@
 									<OverflowToolbar design="Transparent">
 										<content>
 											<ToolbarSpacer/>
-											<Button icon="sap-icon://action-settings" type="Transparent">
+											<!--<Button icon="sap-icon://action-settings" type="Transparent">
 												<layoutData>
 													<OverflowToolbarLayoutData moveToOverflow="true"/>
 												</layoutData>
-											</Button>
+											</Button>-->
 										</content>
 									</OverflowToolbar>
 								</headerToolbar>

@@ -1,7 +1,7 @@
-sap.ui.define(["sap/ui/core/mvc/Controller",
+sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseController",
 	"sap/m/MessageBox",
-	"./SuplementalDialog", "./WhatsNewDialog", "./WalkupDialog",
-	"./utilities",
+	"./util/SuplementalDialog", "./util/WhatsNewDialog", "./util/WalkupDialog",
+	"./util/utilities",
 	"sap/ui/core/routing/History"
 ], function (BaseController, MessageBox, SuplementalDialog, WhatsNewDialog, WalkupDialog, Utilities, History) {
 	"use strict";
@@ -43,6 +43,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			}
 
 		},
+		
 		_onFioriObjectPageHeaderPress: function () {
 			var oHistory = History.getInstance();
 			var sPreviousHash = oHistory.getPreviousHash();

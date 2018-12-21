@@ -1,15 +1,13 @@
 sap.ui.define([
 	"sap/ui/core/UIComponent",
 	"sap/ui/Device",
-	"com/sap/build/toyota-canada/vehiclesGuideV3/model/models",
-	"./model/errorHandling"
-], function (UIComponent, Device, models, errorHandling) {
+	"./model/errorHandling",
+	"com/sap/build/toyota-canada/vehiclesGuideV3/model/models"
+], function (UIComponent, Device, errorHandling, models) {
 	"use strict";
-
 	var navigationWithContext = {
 
 	};
-
 	return UIComponent.extend("com.sap.build.toyota-canada.vehiclesGuideV3.Component", {
 
 		metadata: {
@@ -21,49 +19,28 @@ sap.ui.define([
 		 * @public
 		 * @override
 		 */
+
 		init: function () {
-			// set the device model
-			this.setModel(models.createDeviceModel(), "device");
-			// set the FLP model
-			this.setModel(models.createFLPModel(), "FLP");
-
-			// set the dataSource model
-			this.setModel(new sap.ui.model.json.JSONModel({
-				"uri": "/here/goes/your/serviceUrl/local/"
-			}), "dataSource");
-
-			// set application model
-			var oApplicationModel = new sap.ui.model.json.JSONModel({});
-			this.setModel(oApplicationModel, "applicationModel");
-
 			// call the base component's init function
 			UIComponent.prototype.init.apply(this, arguments);
-
-			// delegate error handling
 			errorHandling.register(this);
-
-			// create the views based on the url/hash
+			// enable routing
 			this.getRouter().initialize();
+			jQuery.sap.require("sap.ui.core.routing.Router");
+			jQuery.sap.require("sap.ui.core.routing.History");
+			jQuery.sap.require("sap.ui.core.routing.HashChanger");
+			jQuery.sap.require("sap.m.routing.RouteMatchedHandler");
+			this.routeHandler = new sap.m.routing.RouteMatchedHandler(this.getRouter());
+			// set the device model
+			this.setModel(models.createDeviceModel(), "device");
+			var employeemodel = new sap.ui.model.json.JSONModel();
+			employeemodel.loadData("model/DataDetail.json");
+			sap.ui.getCore().setModel(employeemodel, "employee");
+
 		},
-
-		createContent: function () {
-			var app = new sap.m.App({
-				id: "App"
-			});
-			var appType = "App";
-			var appBackgroundColor = "";
-			if (appType === "App" && appBackgroundColor) {
-				app.setBackgroundColor(appBackgroundColor);
-			}
-
-			return app;
-		},
-
 		getNavigationPropertyForNavigationWithContext: function (sEntityNameSet, targetPageName) {
 			var entityNavigations = navigationWithContext[sEntityNameSet];
 			return entityNavigations == null ? null : entityNavigations[targetPageName];
 		}
-
 	});
-
 });

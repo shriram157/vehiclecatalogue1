@@ -1,7 +1,7 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="com.sap.build.toyota-canada.vehiclesGuideV3.controller.SearchPage" xmlns:f="sap.f"
 	xmlns:variants="sap.ui.comp.variants" xmlns="sap.m" xmlns:filterbar="sap.ui.comp.filterbar" xmlns:core="sap.ui.core">
 	<f:DynamicPage headerExpanded="true" showFooter="false" class="sapUiSizeCompact">
-		<f:title>
+		<!--<f:title>
 			<f:DynamicPageTitle>
 				<f:heading>
 					<variants:VariantManagement/>
@@ -11,11 +11,11 @@
 					<Button icon="sap-icon://action" type="Transparent"/>
 				</f:actions>
 			</f:DynamicPageTitle>
-		</f:title>
+		</f:title>-->
 		<f:header>
 			<f:DynamicPageHeader pinnable="true">
 				<f:content>
-					<filterbar:FilterBar useToolbar="false" showGoOnFB="true" searchEnabled="false">
+					<filterbar:FilterBar useToolbar="false" showGoOnFB="false" searchEnabled="true">
 						<filterbar:filterItems>
 							<filterbar:FilterItem label="Brand"
 								name="Fiori_ListReport_ListReport_0-filterBars-Fiori_ListReport_FilterBar-1-filters-Fiori_ListReport_ComboBoxFilter-1538670414396---0">
@@ -75,67 +75,67 @@
 		<f:content>
 			<VBox fitContainer="true">
 				<items>
-					<OverflowToolbar width="auto" height="46px" design="Solid" visible="true" enabled="true">
+					<OverflowToolbar  height="46px" design="Solid" visible="true" enabled="true">
 						<content>
 							<ToolbarSpacer width=""/>
-							<Button text="What's New" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true" width="auto" enabled="true" visible="true"
-								iconDensityAware="false" press="_onButtonPress"/>
-							<Button text="Walk-up" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true" width="auto" enabled="true" visible="true"
-								iconDensityAware="false" press="_onButtonPress1"/>
-							<Button text="Supplemental" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true" width="auto" enabled="true" visible="true"
-								iconDensityAware="false" press="_onButtonPress2"/>
-							<Button text="Create Vehicle Guide" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true" width="auto" enabled="true"
-								visible="true" iconDensityAware="false" press="_onButtonPress3"/>
-							<Button text="Create Pocket Summary" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true" width="auto" enabled="true"
-								visible="true" iconDensityAware="false" press="_onButtonPress4"/>
+							<Button text="What's New" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true"   enabled="true" visible="true"
+								iconDensityAware="false" press="_onWhatsNew"/>
+							<Button text="Walk-up" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true"   enabled="true" visible="true"
+								iconDensityAware="false" press="_onWalkUp"/>
+							<Button text="Supplemental" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true"   enabled="true" visible="true"
+								iconDensityAware="false" press="_onSupplemental"/>
+							<Button text="Create Vehicle Guide" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true"   enabled="true"
+								visible="true" iconDensityAware="false" press="_onCreateVehGuide"/>
+							<Button text="Create Pocket Summary" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true"   enabled="true"
+								visible="true" iconDensityAware="false" press="_onCreatePocSum"/>
 						</content>
 					</OverflowToolbar>
-					<Table width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="MultiSelect"
-						itemPress="_onFioriListReportTableItemPress" updateFinished="_onFioriListReportTableUpdateFinished"
-						items="{path:'/VehicleSet', templateShareable:true}">
+					<Table id="idTbl_Search" width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="MultiSelect"
+						itemPress="_navToDetail" updateFinished="_onSearchTableUpdate" 
+						items="{path:'/ProductCollection', templateShareable:true}" class="marginCornersBottom">
 						<headerToolbar>
 							<OverflowToolbar design="Transparent">
 								<content>
 									<Title textAlign="Begin" text="Vehicle Ordering Guide - Search Results"/>
-									<Title text="(1)"/>
+									<Title id="id_SP_noOfData" text="(1)"/>
 									<ToolbarSpacer/>
 									<Button text="Compare" icon="sap-icon://compare" iconFirst="true" type="Transparent" enabled="true"
-										press="_onFioriListReportActionButtonPress">
+										press="_navToCompare">
 										<layoutData>
-											<OverflowToolbarLayoutData moveToOverflow="true"/>
+											<OverflowToolbarLayoutData />
 										</layoutData>
 									</Button>
-									<Button icon="sap-icon://action-settings" type="Transparent">
+									<!--<Button icon="sap-icon://action-settings" type="Transparent">
 										<layoutData>
-											<OverflowToolbarLayoutData moveToOverflow="true"/>
+											<OverflowToolbarLayoutData />
 										</layoutData>
-									</Button>
+									</Button>-->
 								</content>
 							</OverflowToolbar>
 						</headerToolbar>
 						<columns>
-							<Column width="auto" minScreenWidth="Phone">
+							<Column   minScreenWidth="Phone">
 								<header>
-									<Text text="Vehicle" width="auto"/>
+									<Text text="Vehicle"  />
 								</header>
 							</Column>
-							<Column width="auto" minScreenWidth="Phone">
+							<Column   minScreenWidth="Phone">
 								<header>
-									<Text text="Features" width="auto"/>
+									<Text text="Features"  />
 								</header>
 							</Column>
-							<Column width="auto" minScreenWidth="Phone">
+							<Column   minScreenWidth="Phone">
 								<header>
-									<Text text="Price" width="auto"/>
+									<Text text="Price"  />
 								</header>
 							</Column>
 						</columns>
 						<items>
 							<ColumnListItem type="Navigation">
 								<cells>
-									<ObjectIdentifier title="{VehicleDetails}" text="{SFXDetails}"/>
-									<ObjectIdentifier title="" text="{Features}"/>
-									<ObjectIdentifier title="{MSRPDetails}" text="Dealer Net: $24,599"/>
+									<ObjectIdentifier title="{Category}" text="{SFXDetails}"/>
+									<ObjectIdentifier title="{Description}" text="{Description}"/>
+									<ObjectIdentifier title="{Quantity}" text="Dealer Net: $24,599"/>
 								</cells>
 							</ColumnListItem>
 						</items>
@@ -144,11 +144,11 @@
 			</VBox>
 		</f:content>
 		<f:footer>
-			<OverflowToolbar design="auto">
+			<OverflowToolbar >
 				<content>
 					<ToolbarSpacer/>
-					<Button text="Save" type="Emphasized" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
-					<Button text="Cancel" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
+					<Button text="Save" type="Emphasized" iconFirst="true"   enabled="true" visible="true" iconDensityAware="false"/>
+					<Button text="Cancel" type="Default" iconFirst="true"   enabled="true" visible="true" iconDensityAware="false"/>
 				</content>
 			</OverflowToolbar>
 		</f:footer>

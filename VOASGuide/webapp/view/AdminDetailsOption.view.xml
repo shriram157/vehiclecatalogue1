@@ -8,7 +8,7 @@
 				<uxap:navigationBar>
 					<Bar>
 						<contentLeft>
-							<Button type="Back" press="_onFioriObjectPageHeaderPress"/>
+							<Button type="Back" press="onNavBack"/>
 						</contentLeft>
 						<contentMiddle>
 							<Title text="Manage Vehicle Series Details"/>
@@ -49,11 +49,11 @@
 													<OverflowToolbarLayoutData moveToOverflow="true"/>
 												</layoutData>
 											</Button>
-											<Button icon="sap-icon://action-settings" type="Transparent">
+											<!--<Button icon="sap-icon://action-settings" type="Transparent">
 												<layoutData>
 													<OverflowToolbarLayoutData moveToOverflow="true"/>
 												</layoutData>
-											</Button>
+											</Button>-->
 										</content>
 									</OverflowToolbar>
 								</headerToolbar>
@@ -108,11 +108,11 @@
 													<OverflowToolbarLayoutData moveToOverflow="true"/>
 												</layoutData>
 											</Button>
-											<Button icon="sap-icon://action-settings" type="Transparent">
+											<!--<Button icon="sap-icon://action-settings" type="Transparent">
 												<layoutData>
 													<OverflowToolbarLayoutData moveToOverflow="true"/>
 												</layoutData>
-											</Button>
+											</Button>-->
 										</content>
 									</OverflowToolbar>
 								</headerToolbar>
@@ -167,11 +167,11 @@
 													<OverflowToolbarLayoutData moveToOverflow="true"/>
 												</layoutData>
 											</Button>
-											<Button icon="sap-icon://action-settings" type="Transparent">
+											<!--<Button icon="sap-icon://action-settings" type="Transparent">
 												<layoutData>
 													<OverflowToolbarLayoutData moveToOverflow="true"/>
 												</layoutData>
-											</Button>
+											</Button>-->
 										</content>
 									</OverflowToolbar>
 								</headerToolbar>

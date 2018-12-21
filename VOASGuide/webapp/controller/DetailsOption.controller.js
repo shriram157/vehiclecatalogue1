@@ -1,20 +1,29 @@
-sap.ui.define(["sap/ui/core/mvc/Controller",
+sap.ui.define([	"com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseController",
 	"sap/m/MessageBox",
-	"./CreateVehicleGuideDialog",
-	"./utilities",
+	"./util/CreateVehicleGuideDialog",
+	"./util/utilities",
 	"sap/ui/core/routing/History"
 ], function (BaseController, MessageBox, CreateVehicleGuideDialog, Utilities, History) {
 	"use strict";
 
 	return BaseController.extend("com.sap.build.toyota-canada.vehiclesGuideV3.controller.DetailsOption", {
-		handleRouteMatched: function (oEvent) {
+			onInit: function () {
+					var model= new sap.ui.getCore().getModel('employee');
+					console.log(model.getData());
+			this.getView().setModel(model);
+			this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			this.oRouter.getTarget("DetailsOption").attachDisplay(jQuery.proxy(this.handleRouteMatched, this));
+
+		},
+	/*	handleRouteMatched: function (oEvent) {
 			var sAppId = "App5bb531dd96990b5ac99be4fa";
-
 			var oParams = {};
-
+			console.log(oEvent.getParameters());
+			console.log(oEvent.getParameters().data);
+			console.log(oEvent.getParameters().data.context);
 			if (oEvent.mParameters.data.context) {
 				this.sContext = oEvent.mParameters.data.context;
-
+			console.log(this.sContext);
 			} else {
 				if (this.getOwnerComponent().getComponentData()) {
 					var patternConvert = function (oParam) {
@@ -28,10 +37,10 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 					};
 
 					this.sContext = patternConvert(this.getOwnerComponent().getComponentData().startupParameters);
-
+					console.log(this.getOwnerComponent().getComponentData().startupParameters);
 				}
 			}
-
+			console.log(this.sContext);
 			var oPath;
 
 			if (this.sContext) {
@@ -40,8 +49,24 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 					parameters: oParams
 				};
 				this.getView().bindObject(oPath);
+				console.log(oPath);
 			}
-
+			console.log(this.sContext);
+		},*/
+			handleRouteMatched: function (oEvent) {
+		//	var arg=oEvent.getParameter("arguments");
+			console.log(oEvent.getParameters());
+			console.log(oEvent.getParameters().data.num);
+			var arg2=oEvent.getParameters().data.num;
+			var pt="/"+"("+arg2+")";
+			var	oView = this.getView();
+				oView.bindElement({
+				path: "/"+(arg2)
+			});
+			console.log(pt);
+			console.log("/"+(arg2));
+			console.log(oView);
+			console.log(oView.getBinding());
 		},
 		_onFioriObjectPageHeaderPress: function () {
 			var oHistory = History.getInstance();
@@ -64,7 +89,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 				oQuery[aPair[0]] = decodeURIComponent(aPair[1]);
 			}
 			return oQuery;
-
+			console.log(oQuery);
 		},
 		_onFioriObjectPageActionButtonPress: function () {
 
@@ -130,10 +155,10 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			oDialog.open();
 
 		},
-		_onFioriObjectPageActionButtonPress4: function (oEvent) {
+		_onFioriObjectPageActionButtonPress4: function (oEvent) { //Manage series page
 
 			var oBindingContext = oEvent.getSource().getBindingContext();
-
+			console.log(oBindingContext);
 			return new Promise(function (fnResolve) {
 
 				this.doNavigate("AdminDetailsOption", oBindingContext, fnResolve, "");
@@ -147,7 +172,8 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 		doNavigate: function (sRouteName, oBindingContext, fnPromiseResolve, sViaRelation) {
 			var sPath = (oBindingContext) ? oBindingContext.getPath() : null;
 			var oModel = (oBindingContext) ? oBindingContext.getModel() : null;
-
+			console.log(sPath);
+			console.log(oModel);
 			var sEntityNameSet;
 			if (sPath !== null && sPath !== "") {
 				if (sPath.substring(0, 1) === "/") {
@@ -162,6 +188,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 				sNavigationPropertyName = sViaRelation || this.getOwnerComponent().getNavigationPropertyForNavigationWithContext(sEntityNameSet,
 					sRouteName);
 			}
+			console.log(sNavigationPropertyName);
 			if (sNavigationPropertyName !== null && sNavigationPropertyName !== undefined) {
 				if (sNavigationPropertyName === "") {
 					this.oRouter.navTo(sRouteName, {
@@ -197,13 +224,9 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 			if (typeof fnPromiseResolve === "function") {
 				fnPromiseResolve();
 			}
-
+			console.log(sPath);
 		},
-		onInit: function () {
-			this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			this.oRouter.getTarget("DetailsOption").attachDisplay(jQuery.proxy(this.handleRouteMatched, this));
-
-		},
+	
 		onExit: function () {
 
 			// to destroy templates for bound aggregations when templateShareable is true on exit to prevent duplicateId issue

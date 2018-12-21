@@ -1,34 +1,27 @@
 {
 	"_version": "1.8.0",
 	"sap.app": {
-		"_version": "1.3.0",
 		"id": "com.sap.build.toyota-canada.vehiclesGuideV3",
 		"type": "application",
 		"i18n": "i18n/i18n.properties",
 		"applicationVersion": {
-			"version": "1.2.2"
-		},
-		"dataSources": {
-			"local": {
-				"uri": "/here/goes/your/serviceUrl/local/",
-				"type": "OData",
-				"settings": {
-					"odataVersion": "2.0",
-					"localUri": "localService/metadata.xml"
-				}
-			}
+			"version": "1.0.0"
 		},
 		"title": "{{appTitle}}",
 		"description": "{{appDescription}}",
-		"ach": "ach",
-		"resources": "resources.json",
 		"sourceTemplate": {
-			"id": "ui5template.basicSAPUI5ApplicationProject",
-			"version": "1.32.0"
+			"id": "html5moduletemplates.basicSAPUI5ApplicationProjectModule",
+			"version": "1.40.12"
+		},
+		"dataSources": {
+			"initData": {
+				"uri": "model/ComboBox.json",
+				"type": "JSON"
+			}
 		}
 	},
+
 	"sap.ui": {
-		"_version": "1.3.0",
 		"technology": "UI5",
 		"icons": {
 			"icon": "",
@@ -42,20 +35,29 @@
 			"desktop": true,
 			"tablet": true,
 			"phone": true
-		}
+		},
+		"supportedThemes": [
+			"sap_hcb",
+			"sap_belize"
+
+		]
 	},
+
 	"sap.ui5": {
-		"_version": "1.3.0",
 		"rootView": {
-			"viewName": "generated.app.view.AdminDetailsOption",
+			"viewName": "com.sap.build.toyota-canada.vehiclesGuideV3.view.App",
 			"type": "XML"
 		},
 		"dependencies": {
-			"minUI5Version": "1.50.0",
+			"minUI5Version": "1.38.34",
 			"libs": {
 				"sap.ui.core": {},
 				"sap.m": {},
-				"sap.ui.layout": {}
+				"sap.ui.layout": {},
+				"sap.ushell": {},
+				"sap.collaboration": {},
+				"sap.ui.comp": {},
+				"sap.uxap": {}
 			}
 		},
 		"contentDensities": {
@@ -65,40 +67,80 @@
 		"models": {
 			"i18n": {
 				"type": "sap.ui.model.resource.ResourceModel",
-				"uri": "i18n/i18n.properties"
-			},
-			"": {
-				"dataSource": "local",
-				"type": "sap.ui.model.odata.v2.ODataModel",
 				"settings": {
-					"loadMetadataAsync": false,
-					"json": true,
-					"bJSON": true,
-					"defaultBindingMode": "TwoWay",
-					"defaultCountMode": "Inline",
-					"useBatch": true,
-					"refreshAfterChange": false,
-					"disableHeadRequestForToken": true
+					"bundleName": "com.sap.build.toyota-canada.vehiclesGuideV3.i18n.i18n"
+				}
+			},
+				"": {
+				"type": "sap.ui.model.json.JSONModel",
+				"dataSource": "initData",
+				"settings": {
+					"defaultBindingMode": "TwoWay"
 				}
 			}
 		},
 		"resources": {
-			"css": []
+			"css": [{
+				"uri": "css/style.css"
+			}]
 		},
 		"routing": {
 			"config": {
 				"routerClass": "sap.m.routing.Router",
 				"viewType": "XML",
+				"async": true,
 				"viewPath": "com.sap.build.toyota-canada.vehiclesGuideV3.view",
-				"controlId": "App",
-				"clearTarget": false,
 				"controlAggregation": "pages",
-				"bypassed": {
-					"target": [
-						"SearchPage"
-					]
-				}
+				"controlId": "idAppControl",
+				"clearControlAggregation": false
 			},
+			"routes": [
+			{
+				"pattern": "SearchPage/:context:",
+				"name": "SearchPage",
+				"target": [
+					"SearchPage"
+				]
+			}, {
+				"pattern": "DetailsOption/{num}",
+				"name": "DetailsOption",
+				"target": [
+					"DetailsOption"
+				]
+			},  {
+				"pattern": "CompareDetailsOption/{num2}",
+				"name": "CompareDetailsOption",
+				"target": [
+					"CompareDetailsOption"
+				]
+			}, {
+				"pattern": "AdminDetailsOption/:context:",
+				"name": "AdminDetailsOption",
+				"target": [
+					"AdminDetailsOption"
+				]
+			},
+			{
+				"name": "default",
+				"pattern": "",
+				"target": "home1",
+				"clearTarget": "true"
+			}, {
+				"pattern": "page2",
+				"name": "View2",
+				"target": "home2",
+				"clearTarget": "true"
+			}, {
+				"pattern": "page3",
+				"name": "View3",
+				"target": "home3",
+				"clearTarget": "true"
+			}, {
+				"pattern": "page4",
+				"name": "view 4",
+				"target": "home4",
+				"clearTarget": "true"
+			}],
 			"targets": {
 				"SearchPage": {
 					"controlAggregation": "pages",
@@ -114,27 +156,6 @@
 					"viewLevel": 3,
 					"transition": "slide"
 				},
-				"Page3": {
-					"controlAggregation": "pages",
-					"viewName": "Page3",
-					"viewId": "Page3",
-					"viewLevel": 1,
-					"transition": "slide"
-				},
-				"DetailsOption2": {
-					"controlAggregation": "pages",
-					"viewName": "DetailsOption2",
-					"viewId": "DetailsOption2",
-					"viewLevel": 5,
-					"transition": "slide"
-				},
-				"Page5": {
-					"controlAggregation": "pages",
-					"viewName": "Page5",
-					"viewId": "Page5",
-					"viewLevel": 1,
-					"transition": "slide"
-				},
 				"CompareDetailsOption": {
 					"controlAggregation": "pages",
 					"viewName": "CompareDetailsOption",
@@ -148,57 +169,65 @@
 					"viewId": "AdminDetailsOption",
 					"viewLevel": 4,
 					"transition": "slide"
+				},
+				"home1": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewName": "SearchPage",
+					"viewPath": "com.sap.build.toyota-canada.vehiclesGuideV3.view",
+						"bypassed": {
+						"target": "notFound"
+					}
+				},
+				"home2": {
+					"targetAggregation": "content",
+					"clearTarget": true,
+					"viewName": "DetailsOption",
+					"routerClass": "sap.m.routing.Router",
+					"viewType": "XML",
+					"async": true,
+					"viewPath": "com.sap.build.toyota-canada.vehiclesGuideV3.view",
+					"controlAggregation": "pages",
+					"controlId": "idAppControl",
+					"clearControlAggregation": false,
+					"bypassed": {
+						"target": "notFound"
+					}
+				},
+				"home3": {
+					"targetAggregation": "content",
+					"clearTarget": true,
+					"viewName": "CompareDetailsOption",
+					"routerClass": "sap.m.routing.Router",
+					"viewType": "XML",
+					"async": true,
+					"viewPath": "com.sap.build.toyota-canada.vehiclesGuideV3.view",
+					"controlAggregation": "pages",
+					"controlId": "idAppControl",
+					"clearControlAggregation": false,
+					"bypassed": {
+						"target": "notFound"
+					}
+				},
+				
+				"home4": {
+					"targetAggregation": "content",
+					"clearTarget": true,
+					"viewName": "AdminDetailsOption",
+					"routerClass": "sap.m.routing.Router",
+					"viewType": "XML",
+					"async": true,
+					"viewPath": "com.sap.build.toyota-canada.vehiclesGuideV3.view",
+					"controlAggregation": "pages",
+					"controlId": "idAppControl",
+					"clearControlAggregation": false,
+					"bypassed": {
+						"target": "notFound"
+					}
 				}
-			},
-			"routes": [{
-				"pattern": "SearchPage/:context:",
-				"name": "SearchPage",
-				"target": [
-					"SearchPage"
-				]
-			}, {
-				"pattern": "",
-				"name": "default",
-				"target": [
-					"SearchPage"
-				]
-			}, {
-				"pattern": "DetailsOption/:context:",
-				"name": "DetailsOption",
-				"target": [
-					"DetailsOption"
-				]
-			}, {
-				"pattern": "Page3/:context:",
-				"name": "Page3",
-				"target": [
-					"Page3"
-				]
-			}, {
-				"pattern": "DetailsOption2/:context:",
-				"name": "DetailsOption2",
-				"target": [
-					"DetailsOption2"
-				]
-			}, {
-				"pattern": "Page5/:context:",
-				"name": "Page5",
-				"target": [
-					"Page5"
-				]
-			}, {
-				"pattern": "CompareDetailsOption/:context:",
-				"name": "CompareDetailsOption",
-				"target": [
-					"CompareDetailsOption"
-				]
-			}, {
-				"pattern": "AdminDetailsOption/:context:",
-				"name": "AdminDetailsOption",
-				"target": [
-					"AdminDetailsOption"
-				]
-			}]
+				
+			}
 		}
 	}
 }
