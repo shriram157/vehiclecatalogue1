@@ -9,20 +9,29 @@
 				<form:formContainers>
 					<form:FormContainer visible="true">
 						<form:formElements>
+							
 							<form:FormElement visible="true" class="sapUiResponsiveMargin">
-								<form:label>
+							<!--	<form:label>
 									<Label text="Include Dealer Net Amount" design="Bold" width="50%" required="false" textAlign="Begin" textDirection="Inherit" visible="false"
 										class="sapUiTinyMargin"/>
-								</form:label>
+								</form:label>-->
 								<form:fields>
 									<Label text="Include Dealer Net Amount" design="Bold" width="192px" required="false" textAlign="Begin" textDirection="Inherit"
 										visible="true"/>
 									<Switch state="false" customTextOff="No" customTextOn="Yes" type="Default" enabled="true" visible="true" class="sapUiTinyMargin"/>
 								</form:fields>
 							</form:FormElement>
+							<form:FormElement visible="true" class="sapUiResponsiveMargin">
+								<form:label>
+									<Label text="Language" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
+								</form:label>
+								<form:fields>
+									<Switch state="true" customTextOff="En" customTextOn="Fr" type="Default" enabled="true" visible="true" class="sapUiTinyMargin"/>
+								</form:fields>
+							</form:FormElement>
 							<form:FormElement visible="true">
 								<form:label>
-									<Label text="Label" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="false"/>
+									<Label text="Label" design="Bold" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="false"/>
 								</form:label>
 								<form:fields>
 									<ComboBox placeholder="Select Brand" editable="true" enabled="true" visible="true" width="400px" valueState="None" maxWidth="100%"

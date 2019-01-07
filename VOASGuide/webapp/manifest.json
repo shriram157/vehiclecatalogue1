@@ -70,13 +70,6 @@
 				"settings": {
 					"bundleName": "com.sap.build.toyota-canada.vehiclesGuideV3.i18n.i18n"
 				}
-			},
-				"": {
-				"type": "sap.ui.model.json.JSONModel",
-				"dataSource": "initData",
-				"settings": {
-					"defaultBindingMode": "TwoWay"
-				}
 			}
 		},
 		"resources": {

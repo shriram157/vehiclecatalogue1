@@ -18,6 +18,14 @@
         "entryPath": "/test-resources"
       },
       "description": "SAPUI5 Test Resources"
+    },
+     {
+      "path": "/voasguide_node",
+      "target": {
+      	"type": "destination",
+      	"name": "voasguide_node"
+      },
+       "description":"voasguide_node"
     }
   ],
   "sendWelcomeFileRedirect": true

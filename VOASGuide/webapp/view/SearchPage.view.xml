@@ -1,58 +1,59 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="com.sap.build.toyota-canada.vehiclesGuideV3.controller.SearchPage" xmlns:f="sap.f"
 	xmlns:variants="sap.ui.comp.variants" xmlns="sap.m" xmlns:filterbar="sap.ui.comp.filterbar" xmlns:core="sap.ui.core">
 	<f:DynamicPage headerExpanded="true" showFooter="false" class="sapUiSizeCompact">
-		<!--<f:title>
+		<f:title>
 			<f:DynamicPageTitle>
 				<f:heading>
-					<variants:VariantManagement/>
+					<Image id="idLexusLogo" src="images/Lexus_EN.png" width="100px"/><!--	<variants:VariantManagement/>-->
 				</f:heading>
+				
 				<f:actions>
 					<ToolbarSpacer/>
-					<Button icon="sap-icon://action" type="Transparent"/>
+					<!--<Button icon="sap-icon://action" type="Transparent"/>-->
 				</f:actions>
 			</f:DynamicPageTitle>
-		</f:title>-->
+		</f:title>
 		<f:header>
 			<f:DynamicPageHeader pinnable="true">
 				<f:content>
-					<filterbar:FilterBar useToolbar="false" showGoOnFB="false" searchEnabled="true">
+					<filterbar:FilterBar useToolbar="false" showGoOnFB="false" searchEnabled="true" showFilterConfiguration="false">
 						<filterbar:filterItems>
 							<filterbar:FilterItem label="Brand"
 								name="Fiori_ListReport_ListReport_0-filterBars-Fiori_ListReport_FilterBar-1-filters-Fiori_ListReport_ComboBoxFilter-1538670414396---0">
 								<filterbar:control>
-									<MultiComboBox items="{path:'/VehicleSet', templateShareable:true}">
+									<ComboBox id="id_brandCB"  change="onChange_Brand" items="{path:'brandModel>/modelBrand', templateShareable:true}">
 										<items>
-											<core:Item key="{Brand}" text="{Brand}"/>
+												<core:Item key="{brandModel>key}" text="{brandModel>text}"/>
 										</items>
-									</MultiComboBox>
+									</ComboBox>
 								</filterbar:control>
 							</filterbar:FilterItem>
 							<filterbar:FilterItem label="Model Year"
 								name="Fiori_ListReport_ListReport_0-filterBars-Fiori_ListReport_FilterBar-1-filters-Fiori_ListReport_ComboBoxFilter-1538673647772---0">
 								<filterbar:control>
-									<MultiComboBox items="{path:'/VehicleSet', templateShareable:true}">
+									<ComboBox id="id_modelYearCB" change="onChange_ModelYear" enabled="false" items="{path:'yearModel>/modelYear', templateShareable:true}">
 										<items>
-											<core:Item key="{ModelYear}" text="{ModelYear}"/>
+												<core:Item key="{yearModel>key}" text="{yearModel>text}"/>
 										</items>
-									</MultiComboBox>
+									</ComboBox>
 								</filterbar:control>
 							</filterbar:FilterItem>
 							<filterbar:FilterItem label="Series"
 								name="Fiori_ListReport_ListReport_0-filterBars-Fiori_ListReport_FilterBar-1-filters-Fiori_ListReport_ComboBoxFilter-1538673653531---0">
 								<filterbar:control>
-									<MultiComboBox items="{path:'/VehicleSet', templateShareable:true}">
-										<items>
-											<core:Item key="{Series}" text="{Series}"/>
+									<ComboBox id="id_seriesCB" change="onChange_Series" enabled="false"  items="{path:'dropDownModel>/', templateShareable:true}">
+									<items>
+											<core:Item key="{dropDownModel>TCISeries}" text="{dropDownModel>TCISeries}"/>
 										</items>
-									</MultiComboBox>
+									</ComboBox>
 								</filterbar:control>
 							</filterbar:FilterItem>
 							<filterbar:FilterItem label="Model"
 								name="Fiori_ListReport_ListReport_0-filterBars-Fiori_ListReport_FilterBar-1-filters-Fiori_ListReport_ComboBoxFilter-1538673654522---0">
 								<filterbar:control>
-									<MultiComboBox items="{path:'/VehicleSet', templateShareable:true}">
+									<MultiComboBox id="id_modelCB" selectionFinish="onChange_Model" enabled="false" items="{path:'dropDownModel>/', templateShareable:true}">
 										<items>
-											<core:Item key="{Model}" text="{Model}"/>
+											<core:Item key="{dropDownModel>ENModelDesc}" text="{dropDownModel>ENModelDesc}"/>
 										</items>
 									</MultiComboBox>
 								</filterbar:control>
@@ -60,9 +61,9 @@
 							<filterbar:FilterItem label="Suffix"
 								name="Fiori_ListReport_ListReport_0-filterBars-Fiori_ListReport_FilterBar-1-filters-Fiori_ListReport_ComboBoxFilter-1538673656505---0">
 								<filterbar:control>
-									<MultiComboBox items="{path:'/VehicleSet', templateShareable:true}">
+									<MultiComboBox  id="id_suffixCB" selectionFinish="onChange_Suffix" enabled="false" items="{path:'suffixdropDownModel>/', templateShareable:true}">
 										<items>
-											<core:Item key="{Suffix}" text="{Suffix}"/>
+											<core:Item key="{suffixdropDownModel>suffix}" text="{suffixdropDownModel>suffix}"/>
 										</items>
 									</MultiComboBox>
 								</filterbar:control>
@@ -79,11 +80,11 @@
 						<content>
 							<ToolbarSpacer width=""/>
 							<Button text="What's New" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true"   enabled="true" visible="true"
-								iconDensityAware="false" press="_onWhatsNew"/>
+								iconDensityAware="false" press="_onCreateWhatsNew"/>
 							<Button text="Walk-up" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true"   enabled="true" visible="true"
-								iconDensityAware="false" press="_onWalkUp"/>
+								iconDensityAware="false" press="_onCreateWalkUp"/>
 							<Button text="Supplemental" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true"   enabled="true" visible="true"
-								iconDensityAware="false" press="_onSupplemental"/>
+								iconDensityAware="false" press="_onCreateSupplemental"/>
 							<Button text="Create Vehicle Guide" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true"   enabled="true"
 								visible="true" iconDensityAware="false" press="_onCreateVehGuide"/>
 							<Button text="Create Pocket Summary" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true"   enabled="true"
@@ -92,12 +93,12 @@
 					</OverflowToolbar>
 					<Table id="idTbl_Search" width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="MultiSelect"
 						itemPress="_navToDetail" updateFinished="_onSearchTableUpdate" 
-						items="{path:'/ProductCollection', templateShareable:true}" class="marginCornersBottom">
+						items="{path:'searchTblModel>/', templateShareable:true}" class="marginCornersBottom">
 						<headerToolbar>
 							<OverflowToolbar design="Transparent">
 								<content>
 									<Title textAlign="Begin" text="Vehicle Ordering Guide - Search Results"/>
-									<Title id="id_SP_noOfData" text="(1)"/>
+									<Title id="id_SP_noOfData" text="(0)"/>
 									<ToolbarSpacer/>
 									<Button text="Compare" icon="sap-icon://compare" iconFirst="true" type="Transparent" enabled="true"
 										press="_navToCompare">
@@ -105,37 +106,32 @@
 											<OverflowToolbarLayoutData />
 										</layoutData>
 									</Button>
-									<!--<Button icon="sap-icon://action-settings" type="Transparent">
-										<layoutData>
-											<OverflowToolbarLayoutData />
-										</layoutData>
-									</Button>-->
 								</content>
 							</OverflowToolbar>
 						</headerToolbar>
 						<columns>
 							<Column   minScreenWidth="Phone">
 								<header>
-									<Text text="Vehicle"  />
+									<Text text="{i18n>Vehicle}"  />
 								</header>
 							</Column>
 							<Column   minScreenWidth="Phone">
 								<header>
-									<Text text="Features"  />
+									<Text text="{i18n>Features}"  />
 								</header>
 							</Column>
 							<Column   minScreenWidth="Phone">
 								<header>
-									<Text text="Price"  />
+									<Text text="{i18n>Price}"  />
 								</header>
 							</Column>
 						</columns>
 						<items>
 							<ColumnListItem type="Navigation">
 								<cells>
-									<ObjectIdentifier title="{Category}" text="{SFXDetails}"/>
-									<ObjectIdentifier title="{Description}" text="{Description}"/>
-									<ObjectIdentifier title="{Quantity}" text="Dealer Net: $24,599"/>
+									<ObjectIdentifier title="{searchTblModel>Vehicle}" text="{searchTblModel>suffix}"/> 
+									<ObjectIdentifier  text="{searchTblModel>Features}"/> <!--title="{CUSTOMERFACINGDescriptionEN}"-->
+									<ObjectIdentifier text="Net Price: {searchTblModel>NETPRICE}" title="MSRP: {searchTblModel>MSRP}" />
 								</cells>
 							</ColumnListItem>
 						</items>

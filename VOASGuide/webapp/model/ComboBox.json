@@ -1,4 +1,39 @@
 {
+	"Brand":[{
+		"key":"1",
+		"text":"LEXUS"
+	},{
+		"key":"2",
+		"text":"TOYOTA"
+	}],
+	"ModelYear":[{
+		"key":"1",
+		"text":"2019"
+	},{
+		"key":"2",
+		"text":"2020"
+	}],
+	"Series":[{
+		"key":"1",
+		"text":"Series1"
+	},{
+		"key":"2",
+		"text":"Series2"
+	}],
+	"Model":[{
+		"key":"1",
+		"text":"Model1"
+	},{
+		"key":"2",
+		"text":"Model2"
+	}],
+	"Suffix":[{
+		"key":"1",
+		"text":"LX-SFXA"
+	},{
+		"key":"2",
+		"text":"LX-SFXB"
+	}],
 	"Users": [{
 		"key": "1",
 		"LoggedUserName": "PPD"
@@ -200,8 +235,7 @@
 		"text": "Rejected"
 	}],
 
-	  
-	 "PriceProtection_OrderType": [{
+	"PriceProtection_OrderType": [{
 		"key": "2",
 		"text": " Fleet- Dealer RAC"
 	}, {
