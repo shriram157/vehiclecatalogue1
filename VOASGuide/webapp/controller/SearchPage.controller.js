@@ -29,10 +29,11 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			var brandCBVal = brandCB.getValue();
 			var modelYearCBVal = modelYearCB.getValue();
 			var seriesCBVal = seriesCB.getValue();
-
+// and ( Model eq 'Camry XLE' AND  Model eq 'Camry XSE V6')
 			var modelValLen = modelCB.getSelectedItems().length;
 			if (modelCB.getSelectedItems() != "") {
 				for (var i = 0; i < modelValLen; i++) {
+					console.log(modelCB.getSelectedItems()[i].mProperties.text)
 					modelArr.push(modelCB.getSelectedItems()[i].mProperties.text);
 				}
 				modelDescString = modelArr.toString();

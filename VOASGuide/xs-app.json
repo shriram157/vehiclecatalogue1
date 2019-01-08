@@ -1,14 +1,22 @@
 {
-  "welcomeFile": "/VOASGuide/index.html",
-  "authenticationMethod": "none",
-  "logout": {
-    "logoutEndpoint": "/do/logout"
-  },
-  "routes": [
-    {
-      "source": "^/VOASGuide/(.*)$",
-      "target": "$1",
-      "localDir": "webapp"
-    }
-  ]
+    "welcomeFile": "/VOASGuide/index.html",
+    "authenticationMethod": "none",
+    "logout": {
+        "logoutEndpoint": "/do/logout"
+    },
+    "routes": [{
+            "source": "^/VOASGuide/(.*)$",
+            "target": "$1",
+            "localDir": "webapp"
+        }, {
+            "source": "/xsodata/(.*)",
+            "destination": "voasGuide_Node_backend",
+            "authenticationType": "none"
+        }, {
+            "source": "/userDetails(.*)",
+            "destination": "voasGuide_Node_backend",
+            "csrfProtection": false,
+            "authenticationType": "none"
+        }
+    ]
 }
