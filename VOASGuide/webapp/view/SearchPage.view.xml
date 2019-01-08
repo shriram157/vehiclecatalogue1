@@ -4,9 +4,7 @@
 		<f:title>
 			<f:DynamicPageTitle>
 				<f:heading>
-					<Image id="idLexusLogo" src="images/Lexus_EN.png" width="100px"/><!--	<variants:VariantManagement/>-->
-				</f:heading>
-				
+					<Image id="idLexusLogo" src="images/Lexus_EN.png" width="100px"/><!--	<variants:VariantManagement/>--></f:heading>
 				<f:actions>
 					<ToolbarSpacer/>
 					<!--<Button icon="sap-icon://action" type="Transparent"/>-->
@@ -16,14 +14,15 @@
 		<f:header>
 			<f:DynamicPageHeader pinnable="true">
 				<f:content>
-					<filterbar:FilterBar useToolbar="false" showGoOnFB="false" searchEnabled="true" showFilterConfiguration="false">
+					<filterbar:FilterBar id="filterBar" useToolbar="false" showGoOnFB="false" search="pressGo" searchEnabled="true"
+						showFilterConfiguration="false">
 						<filterbar:filterItems>
 							<filterbar:FilterItem label="Brand"
 								name="Fiori_ListReport_ListReport_0-filterBars-Fiori_ListReport_FilterBar-1-filters-Fiori_ListReport_ComboBoxFilter-1538670414396---0">
 								<filterbar:control>
-									<ComboBox id="id_brandCB"  change="onChange_Brand" items="{path:'brandModel>/modelBrand', templateShareable:true}">
+									<ComboBox id="id_brandCB" change="onChange_Brand" items="{path:'brandModel>/modelBrand', templateShareable:true}">
 										<items>
-												<core:Item key="{brandModel>key}" text="{brandModel>text}"/>
+											<core:Item key="{brandModel>key}" text="{brandModel>text}"/>
 										</items>
 									</ComboBox>
 								</filterbar:control>
@@ -33,7 +32,7 @@
 								<filterbar:control>
 									<ComboBox id="id_modelYearCB" change="onChange_ModelYear" enabled="false" items="{path:'yearModel>/modelYear', templateShareable:true}">
 										<items>
-												<core:Item key="{yearModel>key}" text="{yearModel>text}"/>
+											<core:Item key="{yearModel>key}" text="{yearModel>text}"/>
 										</items>
 									</ComboBox>
 								</filterbar:control>
@@ -41,9 +40,9 @@
 							<filterbar:FilterItem label="Series"
 								name="Fiori_ListReport_ListReport_0-filterBars-Fiori_ListReport_FilterBar-1-filters-Fiori_ListReport_ComboBoxFilter-1538673653531---0">
 								<filterbar:control>
-									<ComboBox id="id_seriesCB" change="onChange_Series" enabled="false"  items="{path:'dropDownModel>/', templateShareable:true}">
-									<items>
-											<core:Item key="{dropDownModel>TCISeries}" text="{dropDownModel>TCISeries}"/>
+									<ComboBox id="id_seriesCB" change="onChange_Series" enabled="false" items="{path:'seriesdropDownModel>/', templateShareable:true}">
+										<items>
+											<core:Item key="{seriesdropDownModel>TCISeries}" text="{seriesdropDownModel>TCISeries}"/>
 										</items>
 									</ComboBox>
 								</filterbar:control>
@@ -61,13 +60,20 @@
 							<filterbar:FilterItem label="Suffix"
 								name="Fiori_ListReport_ListReport_0-filterBars-Fiori_ListReport_FilterBar-1-filters-Fiori_ListReport_ComboBoxFilter-1538673656505---0">
 								<filterbar:control>
-									<MultiComboBox  id="id_suffixCB" selectionFinish="onChange_Suffix" enabled="false" items="{path:'suffixdropDownModel>/', templateShareable:true}">
+									<MultiComboBox id="id_suffixCB" enabled="false"
+										items="{path:'suffixdropDownModel>/', templateShareable:true}"> <!--selectionFinish="onChange_Suffix" -->
 										<items>
-											<core:Item key="{suffixdropDownModel>suffix}" text="{suffixdropDownModel>suffix}"/>
+											<core:Item key="{suffixdropDownModel>Suffix}" text="{suffixdropDownModel>Suffix}"/>
 										</items>
 									</MultiComboBox>
+									<!--<Button text="Go"></Button>-->
 								</filterbar:control>
 							</filterbar:FilterItem>
+							<!--<filterbar:FilterItem label="" name="sh">
+								<filterbar:control>
+									<Button text="Go"></Button>
+								</filterbar:control>
+							</filterbar:FilterItem>-->
 						</filterbar:filterItems>
 					</filterbar:FilterBar>
 				</f:content>
@@ -76,62 +82,63 @@
 		<f:content>
 			<VBox fitContainer="true">
 				<items>
-					<OverflowToolbar  height="46px" design="Solid" visible="true" enabled="true">
+					<OverflowToolbar height="46px" design="Solid" visible="true" enabled="true">
 						<content>
 							<ToolbarSpacer width=""/>
-							<Button text="What's New" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true"   enabled="true" visible="true"
+							<Button text="What's New" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true" enabled="true" visible="true"
 								iconDensityAware="false" press="_onCreateWhatsNew"/>
-							<Button text="Walk-up" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true"   enabled="true" visible="true"
+							<Button text="Walk-up" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true" enabled="true" visible="true"
 								iconDensityAware="false" press="_onCreateWalkUp"/>
-							<Button text="Supplemental" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true"   enabled="true" visible="true"
+							<Button text="Supplemental" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true" enabled="true" visible="true"
 								iconDensityAware="false" press="_onCreateSupplemental"/>
-							<Button text="Create Vehicle Guide" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true"   enabled="true"
-								visible="true" iconDensityAware="false" press="_onCreateVehGuide"/>
-							<Button text="Create Pocket Summary" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true"   enabled="true"
-								visible="true" iconDensityAware="false" press="_onCreatePocSum"/>
+							<Button text="Create Vehicle Guide" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true" enabled="true" visible="true"
+								iconDensityAware="false" press="_onCreateVehGuide"/>
+							<Button text="Create Pocket Summary" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true" enabled="true" visible="true"
+								iconDensityAware="false" press="_onCreatePocSum"/>
 						</content>
 					</OverflowToolbar>
 					<Table id="idTbl_Search" width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="MultiSelect"
-						itemPress="_navToDetail" updateFinished="_onSearchTableUpdate" 
-						items="{path:'searchTblModel>/', templateShareable:true}" class="marginCornersBottom">
+						itemPress="_navToDetail" updateFinished="_onSearchTableUpdate" items="{path:'searchTblModel>/', templateShareable:true}"
+						class="marginCornersBottom">
 						<headerToolbar>
 							<OverflowToolbar design="Transparent">
 								<content>
 									<Title textAlign="Begin" text="Vehicle Ordering Guide - Search Results"/>
 									<Title id="id_SP_noOfData" text="(0)"/>
 									<ToolbarSpacer/>
-									<Button text="Compare" icon="sap-icon://compare" iconFirst="true" type="Transparent" enabled="true"
-										press="_navToCompare">
+									<Button text="Compare" icon="sap-icon://compare" iconFirst="true" type="Transparent" enabled="true" press="_navToCompare">
 										<layoutData>
-											<OverflowToolbarLayoutData />
+											<OverflowToolbarLayoutData/>
 										</layoutData>
 									</Button>
 								</content>
 							</OverflowToolbar>
 						</headerToolbar>
 						<columns>
-							<Column   minScreenWidth="Phone">
+							<Column minScreenWidth="Phone">
 								<header>
-									<Text text="{i18n>Vehicle}"  />
+									<Text text="{i18n>Vehicle}"/>
 								</header>
 							</Column>
-							<Column   minScreenWidth="Phone">
+							<Column minScreenWidth="Phone">
 								<header>
-									<Text text="{i18n>Features}"  />
+									<Text text="{i18n>Features}"/>
 								</header>
 							</Column>
-							<Column   minScreenWidth="Phone">
+							<Column minScreenWidth="Phone">
 								<header>
-									<Text text="{i18n>Price}"  />
+									<Text text="{i18n>Price}"/>
 								</header>
 							</Column>
 						</columns>
 						<items>
 							<ColumnListItem type="Navigation">
 								<cells>
-									<ObjectIdentifier title="{searchTblModel>Vehicle}" text="{searchTblModel>suffix}"/> 
-									<ObjectIdentifier  text="{searchTblModel>Features}"/> <!--title="{CUSTOMERFACINGDescriptionEN}"-->
-									<ObjectIdentifier text="Net Price: {searchTblModel>NETPRICE}" title="MSRP: {searchTblModel>MSRP}" />
+									<ObjectIdentifier title="{searchTblModel>Vehicle}" text="{searchTblModel>suffix}"/>
+									<!--text="{searchTblModel>Features}"/>-->
+									<ObjectIdentifier
+										text="{parts: [{path:'searchTblModel>Features'},{path:'searchTblModel>Features'}] , formatter: 'formatter.formatFeatures'}"/>
+									<ObjectIdentifier text="Net Price: {searchTblModel>NETPRICE}" title="MSRP: {searchTblModel>MSRP}"/>
 								</cells>
 							</ColumnListItem>
 						</items>
@@ -143,8 +150,8 @@
 			<OverflowToolbar >
 				<content>
 					<ToolbarSpacer/>
-					<Button text="Save" type="Emphasized" iconFirst="true"   enabled="true" visible="true" iconDensityAware="false"/>
-					<Button text="Cancel" type="Default" iconFirst="true"   enabled="true" visible="true" iconDensityAware="false"/>
+					<Button text="Save" type="Emphasized" iconFirst="true" enabled="true" visible="true" iconDensityAware="false"/>
+					<Button text="Cancel" type="Default" iconFirst="true" enabled="true" visible="true" iconDensityAware="false"/>
 				</content>
 			</OverflowToolbar>
 		</f:footer>

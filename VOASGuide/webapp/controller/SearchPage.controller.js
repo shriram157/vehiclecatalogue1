@@ -1,15 +1,14 @@
 sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseController",
-	"sap/m/MessageBox",
 	"./util/CreateVehicleGuideDialog", "./util/CreatePocketSummaryDialog",
 	"./util/SuplementalDialog", "./util/WalkupDialog", "./util/CreateWhatsNewDialog",
 	"./util/utilities", "./util/CreateWalkUpGuide", "./util/CreateSupplementalGuide",
-	"sap/ui/core/routing/History", "sap/ui/model/json/JSONModel"
-], function (BaseController, MessageBox, CreateVehicleGuideDialog, CreatePocketSummaryDialog, SuplementalDialog, WalkupDialog,
-	CreateWhatsNewDialog, Utilities, CreateWalkUpGuide, CreateSupplementalGuide, History, JSONModel) {
+	"sap/ui/core/routing/History", "sap/ui/model/json/JSONModel", "com/sap/build/toyota-canada/vehiclesGuideV3/Formatter/formatter"
+], function (BaseController, CreateVehicleGuideDialog, CreatePocketSummaryDialog, SuplementalDialog, WalkupDialog,
+	CreateWhatsNewDialog, Utilities, CreateWalkUpGuide, CreateSupplementalGuide, History, JSONModel, formatter) {
 	"use strict";
 	var searchController;
 	return BaseController.extend("com.sap.build.toyota-canada.vehiclesGuideV3.controller.SearchPage", {
-
+		formatter: formatter,
 		onInit: function () {
 			searchController = this;
 			searchController.oRouter = sap.ui.core.UIComponent.getRouterFor(searchController);
@@ -17,11 +16,91 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			searchController.listOfBrand();
 			searchController.listOfModelYear();
 		},
+		pressGo: function () {
+			var brandCB = searchController.getView().byId("id_brandCB");
+			var modelYearCB = searchController.getView().byId("id_modelYearCB");
+			var seriesCB = searchController.getView().byId("id_seriesCB");
+			var modelCB = searchController.getView().byId("id_modelCB");
+			var suffixCB = searchController.getView().byId("id_suffixCB");
+			var modelArr = [];
+			var modelDescString;
+			var suffixArr = [];
+			var suffixDescString;
+			var brandCBVal = brandCB.getValue();
+			var modelYearCBVal = modelYearCB.getValue();
+			var seriesCBVal = seriesCB.getValue();
 
+			var modelValLen = modelCB.getSelectedItems().length;
+			if (modelCB.getSelectedItems() != "") {
+				for (var i = 0; i < modelValLen; i++) {
+					modelArr.push(modelCB.getSelectedItems()[i].mProperties.text);
+				}
+				modelDescString = modelArr.toString();
+			} else {
+				modelDescString = "";
+			}
+			var suffixValLen = suffixCB.getSelectedItems().length;
+			if (suffixCB.getSelectedItems() != "") {
+				for (var j = 0; j < suffixValLen; j++) {
+					suffixArr.push(suffixCB.getSelectedItems()[j].mProperties.text);
+				}
+				suffixDescString = suffixArr.toString();
+				console.log(suffixArr);
+				console.log(suffixDescString);
+			} else {
+				suffixDescString = "";
+			}
+			var host = searchController.host();
+			var url2="";
+			if(modelDescString==""&&suffixDescString!==""){
+				console.log("1");
+			 url2=host +
+				"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
+				" ' and Suffix  eq  '" + suffixDescString +
+				" ' and Modelyear eq  '" + modelYearCBVal + " ')";
+			}
+			else if(suffixDescString==""&&modelDescString!==""){
+				console.log("2");
+			 url2=host +
+				"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
+				" ' and Modelyear eq  '" + modelYearCBVal + " 'and Model eq '" + modelDescString + "' )";
+			}
+			else if(suffixDescString==""&&modelDescString==""){
+			 console.log("3");
+			 url2= host +
+				"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
+				" ' and Modelyear eq  '" + modelYearCBVal + " ')";
+			}
+			else{
+				console.log("4");
+			 url2 = host +
+				"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
+				" ' and Suffix  eq  '" + suffixDescString +
+				" ' and Modelyear eq  '" + modelYearCBVal + " 'and Model eq '" + modelDescString + "' )";
+			}
+			$.ajax({
+				url: url2,
+				method: 'GET',
+				async: false,
+				dataType: 'json',
+				success: function (data, textStatus, jqXHR) {
+						var tblModel = new sap.ui.model.json.JSONModel(data.d.results);
+								tblModel.setSizeLimit(data.d.results.length);
+								searchController.getView().setModel(tblModel, "searchTblModel");
+								searchController.getView().byId("idTbl_Search").setModel("searchTblModel");
+				},
+				error: function (jqXHR, textStatus, errorThrown) {
+					sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR,
+						"Error", sap
+						.m.MessageBox.Action.OK, null, null);
+				}
+			});
+
+		},
 		listOfModelYear: function () {
 			var d = new Date();
 			var currentModelYear = d.getFullYear();
-			var oldYear=currentModelYear - 1;
+			var oldYear = currentModelYear - 1;
 			var nextModelYear = currentModelYear + 1;
 			var nextModelYear2 = currentModelYear + 2;
 			var nextModelYear3 = currentModelYear + 3;
@@ -29,7 +108,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				"modelYear": [{
 					"key": "5",
 					"text": oldYear
-				},{
+				}, {
 					"key": "1",
 					"text": currentModelYear
 				}, {
@@ -65,52 +144,10 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			searchController.getView().byId("id_brandCB").setModel("brandModel");
 		},
 
-	/*	resetTable: function () {
-			var oTable = searchController.getView().byId("idTbl_Search");
-			var data = [{
-				Brand: "",
-				Features: "",
-				MSRP: "",
-				Model: "",
-				Modelyear: "",
-				NETPRICE: "",
-				Suffix: "",
-				Vehicle: "",
-				flagged: ""
-			}];
-			var oModel = new sap.ui.model.json.JSONModel(data);
-			oTable.setModel(oModel);
-		},*/
 
-	/*	setSeriesTableData: function () {
-			var brandCBVal = searchController.getView().byId("id_brandCB").getValue();
-			var modelYearCBVal = searchController.getView().byId("id_modelYearCB").getValue();
-			var seriesCBVal = searchController.getView().byId("id_seriesCB").getValue();
-			var modelCBVal = searchController.getView().byId("id_modelCB").getItems();
-			var suffixCBVal = searchController.getView().byId("id_suffixCB").getItems();
-			var host = searchController.host();
-			var url = host +
-				//	"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA?$filter=(Brand eq 'TOYOTA' and Modelyear eq '2018' and suffix eq 'BC' and Model eq 'YZ3DCT' )";
-				//	"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA?$filter=(Brand eq '"+brandCBVal+"' and Modelyear eq '"+modelYearCBVal+"' and suffix eq '"+suffixCBVal+"' and Model eq '"+modelCBVal+"' )";
-				//"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA?$filter=(Brand eq 'TOYOTA'and Modelyear eq '2018' and suffix eq 'ML' and Model eq 'YZ3DCT')";
-				"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(Brand eq  'TOYOTA ' and Model eq  'YZ3DCT ' and Modelyear eq  '2018 ' and Suffix eq  'AB ')";
-			//"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOAD";
-			$.ajax({
-				url: url,
-				method: 'GET',
-				async: false,
-				dataType: 'json',
-				success: function (data, textStatus, jqXHR) {
-					console.log(data.d.results);
-				},
-				error: function (jqXHR, textStatus, errorThrown) {
-					sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error", sap
-						.m.MessageBox.Action.OK, null, null);
-				}
-			});
-		},*/
 
 		onChange_Brand: function () {
+			searchController.getView().byId("filterBar").setShowGoOnFB(false);
 			var brandCB = searchController.getView().byId("id_brandCB");
 			var modelYearCB = searchController.getView().byId("id_modelYearCB");
 			var seriesCB = searchController.getView().byId("id_seriesCB");
@@ -128,6 +165,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 
 		},
 		onChange_ModelYear: function () {
+			searchController.getView().byId("filterBar").setShowGoOnFB(false);
 			var brandCB = searchController.getView().byId("id_brandCB");
 			var modelYearCB = searchController.getView().byId("id_modelYearCB");
 			var seriesCB = searchController.getView().byId("id_seriesCB");
@@ -146,9 +184,10 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			}
 
 			var host = searchController.host();
-			//	"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAIL?$filter=(Brand%20eq%20%27"+ brandCBVal+"%27%20and%20Modelyear%20eq%20%27"+modelYearCBVal+"%27)";*/
+			//	"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(Brand%20eq%20%27"+ brandCBVal+"%27%20and%20Modelyear%20eq%20%27"+modelYearCBVal+"%27)";*/
 			var url = host +
-				"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAIL?$filter=(Brand eq '" + brandCBVal + "' and Modelyear eq '" + modelYearCBVal + "')";
+				"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(Brand eq '" + brandCBVal + "' and Modelyear eq '" + modelYearCBVal +
+				"')";
 
 			$.ajax({
 				url: url,
@@ -157,7 +196,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				dataType: 'json',
 				success: function (data, textStatus, jqXHR) {
 					var oModel = new sap.ui.model.json.JSONModel(data.d.results);
-					searchController.getView().setModel(oModel, "dropDownModel");
+					searchController.getView().setModel(oModel, "seriesdropDownModel");
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
 					sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error", sap
@@ -188,9 +227,11 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				modelCB.setEnabled(true);
 			}
 			var host = searchController.host();
+
+			searchController.getView().byId("filterBar").setShowGoOnFB(true);
 			var url = host +
-				//	"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAIL?$filter=(Brand eq %27TOYOTA%27 and Modelyear eq %272020%27 and TCISeries eq %27COR%27)";
-				"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAIL?$filter=(Brand eq '" + brandCBVal + "' and Modelyear eq '" + modelYearCBVal +
+				//	"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(Brand eq %27TOYOTA%27 and Modelyear eq %272020%27 and TCISeries eq %27COR%27)";
+				"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(Brand eq '" + brandCBVal + "' and Modelyear eq '" + modelYearCBVal +
 				"'and TCISeries eq '" + seriesCBVal + "')";
 			var url2 = host +
 				"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
@@ -204,7 +245,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					var oModel = new sap.ui.model.json.JSONModel(data.d.results);
 					searchController.getView().setModel(oModel, "dropDownModel");
 					if (seriesCB.getValue() != "") {
-						$.ajax({
+					/*	$.ajax({
 							url: url2,
 							method: 'GET',
 							async: false,
@@ -220,7 +261,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 									"Error", sap
 									.m.MessageBox.Action.OK, null, null);
 							}
-						});
+						});*/
 					}
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
@@ -249,8 +290,6 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			if (brandCB.getValue() != "" && modelYearCB.getValue() != "" && seriesCB.getValue() != "" && modelCB.getItems() != "") {
 				suffixCB.setEnabled(true);
 				var modelValLen = modelCB.getSelectedItems().length;
-				console.log(modelValLen);
-
 				for (var i = 0; i < modelValLen; i++) {
 					modelArr.push(modelCB.getSelectedItems()[i].mProperties.text);
 				}
@@ -259,13 +298,13 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			var host = searchController.host();
 			var url = host +
 
-					"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAIL?$filter=(Brand eq '" + brandCBVal + "' and Modelyear eq '" + modelYearCBVal +
-					"'and TCISeries eq '" + seriesCBVal + "' and ENModelDesc eq '" + modelDescString + "' )";
-			/*	"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAIL?$filter=( Modelyear eq '" + modelYearCBVal + "' and ENModelDesc eq '" +
+				"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(Brand eq '" + brandCBVal + "' and Modelyear eq '" + modelYearCBVal +
+				"'and TCISeries eq '" + seriesCBVal + "' and Model eq '" + modelDescString + "' )";
+			/*	"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=( Modelyear eq '" + modelYearCBVal + "' and Model eq '" +
 				modelDescString + "' )";*/
 			var url2 = host +
 				"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
-				" ' and Modelyear eq  '" + modelYearCBVal + " 'and ENModelDesc eq '" + modelDescString + "' )"; 
+				" ' and Modelyear eq  '" + modelYearCBVal + " 'and Model eq '" + modelDescString + "' )";
 			$.ajax({
 				url: url,
 				method: 'GET',
@@ -276,7 +315,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					var oModel = new sap.ui.model.json.JSONModel(data.d.results);
 					searchController.getView().setModel(oModel, "suffixdropDownModel");
 					if (seriesCB.getValue() != "") {
-						$.ajax({
+					/*	$.ajax({
 							url: url2,
 							method: 'GET',
 							async: false,
@@ -290,7 +329,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 									"Error", sap
 									.m.MessageBox.Action.OK, null, null);
 							}
-						});
+						});*/
 					}
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
@@ -315,21 +354,31 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			var seriesCBVal = seriesCB.getValue();
 
 			var modelValLen = modelCB.getSelectedItems().length;
-
-			for (var i = 0; i < modelValLen; i++) {
-				modelArr.push(modelCB.getSelectedItems()[i].mProperties.text);
+			if (modelCB.getSelectedItems() != "") {
+				for (var i = 0; i < modelValLen; i++) {
+					modelArr.push(modelCB.getSelectedItems()[i].mProperties.text);
+				}
+				modelDescString = modelArr.toString();
+			} else {
+				modelDescString = "";
 			}
-			modelDescString = modelArr.toString();
-			for (var j = 0; j < modelValLen; j++) {
-				suffixArr.push(suffixCB.getSelectedItems()[j].mProperties.text);
+			var suffixValLen = suffixCB.getSelectedItems().length;
+			if (suffixCB.getSelectedItems() != "") {
+				for (var j = 0; j < suffixValLen; j++) {
+					suffixArr.push(suffixCB.getSelectedItems()[j].mProperties.text);
+				}
+				suffixDescString = suffixArr.toString();
+				console.log(suffixArr);
+				console.log(suffixDescString);
+			} else {
+				suffixDescString = "";
 			}
-			suffixDescString = suffixArr.toString();
-
 			var host = searchController.host();
 
 			var url2 = host +
-				"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(Brand eq  '" + brandCBVal + " ' and suffix  eq  '" + suffixDescString +
-				" ' and Modelyear eq  '" + modelYearCBVal + " 'and ENModelDesc eq '" + modelDescString + "' )";
+				"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
+				" ' and Suffix  eq  '" + suffixDescString +
+				" ' and Modelyear eq  '" + modelYearCBVal + " 'and Model eq '" + modelDescString + "' )";
 
 			$.ajax({
 				url: url2,
@@ -455,11 +504,12 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 		},
 
 		_navToDetail: function (oEvent) {
-			var oCtx;
+		
 			var oBindingContext = oEvent.getParameter("listItem").getBindingContext();
-			oCtx = oBindingContext;
-			var sPath = oCtx.sPath;
-			var sEntityNameSet2 = sPath.split("/")[2];
+			
+			var sPath=oEvent.getParameter("listItem").oBindingContexts.searchTblModel.sPath;
+			var sEntityNameSet2 = sPath.split("/")[1];
+	
 			searchController.oRouter.navTo("DetailsOption", {
 				num: sEntityNameSet2
 			});
