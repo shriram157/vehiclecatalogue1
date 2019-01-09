@@ -60,16 +60,16 @@
 							<filterbar:FilterItem label="Suffix"
 								name="Fiori_ListReport_ListReport_0-filterBars-Fiori_ListReport_FilterBar-1-filters-Fiori_ListReport_ComboBoxFilter-1538673656505---0">
 								<filterbar:control>
-									<MultiComboBox id="id_suffixCB" enabled="false"
+									<MultiComboBox id="id_suffixCB" enabled="false" selectionFinish="onChange_Suffix" 
 										items="{path:'suffixdropDownModel>/', templateShareable:true}"> <!--selectionFinish="onChange_Suffix" -->
 										<items>
 											<core:Item key="{suffixdropDownModel>Suffix}" text="{suffixdropDownModel>Suffix}"/>
 										</items>
 									</MultiComboBox>
-									<!--<Button text="Go"></Button>-->
+					
 								</filterbar:control>
 							</filterbar:FilterItem>
-							<!--<filterbar:FilterItem label="" name="sh">
+							<!--<filterbar:FilterItem label="" name="Fiori_ListReport_ListReport_0_go">
 								<filterbar:control>
 									<Button text="Go"></Button>
 								</filterbar:control>
