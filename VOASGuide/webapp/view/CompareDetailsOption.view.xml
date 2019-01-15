@@ -3,7 +3,7 @@
 	<uxap:ObjectPageLayout showTitleInHeaderContent="false" showHeaderContent="true" showEditHeaderButton="false" showFooter="false"
 		class="sapUiSizeCompact">
 		<uxap:headerTitle>
-			<uxap:ObjectPageHeader objectTitle="{Model} {Brand} {Series} - Compare" objectSubtitle="" isObjectIconAlwaysVisible="false"
+			<uxap:ObjectPageHeader objectTitle="{modelArg>/moYear} {modelArg>/brand} {modelArg>/series} -Compare" objectSubtitle="" isObjectIconAlwaysVisible="false"
 				isObjectTitleAlwaysVisible="true" isObjectSubtitleAlwaysVisible="true" showPlaceholder="true"
 				objectImageURI="/build/uilibraries/content/static/image-canvas.svg">
 				<uxap:navigationBar>
@@ -46,7 +46,6 @@
 										<items>
 											<VBox class="sapUiLargeMarginBegin sapUiLargeMarginEnd">
 												<items>
-												
 													<Title text="{compareModel>Vehicle}"/>
 													<Text text="Brand {compareModel>Brand}"></Text>
 													<Text text="Model {compareModel>Model}"></Text>
@@ -69,18 +68,7 @@
 					<uxap:ObjectPageSubSection title="Interior">
 						<uxap:blocks>
 							<Table id="tblInterior" width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="None">
-								<items>
-									<ColumnListItem type="Active">
-										<cells>
-											<ObjectIdentifier title="{dataModel>desc}" text="{desc}"/>
-											<Text text="{cat1}"></Text>
-											<Text text="{dataModel>cat2}"></Text>
-											<Text text="{dataModel>cat3}"></Text>
-											<Text text="{dataModel>cat4}"></Text>
-											<Text text="{dataModel>cat5}"></Text>
-										</cells>
-									</ColumnListItem>
-								</items>
+								
 							</Table>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
@@ -91,18 +79,7 @@
 					<uxap:ObjectPageSubSection title="Exterior">
 						<uxap:blocks>
 							<Table id="tblExterior" width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="None">
-								<items>
-									<ColumnListItem type="Active">
-										<cells>
-											<ObjectIdentifier title="{dataModel>desc}" text="{desc}"/>
-											<Text text="{cat1}"></Text>
-											<Text text="{dataModel>cat2}"></Text>
-											<Text text="{dataModel>cat3}"></Text>
-											<Text text="{dataModel>cat4}"></Text>
-											<Text text="{dataModel>cat5}"></Text>
-										</cells>
-									</ColumnListItem>
-								</items>
+								
 							</Table>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
@@ -112,21 +89,9 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="Powertrain &amp; Mechanical">
 						<uxap:blocks>
-							<t:Table id="pwrTrn" alternateRowColors="true"></t:Table>
-							<!--	<Table id="tblPowertrain" width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="None">
-								<items>
-									<ColumnListItem type="Active">
-										<cells>
-											<ObjectIdentifier title="{compareModel>Category}" text="Customer Facing Description (1 or More Features)"/>
-											<core:Icon src="sap-icon://sys-enter" size="28px" height="48px" width="48px" hoverColor="green" visible="true"/>
-											<core:Icon src="sap-icon://sys-enter" size="28px" height="48px" width="48px" hoverColor="green" visible="true"/>
-											<core:Icon src="sap-icon://sys-enter" size="28px" height="48px" width="48px" hoverColor="green" visible="true"/>
-											<core:Icon src="sap-icon://sys-enter" size="28px" height="48px" width="48px" hoverColor="green" visible="true"/>
-											<core:Icon src="sap-icon://sys-enter" size="28px" height="48px" width="48px" hoverColor="green" visible="true"/>
-										</cells>
-									</ColumnListItem>
-								</items>
-							</Table>-->
+							<Table id="pwrTrn" width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="None">
+							
+							</Table>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -136,18 +101,7 @@
 					<uxap:ObjectPageSubSection title="Safety &amp; Convenience">
 						<uxap:blocks>
 							<Table id="tblSafety" width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="None">
-								<items>
-									<ColumnListItem type="Active">
-										<cells>
-											<ObjectIdentifier title="{compareModel>Category}" text="Customer Facing Description (1 or More Features)"/>
-											<core:Icon src="sap-icon://sys-enter" size="28px" height="48px" width="48px" hoverColor="green" visible="true"/>
-											<core:Icon src="sap-icon://sys-enter" size="28px" height="48px" width="48px" hoverColor="green" visible="true"/>
-											<core:Icon src="sap-icon://sys-enter" size="28px" height="48px" width="48px" hoverColor="green" visible="true"/>
-											<core:Icon src="sap-icon://sys-enter" size="28px" height="48px" width="48px" hoverColor="green" visible="true"/>
-											<core:Icon src="sap-icon://sys-enter" size="28px" height="48px" width="48px" hoverColor="green" visible="true"/>
-										</cells>
-									</ColumnListItem>
-								</items>
+							
 							</Table>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
@@ -158,18 +112,7 @@
 					<uxap:ObjectPageSubSection title="Infotainment">
 						<uxap:blocks>
 							<Table id="tblInfotainment" width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="None">
-								<items>
-									<ColumnListItem type="Active">
-										<cells>
-											<ObjectIdentifier title="{compareModel>Category}" text="Customer Facing Description (1 or More Features)"/>
-											<core:Icon src="sap-icon://sys-enter" size="28px" height="48px" width="48px" hoverColor="green" visible="true"/>
-											<core:Icon src="sap-icon://sys-enter" size="28px" height="48px" width="48px" hoverColor="green" visible="true"/>
-											<core:Icon src="sap-icon://sys-enter" size="28px" height="48px" width="48px" hoverColor="green" visible="true"/>
-											<core:Icon src="sap-icon://sys-enter" size="28px" height="48px" width="48px" hoverColor="green" visible="true"/>
-											<core:Icon src="sap-icon://sys-enter" size="28px" height="48px" width="48px" hoverColor="green" visible="true"/>
-										</cells>
-									</ColumnListItem>
-								</items>
+							
 							</Table>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
@@ -180,18 +123,7 @@
 					<uxap:ObjectPageSubSection title="Color Options">
 						<uxap:blocks>
 							<Table id="tblColorOptions" width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="None">
-								<items>
-									<ColumnListItem type="Active">
-										<cells>
-											<ObjectIdentifier title="{compareModel>Category}" text="Customer Facing Description (1 or More Features)"/>
-											<core:Icon src="sap-icon://sys-enter" size="28px" height="48px" width="48px" hoverColor="green" visible="true"/>
-											<core:Icon src="sap-icon://sys-enter" size="28px" height="48px" width="48px" hoverColor="green" visible="true"/>
-											<core:Icon src="sap-icon://sys-enter" size="28px" height="48px" width="48px" hoverColor="green" visible="true"/>
-											<core:Icon src="sap-icon://sys-enter" size="28px" height="48px" width="48px" hoverColor="green" visible="true"/>
-											<core:Icon src="sap-icon://sys-enter" size="28px" height="48px" width="48px" hoverColor="green" visible="true"/>
-										</cells>
-									</ColumnListItem>
-								</items>
+							
 							</Table>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
@@ -202,18 +134,6 @@
 					<uxap:ObjectPageSubSection title="Dimensions &amp; Specs">
 						<uxap:blocks>
 							<Table id="tblDimensions" width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="None">
-								<items>
-									<ColumnListItem type="Active">
-										<cells>
-											<ObjectIdentifier title="{compareModel>Category}" text="Customer Facing Description (1 or More Features)"/>
-											<core:Icon src="sap-icon://sys-enter" size="28px" height="48px" width="48px" hoverColor="green" visible="true"/>
-											<core:Icon src="sap-icon://sys-enter" size="28px" height="48px" width="48px" hoverColor="green" visible="true"/>
-											<core:Icon src="sap-icon://sys-enter" size="28px" height="48px" width="48px" hoverColor="green" visible="true"/>
-											<core:Icon src="sap-icon://sys-enter" size="28px" height="48px" width="48px" hoverColor="green" visible="true"/>
-											<core:Icon src="sap-icon://sys-enter" size="28px" height="48px" width="48px" hoverColor="green" visible="true"/>
-										</cells>
-									</ColumnListItem>
-								</items>
 							</Table>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
@@ -224,15 +144,6 @@
 					<uxap:ObjectPageSubSection title="Option Packages">
 						<uxap:blocks>
 							<Table id="tblOptionPack" width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="None">
-								<items>
-									<ColumnListItem type="Active">
-										<cells>
-											<core:Icon src="sap-icon://sys-enter" size="28px" height="48px" width="48px" hoverColor="green" visible="true"/>
-											<core:Icon src="sap-icon://sys-enter" size="28px" height="48px" width="48px" hoverColor="green" visible="true"/>
-											<core:Icon src="sap-icon://sys-enter" size="28px" height="48px" width="48px" hoverColor="green" visible="true"/>
-										</cells>
-									</ColumnListItem>
-								</items>
 							</Table>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
@@ -243,18 +154,7 @@
 					<uxap:ObjectPageSubSection title="APX">
 						<uxap:blocks>
 							<Table id="tblAPX" width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="None">
-								<items>
-									<ColumnListItem type="Active">
-										<cells>
-											<ObjectIdentifier title="{compareModel>Category}" text="Customer Facing Description (1 or More Features)"/>
-											<core:Icon src="sap-icon://sys-enter" size="28px" height="48px" width="48px" hoverColor="green" visible="true"/>
-											<core:Icon src="sap-icon://sys-enter" size="28px" height="48px" width="48px" hoverColor="green" visible="true"/>
-											<core:Icon src="sap-icon://sys-enter" size="28px" height="48px" width="48px" hoverColor="green" visible="true"/>
-											<core:Icon src="sap-icon://sys-enter" size="28px" height="48px" width="48px" hoverColor="green" visible="true"/>
-											<core:Icon src="sap-icon://sys-enter" size="28px" height="48px" width="48px" hoverColor="green" visible="true"/>
-										</cells>
-									</ColumnListItem>
-								</items>
+								
 							</Table>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>

@@ -3,10 +3,11 @@
 	<f:DynamicPage headerExpanded="true" showFooter="false" class="sapUiSizeCompact">
 		<f:title>
 			<f:DynamicPageTitle>
-				<f:heading>
-					<Image id="idLexusLogo" src="images/Lexus_EN.png" width="100px"/><!--	<variants:VariantManagement/>--></f:heading>
+				<!--<f:heading>
+					<Image id="idLexusLogo" src="images/Lexus_EN.png" width="100px"/>
+					</f:heading>-->
 				<f:actions>
-					<ToolbarSpacer/>
+					<ToolbarSpacer/> <!--	<variants:VariantManagement/>-->
 					<!--<Button icon="sap-icon://action" type="Transparent"/>-->
 				</f:actions>
 			</f:DynamicPageTitle>
@@ -42,7 +43,7 @@
 								<filterbar:control>
 									<ComboBox id="id_seriesCB" change="onChange_Series" enabled="false" items="{path:'seriesdropDownModel>/', templateShareable:true}">
 										<items>
-											<core:Item key="{seriesdropDownModel>TCISeries}" text="{seriesdropDownModel>TCISeries}"/>
+											<core:Item key="{seriesdropDownModel>}" text="{seriesdropDownModel>}"/>
 										</items>
 									</ComboBox>
 								</filterbar:control>
@@ -52,7 +53,7 @@
 								<filterbar:control>
 									<MultiComboBox id="id_modelCB" selectionFinish="onChange_Model" enabled="false" items="{path:'dropDownModel>/', templateShareable:true}">
 										<items>
-											<core:Item key="{dropDownModel>ENModelDesc}" text="{dropDownModel>ENModelDesc}"/>
+											<core:Item key="{dropDownModel>}" text="{dropDownModel>}"/>
 										</items>
 									</MultiComboBox>
 								</filterbar:control>
@@ -63,7 +64,9 @@
 									<MultiComboBox id="id_suffixCB" enabled="false" selectionFinish="onChange_Suffix" 
 										items="{path:'suffixdropDownModel>/', templateShareable:true}"> <!--selectionFinish="onChange_Suffix" -->
 										<items>
-											<core:Item key="{suffixdropDownModel>Suffix}" text="{suffixdropDownModel>Suffix}"/>
+											<core:Item key="{suffixdropDownModel>}" text="{suffixdropDownModel>}"/>
+											<!--text="{parts: [{path:'suffixdropDownModel>'},{path:'suffixdropDownModel>'}] , formatter: 'formatter.formatSuffixInList'}"  -->
+											
 										</items>
 									</MultiComboBox>
 					
@@ -115,17 +118,17 @@
 							</OverflowToolbar>
 						</headerToolbar>
 						<columns>
-							<Column minScreenWidth="Phone">
+							<Column minScreenWidth="Phone" width="25%">
 								<header>
 									<Text text="{i18n>Vehicle}"/>
 								</header>
 							</Column>
-							<Column minScreenWidth="Phone">
+							<Column minScreenWidth="Phone" width="50%">
 								<header>
 									<Text text="{i18n>Features}"/>
 								</header>
 							</Column>
-							<Column minScreenWidth="Phone">
+							<Column minScreenWidth="Phone" width="25%">
 								<header>
 									<Text text="{i18n>Price}"/>
 								</header>
@@ -134,17 +137,17 @@
 						<items>
 							<ColumnListItem type="Navigation">
 								<cells>
-									<ObjectIdentifier title="{searchTblModel>Vehicle}" text="{searchTblModel>suffix}"/>
-									<!--text="{searchTblModel>Features}"/>-->
+									<ObjectIdentifier title="{searchTblModel>Vehicle}" text="{parts: [{path:'searchTblModel>Suffix'},{path:'searchTblModel>Suffix'}] , formatter: 'formatter.formatSuffix'}"/><!-- text="SFX- {searchTblModel>Suffix}"/>-->
 									<ObjectIdentifier
 										text="{parts: [{path:'searchTblModel>Features'},{path:'searchTblModel>Features'}] , formatter: 'formatter.formatFeatures'}"/>
-									<ObjectIdentifier text="Net Price: {searchTblModel>NETPRICE}" title="MSRP: {searchTblModel>MSRP}"/>
+									<ObjectIdentifier text="Dealer Net: {searchTblModel>NETPRICE}" title="MSRP: {searchTblModel>MSRP}"/>
 								</cells>
 							</ColumnListItem>
 						</items>
 					</Table>
 				</items>
 			</VBox>
+			
 		</f:content>
 		<f:footer>
 			<OverflowToolbar >
