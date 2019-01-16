@@ -214,7 +214,7 @@ sap.ui.define([
 						if (dat[j].Super_catgy == "COLOR OPTIONS") {
 							dtCol = dat[j].ZCVOASDEEP.results;
 						}
-						if (dat[j].Super_catgy == "DIMENSIONS/SPECS") {
+						if (dat[j].Super_catgy == "DIMENSIONS") {
 							dtDim = dat[j].ZCVOASDEEP.results;
 						}
 						if (dat[j].Super_catgy == "APX") {

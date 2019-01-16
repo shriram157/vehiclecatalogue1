@@ -68,7 +68,6 @@
 					<uxap:ObjectPageSubSection title="Interior">
 						<uxap:blocks>
 							<Table id="tblInterior" width="100%" growing="true" growingScrollToLoad="false" growingThreshold="30" mode="None">
-								
 							</Table>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>

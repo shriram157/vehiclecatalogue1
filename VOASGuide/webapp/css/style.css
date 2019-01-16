@@ -30,6 +30,9 @@
 
 
 /*custom color on header*/
+.justifyCenter{
+	justify-content:center;
+}
 
 .marginCss {
     margin-top: auto;

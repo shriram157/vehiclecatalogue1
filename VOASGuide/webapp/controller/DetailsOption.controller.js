@@ -5,39 +5,422 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 	"sap/ui/core/routing/History"
 ], function (BaseController, MessageBox, CreateVehicleGuideDialog, Utilities, History) {
 	"use strict";
-
+	var DetailController;
 	return BaseController.extend("com.sap.build.toyota-canada.vehiclesGuideV3.controller.DetailsOption", {
 		onInit: function () {
-			this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			this.oRouter.getTarget("DetailsOption").attachDisplay(jQuery.proxy(this.handleRouteMatched, this));
+			DetailController = this;
+			DetailController.oRouter = sap.ui.core.UIComponent.getRouterFor(DetailController);
+			DetailController.oRouter.getTarget("DetailsOption").attachDisplay(jQuery.proxy(DetailController.handleRouteMatched,
+				DetailController));
 
 		},
 
 		handleRouteMatched: function (oEvent) {
-			console.log(oEvent.getParameters());
-			console.log(oEvent.getParameters().data.num);
-				var parseArg = JSON.parse(oEvent.getParameters().data.num);
-			console.log(parseArg[0].path);
-			var modelDetail = new sap.ui.model.json.JSONModel(parseArg);
-			this.getView().setModel(modelDetail, "modelDetail");
-			console.log(this.getView().getModel("modelDetail").getData());
-		/*	var arg2 = oEvent.getParameters().data.num;
-			var pt = "/" + "(" + arg2 + ")";
-			var oView = this.getView();
-			oView.bindElement({
-				path: "/" + (arg2)
-			});*/
+			var parseArg = JSON.parse(oEvent.getParameters().data.num);
+			var modelDetail = new sap.ui.model.json.JSONModel(parseArg[0]);
+			var veh = parseArg[0].veh;
+			console.log(veh);
+			DetailController.getView().setModel(modelDetail, "modelDetail");
+			var host = DetailController.host();
+			var urlTable = host + "/Z_VEHICLE_CATALOGUE_SRV/ZC_VOAS_COMP_HEADERSet?$filter=(IN_Vehicle1 eq '" + veh + "')&$expand=ZCVOASDEEP";
+			$.ajax({
+				url: urlTable,
+				method: 'GET',
+				async: false,
+				dataType: 'json',
+				success: function (data, textStatus, jqXHR) {
+					var tblModel = new sap.ui.model.json.JSONModel(data.d.results);
+					DetailController.getView().setModel(tblModel, "TblModel");
+				},
+				error: function (jqXHR, textStatus, errorThrown) {
+					sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
+						sap.m.MessageBox.Action.OK, null, null);
+				}
+			});
+			var fixedData = {
+				Vehicle: ''
+			};
 
+			var aColumnData = [];
+			aColumnData.push(fixedData);
+			aColumnData.push(fixedData);
+			aColumnData.push(veh);
+			console.log(aColumnData);
+
+			if (DetailController.getView().getModel("TblModel")) {
+				var dat = DetailController.getView().getModel("TblModel").getData();
+				var dtExt = "",
+					dtInt = "",
+					dtPwr = "",
+					dtSaf = "",
+					dtInfo = "",
+					dtCol = "",
+					dtDim = "",
+					dtOpt = "",
+					dtApx = "";
+
+				for (var j = 0; j < dat.length; j++) {
+					if (dat[j].Super_catgy == "EXTERIOR") {
+						dtExt = dat[j].ZCVOASDEEP.results;
+					}
+					if (dat[j].Super_catgy == "INTERIOR") {
+						dtInt = dat[j].ZCVOASDEEP.results;
+					}
+					if (dat[j].Super_catgy == "POWERTRAIN/MECHANICAL") {
+						dtPwr = dat[j].ZCVOASDEEP.results;
+					}
+					if (dat[j].Super_catgy == "SAFETY/CONVENIENCE") {
+						dtSaf = dat[j].ZCVOASDEEP.results;
+					}
+					if (dat[j].Super_catgy == "INFOTAINMENT") {
+						dtInfo = dat[j].ZCVOASDEEP.results;
+					}
+					if (dat[j].Super_catgy == "COLOR OPTIONS") {
+						dtCol = dat[j].ZCVOASDEEP.results;
+					}
+					if (dat[j].Super_catgy == "DIMENSIONS") {
+						dtDim = dat[j].ZCVOASDEEP.results;
+					}
+					if (dat[j].Super_catgy == "APX") {
+						dtApx = dat[j].ZCVOASDEEP.results;
+					}
+					if (dat[j].Super_catgy == "OPTION PACKAGES") {
+						dtOpt = dat[j].ZCVOASDEEP.results;
+					}
+
+				}
+
+				var dataExterior = [];
+				for (var i = 0; i < dtExt.length; i++) {
+					dataExterior.push({
+						"Category_en": dtExt[i].Category_en,
+						"Cust_fac_desc_en": dtExt[i].Cust_fac_desc_en,
+						"Vehicle1": dtExt[i].Vehicle1
+					});
+				}
+				var dataInterior = [];
+				for (var i = 0; i < dtInt.length; i++) {
+					dataInterior.push({
+						"Category_en": dtInt[i].Category_en,
+						"Cust_fac_desc_en": dtInt[i].Cust_fac_desc_en,
+						"Vehicle1": dtInt[i].Vehicle1
+					});
+				}
+				var dataInfo = [];
+				for (var i = 0; i < dtInfo.length; i++) {
+					dataInfo.push({
+						"Category_en": dtInfo[i].Category_en,
+						"Cust_fac_desc_en": dtInfo[i].Cust_fac_desc_en,
+						"Vehicle1": dtInfo[i].Vehicle1
+					});
+				}
+				var dataPwr = [];
+				for (var i = 0; i < dtPwr.length; i++) {
+					dataPwr.push({
+						"Category_en": dtPwr[i].Category_en,
+						"Cust_fac_desc_en": dtPwr[i].Cust_fac_desc_en,
+						"Vehicle1": dtPwr[i].Vehicle1
+					});
+				}
+				var dataSafety = [];
+				for (var i = 0; i < dtSaf.length; i++) {
+					dataSafety.push({
+						"Category_en": dtSaf[i].Category_en,
+						"Cust_fac_desc_en": dtSaf[i].Cust_fac_desc_en,
+						"Vehicle1": dtSaf[i].Vehicle1
+					});
+				}
+
+				var dataColour = [];
+
+				for (var i = 0; i < dtCol.length; i++) {
+					dataColour.push({
+						"Category_en": dtCol[i].EXT + "-" + dtCol[i].EXT_DESC + "\n" + dtCol[i].INT_DESC,
+						"Cust_fac_desc_en": "MSRP: " + dtCol[i].MSRP + "\nDealer Net: " + dtCol[i].NETPRICE,
+						"Vehicle1": dtCol[i].Vehicle1
+					});
+				}
+				var dataDim = [];
+				for (var i = 0; i < dtDim.length; i++) {
+					dataDim.push({
+						"Category_en": dtDim[i].Category_en,
+						"Cust_fac_desc_en": dtDim[i].Cust_fac_desc_en,
+						"Vehicle1": dtDim[i].Vehicle1
+					});
+				}
+				var dataOpt = [];
+				for (var i = 0; i < dtOpt.length; i++) {
+					dataOpt.push({
+						"Category_en": dtOpt[i].Category_en,
+						"Cust_fac_desc_en": dtOpt[i].Cust_fac_desc_en,
+						"Vehicle1": dtOpt[i].Vehicle1
+					});
+				}
+				var dataApx = [];
+				for (var i = 0; i < dtApx.length; i++) {
+					dataApx.push({
+						"Category_en": dtApx[i].Category_en,
+						"Cust_fac_desc_en": dtApx[i].Cust_fac_desc_en,
+						"Vehicle1": dtApx[i].Vehicle1
+					});
+				}
+				
+				var tblModelExt = new sap.ui.model.json.JSONModel();
+				tblModelExt.setData({
+					columns: aColumnData,
+					rows: dataExterior
+				});
+				var tblModelInt = new sap.ui.model.json.JSONModel();
+				tblModelInt.setData({
+					columns: aColumnData,
+					rows: dataInterior
+				});
+				var tblModelPwr = new sap.ui.model.json.JSONModel();
+				tblModelPwr.setData({
+					columns: aColumnData,
+					rows: dataPwr
+				});
+				var tblModelInfo = new sap.ui.model.json.JSONModel();
+				tblModelInfo.setData({
+					columns: aColumnData,
+					rows: dataInfo
+				});
+				var tblModelSaf = new sap.ui.model.json.JSONModel();
+				tblModelSaf.setData({
+					columns: aColumnData,
+					rows: dataSafety
+				});
+
+				var tblModelCol = new sap.ui.model.json.JSONModel();
+				tblModelCol.setData({
+					columns: aColumnData,
+					rows: dataColour
+				});
+				var tblModelOpt = new sap.ui.model.json.JSONModel();
+				tblModelOpt.setData({
+					columns: aColumnData,
+					rows: dataOpt
+				});
+				var tblModelDim = new sap.ui.model.json.JSONModel();
+				tblModelDim.setData({
+					columns: aColumnData,
+					rows: dataDim
+				});
+				var tblModelApx = new sap.ui.model.json.JSONModel();
+				tblModelApx.setData({
+					columns: aColumnData,
+					rows: dataApx
+				});
+
+				var tblExterior = DetailController.getView().byId("DetailtblExterior");
+				tblExterior.setModel(tblModelExt);
+				tblExterior.bindAggregation("columns", "/columns", function (index, context) {
+					return new sap.m.Column({
+						header: new sap.m.Label({
+							text: context.getObject().Vehicle
+						}),
+					});
+				});
+				tblExterior.bindItems("/rows", function (index, context) {
+					var obj = context.getObject();
+					var row = new sap.m.ColumnListItem();
+					for (var k in obj) {
+						row.addCell(
+							new sap.m.Text({
+								text: obj[k]
+
+							}));
+					}
+					return row;
+				});
+
+				var tblInterior = DetailController.getView().byId("DetailtblInterior");
+				tblInterior.setModel(tblModelInt);
+				tblInterior.bindAggregation("columns", "/columns", function (index, context) {
+					return new sap.m.Column({
+						header: new sap.m.Label({
+							text: context.getObject().Vehicle
+						}),
+					});
+				});
+				tblInterior.bindItems("/rows", function (index, context) {
+					var obj = context.getObject();
+					var row = new sap.m.ColumnListItem();
+					for (var k in obj) {
+						row.addCell(new sap.m.Text({
+							text: obj[k]
+								/*	{
+										parts: [{
+											path: 'obj[k]'
+										}],
+										//	formatter: DetailController.formatfunc(x)
+										formatter: function () {
+											//	console.log(x);
+											var returnCom = [];
+											if (obj[k] == "Y") {
+												returnCom.push("icon must be put");
+											} else {
+												returnCom.push(x);
+											}
+											console.log(returnCom);
+											console.log(JSON.stringify(returnCom));
+											return JSON.stringify(returnCom);
+
+										}
+									}*/
+						}));
+					}
+					return row;
+				});
+
+				var tblPowertrain = DetailController.getView().byId("DetailtblpwrTrn");
+				tblPowertrain.setModel(tblModelPwr);
+				tblPowertrain.bindAggregation("columns", "/columns", function (index, context) {
+					return new sap.m.Column({
+						header: new sap.m.Label({
+							text: context.getObject().Vehicle
+						}),
+					});
+				});
+				tblPowertrain.bindItems("/rows", function (index, context) {
+					var obj = context.getObject();
+					var row = new sap.m.ColumnListItem();
+					for (var k in obj) {
+						row.addCell(new sap.m.Text({
+							text: obj[k]
+						}));
+					}
+					return row;
+				});
+				var tblSafety = DetailController.getView().byId("DetailtblSafety");
+				tblSafety.setModel(tblModelSaf);
+				tblSafety.bindAggregation("columns", "/columns", function (index, context) {
+					return new sap.m.Column({
+						header: new sap.m.Label({
+							text: context.getObject().Vehicle
+						}),
+					});
+				});
+				tblSafety.bindItems("/rows", function (index, context) {
+					var obj = context.getObject();
+					var row = new sap.m.ColumnListItem();
+					for (var k in obj) {
+
+						row.addCell(new sap.m.Text({
+							text: obj[k]
+						}));
+					}
+					return row;
+				});
+				var tblInfotainment = DetailController.getView().byId("DetailtblInfotainment");
+				tblInfotainment.setModel(tblModelInfo);
+				tblInfotainment.bindAggregation("columns", "/columns", function (index, context) {
+					return new sap.m.Column({
+						header: new sap.m.Label({
+							text: context.getObject().Vehicle
+						}),
+					});
+				});
+				tblInfotainment.bindItems("/rows", function (index, context) {
+					var obj = context.getObject();
+					var row = new sap.m.ColumnListItem();
+					for (var k in obj) {
+
+						row.addCell(new sap.m.Text({
+							text: obj[k]
+						}));
+					}
+					return row;
+				});
+				var tblColorOptions = DetailController.getView().byId("DetailtblColorOptions");
+				tblColorOptions.setModel(tblModelCol);
+				tblColorOptions.bindAggregation("columns", "/columns", function (index, context) {
+					return new sap.m.Column({
+						header: new sap.m.Label({
+							text: context.getObject().Vehicle
+						}),
+					});
+				});
+				tblColorOptions.bindItems("/rows", function (index, context) {
+					var obj = context.getObject();
+					var row = new sap.m.ColumnListItem();
+					for (var k in obj) {
+
+						row.addCell(new sap.m.Text({
+							text: obj[k]
+						}));
+					}
+					return row;
+				});
+				var tblDimensions = DetailController.getView().byId("DetailtblDimensions");
+				tblDimensions.setModel(tblModelDim);
+				tblDimensions.bindAggregation("columns", "/columns", function (index, context) {
+					return new sap.m.Column({
+						header: new sap.m.Label({
+							text: context.getObject().Vehicle
+						}),
+					});
+				});
+				tblDimensions.bindItems("/rows", function (index, context) {
+					var obj = context.getObject();
+					var row = new sap.m.ColumnListItem();
+					for (var k in obj) {
+
+						row.addCell(new sap.m.Text({
+							text: obj[k]
+						}));
+					}
+					return row;
+				});
+				var tblOptionPack = DetailController.getView().byId("DetailtblOptionPack");
+				tblOptionPack.setModel(tblModelOpt);
+				tblOptionPack.bindAggregation("columns", "/columns", function (index, context) {
+					return new sap.m.Column({
+						header: new sap.m.Label({
+							text: context.getObject().Vehicle
+						}),
+					});
+				});
+				tblOptionPack.bindItems("/rows", function (index, context) {
+					var obj = context.getObject();
+					var row = new sap.m.ColumnListItem();
+					for (var k in obj) {
+						row.addCell(new sap.m.Text({
+							text: obj[k]
+						}));
+					}
+					return row;
+				});
+				var tblAPX = DetailController.getView().byId("DetailtblAPX");
+				tblAPX.setModel(tblModelApx);
+				tblAPX.bindAggregation("columns", "/columns", function (index, context) {
+					return new sap.m.Column({
+						header: new sap.m.Label({
+							text: context.getObject().Vehicle
+						}),
+					});
+				});
+				tblAPX.bindItems("/rows", function (index, context) {
+					var obj = context.getObject();
+					var row = new sap.m.ColumnListItem();
+					for (var k in obj) {
+						row.addCell(new sap.m.Text({
+							text: obj[k]
+						}));
+					}
+					return row;
+				});
+			}
 		},
 		_onFioriObjectPageHeaderPress: function () {
 			var oHistory = History.getInstance();
 			var sPreviousHash = oHistory.getPreviousHash();
-			var oQueryParams = this.getQueryParameters(window.location);
+			var oQueryParams = DetailController.getQueryParameters(window.location);
 
 			if (sPreviousHash !== undefined || oQueryParams.navBackToLaunchpad) {
 				window.history.go(-1);
 			} else {
-				var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+				var oRouter = sap.ui.core.UIComponent.getRouterFor(DetailController);
 				oRouter.navTo("default", true);
 			}
 
@@ -55,15 +438,15 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 		_onFioriObjectPageActionButtonPress: function () {
 
 			var sDialogName = "CreateVehicleGuideDialog";
-			this.mDialogs = this.mDialogs || {};
-			var oDialog = this.mDialogs[sDialogName];
+			DetailController.mDialogs = DetailController.mDialogs || {};
+			var oDialog = DetailController.mDialogs[sDialogName];
 
 			if (!oDialog) {
-				oDialog = new CreateVehicleGuideDialog(this.getView());
-				this.mDialogs[sDialogName] = oDialog;
+				oDialog = new CreateVehicleGuideDialog(DetailController.getView());
+				DetailController.mDialogs[sDialogName] = oDialog;
 
 				// For navigation.
-				oDialog.setRouter(this.oRouter);
+				oDialog.setRouter(DetailController.oRouter);
 			}
 			oDialog.open();
 
@@ -71,15 +454,15 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 		_onFioriObjectPageActionButtonPress1: function () {
 
 			var sDialogName = "CreateVehicleGuideDialog";
-			this.mDialogs = this.mDialogs || {};
-			var oDialog = this.mDialogs[sDialogName];
+			DetailController.mDialogs = DetailController.mDialogs || {};
+			var oDialog = DetailController.mDialogs[sDialogName];
 
 			if (!oDialog) {
-				oDialog = new CreateVehicleGuideDialog(this.getView());
-				this.mDialogs[sDialogName] = oDialog;
+				oDialog = new CreateVehicleGuideDialog(DetailController.getView());
+				DetailController.mDialogs[sDialogName] = oDialog;
 
 				// For navigation.
-				oDialog.setRouter(this.oRouter);
+				oDialog.setRouter(DetailController.oRouter);
 			}
 			oDialog.open();
 
@@ -87,15 +470,15 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 		_onFioriObjectPageActionButtonPress2: function () {
 
 			var sDialogName = "CreateVehicleGuideDialog";
-			this.mDialogs = this.mDialogs || {};
-			var oDialog = this.mDialogs[sDialogName];
+			DetailController.mDialogs = DetailController.mDialogs || {};
+			var oDialog = DetailController.mDialogs[sDialogName];
 
 			if (!oDialog) {
-				oDialog = new CreateVehicleGuideDialog(this.getView());
-				this.mDialogs[sDialogName] = oDialog;
+				oDialog = new CreateVehicleGuideDialog(DetailController.getView());
+				DetailController.mDialogs[sDialogName] = oDialog;
 
 				// For navigation.
-				oDialog.setRouter(this.oRouter);
+				oDialog.setRouter(DetailController.oRouter);
 			}
 			oDialog.open();
 
@@ -103,15 +486,15 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 		_onFioriObjectPageActionButtonPress3: function () {
 
 			var sDialogName = "CreateVehicleGuideDialog";
-			this.mDialogs = this.mDialogs || {};
-			var oDialog = this.mDialogs[sDialogName];
+			DetailController.mDialogs = DetailController.mDialogs || {};
+			var oDialog = DetailController.mDialogs[sDialogName];
 
 			if (!oDialog) {
-				oDialog = new CreateVehicleGuideDialog(this.getView());
-				this.mDialogs[sDialogName] = oDialog;
+				oDialog = new CreateVehicleGuideDialog(DetailController.getView());
+				DetailController.mDialogs[sDialogName] = oDialog;
 
 				// For navigation.
-				oDialog.setRouter(this.oRouter);
+				oDialog.setRouter(DetailController.oRouter);
 			}
 			oDialog.open();
 
@@ -122,8 +505,8 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			console.log(oBindingContext);
 			return new Promise(function (fnResolve) {
 
-				this.doNavigate("AdminDetailsOption", oBindingContext, fnResolve, "");
-			}.bind(this)).catch(function (err) {
+				DetailController.doNavigate("AdminDetailsOption", oBindingContext, fnResolve, "");
+			}.bind(DetailController)).catch(function (err) {
 				if (err !== undefined) {
 					MessageBox.error(err.message);
 				}
@@ -143,16 +526,17 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				sEntityNameSet = sPath.split("(")[0];
 			}
 			var sNavigationPropertyName;
-			var sMasterContext = this.sMasterContext ? this.sMasterContext : sPath;
+			var sMasterContext = DetailController.sMasterContext ? DetailController.sMasterContext : sPath;
 
 			if (sEntityNameSet !== null) {
-				sNavigationPropertyName = sViaRelation || this.getOwnerComponent().getNavigationPropertyForNavigationWithContext(sEntityNameSet,
+				sNavigationPropertyName = sViaRelation || DetailController.getOwnerComponent().getNavigationPropertyForNavigationWithContext(
+					sEntityNameSet,
 					sRouteName);
 			}
 			console.log(sNavigationPropertyName);
 			if (sNavigationPropertyName !== null && sNavigationPropertyName !== undefined) {
 				if (sNavigationPropertyName === "") {
-					this.oRouter.navTo(sRouteName, {
+					DetailController.oRouter.navTo(sRouteName, {
 						context: sPath,
 						masterContext: sMasterContext
 					}, false);
@@ -167,19 +551,19 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 							sPath = "undefined";
 						}
 
-						// If the navigation is a 1-n, sPath would be "undefined" as this is not supported in Build
+						// If the navigation is a 1-n, sPath would be "undefined" as DetailController is not supported in Build
 						if (sPath === "undefined") {
-							this.oRouter.navTo(sRouteName);
+							DetailController.oRouter.navTo(sRouteName);
 						} else {
-							this.oRouter.navTo(sRouteName, {
+							DetailController.oRouter.navTo(sRouteName, {
 								context: sPath,
 								masterContext: sMasterContext
 							}, false);
 						}
-					}.bind(this));
+					}.bind(DetailController));
 				}
 			} else {
-				this.oRouter.navTo(sRouteName);
+				DetailController.oRouter.navTo(sRouteName);
 			}
 
 			if (typeof fnPromiseResolve === "function") {
@@ -220,7 +604,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				"groups": ["items"]
 			}];
 			for (var i = 0; i < aControls.length; i++) {
-				var oControl = this.getView().byId(aControls[i].controlId);
+				var oControl = DetailController.getView().byId(aControls[i].controlId);
 				for (var j = 0; j < aControls[i].groups.length; j++) {
 					var sAggregationName = aControls[i].groups[j];
 					var oBindingInfo = oControl.getBindingInfo(sAggregationName);
