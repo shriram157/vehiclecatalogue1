@@ -67,7 +67,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="Interior">
 						<uxap:blocks>
-							<Table id="tblInterior" width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="None">
+							<Table id="tblInterior" width="100%" growing="true" growingScrollToLoad="false" growingThreshold="30" mode="None">
 								
 							</Table>
 						</uxap:blocks>
@@ -78,7 +78,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="Exterior">
 						<uxap:blocks>
-							<Table id="tblExterior" width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="None">
+							<Table id="tblExterior" width="100%" growing="true" growingScrollToLoad="false" growingThreshold="30" mode="None">
 								
 							</Table>
 						</uxap:blocks>
@@ -89,7 +89,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="Powertrain &amp; Mechanical">
 						<uxap:blocks>
-							<Table id="pwrTrn" width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="None">
+							<Table id="pwrTrn" width="100%" growing="true" growingScrollToLoad="false" growingThreshold="30" mode="None">
 							
 							</Table>
 						</uxap:blocks>
@@ -100,7 +100,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="Safety &amp; Convenience">
 						<uxap:blocks>
-							<Table id="tblSafety" width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="None">
+							<Table id="tblSafety" width="100%" growing="true" growingScrollToLoad="false" growingThreshold="30" mode="None">
 							
 							</Table>
 						</uxap:blocks>
@@ -111,7 +111,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="Infotainment">
 						<uxap:blocks>
-							<Table id="tblInfotainment" width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="None">
+							<Table id="tblInfotainment" width="100%" growing="true" growingScrollToLoad="false" growingThreshold="30" mode="None">
 							
 							</Table>
 						</uxap:blocks>
@@ -122,7 +122,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="Color Options">
 						<uxap:blocks>
-							<Table id="tblColorOptions" width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="None">
+							<Table id="tblColorOptions" width="100%" growing="true" growingScrollToLoad="false" growingThreshold="30" mode="None">
 							
 							</Table>
 						</uxap:blocks>
@@ -133,7 +133,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="Dimensions &amp; Specs">
 						<uxap:blocks>
-							<Table id="tblDimensions" width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="None">
+							<Table id="tblDimensions" width="100%" growing="true" growingScrollToLoad="false" growingThreshold="30" mode="None">
 							</Table>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
@@ -143,7 +143,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="Option Packages">
 						<uxap:blocks>
-							<Table id="tblOptionPack" width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="None">
+							<Table id="tblOptionPack" width="100%" growing="true" growingScrollToLoad="false" growingThreshold="30" mode="None">
 							</Table>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
@@ -153,7 +153,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="APX">
 						<uxap:blocks>
-							<Table id="tblAPX" width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="None">
+							<Table id="tblAPX" width="100%" growing="true" growingScrollToLoad="false" growingThreshold="30" mode="None">
 								
 							</Table>
 						</uxap:blocks>

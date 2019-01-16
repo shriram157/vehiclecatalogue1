@@ -4,11 +4,13 @@ var formatter = {
 
 	formatFeatures: function (str,str2) {
 		var feat="";
+		var feature="";
 		if (str) {
 		var res = str.replace(/;/g, "#- ");
 		feat= res.split('#').join('\n');
+		feature="- "+ feat;
 		}
-		return feat;
+		return feature;
 	},
 	formatSuffix: function (str,str2) {
 		var sufStr="";

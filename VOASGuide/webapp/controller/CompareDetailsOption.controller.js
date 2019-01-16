@@ -4,63 +4,38 @@ sap.ui.define([
 	"./util/CreateVehicleGuideDialog",
 	"./util/utilities",
 	"sap/ui/core/routing/History"
-	//	"./util/formatter"
 ], function (BaseController, MessageBox, CreateVehicleGuideDialog, Utilities,
 	History) {
 	"use strict";
 	var CDO_controller;
 	return BaseController.extend("com.sap.build.toyota-canada.vehiclesGuideV3.controller.CompareDetailsOption", {
-		//	formatter: formatter,
 		onInit: function () {
 			CDO_controller = this;
 			CDO_controller.oRouter = sap.ui.core.UIComponent.getRouterFor(CDO_controller);
 			CDO_controller.oRouter.getTarget("CompareDetailsOption").attachDisplay(jQuery.proxy(CDO_controller.handleRouteMatched,
 				CDO_controller));
-			//	CDO_controller.setDataToTable();
 		},
-
-		/*	setDataToTable: function () {
-
-				var host = CDO_controller.host();
-				var urlTable = host +
-					"/Z_VEHICLE_CATALOGUE_SRV/ZC_VOAS_COMP_HEADERSet?$filter= (IN_Vehicle1 eq '2019Camry SEAM' and IN_Vehicle2 eq '2019Camry LEAM' )&$expand=ZCVOASDEEP";
-				$.ajax({
-					url: urlTable,
-					method: 'GET',
-					async: false,
-					dataType: 'json',
-					success: function (data, textStatus, jqXHR) {
-						var tblModel = new sap.ui.model.json.JSONModel(data.d.results);
-						CDO_controller.getView().setModel(tblModel, "TblModel");
-					},
-					error: function (jqXHR, textStatus, errorThrown) {
-						sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error", sap
-							.m.MessageBox.Action.OK, null, null);
-					}
-				});
-
-			},*/
 
 		handleRouteMatched: function (oEvent) {
 			var fixedData = {
 				Vehicle: " "
 			};
-			var empData;
-			var arrNewData = [];
+
 			var aColumnData = [];
 			aColumnData.push(fixedData);
 			aColumnData.push(fixedData);
 
 			var arg2 = oEvent.getParameters().data.num2;
 			var parseArg = JSON.parse(arg2);
-			console.log(parseArg[0]);
 			var modelArg = new sap.ui.model.json.JSONModel(parseArg[0]);
-			console.log(modelArg.getData());
-			this.getView().setModel(modelArg, "modelArg");
-			var dataModelArg = this.getView().getModel('modelArg').getData();
+			CDO_controller.getView().setModel(modelArg, "modelArg");
+			var dataModelArg = CDO_controller.getView().getModel('modelArg').getData();
 			var brandCBVal = dataModelArg.brand;
 			var modelYearCBVal = dataModelArg.moYear;
 			var seriesCBVal = dataModelArg.series;
+
+			var empData;
+			var arrNewData = [];
 			var vehDescString = "";
 			var newVehStr = "";
 			var modelArr = [];
@@ -72,37 +47,46 @@ sap.ui.define([
 			var suffixText = [];
 			var suffixDescString;
 			var vehArr = [];
+
 			var parsePathArg = JSON.parse(parseArg[0].pathVeh);
 			var len = parsePathArg.length;
 
 			if (parseArg[0].model !== "") {
-				var parseModelPathArg = JSON.parse(parseArg[0].model);
-				var lenModel = parseModelPathArg.length;
-				var jsonModel = JSON.parse(parseArg[0].model);
-				for (var i = 0; i < lenModel; i++) {
-					modelText[i] = jsonModel[i];
-					var modelText2 = "Model eq '" + modelText[i] + "'";
-					modelArr.push(modelText2);
-				}
-				modelDescString = modelArr.toString();
-				newModelStr = modelDescString.replace(/,/g, ' or ');
-
+			/*	if (parseArg[0].model !== "[]") {
+					newModelStr = "Model eq '" +parseArg[0].model;
+				} else {*/
+					var parseModelPathArg = JSON.parse(parseArg[0].model);
+					var lenModel = parseModelPathArg.length;
+					var jsonModel = JSON.parse(parseArg[0].model);
+					for (var i = 0; i < lenModel; i++) {
+						modelText[i] = jsonModel[i];
+						var modelText2 = "Model eq '" + modelText[i] + "'";
+						modelArr.push(modelText2);
+					}
+					modelDescString = modelArr.toString();
+					newModelStr = modelDescString.replace(/,/g, ' or ');
+			/*	}*/
 			} else {
 				modelDescString = "";
 				newModelStr = "";
 			}
 
 			if (parseArg[0].suffix !== "") {
-				var parseSuffixPathArg = JSON.parse(parseArg[0].suffix);
-				var lenSuffix = parseSuffixPathArg.length;
-				var jsonSuffix = JSON.parse(parseArg[0].suffix);
-				for (var j = 0; j < lenSuffix; j++) {
-					suffixText[i] = jsonSuffix[j];
-					var suffixText2 = "Suffix eq '" + suffixText[i] + "'";
-					suffixArr.push(suffixText2);
-				}
-				suffixDescString = suffixArr.toString();
-				newSuffixStr = suffixDescString.replace(/,/g, ' or ');
+				/*console.log(parseArg[0].suffix);
+				if (parseArg[0].suffix !== "[]") {
+					newSuffixStr = "Suffix eq '" +parseArg[0].suffix;
+				} else {*/
+					var parseSuffixPathArg = JSON.parse(parseArg[0].suffix);
+					var lenSuffix = parseSuffixPathArg.length;
+					var jsonSuffix = JSON.parse(parseArg[0].suffix);
+					for (var j = 0; j < lenSuffix; j++) {
+						suffixText[i] = jsonSuffix[j];
+						var suffixText2 = "Suffix eq '" + suffixText[i] + "'";
+						suffixArr.push(suffixText2);
+					}
+					suffixDescString = suffixArr.toString();
+					newSuffixStr = suffixDescString.replace(/,/g, ' or ');
+			/*	}*/
 			} else {
 				suffixDescString = "";
 				newSuffixStr = "";
@@ -155,10 +139,10 @@ sap.ui.define([
 				success: function (data, textStatus, jqXHR) {
 					var tblModel = new sap.ui.model.json.JSONModel(data.d.results);
 					CDO_controller.getView().setModel(tblModel, "searchTblModel");
-					//	var _empData = CDO_controller.getView().getModel("searchTblModel").getData();
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
-					sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error", sap
+					sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
+						sap
 						.m.MessageBox.Action.OK, null, null);
 				}
 			});
@@ -166,6 +150,8 @@ sap.ui.define([
 				var urlTable = host +
 					"/Z_VEHICLE_CATALOGUE_SRV/ZC_VOAS_COMP_HEADERSet?$filter= (" + newVehStr + ")&$expand=ZCVOASDEEP";
 				//IN_Vehicle1 eq '2019Camry SEAM' and IN_Vehicle2 eq '2019Camry LEAM' )&$expand=ZCVOASDEEP";
+				//	"/Z_VEHICLE_CATALOGUE_SRV/ZC_VOAS_COMP_HEADERSet?$filter=(IN_Vehicle1 eq '2018Camry SEA' and IN_Vehicle2 eq '2018Camry LEA' )&$expand=ZCVOASDEEP";
+
 				$.ajax({
 					url: urlTable,
 					method: 'GET',
@@ -177,15 +163,13 @@ sap.ui.define([
 					},
 					error: function (jqXHR, textStatus, errorThrown) {
 						sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
-							sap
-							.m.MessageBox.Action.OK, null, null);
+							sap.m.MessageBox.Action.OK, null, null);
 					}
 				});
 			}
 
 			if (CDO_controller.getView().getModel("searchTblModel")) {
 				empData = CDO_controller.getView().getModel("searchTblModel").getData();
-				console.log(empData);
 				var modLen = empData.length;
 				for (var i = 0; i < len; i++) {
 					for (var k = 0; k < modLen; k++) {
@@ -227,16 +211,16 @@ sap.ui.define([
 						if (dat[j].Super_catgy == "INFOTAINMENT") {
 							dtInfo = dat[j].ZCVOASDEEP.results;
 						}
-						if (dat[j].Super_catgy == "Colour") {
+						if (dat[j].Super_catgy == "COLOR OPTIONS") {
 							dtCol = dat[j].ZCVOASDEEP.results;
 						}
-						if (dat[j].Super_catgy == "Dimension") {
+						if (dat[j].Super_catgy == "DIMENSIONS/SPECS") {
 							dtDim = dat[j].ZCVOASDEEP.results;
 						}
 						if (dat[j].Super_catgy == "APX") {
 							dtApx = dat[j].ZCVOASDEEP.results;
 						}
-						if (dat[j].Super_catgy == "Optics") {
+						if (dat[j].Super_catgy == "OPTION PACKAGES") {
 							dtOpt = dat[j].ZCVOASDEEP.results;
 						}
 
@@ -304,10 +288,11 @@ sap.ui.define([
 					}
 
 					var dataColour = [];
+
 					for (var i = 0; i < dtCol.length; i++) {
 						dataColour.push({
-							"Category_en": dtCol[i].Category_en,
-							"Cust_fac_desc_en": dtCol[i].Cust_fac_desc_en,
+							"Category_en": dtCol[i].EXT + "-" + dtCol[i].EXT_DESC + "\n" + dtCol[i].INT_DESC,
+							"Cust_fac_desc_en": "MSRP: " + dtCol[i].MSRP + "\nDealer Net: " + dtCol[i].NETPRICE,
 							"Vehicle1": dtCol[i].Vehicle1,
 							"Vehicle2": dtCol[i].Vehicle2,
 							"Vehicle3": dtCol[i].Vehicle3,
@@ -410,10 +395,7 @@ sap.ui.define([
 						});
 					});
 					tblExterior.bindItems("/rows", function (index, context) {
-						console.log(context);
 						var obj = context.getObject();
-						console.log(obj);
-						//var x = [];
 						var row = new sap.m.ColumnListItem();
 						for (var k in obj) {
 							row.addCell(
@@ -463,7 +445,7 @@ sap.ui.define([
 						}
 						return row;
 					});
-					//	CDO_controller.handleUITable();
+
 					var tblPowertrain = CDO_controller.getView().byId("pwrTrn");
 					tblPowertrain.setModel(tblModelPwr);
 					tblPowertrain.bindAggregation("columns", "/columns", function (index, context) {
@@ -493,9 +475,7 @@ sap.ui.define([
 						});
 					});
 					tblSafety.bindItems("/rows", function (index, context) {
-						console.log(context);
 						var obj = context.getObject();
-						console.log(obj);
 						var row = new sap.m.ColumnListItem();
 						for (var k in obj) {
 
@@ -515,9 +495,7 @@ sap.ui.define([
 						});
 					});
 					tblInfotainment.bindItems("/rows", function (index, context) {
-						console.log(context);
 						var obj = context.getObject();
-						console.log(obj);
 						var row = new sap.m.ColumnListItem();
 						for (var k in obj) {
 
@@ -537,9 +515,7 @@ sap.ui.define([
 						});
 					});
 					tblColorOptions.bindItems("/rows", function (index, context) {
-						console.log(context);
 						var obj = context.getObject();
-						console.log(obj);
 						var row = new sap.m.ColumnListItem();
 						for (var k in obj) {
 
@@ -559,9 +535,7 @@ sap.ui.define([
 						});
 					});
 					tblDimensions.bindItems("/rows", function (index, context) {
-						console.log(context);
 						var obj = context.getObject();
-						console.log(obj);
 						var row = new sap.m.ColumnListItem();
 						for (var k in obj) {
 
@@ -613,35 +587,6 @@ sap.ui.define([
 			}
 		},
 
-		/*handleRouteMatched: function (oEvent) {
-			var sAppId = "App5bb531dd96990b5ac99be4fa";
-			var oParams = {};
-			if (oEvent.mParameters.data.context) {
-				CDO_controller.sContext = oEvent.mParameters.data.context;
-			} else {
-				if (CDO_controller.getOwnerComponent().getComponentData()) {
-					var patternConvert = function (oParam) {
-						if (Object.keys(oParam).length !== 0) {
-							for (var prop in oParam) {
-								if (prop !== "sourcePrototype") {
-									return prop + "(" + oParam[prop][0] + ")";
-								}
-							}
-						}
-					};
-					CDO_controller.sContext = patternConvert(CDO_controller.getOwnerComponent().getComponentData().startupParameters);
-				}
-			}
-			var oPath;
-			if (CDO_controller.sContext) {
-				oPath = {
-					path: "/" + CDO_controller.sContext,
-					parameters: oParams
-				};
-				CDO_controller.getView().bindObject(oPath);
-			}
-		},
-*/
 		_onFioriObjectPageHeaderPress: function () {
 			var oHistory = History.getInstance();
 			var sPreviousHash = oHistory.getPreviousHash();
@@ -674,8 +619,6 @@ sap.ui.define([
 			if (!oDialog) {
 				oDialog = new CreateVehicleGuideDialog(CDO_controller.getView());
 				CDO_controller.mDialogs[sDialogName] = oDialog;
-
-				// For navigation.
 				oDialog.setRouter(CDO_controller.oRouter);
 			}
 			oDialog.open();
@@ -684,7 +627,6 @@ sap.ui.define([
 
 		onExit: function () {
 
-			// to destroy templates for bound aggregations when templateShareable is true on exit to prevent duplicateId issue
 			var aControls = [{
 				"controlId": "Fiori_ObjectPage_ObjectPage_0-sections-Fiori_ObjectPage_Section-2-sectionContent-Fiori_ObjectPage_Table-1-wnw808wyovfxodem91vmf5035_S5",
 				"groups": ["items"]
@@ -726,31 +668,5 @@ sap.ui.define([
 		}
 	});
 }, /* bExport= */ true);
-/*
+
 						
-						*/
-/*		handleRouteMatched: function (oEvent) {
-			var arg2=oEvent.getParameters().data.num2;
-			var parseArg=JSON.parse(arg2);
-			var len=parseArg.length;
-			var model = new sap.ui.getCore().getModel('employee');
-			CDO_controller.getView().setModel(model);
-			for(var i=0; i<len;i++){
-				var	oView = CDO_controller.getView();
-				oView.bindElement({
-				path: "/"+(parseArg[i])
-			});
-			}
-		
-		},*/
-/*	formatfunc: function (x) {
-		console.log(x);
-		var returnCom = "";
-		if (x == "yes") {
-			returnCom = "yessss";
-		} else {
-			returnCom = " ";
-		}
-		console.log(returnCom)
-		return returnCom;
-	},*/

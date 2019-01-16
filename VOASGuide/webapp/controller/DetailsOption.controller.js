@@ -1,4 +1,4 @@
-sap.ui.define([	"com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseController",
+sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseController",
 	"sap/m/MessageBox",
 	"./util/CreateVehicleGuideDialog",
 	"./util/utilities",
@@ -7,66 +7,27 @@ sap.ui.define([	"com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseCont
 	"use strict";
 
 	return BaseController.extend("com.sap.build.toyota-canada.vehiclesGuideV3.controller.DetailsOption", {
-			onInit: function () {
-					var model= new sap.ui.getCore().getModel('employee');
-					console.log(model.getData());
-			this.getView().setModel(model);
+		onInit: function () {
 			this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			this.oRouter.getTarget("DetailsOption").attachDisplay(jQuery.proxy(this.handleRouteMatched, this));
 
 		},
-	/*	handleRouteMatched: function (oEvent) {
-			var sAppId = "App5bb531dd96990b5ac99be4fa";
-			var oParams = {};
-			console.log(oEvent.getParameters());
-			console.log(oEvent.getParameters().data);
-			console.log(oEvent.getParameters().data.context);
-			if (oEvent.mParameters.data.context) {
-				this.sContext = oEvent.mParameters.data.context;
-			console.log(this.sContext);
-			} else {
-				if (this.getOwnerComponent().getComponentData()) {
-					var patternConvert = function (oParam) {
-						if (Object.keys(oParam).length !== 0) {
-							for (var prop in oParam) {
-								if (prop !== "sourcePrototype") {
-									return prop + "(" + oParam[prop][0] + ")";
-								}
-							}
-						}
-					};
 
-					this.sContext = patternConvert(this.getOwnerComponent().getComponentData().startupParameters);
-					console.log(this.getOwnerComponent().getComponentData().startupParameters);
-				}
-			}
-			console.log(this.sContext);
-			var oPath;
-
-			if (this.sContext) {
-				oPath = {
-					path: "/" + this.sContext,
-					parameters: oParams
-				};
-				this.getView().bindObject(oPath);
-				console.log(oPath);
-			}
-			console.log(this.sContext);
-		},*/
-			handleRouteMatched: function (oEvent) {
-		//	var arg=oEvent.getParameter("arguments");
+		handleRouteMatched: function (oEvent) {
 			console.log(oEvent.getParameters());
 			console.log(oEvent.getParameters().data.num);
-			var arg2=oEvent.getParameters().data.num;
-			var pt="/"+"("+arg2+")";
-			var	oView = this.getView();
-				oView.bindElement({
-				path: "/"+(arg2)
-			});
-			console.log(pt);
-			console.log("/"+(arg2));
-			console.log(oView);
-			console.log(oView.getBinding());
+				var parseArg = JSON.parse(oEvent.getParameters().data.num);
+			console.log(parseArg[0].path);
+			var modelDetail = new sap.ui.model.json.JSONModel(parseArg);
+			this.getView().setModel(modelDetail, "modelDetail");
+			console.log(this.getView().getModel("modelDetail").getData());
+		/*	var arg2 = oEvent.getParameters().data.num;
+			var pt = "/" + "(" + arg2 + ")";
+			var oView = this.getView();
+			oView.bindElement({
+				path: "/" + (arg2)
+			});*/
+
 		},
 		_onFioriObjectPageHeaderPress: function () {
 			var oHistory = History.getInstance();
@@ -226,7 +187,7 @@ sap.ui.define([	"com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseCont
 			}
 			console.log(sPath);
 		},
-	
+
 		onExit: function () {
 
 			// to destroy templates for bound aggregations when templateShareable is true on exit to prevent duplicateId issue
@@ -270,4 +231,4 @@ sap.ui.define([	"com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseCont
 
 		}
 	});
-}, /* bExport= */ true);
+}, true);

@@ -3,7 +3,7 @@
 	<uxap:ObjectPageLayout showTitleInHeaderContent="false" showHeaderContent="true" showEditHeaderButton="false" showFooter="false"
 		class="sapUiSizeCompact">
 		<uxap:headerTitle>
-			<uxap:ObjectPageHeader objectTitle="2019 Toyota Camry - See All Features" objectSubtitle="See All Features" isObjectIconAlwaysVisible="false"
+			<uxap:ObjectPageHeader objectTitle="{modelDetail>/moYear} {modelDetail>/brand} {modelDetail>/series}  - See All Features"  isObjectIconAlwaysVisible="false"
 				isObjectTitleAlwaysVisible="true" isObjectSubtitleAlwaysVisible="true" showPlaceholder="true"
 				objectImageURI="/build/uilibraries/content/static/image-canvas.svg">
 				<uxap:navigationBar>
@@ -53,32 +53,32 @@
 			</uxap:ObjectPageHeader>
 		</uxap:headerTitle>
 		<uxap:headerContent>
-			<Label text="Include Std. Features" design="Standard" width="139px" required="false" textAlign="Right" textDirection="Inherit"
+			<!--<Label text="Include Std. Features" design="Standard" width="139px" required="false" textAlign="Right" textDirection="Inherit"
 				visible="true" class="sapUiTinyMargin"/>
 			<Switch state="true" customTextOff="On" customTextOn="Off" type="Default" enabled="true" visible="true" class="sapUiTinyMargin"/>
-			<ToolbarSpacer width="289.21875px"/>
+			<ToolbarSpacer width="289.21875px"/>-->
 			<VBox>
 				<items>
-					<Title text="{Category}"/>
+					<Title text="{modelDetail>/veh}"/>
 					<HBox>
 						<items>
 							<Label text="Model"/>
 							<Label text=":" class="sapUiTinyMarginEnd"/>
-							<ObjectStatus text="{Category}"/>
+							<ObjectStatus text="{modelDetail>/model}"/>
 						</items>
 					</HBox>
 					<HBox>
 						<items>
 							<Label text="MSRP"/>
 							<Label text=":" class="sapUiTinyMarginEnd"/>
-							<ObjectStatus text="{Category} $78"/>
+							<ObjectStatus text="{modelDetail>/msrp} "/>
 						</items>
 					</HBox>
 					<HBox>
 						<items>
 							<Label text="Dealer Net"/>
 							<Label text=":" class="sapUiTinyMarginEnd"/>
-							<ObjectStatus text="{Category}"/>
+							<ObjectStatus text="{modelDetail>/dealerNet}"/>
 						</items>
 					</HBox>
 				</items>
