@@ -19,10 +19,13 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			var parseArg = JSON.parse(oEvent.getParameters().data.num);
 			var modelDetail = new sap.ui.model.json.JSONModel(parseArg[0]);
 			var veh = parseArg[0].veh;
-			console.log(veh);
+			var suffix = parseArg[0].suffix;
+			var vehSuffix = veh + suffix;
+			console.log(vehSuffix);
 			DetailController.getView().setModel(modelDetail, "modelDetail");
 			var host = DetailController.host();
-			var urlTable = host + "/Z_VEHICLE_CATALOGUE_SRV/ZC_VOAS_COMP_HEADERSet?$filter=(IN_Vehicle1 eq '" + veh + "')&$expand=ZCVOASDEEP";
+			var urlTable = host + "/Z_VEHICLE_CATALOGUE_SRV/ZC_VOAS_COMP_HEADERSet?$filter=(IN_Vehicle1 eq '" + vehSuffix +
+				"')&$expand=ZCVOASDEEP";
 			$.ajax({
 				url: urlTable,
 				method: 'GET',
@@ -38,14 +41,22 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				}
 			});
 			var fixedData = {
-				Vehicle: ''
+				'veh': ''
 			};
-
+			var fixedData2 = {
+				'veh': veh+ "  - SFX " + suffix,
+			};
+				var fixedDataCol = {
+				'veh': veh,
+			};
 			var aColumnData = [];
 			aColumnData.push(fixedData);
 			aColumnData.push(fixedData);
-			aColumnData.push(veh);
-			console.log(aColumnData);
+			aColumnData.push(fixedData2);
+				var aColumnDataCol = [];
+			aColumnDataCol.push(fixedData);
+			aColumnDataCol.push(fixedData);
+			aColumnDataCol.push(fixedDataCol);
 
 			if (DetailController.getView().getModel("TblModel")) {
 				var dat = DetailController.getView().getModel("TblModel").getData();
@@ -78,7 +89,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					if (dat[j].Super_catgy == "COLOR OPTIONS") {
 						dtCol = dat[j].ZCVOASDEEP.results;
 					}
-					if (dat[j].Super_catgy == "DIMENSIONS") {
+					if (dat[j].Super_catgy == "DIMENSIONS & SPECS") {
 						dtDim = dat[j].ZCVOASDEEP.results;
 					}
 					if (dat[j].Super_catgy == "APX") {
@@ -143,7 +154,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				var dataDim = [];
 				for (var i = 0; i < dtDim.length; i++) {
 					dataDim.push({
-						"Category_en": dtDim[i].Category_en,
+						"Category_en": dtDim[i].Dimensions,
 						"Cust_fac_desc_en": dtDim[i].Cust_fac_desc_en,
 						"Vehicle1": dtDim[i].Vehicle1
 					});
@@ -151,20 +162,28 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				var dataOpt = [];
 				for (var i = 0; i < dtOpt.length; i++) {
 					dataOpt.push({
-						"Category_en": dtOpt[i].Category_en,
-						"Cust_fac_desc_en": dtOpt[i].Cust_fac_desc_en,
-						"Vehicle1": dtOpt[i].Vehicle1
+						"Category_en": dtOpt[i].Vehicle1+ "\n" +"MSRP: "+dtOpt[i].MSRP+ " " +"Dealer Net: "+dtOpt[i].NETPRICE,
+						"Vehicle1": dtOpt[i].OptionPackages
 					});
 				}
+				var fixedDataOptPackage = {
+					'optPack': "Package Details"
+				};
+				var fixedDataOptPackage2 = {
+					'optPack': "",
+				};
+				var aColumnDataOpt = [];
+				aColumnDataOpt.push(fixedDataOptPackage2);
+				aColumnDataOpt.push(fixedDataOptPackage);
 				var dataApx = [];
 				for (var i = 0; i < dtApx.length; i++) {
 					dataApx.push({
-						"Category_en": dtApx[i].Category_en,
-						"Cust_fac_desc_en": dtApx[i].Cust_fac_desc_en,
+						"Category_en": dtApx[i].APX,
+						"Cust_fac_desc_en": dtApx[i].INT_DESC,
 						"Vehicle1": dtApx[i].Vehicle1
 					});
 				}
-				
+
 				var tblModelExt = new sap.ui.model.json.JSONModel();
 				tblModelExt.setData({
 					columns: aColumnData,
@@ -193,12 +212,13 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 
 				var tblModelCol = new sap.ui.model.json.JSONModel();
 				tblModelCol.setData({
-					columns: aColumnData,
+					columns: aColumnDataCol,
 					rows: dataColour
 				});
+
 				var tblModelOpt = new sap.ui.model.json.JSONModel();
 				tblModelOpt.setData({
-					columns: aColumnData,
+					columns: aColumnDataOpt,
 					rows: dataOpt
 				});
 				var tblModelDim = new sap.ui.model.json.JSONModel();
@@ -217,7 +237,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				tblExterior.bindAggregation("columns", "/columns", function (index, context) {
 					return new sap.m.Column({
 						header: new sap.m.Label({
-							text: context.getObject().Vehicle
+							text: context.getObject().veh
 						}),
 					});
 				});
@@ -239,7 +259,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				tblInterior.bindAggregation("columns", "/columns", function (index, context) {
 					return new sap.m.Column({
 						header: new sap.m.Label({
-							text: context.getObject().Vehicle
+							text: context.getObject().veh
 						}),
 					});
 				});
@@ -278,7 +298,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				tblPowertrain.bindAggregation("columns", "/columns", function (index, context) {
 					return new sap.m.Column({
 						header: new sap.m.Label({
-							text: context.getObject().Vehicle
+							text: context.getObject().veh
 						}),
 					});
 				});
@@ -297,7 +317,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				tblSafety.bindAggregation("columns", "/columns", function (index, context) {
 					return new sap.m.Column({
 						header: new sap.m.Label({
-							text: context.getObject().Vehicle
+							text: context.getObject().veh
 						}),
 					});
 				});
@@ -317,7 +337,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				tblInfotainment.bindAggregation("columns", "/columns", function (index, context) {
 					return new sap.m.Column({
 						header: new sap.m.Label({
-							text: context.getObject().Vehicle
+							text: context.getObject().veh
 						}),
 					});
 				});
@@ -337,7 +357,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				tblColorOptions.bindAggregation("columns", "/columns", function (index, context) {
 					return new sap.m.Column({
 						header: new sap.m.Label({
-							text: context.getObject().Vehicle
+							text: context.getObject().veh
 						}),
 					});
 				});
@@ -357,7 +377,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				tblDimensions.bindAggregation("columns", "/columns", function (index, context) {
 					return new sap.m.Column({
 						header: new sap.m.Label({
-							text: context.getObject().Vehicle
+							text: context.getObject().veh
 						}),
 					});
 				});
@@ -377,7 +397,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				tblOptionPack.bindAggregation("columns", "/columns", function (index, context) {
 					return new sap.m.Column({
 						header: new sap.m.Label({
-							text: context.getObject().Vehicle
+							text: context.getObject().optPack
 						}),
 					});
 				});
@@ -396,7 +416,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				tblAPX.bindAggregation("columns", "/columns", function (index, context) {
 					return new sap.m.Column({
 						header: new sap.m.Label({
-							text: context.getObject().Vehicle
+							text: context.getObject().veh
 						}),
 					});
 				});

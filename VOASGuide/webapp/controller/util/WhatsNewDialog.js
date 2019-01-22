@@ -63,7 +63,7 @@ sap.ui.define([
 			return {};
 
 		},
-		_onButtonPress: function (oEvent) {
+		_uploadPDFFile: function (oEvent) {
 
 			oEvent = jQuery.extend(true, {}, oEvent);
 			return new Promise(function (fnResolve) {

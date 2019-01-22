@@ -4,42 +4,46 @@ sap.ui.define([
 	"./utilities",
 	"sap/ui/core/routing/History"
 ], function (ManagedObject, MessageBox, Utilities, History) {
-
+var CreateWhatsNewDialogController;
 	return ManagedObject.extend("com.sap.build.toyota-canada.vehiclesGuideV3.controller.util.CreateWhatsNewDialog", {
 		constructor: function (oView) {
-			this._oView = oView;
-			this._oControl = sap.ui.xmlfragment(oView.getId(), "com.sap.build.toyota-canada.vehiclesGuideV3.fragments.CreateWhatsNewDialog", this);
-			this._bInit = false;
+			CreateWhatsNewDialogController=this;
+			CreateWhatsNewDialogController._oView = oView;
+			CreateWhatsNewDialogController._oControl = sap.ui.xmlfragment(oView.getId(), "com.sap.build.toyota-canada.vehiclesGuideV3.fragments.CreateWhatsNewDialog",
+				CreateWhatsNewDialogController);
+			CreateWhatsNewDialogController._bInit = false;
+			//	CreateWhatsNewDialogController.listOfBrand();
+			//	CreateWhatsNewDialogController.listOfModelYear();
 		},
 
 		exit: function () {
-			delete this._oView;
+			delete CreateWhatsNewDialogController._oView;
 		},
 
 		getView: function () {
-			return this._oView;
+			return CreateWhatsNewDialogController._oView;
 		},
 
 		getControl: function () {
-			return this._oControl;
+			return CreateWhatsNewDialogController._oControl;
 		},
 
 		getOwnerComponent: function () {
-			return this._oView.getController().getOwnerComponent();
+			return CreateWhatsNewDialogController._oView.getController().getOwnerComponent();
 		},
 
 		open: function () {
-			var oView = this._oView;
-			var oControl = this._oControl;
+			var oView = CreateWhatsNewDialogController._oView;
+			var oControl = CreateWhatsNewDialogController._oControl;
 
-			if (!this._bInit) {
+			if (!CreateWhatsNewDialogController._bInit) {
 
 				// Initialize our fragment
-				this.onInit();
+				CreateWhatsNewDialogController.onInit();
 
-				this._bInit = true;
+				CreateWhatsNewDialogController._bInit = true;
 
-				// connect fragment to the root view of this component (models, lifecycle)
+				// connect fragment to the root view of CreateWhatsNewDialogController component (models, lifecycle)
 				oView.addDependent(oControl);
 			}
 
@@ -52,16 +56,116 @@ sap.ui.define([
 		},
 
 		close: function () {
-			this._oControl.close();
+			CreateWhatsNewDialogController._oControl.close();
 		},
 
 		setRouter: function (oRouter) {
-			this.oRouter = oRouter;
+			CreateWhatsNewDialogController.oRouter = oRouter;
 
 		},
 		getBindingParameters: function () {
 			return {};
 
+		},
+
+		listOfBrand: function () {
+			var data = {
+				"modelBrand": [{
+					"key": "1",
+					"text": "TOYOTA"
+				}, {
+					"key": "2",
+					"text": "LEXUS"
+				}]
+			};
+			var modelBrandModel = new sap.ui.model.json.JSONModel();
+			modelBrandModel.setData(data);
+			CreateWhatsNewDialogController.getView().setModel(modelBrandModel, "brandModelNew");
+		},
+
+		listOfModelYear: function () {
+			var d = new Date();
+			var currentModelYear = d.getFullYear();
+			var oldYear = currentModelYear - 1;
+			var nextModelYear = currentModelYear + 1;
+			var nextModelYear2 = currentModelYear + 2;
+			var nextModelYear3 = currentModelYear + 3;
+			var data = {
+				"modelYear": [{
+					"key": "5",
+					"text": oldYear
+				}, {
+					"key": "1",
+					"text": currentModelYear
+				}, {
+					"key": "2",
+					"text": nextModelYear
+				}, {
+					"key": "3",
+					"text": nextModelYear2
+				}, {
+					"key": "4",
+					"text": nextModelYear3
+				}]
+			};
+			var modelYearModel = new sap.ui.model.json.JSONModel();
+			modelYearModel.setData(data);
+			CreateWhatsNewDialogController.getView().setModel(modelYearModel, "yearModelNew");
+		},
+		onChange_ModelYear: function () {
+
+			var brandCB = CreateWhatsNewDialogController.getView().byId("idNew_brandCB");
+			var modelYearCB = CreateWhatsNewDialogController.getView().byId("idNew_modelYearCB");
+			var seriesCB = CreateWhatsNewDialogController.getView().byId("id_seriesCBNew");
+
+			var brandCBVal = brandCB.getValue();
+			var modelYearCBVal = modelYearCB.getValue();
+			if (seriesCB.getValue() !== "") {
+				seriesCB.setValue("");
+			}
+			
+			var sLocation = window.location.host;
+			var sLocation_conf = sLocation.search("webide");
+			if (sLocation_conf == 0) {
+				CreateWhatsNewDialogController.sPrefix = "/voasguide_node";
+			} else {
+				CreateWhatsNewDialogController.sPrefix = "";
+			}
+			CreateWhatsNewDialogController.nodeJsUrl = CreateWhatsNewDialogController.sPrefix + "/node";
+			var host = CreateWhatsNewDialogController.nodeJsUrl;
+			var url = host +
+				"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(Brand eq '" + brandCBVal + "' and Modelyear eq '" + modelYearCBVal +
+				"')";
+			//	"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter= (Brand eq 'TOYOTA' and Modelyear eq '2018')";
+			$.ajax({
+				url: url,
+				method: 'GET',
+				async: false,
+				dataType: 'json',
+				success: function (data, textStatus, jqXHR) {
+					//	var oModel = new sap.ui.model.json.JSONModel(data.d.results);
+					var oModel = new sap.ui.model.json.JSONModel();
+
+					var arr = [];
+					var j = 0;
+					for (var c = 0; c < data.d.results.length; c++) {
+						for (var i = 0; i < data.d.results.length; i++) {
+							if ($.inArray(data.d.results[i]["TCISeries"], arr) < 0) {
+								arr[j] = data.d.results[i]["TCISeries"];
+								j++;
+
+							}
+						}
+					}
+
+					oModel.setData(arr);
+					CreateWhatsNewDialogController.getView().setModel(oModel, "seriesdropDownModelNew");
+				},
+				error: function (jqXHR, textStatus, errorThrown) {
+					sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error", sap
+						.m.MessageBox.Action.OK, null, null);
+				}
+			});
 		},
 		_onButtonPress: function (oEvent) {
 
@@ -70,18 +174,18 @@ sap.ui.define([
 					fnResolve(true);
 				})
 				.then(function (result) {
-					alert("This should Generate and display Active (Based on Today's Date) What's New Pdf in new window");
+					alert("CreateWhatsNewDialogController should Generate and display Active (Based on Today's Date) What's New Pdf in new window");
 
-				}.bind(this))
+				}.bind(CreateWhatsNewDialogController))
 				.then(function (result) {
 					if (result === false) {
 						return false;
 					} else {
 
-						this.close();
+						CreateWhatsNewDialogController.close();
 
 					}
-				}.bind(this)).catch(function (err) {
+				}.bind(CreateWhatsNewDialogController)).catch(function (err) {
 					if (err !== undefined) {
 						MessageBox.error(err.message);
 					}
@@ -89,16 +193,18 @@ sap.ui.define([
 		},
 		_onButtonPress1: function () {
 
-			this.close();
+			CreateWhatsNewDialogController.close();
 
 		},
 		onInit: function () {
 
-			this._oDialog = this.getControl();
+			CreateWhatsNewDialogController._oDialog = CreateWhatsNewDialogController.getControl();
+			CreateWhatsNewDialogController.listOfBrand();
+			CreateWhatsNewDialogController.listOfModelYear();
 
 		},
 		onExit: function () {
-			this._oDialog.destroy();
+			CreateWhatsNewDialogController._oDialog.destroy();
 
 			// to destroy templates for bound aggregations when templateShareable is true on exit to prevent duplicateId issue
 			var aControls = [{
@@ -112,7 +218,7 @@ sap.ui.define([
 				"groups": ["items"]
 			}];
 			for (var i = 0; i < aControls.length; i++) {
-				var oControl = this.getView().byId(aControls[i].controlId);
+				var oControl = CreateWhatsNewDialogController.getView().byId(aControls[i].controlId);
 				for (var j = 0; j < aControls[i].groups.length; j++) {
 					var sAggregationName = aControls[i].groups[j];
 					var oBindingInfo = oControl.getBindingInfo(sAggregationName);

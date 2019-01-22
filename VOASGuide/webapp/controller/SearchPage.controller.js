@@ -15,9 +15,25 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			searchController.oRouter.getTarget("SearchPage").attachDisplay(jQuery.proxy(searchController.handleRouteMatched, searchController));
 			searchController.listOfBrand();
 			searchController.listOfModelYear();
+			//	searchController._listOfBrand();
 			searchController.oBusyDialog = new sap.m.BusyDialog({
 				showCancelButton: false
 			});
+		},
+		_listOfBrand: function () {
+			var data = {
+				"modelBrand": [{
+					"key": "1",
+					"text": "TOYOTA"
+				}, {
+					"key": "2",
+					"text": "LEXUS"
+				}]
+			};
+			var modelBrandModel = new sap.ui.model.json.JSONModel();
+			modelBrandModel.setData(data);
+			this.getView().setModel(modelBrandModel, "brandModelNew");
+			//this.getView().byId("idNew_brandCB").setModel("brandModelNew");
 		},
 		refreshTableData: function () {
 			var oModel = searchController.getView().getModel("searchTblModel");
@@ -164,7 +180,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			var modelBrandModel = new JSONModel();
 			modelBrandModel.setData(data);
 			searchController.getView().setModel(modelBrandModel, "brandModel");
-			searchController.getView().byId("id_brandCB").setModel("brandModel");
+			//	searchController.getView().byId("id_brandCB").setModel("brandModel");
 		},
 
 		onChange_Brand: function () {
@@ -216,6 +232,9 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				async: false,
 				dataType: 'json',
 				success: function (data, textStatus, jqXHR) {
+					if (seriesCB.getValue() !== "") {
+						seriesCB.setValue("");
+					}
 					//	var oModel = new sap.ui.model.json.JSONModel(data.d.results);
 					var oModel = new sap.ui.model.json.JSONModel();
 
@@ -488,9 +507,10 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				"veh": data.Vehicle,
 				"msrp": data.MSRP,
 				"dealerNet": data.NETPRICE,
-				"series": data.TCISeries
+				"series": data.TCISeries,
+				"ENModelDesc":data.ENModelDesc
 			}];
-				var routeData = JSON.stringify(arr);
+			var routeData = JSON.stringify(arr);
 			searchController.oRouter.navTo("DetailsOption", {
 				num: routeData
 			});
@@ -517,22 +537,35 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			var modelValLen = modelCB.getSelectedItems().length;
 			var modelText = "";
 			var modelArr = [];
-			var modelDescString = "";
 			var suffixText = "";
 			var suffixArr = [];
-			var suffixDescString;
+			var suffixArrFromData = [];
+			var suffixDescString = "";
+			var suffixDescStringFromModelData = "";
+			var modelDescStringFromModelData=" ";
+			var modelDescString = "";
+			var modelArrFromData = [];
+			var modelENModelDesc=[];
+		
 
 			if (aContexts.length <= 5 && aContexts.length >= 2) {
 				for (var i = 0; i < aContexts.length; i++) {
 					var index = aContexts[i].split("/")[1];
 					arrIndex.push(index);
 					var data = searchController.getView().getModel("searchTblModel").getData();
+					console.log(data);
 					var indexData = data[index].Vehicle;
 					arr.push(indexData);
 					var indexDataMSRP = data[index].MSRP;
 					arr_msrp.push(indexDataMSRP);
 					var indexDataNETPRICE = data[index].NETPRICE;
 					arr_netPrice.push(indexDataNETPRICE);
+					var indexDataSuffix = data[index].Suffix;
+					suffixArrFromData.push(indexDataSuffix);
+					var indexDataModel = data[index].Model;
+					modelArrFromData.push(indexDataModel);
+					var indexENModelDesc=data[index].ENModelDesc;
+					modelENModelDesc.push(indexENModelDesc);
 				}
 
 				vehData = JSON.stringify(arr);
@@ -540,16 +573,30 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				DealerNetData = JSON.stringify(arr_netPrice);
 				arrIndexStr = JSON.stringify(arrIndex);
 
+				if (suffixArrFromData !== "[]") {
+					suffixDescStringFromModelData = JSON.stringify(suffixArrFromData);
+				} else {
+					suffixDescStringFromModelData = "";
+				}
+					if (modelArrFromData !== "[]") {
+						modelDescStringFromModelData = JSON.stringify(modelArrFromData);
+					} else {
+						modelDescStringFromModelData = "";
+					}
 				var suffixValLen = suffixCB.getSelectedItems().length;
+				 suffixValLen = suffixArrFromData.length;
+				
 				if (suffixCB.getSelectedItems() != "") {
 					for (var j = 0; j < suffixValLen; j++) {
 						suffixText = suffixCB.getSelectedItems()[j].mProperties.text;
 						suffixArr.push(suffixText);
 					}
-					suffixDescString = JSON.stringify(suffixArr); //suffixArr.toString();
-				} else {
-					suffixDescString = "";
+					suffixDescString = JSON.stringify(suffixArr);
 				}
+				else{
+					suffixDescString="";
+				}
+			 //suffixArr.toString();
 				if (modelCB.getSelectedItems() != "") {
 					for (var i = 0; i < modelValLen; i++) {
 						modelText = modelCB.getSelectedItems()[i].mProperties.text;
@@ -559,18 +606,20 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				} else {
 					modelDescString = "";
 				}
-				var searchTableData = searchController.getView().getModel("searchTblModel").getData();
-				console.log(searchTableData);
+			
 				var arr2 = [{
 					"pathVeh": arrIndexStr,
 					"brand": brandCBVal,
 					"moYear": modelYearCBVal,
 					"model": modelDescString,
-					"suffix": suffixDescString,
+					"suffix": suffixDescStringFromModelData,
+					"suffixDD":suffixDescString,
 					"veh": vehData,
 					"msrp": MSRPData,
 					"dealerNet": DealerNetData,
-					"series": SeriesData
+					"series": SeriesData,
+					"modelDesc":modelENModelDesc,
+					"modelData": modelDescStringFromModelData
 
 				}];
 				console.log(arr2);

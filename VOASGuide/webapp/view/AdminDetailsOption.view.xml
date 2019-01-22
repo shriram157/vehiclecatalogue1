@@ -18,7 +18,7 @@
 				</uxap:navigationBar>
 				<uxap:actions>
 					<Button text="Create Vehicle Guide" icon="sap-icon://pdf-attachment" iconFirst="false" type="Default" enabled="true"
-						press="_onFioriObjectPageActionButtonPress">
+						press="_createVehGuidePDF">
 						<layoutData>
 							<OverflowToolbarLayoutData moveToOverflow="true"/>
 						</layoutData>
@@ -39,12 +39,12 @@
 									<OverflowToolbar design="Transparent">
 										<content>
 											<ToolbarSpacer/>
-											<Button text="New" icon="sap-icon://write-new" iconFirst="true" type="Transparent" press="_onFioriObjectPageTableActionPress">
+											<Button text="Upload" icon="sap-icon://write-new" iconFirst="true" type="Transparent" press="_uploadWhatNew">
 												<layoutData>
 													<OverflowToolbarLayoutData moveToOverflow="true"/>
 												</layoutData>
 											</Button>
-											<Button text="Update" icon="sap-icon://edit" iconFirst="false" type="Transparent" press="_onFioriObjectPageTableActionPress1">
+											<Button text="Delete" icon="sap-icon://delete" iconFirst="false" type="Transparent" press="_deleteWhatNew">
 												<layoutData>
 													<OverflowToolbarLayoutData moveToOverflow="true"/>
 												</layoutData>
@@ -70,16 +70,22 @@
 									</Column>
 									<Column width="auto" minScreenWidth="Phone">
 										<header>
-											<Text text="Effective Date" width="auto"/>
+											<Text text="Last Uploaded" width="auto"/>
+										</header>
+									</Column>
+									<Column width="auto" minScreenWidth="Phone">
+										<header>
+											<Text text="Language" width="auto"/>
 										</header>
 									</Column>
 								</columns>
 								<items>
 									<ColumnListItem type="Active">
 										<cells>
-											<Link text="{FileName}" href="{FileLocation}" target="_blank"/>
-											<ObjectStatus text="{Comments}"/>
-											<ObjectIdentifier title="{EffectiveDateDetail}" text="{EndDateDetails}"/>
+											<Link text="{filename}" href="http://www.build.me" target="_blank"/>
+											<ObjectStatus text="{comment}"/>
+											<ObjectIdentifier title="{date}" text="{EndDateDetails}"/>
+											<ObjectIdentifier title="{lang}" text="{EndDateDetails}"/>
 										</cells>
 									</ColumnListItem>
 								</items>
@@ -92,18 +98,18 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="Walk-up">
 						<uxap:blocks>
-							<Table width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="SingleSelectLeft"
+							<Table width="100%" growing="false" growingScrollToLoad="true" growingThreshold="5" mode="SingleSelectLeft"
 								items="{path:'/WalkupAdminSet', templateShareable:true}">
 								<headerToolbar>
 									<OverflowToolbar design="Transparent">
 										<content>
 											<ToolbarSpacer/>
-											<Button text="New" icon="sap-icon://write-new" iconFirst="true" type="Transparent" press="_onFioriObjectPageTableActionPress2">
+											<Button text="Upload" icon="sap-icon://write-new" iconFirst="true" type="Transparent" press="_uploadFileWalkUp">
 												<layoutData>
 													<OverflowToolbarLayoutData moveToOverflow="true"/>
 												</layoutData>
 											</Button>
-											<Button text="Update" icon="sap-icon://edit" iconFirst="false" type="Transparent" press="_onFioriObjectPageTableActionPress3">
+											<Button text="Delete" icon="sap-icon://delete" iconFirst="false" type="Transparent" press="_deleteFileWalkUp">
 												<layoutData>
 													<OverflowToolbarLayoutData moveToOverflow="true"/>
 												</layoutData>
@@ -129,16 +135,22 @@
 									</Column>
 									<Column width="auto" minScreenWidth="Phone">
 										<header>
-											<Text text="Effective Date" width="auto"/>
+											<Text text="Last Uploaded" width="auto"/>
+										</header>
+									</Column>
+									<Column width="auto" minScreenWidth="Phone">
+										<header>
+											<Text text="Language" width="auto"/>
 										</header>
 									</Column>
 								</columns>
 								<items>
 									<ColumnListItem type="Active">
 										<cells>
-											<Link text="{FileName}" href="http://www.build.me" target="_blank"/>
-											<ObjectStatus text="{Comments}"/>
-											<ObjectIdentifier title="{EffectiveDateDetails}" text="{EndDateDetails}"/>
+											<Link text="{filename}" href="http://www.build.me" target="_blank"/>
+											<ObjectStatus text="{comment}"/>
+											<ObjectIdentifier title="{date}" text="{EndDateDetails}"/>
+											<ObjectIdentifier title="{lang}" text="{EndDateDetails}"/>
 										</cells>
 									</ColumnListItem>
 								</items>
@@ -151,18 +163,18 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="Supplement Guide">
 						<uxap:blocks>
-							<Table width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="SingleSelectLeft"
-								items="{path:'/SupplementalAdminSet', templateShareable:true}">
+							<Table id="suppTbl" width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="SingleSelectLeft"
+								items="{path:'/', templateShareable:true}">
 								<headerToolbar>
 									<OverflowToolbar design="Transparent">
 										<content>
 											<ToolbarSpacer/>
-											<Button text="New" icon="sap-icon://write-new" iconFirst="true" type="Transparent" press="_onFioriObjectPageTableActionPress4">
+											<Button text="Upload" icon="sap-icon://write-new" iconFirst="true" type="Transparent" press="_uploadFileSupp">
 												<layoutData>
 													<OverflowToolbarLayoutData moveToOverflow="true"/>
 												</layoutData>
 											</Button>
-											<Button text="Update" icon="sap-icon://edit" iconFirst="false" type="Transparent" press="_onFioriObjectPageTableActionPress5">
+											<Button text="Delete" icon="sap-icon://edit" iconFirst="false" type="Transparent" press="_deleteFileSupp">
 												<layoutData>
 													<OverflowToolbarLayoutData moveToOverflow="true"/>
 												</layoutData>
@@ -188,16 +200,22 @@
 									</Column>
 									<Column width="auto" minScreenWidth="Phone">
 										<header>
-											<Text text="Effective Date" width="auto"/>
+											<Text text="Last Uploaded" width="auto"/>
+										</header>
+									</Column>
+									<Column width="auto" minScreenWidth="Phone">
+										<header>
+											<Text text="Language" width="auto"/>
 										</header>
 									</Column>
 								</columns>
 								<items>
 									<ColumnListItem type="Active">
 										<cells>
-											<Link text="{FileName}" href="http://www.build.me" target="_blank"/>
-											<ObjectStatus text="{Comments}"/>
-											<ObjectIdentifier title="{EffectiveDateDetails}" text="{EndDateDetails}"/>
+											<Link text="{filename}" href="http://www.build.me" target="_blank"/>
+											<ObjectStatus text="{comment}"/>
+											<ObjectIdentifier title="{date}" text="{EndDateDetails}"/>
+											<ObjectIdentifier title="{lang}" text="{EndDateDetails}"/>
 										</cells>
 									</ColumnListItem>
 								</items>
@@ -208,7 +226,7 @@
 			</uxap:ObjectPageSection>
 		</uxap:sections>
 		<uxap:footer>
-			<OverflowToolbar design="auto">
+			<OverflowToolbar>
 				<content>
 					<ToolbarSpacer/>
 					<Button text="Save" type="Emphasized" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>

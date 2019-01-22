@@ -58,12 +58,13 @@
 					<HBox class="justifyCenter">
 					<VBox>
 				<items>
-					<Title text="{modelDetail>/veh}"/>
+					<Title text="{modelDetail>/ENModelDesc} - ({modelDetail>/model}) - SFX {modelDetail>/suffix}"/>
 					<HBox>
 						<items>
 							<Label text="Model"/>
 							<Label text=":" class="sapUiTinyMarginEnd"/>
-							<ObjectStatus text="{modelDetail>/model}"/>
+						<!--	<ObjectStatus text="{modelDetail>/model}"/>-->
+								<ObjectStatus text="{modelDetail>/ENModelDesc}" />
 						</items>
 					</HBox>
 					<HBox>

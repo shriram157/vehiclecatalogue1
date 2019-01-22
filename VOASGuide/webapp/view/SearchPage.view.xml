@@ -137,7 +137,8 @@
 						<items>
 							<ColumnListItem type="Navigation">
 								<cells>
-									<ObjectIdentifier title="{searchTblModel>Vehicle}" text="{parts: [{path:'searchTblModel>Suffix'},{path:'searchTblModel>Suffix'}] , formatter: 'formatter.formatSuffix'}"/><!-- text="SFX- {searchTblModel>Suffix}"/>-->
+									<ObjectIdentifier text="{parts: [{path:'searchTblModel>Modelyear'},{path:'searchTblModel>Model'},{path:'searchTblModel>ENModelDesc'},{path:'searchTblModel>Suffix'},{path:'searchTblModel>suffix_desc_en'}] , formatter: 'formatter.formatVehicle'}"/>
+									<!--title="{searchTblModel>Vehicle}" text="{parts: [{path:'searchTblModel>Suffix'},{path:'searchTblModel>Suffix'}] , formatter: 'formatter.formatSuffix'}"/>--><!-- text="SFX- {searchTblModel>Suffix}"/>-->
 									<ObjectIdentifier
 										text="{parts: [{path:'searchTblModel>Features'},{path:'searchTblModel>Features'}] , formatter: 'formatter.formatFeatures'}"/>
 									<ObjectIdentifier text="Dealer Net: {searchTblModel>NETPRICE}" title="MSRP: {searchTblModel>MSRP}"/>

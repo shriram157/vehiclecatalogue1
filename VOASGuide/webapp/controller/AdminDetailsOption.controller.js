@@ -9,12 +9,9 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 	return BaseController.extend("com.sap.build.toyota-canada.vehiclesGuideV3.controller.AdminDetailsOption", {
 		handleRouteMatched: function (oEvent) {
 			var sAppId = "App5bb531dd96990b5ac99be4fa";
-
 			var oParams = {};
-
 			if (oEvent.mParameters.data.context) {
 				this.sContext = oEvent.mParameters.data.context;
-
 			} else {
 				if (this.getOwnerComponent().getComponentData()) {
 					var patternConvert = function (oParam) {
@@ -26,14 +23,10 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 							}
 						}
 					};
-
 					this.sContext = patternConvert(this.getOwnerComponent().getComponentData().startupParameters);
-
 				}
 			}
-
 			var oPath;
-
 			if (this.sContext) {
 				oPath = {
 					path: "/" + this.sContext,
@@ -41,9 +34,38 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				};
 				this.getView().bindObject(oPath);
 			}
-
 		},
-		
+			_uploadPDFFileSup: function (oEvent) {
+alert("This should update or create What's New record.");
+
+			oEvent = jQuery.extend(true, {}, oEvent);
+			return new Promise(function (fnResolve) {
+					fnResolve(true);
+				})
+				.then(function (result) {
+					////////////////////////////
+					
+					
+					
+					///////////////
+					alert("This should update or create What's New record.");
+
+				}.bind(this))
+				.then(function (result) {
+					if (result === false) {
+						return false;
+					} else {
+
+						this.close();
+
+					}
+				}.bind(this)).catch(function (err) {
+					if (err !== undefined) {
+						MessageBox.error(err.message);
+					}
+				});
+		},
+
 		_onFioriObjectPageHeaderPress: function () {
 			var oHistory = History.getInstance();
 			var sPreviousHash = oHistory.getPreviousHash();
@@ -67,11 +89,11 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			return oQuery;
 
 		},
-		_onFioriObjectPageActionButtonPress: function () {
+		_createVehGuidePDF: function () {
 			alert("Open PDF in New Window");
 
 		},
-		_onFioriObjectPageTableActionPress: function () {
+		_uploadWhatNew: function () {
 
 			var sDialogName = "WhatsNewDialog";
 			this.mDialogs = this.mDialogs || {};
@@ -87,55 +109,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			oDialog.open();
 
 		},
-		_onFioriObjectPageTableActionPress1: function () {
-
-			var sDialogName = "WhatsNewDialog";
-			this.mDialogs = this.mDialogs || {};
-			var oDialog = this.mDialogs[sDialogName];
-
-			if (!oDialog) {
-				oDialog = new WhatsNewDialog(this.getView());
-				this.mDialogs[sDialogName] = oDialog;
-
-				// For navigation.
-				oDialog.setRouter(this.oRouter);
-			}
-			oDialog.open();
-
-		},
-		_onFioriObjectPageTableActionPress2: function () {
-
-			var sDialogName = "WalkupDialog";
-			this.mDialogs = this.mDialogs || {};
-			var oDialog = this.mDialogs[sDialogName];
-
-			if (!oDialog) {
-				oDialog = new WalkupDialog(this.getView());
-				this.mDialogs[sDialogName] = oDialog;
-
-				// For navigation.
-				oDialog.setRouter(this.oRouter);
-			}
-			oDialog.open();
-
-		},
-		_onFioriObjectPageTableActionPress3: function () {
-
-			var sDialogName = "WalkupDialog";
-			this.mDialogs = this.mDialogs || {};
-			var oDialog = this.mDialogs[sDialogName];
-
-			if (!oDialog) {
-				oDialog = new WalkupDialog(this.getView());
-				this.mDialogs[sDialogName] = oDialog;
-
-				// For navigation.
-				oDialog.setRouter(this.oRouter);
-			}
-			oDialog.open();
-
-		},
-		_onFioriObjectPageTableActionPress4: function () {
+			_uploadFileSupp: function () {
 
 			var sDialogName = "SuplementalDialog";
 			this.mDialogs = this.mDialogs || {};
@@ -151,14 +125,90 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			oDialog.open();
 
 		},
-		_onFioriObjectPageTableActionPress5: function () {
+		_deleteWhatNew: function () {
+			var errMsg = "Are you sure you want to Delete the selected What's New PDF?"; //this.getView().getModel("i18n").getResourceBundle().getText("deleteError");
+			var title = "Delete"; //this.getView().getModel("i18n").getResourceBundle().getText("title1");
+			/*	var icon = new sap.ui.core.Icon({
+					src: "sap-icon://alert",
+					size: "2rem"
+				});*/
+			/*	var msg = new sap.m.HBox({
+				items: [icon, new sap.m.Text({
+					text: errMsg
+				})]
+			});*/
+			sap.m.MessageBox.show(errMsg, {
+				icon: sap.m.MessageBox.Icon.WARNING,
+				title: title,
+				actions: [sap.m.MessageBox.Action.DELETE, sap.m.MessageBox.Action.CANCEL],
+				onClose: function (sAction) {
+					if (sAction === "DELETE") {
+						//		this.deleteAtt(evtContext);
+					} else {
+						//
+					}
+				},
+				styleClass: "",
+				initialFocus: null,
+				textDirection: sap.ui.core.TextDirection.Inherit,
+				contentWidth: "10rem"
+			});
+		},
+		_deleteFileSupp: function (evt) {
+			console.log(evt.getSource().oParent);
+			console.log(evt.getSource().getParent());
+			var tbl=evt.getSource().getParent().getParent();
+			var errMsg = "Are you sure you want to Delete the selected Supplemental Guide?"; //this.getView().getModel("i18n").getResourceBundle().getText("deleteError");
+			var title = "Delete"; //this.getView().getModel("i18n").getResourceBundle().getText("title1");
+			/*	var icon = new sap.ui.core.Icon({
+					src: "sap-icon://alert",
+					size: "2rem"
+				});*/
+			/*	var msg = new sap.m.HBox({
+				items: [icon, new sap.m.Text({
+					text: errMsg
+				})]
+			});*/
+			sap.m.MessageBox.show(errMsg, {
+				icon: sap.m.MessageBox.Icon.WARNING,
+				title: title,
+				actions: [sap.m.MessageBox.Action.DELETE, sap.m.MessageBox.Action.CANCEL],
+				onClose: function (sAction) {
+					if (sAction === "DELETE") {
+						console.log(tbl.getSelectedItem());
+						console.log(tbl.getBindingContext());
+//							console.log(tbl.getSelectedIndex());
+					//	var evtContext=tbl.getSelectedItem();
+							//	this.deleteAtt(evtContext);
+					} else {
+						//
+					}
+				},
+				styleClass: "",
+				initialFocus: null,
+				textDirection: sap.ui.core.TextDirection.Inherit,
+				contentWidth: "10rem"
+			});
+		},
+		deleteAtt: function (evtContext) {
+			var oTable = this.getView().byId("suppTbl");
+			var sPath = evtContext.sPath;
+			var oIndex = parseInt(sPath.substring(sPath.lastIndexOf('/') + 1));
+			var model = oTable.getModel();
+			var data = model.getProperty("/");
+			data.splice(oIndex, 1);
+			model.setProperty("/", data);
+			oTable.getModel().refresh();
+			this.getView().getModel().refresh(true);
+		},
+		_uploadFileWalkUp: function () {
 
-			var sDialogName = "SuplementalDialog";
+			var sDialogName = "WalkupDialog";
 			this.mDialogs = this.mDialogs || {};
 			var oDialog = this.mDialogs[sDialogName];
 
 			if (!oDialog) {
-				oDialog = new SuplementalDialog(this.getView());
+				oDialog = new WalkupDialog(this.getView());
 				this.mDialogs[sDialogName] = oDialog;
 
 				// For navigation.
@@ -167,10 +217,41 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			oDialog.open();
 
 		},
+		_deleteFileWalkUp: function () {
+			var errMsg = "Are you sure you want to Delete the selected Walk Up PDF?"; //this.getView().getModel("i18n").getResourceBundle().getText("deleteError");
+			var title = "Delete"; //this.getView().getModel("i18n").getResourceBundle().getText("title1");
+			/*	var icon = new sap.ui.core.Icon({
+					src: "sap-icon://alert",
+					size: "2rem"
+				});*/
+			/*	var msg = new sap.m.HBox({
+				items: [icon, new sap.m.Text({
+					text: errMsg
+				})]
+			});*/
+			sap.m.MessageBox.show(errMsg, {
+				icon: sap.m.MessageBox.Icon.WARNING,
+				title: title,
+				actions: [sap.m.MessageBox.Action.DELETE, sap.m.MessageBox.Action.CANCEL],
+				onClose: function (sAction) {
+					if (sAction === "DELETE") {
+						//		this.deleteAtt(evtContext);
+					} else {
+						//
+					}
+				},
+				styleClass: "",
+				initialFocus: null,
+				textDirection: sap.ui.core.TextDirection.Inherit,
+				contentWidth: "10rem"
+			});
+		},
+	
+		
 		onInit: function () {
 			this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			this.oRouter.getTarget("AdminDetailsOption").attachDisplay(jQuery.proxy(this.handleRouteMatched, this));
-
+			sap.ushell.components.suppTbl=this.getView().byId("suppTbl");
 		},
 		onExit: function () {
 

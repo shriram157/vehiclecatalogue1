@@ -15,8 +15,17 @@ sap.ui.define([
 			CDO_controller.oRouter.getTarget("CompareDetailsOption").attachDisplay(jQuery.proxy(CDO_controller.handleRouteMatched,
 				CDO_controller));
 		},
+		onSwitchstateChange: function (evt_Switch) {
+			var state = evt_Switch.getSource().mProperties.state;
+			if (state == true) {
+				//include com fea off
+				CDO_controller.handleRouteMatchedStdFeatureOff();
+			} else {
+				CDO_controller.handleRouteMatchedStdFeatureOn();
+			}
+		},
+		handleRouteMatchedStdFeatureOff: function () {
 
-		handleRouteMatched: function (oEvent) {
 			var fixedData = {
 				Vehicle: " "
 			};
@@ -24,8 +33,12 @@ sap.ui.define([
 			var aColumnData = [];
 			aColumnData.push(fixedData);
 			aColumnData.push(fixedData);
+			var aColumnDataCol = [];
+			aColumnDataCol.push(fixedData);
+			aColumnDataCol.push(fixedData);
 
-			var arg2 = oEvent.getParameters().data.num2;
+			var arg2 = CDO_controller.arg2; // oEvent.getParameters().data.num2;
+
 			var parseArg = JSON.parse(arg2);
 			var modelArg = new sap.ui.model.json.JSONModel(parseArg[0]);
 			CDO_controller.getView().setModel(modelArg, "modelArg");
@@ -36,74 +49,100 @@ sap.ui.define([
 
 			var empData;
 			var arrNewData = [];
-			var vehDescString = "";
-			var newVehStr = "";
+
 			var modelArr = [];
 			var newModelStr = "";
 			var modelText = [];
 			var modelDescString = "";
+
 			var suffixArr = [];
 			var newSuffixStr = "";
 			var suffixText = [];
 			var suffixDescString;
+
 			var vehArr = [];
+			var vehText = [];
+			var vehDescString = "";
+			var newVehStr = "";
+			//			var suffixTextVeh = [];
 
 			var parsePathArg = JSON.parse(parseArg[0].pathVeh);
 			var len = parsePathArg.length;
-
+			console.log("len: " + len);
 			if (parseArg[0].model !== "") {
-			/*	if (parseArg[0].model !== "[]") {
-					newModelStr = "Model eq '" +parseArg[0].model;
-				} else {*/
-					var parseModelPathArg = JSON.parse(parseArg[0].model);
-					var lenModel = parseModelPathArg.length;
-					var jsonModel = JSON.parse(parseArg[0].model);
-					for (var i = 0; i < lenModel; i++) {
-						modelText[i] = jsonModel[i];
-						var modelText2 = "Model eq '" + modelText[i] + "'";
-						modelArr.push(modelText2);
-					}
-					modelDescString = modelArr.toString();
-					newModelStr = modelDescString.replace(/,/g, ' or ');
-			/*	}*/
+				/*	if (parseArg[0].model !== "[]") {
+						newModelStr = "Model eq '" +parseArg[0].model;
+					} else {*/
+				var parseModelPathArg = JSON.parse(parseArg[0].model);
+				var lenModel = parseModelPathArg.length;
+				console.log("lenModel: " + lenModel);
+				var jsonModel = JSON.parse(parseArg[0].model);
+				for (var i = 0; i < lenModel; i++) {
+					modelText[i] = jsonModel[i];
+					var modelText2 = "Model eq '" + modelText[i] + "'";
+					modelArr.push(modelText2);
+				}
+				modelDescString = modelArr.toString();
+				newModelStr = modelDescString.replace(/,/g, ' or ');
+				/*	}*/
 			} else {
 				modelDescString = "";
 				newModelStr = "";
 			}
 
-			if (parseArg[0].suffix !== "") {
+			if (parseArg[0].suffixDD !== "") {
 				/*console.log(parseArg[0].suffix);
 				if (parseArg[0].suffix !== "[]") {
 					newSuffixStr = "Suffix eq '" +parseArg[0].suffix;
 				} else {*/
-					var parseSuffixPathArg = JSON.parse(parseArg[0].suffix);
-					var lenSuffix = parseSuffixPathArg.length;
-					var jsonSuffix = JSON.parse(parseArg[0].suffix);
-					for (var j = 0; j < lenSuffix; j++) {
-						suffixText[i] = jsonSuffix[j];
-						var suffixText2 = "Suffix eq '" + suffixText[i] + "'";
-						suffixArr.push(suffixText2);
-					}
-					suffixDescString = suffixArr.toString();
-					newSuffixStr = suffixDescString.replace(/,/g, ' or ');
-			/*	}*/
+				var parseSuffixPathArg = JSON.parse(parseArg[0].suffixDD);
+				var lenSuffix = parseSuffixPathArg.length;
+				var jsonSuffixDD = JSON.parse(parseArg[0].suffixDD);
+				for (var j = 0; j < lenSuffix; j++) {
+					suffixText[j] = jsonSuffixDD[j];
+					var suffixText2 = "Suffix eq '" + suffixText[j] + "'";
+					suffixArr.push(suffixText2);
+				}
+				suffixDescString = suffixArr.toString();
+				newSuffixStr = suffixDescString.replace(/,/g, ' or ');
+				/*	}*/
 			} else {
 				suffixDescString = "";
 				newSuffixStr = "";
 			}
-			if (parseArg[0].veh !== "") {
+			/*	if (parseArg[0].veh !== "") {
+					var parseVehPathArg = JSON.parse(parseArg[0].veh);
+					var lenVeh = parseVehPathArg.length;
+					var jsonVeh = JSON.parse(parseArg[0].veh);
+					for (var i = 0; i < lenVeh; i++) {
+						vehText[i] = jsonVeh[i];
+						var vehNum = i + 1;
+						var vehText2 = "IN_Vehicle" + vehNum + " eq '" + vehText[i] + "'";
+						vehArr.push(vehText2);
+					}
+					vehDescString = vehArr.toString();
+					newVehStr = vehDescString.replace(/,/g, ' and ');
+
+				} else {
+					vehDescString = "";
+					newVehStr = "";
+				}*/
+			if (parseArg[0].suffix !== "" && parseArg[0].veh !== "") {
 				var parseVehPathArg = JSON.parse(parseArg[0].veh);
 				var lenVeh = parseVehPathArg.length;
 				var jsonVeh = JSON.parse(parseArg[0].veh);
+				var jsonSuffix = JSON.parse(parseArg[0].suffix);
+				//var jsonSuffixVeh = JSON.parse(parseArg[0].suffix);
 				for (var i = 0; i < lenVeh; i++) {
-					modelText[i] = jsonVeh[i];
+					suffixText[i] = jsonSuffix[i];
+					//	suffixTextVeh[i] = jsonSuffixVeh[i];
+					vehText[i] = jsonVeh[i];
 					var vehNum = i + 1;
-					var vehText2 = "IN_Vehicle" + vehNum + " eq '" + modelText[i] + "'";
+					var vehText2 = "IN_Vehicle" + vehNum + " eq '" + vehText[i] + suffixText[i] + "'";
 					vehArr.push(vehText2);
 				}
 				vehDescString = vehArr.toString();
 				newVehStr = vehDescString.replace(/,/g, ' and ');
-
 			} else {
 				vehDescString = "";
 				newVehStr = "";
@@ -150,8 +189,6 @@ sap.ui.define([
 				var urlTable = host +
 					"/Z_VEHICLE_CATALOGUE_SRV/ZC_VOAS_COMP_HEADERSet?$filter= (" + newVehStr + ")&$expand=ZCVOASDEEP";
 				//IN_Vehicle1 eq '2019Camry SEAM' and IN_Vehicle2 eq '2019Camry LEAM' )&$expand=ZCVOASDEEP";
-				//	"/Z_VEHICLE_CATALOGUE_SRV/ZC_VOAS_COMP_HEADERSet?$filter=(IN_Vehicle1 eq '2018Camry SEA' and IN_Vehicle2 eq '2018Camry LEA' )&$expand=ZCVOASDEEP";
-
 				$.ajax({
 					url: urlTable,
 					method: 'GET',
@@ -174,15 +211,27 @@ sap.ui.define([
 				for (var i = 0; i < len; i++) {
 					for (var k = 0; k < modLen; k++) {
 						if (parsePathArg[i] == k) {
-							aColumnData.push(empData[k]);
+							var colname = empData[k].ENModelDesc + "  - SFX " + empData[k].Suffix;
+							var colname2 = empData[k].ENModelDesc;
+							//	aColumnData.push(empData[k]);
+							aColumnData.push({
+								Vehicle: colname
+							});
+							aColumnDataCol.push({
+								Vehicle: colname2
+							});
 							arrNewData.push(empData[k]);
 							break;
 						}
 					}
 				}
+				//		console.log(aColumnData);
 				var nModel = new sap.ui.model.json.JSONModel();
 				nModel.setData(arrNewData);
+				//		console.log(arrNewData);
 				CDO_controller.getView().setModel(nModel, "compareModel");
+				var stateSwitch = this.getView().byId("stdFeatSwitchId");
+				//		console.log(stateSwitch);
 				if (CDO_controller.getView().getModel("TblModel")) {
 					var dat = CDO_controller.getView().getModel("TblModel").getData();
 					var dtExt = "",
@@ -214,7 +263,7 @@ sap.ui.define([
 						if (dat[j].Super_catgy == "COLOR OPTIONS") {
 							dtCol = dat[j].ZCVOASDEEP.results;
 						}
-						if (dat[j].Super_catgy == "DIMENSIONS") {
+						if (dat[j].Super_catgy == "DIMENSIONS & SPECS") {
 							dtDim = dat[j].ZCVOASDEEP.results;
 						}
 						if (dat[j].Super_catgy == "APX") {
@@ -228,115 +277,564 @@ sap.ui.define([
 
 					var dataExterior = [];
 					for (var i = 0; i < dtExt.length; i++) {
-						dataExterior.push({
-							"Category_en": dtExt[i].Category_en,
-							"Cust_fac_desc_en": dtExt[i].Cust_fac_desc_en,
-							"Vehicle1": dtExt[i].Vehicle1,
-							"Vehicle2": dtExt[i].Vehicle2,
-							"Vehicle3": dtExt[i].Vehicle3,
-							"Vehicle4": dtExt[i].Vehicle4,
-							"Vehicle5": dtExt[i].Vehicle5
-						});
+
+						switch (len) {
+						case 2:
+							if (dtExt[i].Vehicle1 == dtExt[i].Vehicle2) {
+
+							} else {
+								dataExterior.push({
+									"Category_en": dtExt[i].Category_en,
+									"Cust_fac_desc_en": dtExt[i].Cust_fac_desc_en,
+									"Vehicle1": dtExt[i].Vehicle1,
+									"Vehicle2": dtExt[i].Vehicle2,
+									"Vehicle3": dtExt[i].Vehicle3,
+									"Vehicle4": dtExt[i].Vehicle4,
+									"Vehicle5": dtExt[i].Vehicle5
+								});
+							}
+							break;
+						case 3:
+							//	console.log(dtExt[i].Vehicle1+" :"+dtExt[i].Vehicle2+" :"+dtExt[i].Vehicle3);
+							if (dtExt[i].Vehicle1 == dtExt[i].Vehicle2 && dtExt[i].Vehicle2 == dtExt[i].Vehicle3) {
+								//console.log("For"+i+" YES present in all")
+							} else {
+								dataExterior.push({
+									"Category_en": dtExt[i].Category_en,
+									"Cust_fac_desc_en": dtExt[i].Cust_fac_desc_en,
+									"Vehicle1": dtExt[i].Vehicle1,
+									"Vehicle2": dtExt[i].Vehicle2,
+									"Vehicle3": dtExt[i].Vehicle3,
+									"Vehicle4": dtExt[i].Vehicle4,
+									"Vehicle5": dtExt[i].Vehicle5
+								});
+							}
+							break;
+						case 4:
+							if (dtExt[i].Vehicle1 == dtExt[i].Vehicle2 && dtExt[i].Vehicle2 == dtExt[i].Vehicle3 && dtExt[i].Vehicle3 == dtExt[i].Vehicle4) {
+								//	console.log("For"+i+" YES present in all")
+							} else {
+								//	console.log(" For"+i+"YES is not present in all")
+								dataExterior.push({
+									"Category_en": dtExt[i].Category_en,
+									"Cust_fac_desc_en": dtExt[i].Cust_fac_desc_en,
+									"Vehicle1": dtExt[i].Vehicle1,
+									"Vehicle2": dtExt[i].Vehicle2,
+									"Vehicle3": dtExt[i].Vehicle3,
+									"Vehicle4": dtExt[i].Vehicle4,
+									"Vehicle5": dtExt[i].Vehicle5
+								});
+							}
+							break;
+						case 5:
+							if (dtExt[i].Vehicle1 == dtExt[i].Vehicle2 && dtExt[i].Vehicle2 == dtExt[i].Vehicle3 && dtExt[i].Vehicle3 == dtExt[i].Vehicle4 &&
+								dtExt[i].Vehicle4 == dtExt[i].Vehicle5) {
+								//	console.log("For"+i+" YES present in all")
+							} else {
+								dataExterior.push({
+									"Category_en": dtExt[i].Category_en,
+									"Cust_fac_desc_en": dtExt[i].Cust_fac_desc_en,
+									"Vehicle1": dtExt[i].Vehicle1,
+									"Vehicle2": dtExt[i].Vehicle2,
+									"Vehicle3": dtExt[i].Vehicle3,
+									"Vehicle4": dtExt[i].Vehicle4,
+									"Vehicle5": dtExt[i].Vehicle5
+								});
+							}
+							break;
+						default: // code to be executed if n doesn't match any cases
+						}
 					}
 					var dataInterior = [];
 					for (var i = 0; i < dtInt.length; i++) {
-						dataInterior.push({
-							"Category_en": dtInt[i].Category_en,
-							"Cust_fac_desc_en": dtInt[i].Cust_fac_desc_en,
-							"Vehicle1": dtInt[i].Vehicle1,
-							"Vehicle2": dtInt[i].Vehicle2,
-							"Vehicle3": dtInt[i].Vehicle3,
-							"Vehicle4": dtInt[i].Vehicle4,
-							"Vehicle5": dtInt[i].Vehicle5
-						});
+						switch (len) {
+						case 2:
+							if (dtInt[i].Vehicle1 == dtInt[i].Vehicle2) {
+
+							} else {
+								dataInterior.push({
+									"Category_en": dtInt[i].Category_en,
+									"Cust_fac_desc_en": dtInt[i].Cust_fac_desc_en,
+									"Vehicle1": dtInt[i].Vehicle1,
+									"Vehicle2": dtInt[i].Vehicle2,
+									"Vehicle3": dtInt[i].Vehicle3,
+									"Vehicle4": dtInt[i].Vehicle4,
+									"Vehicle5": dtInt[i].Vehicle5
+								});
+							}
+							break;
+						case 3:
+							//	console.log(dtInt[i].Vehicle1+" :"+dtInt[i].Vehicle2+" :"+dtInt[i].Vehicle3);
+							if (dtInt[i].Vehicle1 == dtInt[i].Vehicle2 && dtInt[i].Vehicle2 == dtInt[i].Vehicle3) {
+								//console.log("For"+i+" YES present in all")
+							} else {
+								dataInterior.push({
+									"Category_en": dtInt[i].Category_en,
+									"Cust_fac_desc_en": dtInt[i].Cust_fac_desc_en,
+									"Vehicle1": dtInt[i].Vehicle1,
+									"Vehicle2": dtInt[i].Vehicle2,
+									"Vehicle3": dtInt[i].Vehicle3,
+									"Vehicle4": dtInt[i].Vehicle4,
+									"Vehicle5": dtInt[i].Vehicle5
+
+								});
+							}
+							break;
+						case 4:
+							if (dtInt[i].Vehicle1 == dtInt[i].Vehicle2 && dtInt[i].Vehicle2 == dtInt[i].Vehicle3 && dtInt[i].Vehicle3 == dtInt[i].Vehicle4) {
+								//	console.log("For"+i+" YES present in all")
+							} else {
+								//	console.log(" For"+i+"YES is not present in all")
+								dataInterior.push({
+									"Category_en": dtInt[i].Category_en,
+									"Cust_fac_desc_en": dtInt[i].Cust_fac_desc_en,
+									"Vehicle1": dtInt[i].Vehicle1,
+									"Vehicle2": dtInt[i].Vehicle2,
+									"Vehicle3": dtInt[i].Vehicle3,
+									"Vehicle4": dtInt[i].Vehicle4,
+									"Vehicle5": dtInt[i].Vehicle5
+								});
+							}
+							break;
+						case 5:
+							if (dtInt[i].Vehicle1 == dtInt[i].Vehicle2 && dtInt[i].Vehicle2 == dtInt[i].Vehicle3 && dtInt[i].Vehicle3 == dtInt[i].Vehicle4 &&
+								dtInt[i].Vehicle4 == dtInt[i].Vehicle5) {
+								//	console.log("For"+i+" YES present in all")
+							} else {
+								dataInterior.push({
+									"Category_en": dtInt[i].Category_en,
+									"Cust_fac_desc_en": dtInt[i].Cust_fac_desc_en,
+									"Vehicle1": dtInt[i].Vehicle1,
+									"Vehicle2": dtInt[i].Vehicle2,
+									"Vehicle3": dtInt[i].Vehicle3,
+									"Vehicle4": dtInt[i].Vehicle4,
+									"Vehicle5": dtInt[i].Vehicle5
+								});
+							}
+							break;
+						default: // code to be executed if n doesn't match any cases
+						}
 					}
 					var dataInfo = [];
 					for (var i = 0; i < dtInfo.length; i++) {
-						dataInfo.push({
-							"Category_en": dtInfo[i].Category_en,
-							"Cust_fac_desc_en": dtInfo[i].Cust_fac_desc_en,
-							"Vehicle1": dtInfo[i].Vehicle1,
-							"Vehicle2": dtInfo[i].Vehicle2,
-							"Vehicle3": dtInfo[i].Vehicle3,
-							"Vehicle4": dtInfo[i].Vehicle4,
-							"Vehicle5": dtInfo[i].Vehicle5
-						});
+
+						switch (len) {
+						case 2:
+							if (dtInfo[i].Vehicle1 == dtInfo[i].Vehicle2) {
+
+							} else {
+								dataInfo.push({
+									"Category_en": dtInfo[i].Category_en,
+									"Cust_fac_desc_en": dtInfo[i].Cust_fac_desc_en,
+									"Vehicle1": dtInfo[i].Vehicle1,
+									"Vehicle2": dtInfo[i].Vehicle2,
+									"Vehicle3": dtInfo[i].Vehicle3,
+									"Vehicle4": dtInfo[i].Vehicle4,
+									"Vehicle5": dtInfo[i].Vehicle5
+								});
+							}
+							break;
+						case 3:
+							//	console.log(dtInfo[i].Vehicle1+" :"+dtInfo[i].Vehicle2+" :"+dtInfo[i].Vehicle3);
+							if (dtInfo[i].Vehicle1 == dtInfo[i].Vehicle2 && dtInfo[i].Vehicle2 == dtInfo[i].Vehicle3) {
+								//console.log("For"+i+" YES present in all")
+							} else {
+								//console.log(" For"+i+"YES is not present in all")
+								dataInfo.push({
+									"Category_en": dtInfo[i].Category_en,
+									"Cust_fac_desc_en": dtInfo[i].Cust_fac_desc_en,
+									"Vehicle1": dtInfo[i].Vehicle1,
+									"Vehicle2": dtInfo[i].Vehicle2,
+									"Vehicle3": dtInfo[i].Vehicle3,
+									"Vehicle4": dtInfo[i].Vehicle4,
+									"Vehicle5": dtInfo[i].Vehicle5
+								});
+							}
+							break;
+						case 4:
+							if (dtInfo[i].Vehicle1 == dtInfo[i].Vehicle2 && dtInfo[i].Vehicle2 == dtInfo[i].Vehicle3 && dtInfo[i].Vehicle3 == dtInfo[i].Vehicle4) {
+								//	console.log("For"+i+" YES present in all")
+							} else {
+								//	console.log(" For"+i+"YES is not present in all")
+								dataInfo.push({
+									"Category_en": dtInfo[i].Category_en,
+									"Cust_fac_desc_en": dtInfo[i].Cust_fac_desc_en,
+									"Vehicle1": dtInfo[i].Vehicle1,
+									"Vehicle2": dtInfo[i].Vehicle2,
+									"Vehicle3": dtInfo[i].Vehicle3,
+									"Vehicle4": dtInfo[i].Vehicle4,
+									"Vehicle5": dtInfo[i].Vehicle5
+								});
+							}
+							break;
+						case 5:
+							if (dtInfo[i].Vehicle1 == dtInfo[i].Vehicle2 && dtInfo[i].Vehicle2 == dtInfo[i].Vehicle3 && dtInfo[i].Vehicle3 == dtInfo[i].Vehicle4 &&
+								dtInfo[i].Vehicle4 == dtInfo[i].Vehicle5) {
+								//	console.log("For"+i+" YES present in all")
+							} else {
+								//	console.log(" For"+i+"YES is not present in all")
+								dataInfo.push({
+									"Category_en": dtInfo[i].Category_en,
+									"Cust_fac_desc_en": dtInfo[i].Cust_fac_desc_en,
+									"Vehicle1": dtInfo[i].Vehicle1,
+									"Vehicle2": dtInfo[i].Vehicle2,
+									"Vehicle3": dtInfo[i].Vehicle3,
+									"Vehicle4": dtInfo[i].Vehicle4,
+									"Vehicle5": dtInfo[i].Vehicle5
+								});
+							}
+							break;
+						default: // code to be executed if n doesn't match any cases
+						}
 					}
 					var dataPwr = [];
 					for (var i = 0; i < dtPwr.length; i++) {
-						dataPwr.push({
-							"Category_en": dtPwr[i].Category_en,
-							"Cust_fac_desc_en": dtPwr[i].Cust_fac_desc_en,
-							"Vehicle1": dtPwr[i].Vehicle1,
-							"Vehicle2": dtPwr[i].Vehicle2,
-							"Vehicle3": dtPwr[i].Vehicle3,
-							"Vehicle4": dtPwr[i].Vehicle4,
-							"Vehicle5": dtPwr[i].Vehicle5
-						});
+
+						switch (len) {
+						case 2:
+							if (dtPwr[i].Vehicle1 == dtPwr[i].Vehicle2) {
+
+							} else {
+								dataPwr.push({
+									"Category_en": dtPwr[i].Category_en,
+									"Cust_fac_desc_en": dtPwr[i].Cust_fac_desc_en,
+									"Vehicle1": dtPwr[i].Vehicle1,
+									"Vehicle2": dtPwr[i].Vehicle2,
+									"Vehicle3": dtPwr[i].Vehicle3,
+									"Vehicle4": dtPwr[i].Vehicle4,
+									"Vehicle5": dtPwr[i].Vehicle5
+								});
+							}
+							break;
+						case 3:
+							//	console.log(dtPwr[i].Vehicle1+" :"+dtPwr[i].Vehicle2+" :"+dtPwr[i].Vehicle3);
+							if (dtPwr[i].Vehicle1 == dtPwr[i].Vehicle2 && dtPwr[i].Vehicle2 == dtPwr[i].Vehicle3) {
+								//console.log("For"+i+" YES present in all")
+							} else {
+								dataPwr.push({
+									"Category_en": dtPwr[i].Category_en,
+									"Cust_fac_desc_en": dtPwr[i].Cust_fac_desc_en,
+									"Vehicle1": dtPwr[i].Vehicle1,
+									"Vehicle2": dtPwr[i].Vehicle2,
+									"Vehicle3": dtPwr[i].Vehicle3,
+									"Vehicle4": dtPwr[i].Vehicle4,
+									"Vehicle5": dtPwr[i].Vehicle5
+								});
+							}
+							break;
+						case 4:
+							if (dtPwr[i].Vehicle1 == dtPwr[i].Vehicle2 && dtPwr[i].Vehicle2 == dtPwr[i].Vehicle3 && dtPwr[i].Vehicle3 == dtPwr[i].Vehicle4) {
+								//	console.log("For"+i+" YES present in all")
+							} else {
+								dataPwr.push({
+									"Category_en": dtPwr[i].Category_en,
+									"Cust_fac_desc_en": dtPwr[i].Cust_fac_desc_en,
+									"Vehicle1": dtPwr[i].Vehicle1,
+									"Vehicle2": dtPwr[i].Vehicle2,
+									"Vehicle3": dtPwr[i].Vehicle3,
+									"Vehicle4": dtPwr[i].Vehicle4,
+									"Vehicle5": dtPwr[i].Vehicle5
+								});
+							}
+							break;
+						case 5:
+							if (dtPwr[i].Vehicle1 == dtPwr[i].Vehicle2 && dtPwr[i].Vehicle2 == dtPwr[i].Vehicle3 && dtPwr[i].Vehicle3 == dtPwr[i].Vehicle4 &&
+								dtPwr[i].Vehicle4 == dtPwr[i].Vehicle5) {
+								//	console.log("For"+i+" YES present in all")
+							} else {
+								dataPwr.push({
+									"Category_en": dtPwr[i].Category_en,
+									"Cust_fac_desc_en": dtPwr[i].Cust_fac_desc_en,
+									"Vehicle1": dtPwr[i].Vehicle1,
+									"Vehicle2": dtPwr[i].Vehicle2,
+									"Vehicle3": dtPwr[i].Vehicle3,
+									"Vehicle4": dtPwr[i].Vehicle4,
+									"Vehicle5": dtPwr[i].Vehicle5
+								});
+							}
+							break;
+						default: // code to be executed if n doesn't match any cases
+						}
 					}
 					var dataSafety = [];
 					for (var i = 0; i < dtSaf.length; i++) {
-						dataSafety.push({
-							"Category_en": dtSaf[i].Category_en,
-							"Cust_fac_desc_en": dtSaf[i].Cust_fac_desc_en,
-							"Vehicle1": dtSaf[i].Vehicle1,
-							"Vehicle2": dtSaf[i].Vehicle2,
-							"Vehicle3": dtSaf[i].Vehicle3,
-							"Vehicle4": dtSaf[i].Vehicle4,
-							"Vehicle5": dtSaf[i].Vehicle5
-						});
+
+						switch (len) {
+						case 2:
+							if (dtSaf[i].Vehicle1 == dtSaf[i].Vehicle2) {
+
+							} else {
+								dataSafety.push({
+									"Category_en": dtSaf[i].Category_en,
+									"Cust_fac_desc_en": dtSaf[i].Cust_fac_desc_en,
+									"Vehicle1": dtSaf[i].Vehicle1,
+									"Vehicle2": dtSaf[i].Vehicle2,
+									"Vehicle3": dtSaf[i].Vehicle3,
+									"Vehicle4": dtSaf[i].Vehicle4,
+									"Vehicle5": dtSaf[i].Vehicle5
+								});
+							}
+							break;
+						case 3:
+							//	console.log(dtSaf[i].Vehicle1+" :"+dtSaf[i].Vehicle2+" :"+dtSaf[i].Vehicle3);
+							if (dtSaf[i].Vehicle1 == dtSaf[i].Vehicle2 && dtSaf[i].Vehicle2 == dtSaf[i].Vehicle3) {
+								//console.log("For"+i+" YES present in all")
+							} else {
+								dataSafety.push({
+									"Category_en": dtSaf[i].Category_en,
+									"Cust_fac_desc_en": dtSaf[i].Cust_fac_desc_en,
+									"Vehicle1": dtSaf[i].Vehicle1,
+									"Vehicle2": dtSaf[i].Vehicle2,
+									"Vehicle3": dtSaf[i].Vehicle3,
+									"Vehicle4": dtSaf[i].Vehicle4,
+									"Vehicle5": dtSaf[i].Vehicle5
+								});
+							}
+							break;
+						case 4:
+							if (dtSaf[i].Vehicle1 == dtSaf[i].Vehicle2 && dtSaf[i].Vehicle2 == dtSaf[i].Vehicle3 && dtSaf[i].Vehicle3 == dtSaf[i].Vehicle4) {
+								//	console.log("For"+i+" YES present in all")
+							} else {
+								dataSafety.push({
+									"Category_en": dtSaf[i].Category_en,
+									"Cust_fac_desc_en": dtSaf[i].Cust_fac_desc_en,
+									"Vehicle1": dtSaf[i].Vehicle1,
+									"Vehicle2": dtSaf[i].Vehicle2,
+									"Vehicle3": dtSaf[i].Vehicle3,
+									"Vehicle4": dtSaf[i].Vehicle4,
+									"Vehicle5": dtSaf[i].Vehicle5
+								});
+							}
+							break;
+						case 5:
+							if (dtSaf[i].Vehicle1 == dtSaf[i].Vehicle2 && dtSaf[i].Vehicle2 == dtSaf[i].Vehicle3 && dtSaf[i].Vehicle3 == dtSaf[i].Vehicle4 &&
+								dtSaf[i].Vehicle4 == dtSaf[i].Vehicle5) {
+								//	console.log("For"+i+" YES present in all")
+							} else {
+								dataSafety.push({
+									"Category_en": dtSaf[i].Category_en,
+									"Cust_fac_desc_en": dtSaf[i].Cust_fac_desc_en,
+									"Vehicle1": dtSaf[i].Vehicle1,
+									"Vehicle2": dtSaf[i].Vehicle2,
+									"Vehicle3": dtSaf[i].Vehicle3,
+									"Vehicle4": dtSaf[i].Vehicle4,
+									"Vehicle5": dtSaf[i].Vehicle5
+								});
+							}
+							break;
+						default: // code to be executed if n doesn't match any cases
+						}
 					}
 
 					var dataColour = [];
 
 					for (var i = 0; i < dtCol.length; i++) {
-						dataColour.push({
-							"Category_en": dtCol[i].EXT + "-" + dtCol[i].EXT_DESC + "\n" + dtCol[i].INT_DESC,
-							"Cust_fac_desc_en": "MSRP: " + dtCol[i].MSRP + "\nDealer Net: " + dtCol[i].NETPRICE,
-							"Vehicle1": dtCol[i].Vehicle1,
-							"Vehicle2": dtCol[i].Vehicle2,
-							"Vehicle3": dtCol[i].Vehicle3,
-							"Vehicle4": dtCol[i].Vehicle4,
-							"Vehicle5": dtCol[i].Vehicle5
-						});
+
+						switch (len) {
+						case 2:
+							if (dtCol[i].Vehicle1 == dtCol[i].Vehicle2) {
+
+							} else {
+								dataColour.push({
+									"Category_en": dtCol[i].EXT + "-" + dtCol[i].EXT_DESC + "\n" + dtCol[i].INT_DESC,
+									"Cust_fac_desc_en": "MSRP: " + dtCol[i].MSRP + "\nDealer Net: " + dtCol[i].NETPRICE,
+									"Vehicle1": dtCol[i].Vehicle1,
+									"Vehicle2": dtCol[i].Vehicle2,
+									"Vehicle3": dtCol[i].Vehicle3,
+									"Vehicle4": dtCol[i].Vehicle4,
+									"Vehicle5": dtCol[i].Vehicle5
+								});
+							}
+							break;
+						case 3:
+							//	console.log(dtCol[i].Vehicle1+" :"+dtCol[i].Vehicle2+" :"+dtCol[i].Vehicle3);
+							if (dtCol[i].Vehicle1 == dtCol[i].Vehicle2 && dtCol[i].Vehicle2 == dtCol[i].Vehicle3) {
+								//console.log("For"+i+" YES present in all")
+							} else {
+								dataColour.push({
+									"Category_en": dtCol[i].EXT + "-" + dtCol[i].EXT_DESC + "\n" + dtCol[i].INT_DESC,
+									"Cust_fac_desc_en": "MSRP: " + dtCol[i].MSRP + "\nDealer Net: " + dtCol[i].NETPRICE,
+									"Vehicle1": dtCol[i].Vehicle1,
+									"Vehicle2": dtCol[i].Vehicle2,
+									"Vehicle3": dtCol[i].Vehicle3,
+									"Vehicle4": dtCol[i].Vehicle4,
+									"Vehicle5": dtCol[i].Vehicle5
+								});
+							}
+							break;
+						case 4:
+							if (dtCol[i].Vehicle1 == dtCol[i].Vehicle2 && dtCol[i].Vehicle2 == dtCol[i].Vehicle3 && dtCol[i].Vehicle3 == dtCol[i].Vehicle4) {
+								//	console.log("For"+i+" YES present in all")
+							} else {
+								dataColour.push({
+									"Category_en": dtCol[i].EXT + "-" + dtCol[i].EXT_DESC + "\n" + dtCol[i].INT_DESC,
+									"Cust_fac_desc_en": "MSRP: " + dtCol[i].MSRP + "\nDealer Net: " + dtCol[i].NETPRICE,
+									"Vehicle1": dtCol[i].Vehicle1,
+									"Vehicle2": dtCol[i].Vehicle2,
+									"Vehicle3": dtCol[i].Vehicle3,
+									"Vehicle4": dtCol[i].Vehicle4,
+									"Vehicle5": dtCol[i].Vehicle5
+								});
+							}
+							break;
+						case 5:
+							if (dtCol[i].Vehicle1 == dtCol[i].Vehicle2 && dtCol[i].Vehicle2 == dtCol[i].Vehicle3 && dtCol[i].Vehicle3 == dtCol[i].Vehicle4 &&
+								dtCol[i].Vehicle4 == dtCol[i].Vehicle5) {
+								//	console.log("For"+i+" YES present in all")
+							} else {
+								dataColour.push({
+									"Category_en": dtCol[i].EXT + "-" + dtCol[i].EXT_DESC + "\n" + dtCol[i].INT_DESC,
+									"Cust_fac_desc_en": "MSRP: " + dtCol[i].MSRP + "\nDealer Net: " + dtCol[i].NETPRICE,
+									"Vehicle1": dtCol[i].Vehicle1,
+									"Vehicle2": dtCol[i].Vehicle2,
+									"Vehicle3": dtCol[i].Vehicle3,
+									"Vehicle4": dtCol[i].Vehicle4,
+									"Vehicle5": dtCol[i].Vehicle5
+								});
+							}
+							break;
+						default: // code to be executed if n doesn't match any cases
+						}
 					}
 					var dataDim = [];
 					for (var i = 0; i < dtDim.length; i++) {
-						dataDim.push({
-							"Category_en": dtDim[i].Category_en,
-							"Cust_fac_desc_en": dtDim[i].Cust_fac_desc_en,
-							"Vehicle1": dtDim[i].Vehicle1,
-							"Vehicle2": dtDim[i].Vehicle2,
-							"Vehicle3": dtDim[i].Vehicle3,
-							"Vehicle4": dtDim[i].Vehicle4,
-							"Vehicle5": dtDim[i].Vehicle5
-						});
+
+						switch (len) {
+						case 2:
+							if (dtDim[i].Vehicle1 == dtDim[i].Vehicle2) {
+
+							} else {
+								dataDim.push({
+									"Category_en": dtDim[i].Dimensions,
+									"Cust_fac_desc_en": " ",
+									"Vehicle1": dtDim[i].Vehicle1,
+									"Vehicle2": dtDim[i].Vehicle2,
+									"Vehicle3": dtDim[i].Vehicle3,
+									"Vehicle4": dtDim[i].Vehicle4,
+									"Vehicle5": dtDim[i].Vehicle5
+								});
+							}
+							break;
+						case 3:
+							//	console.log(dtDim[i].Vehicle1+" :"+dtDim[i].Vehicle2+" :"+dtDim[i].Vehicle3);
+							if (dtDim[i].Vehicle1 == dtDim[i].Vehicle2 && dtDim[i].Vehicle2 == dtDim[i].Vehicle3) {
+								//console.log("For"+i+" YES present in all")
+							} else {
+								dataDim.push({
+									"Category_en": dtDim[i].Dimensions,
+									"Cust_fac_desc_en": " ",
+									"Vehicle1": dtDim[i].Vehicle1,
+									"Vehicle2": dtDim[i].Vehicle2,
+									"Vehicle3": dtDim[i].Vehicle3,
+									"Vehicle4": dtDim[i].Vehicle4,
+									"Vehicle5": dtDim[i].Vehicle5
+								});
+							}
+							break;
+						case 4:
+							if (dtDim[i].Vehicle1 == dtDim[i].Vehicle2 && dtDim[i].Vehicle2 == dtDim[i].Vehicle3 && dtDim[i].Vehicle3 == dtDim[i].Vehicle4) {
+								//	console.log("For"+i+" YES present in all")
+							} else {
+								dataDim.push({
+									"Category_en": dtDim[i].Dimensions,
+									"Cust_fac_desc_en": " ",
+									"Vehicle1": dtDim[i].Vehicle1,
+									"Vehicle2": dtDim[i].Vehicle2,
+									"Vehicle3": dtDim[i].Vehicle3,
+									"Vehicle4": dtDim[i].Vehicle4,
+									"Vehicle5": dtDim[i].Vehicle5
+								});
+							}
+							break;
+						case 5:
+							if (dtDim[i].Vehicle1 == dtDim[i].Vehicle2 && dtDim[i].Vehicle2 == dtDim[i].Vehicle3 && dtDim[i].Vehicle3 == dtDim[i].Vehicle4 &&
+								dtDim[i].Vehicle4 == dtDim[i].Vehicle5) {
+								//	console.log("For"+i+" YES present in all")
+							} else {
+								dataDim.push({
+									"Category_en": dtDim[i].Dimensions,
+									"Cust_fac_desc_en": " ",
+									"Vehicle1": dtDim[i].Vehicle1,
+									"Vehicle2": dtDim[i].Vehicle2,
+									"Vehicle3": dtDim[i].Vehicle3,
+									"Vehicle4": dtDim[i].Vehicle4,
+									"Vehicle5": dtDim[i].Vehicle5
+								});
+							}
+							break;
+						default: // code to be executed if n doesn't match any cases
+						}
 					}
-					var dataOpt = [];
-					for (var i = 0; i < dtOpt.length; i++) {
-						dataOpt.push({
-							"Category_en": dtOpt[i].Category_en,
-							"Cust_fac_desc_en": dtOpt[i].Cust_fac_desc_en,
-							"Vehicle1": dtOpt[i].Vehicle1,
-							"Vehicle2": dtOpt[i].Vehicle2,
-							"Vehicle3": dtOpt[i].Vehicle3,
-							"Vehicle4": dtOpt[i].Vehicle4,
-							"Vehicle5": dtOpt[i].Vehicle5
-						});
-					}
+
 					var dataApx = [];
 					for (var i = 0; i < dtApx.length; i++) {
-						dataApx.push({
-							"Category_en": dtApx[i].Category_en,
-							"Cust_fac_desc_en": dtApx[i].Cust_fac_desc_en,
-							"Vehicle1": dtApx[i].Vehicle1,
-							"Vehicle2": dtApx[i].Vehicle2,
-							"Vehicle3": dtApx[i].Vehicle3,
-							"Vehicle4": dtApx[i].Vehicle4,
-							"Vehicle5": dtApx[i].Vehicle5
-						});
+
+						switch (len) {
+						case 2:
+							if (dtApx[i].Vehicle1 == dtApx[i].Vehicle2) {
+
+							} else {
+								dataApx.push({
+									"Category_en": dtApx[i].APX,
+									"Cust_fac_desc_en": dtApx[i].INT_DESC,
+									"Vehicle1": dtApx[i].Vehicle1,
+									"Vehicle2": dtApx[i].Vehicle2,
+									"Vehicle3": dtApx[i].Vehicle3,
+									"Vehicle4": dtApx[i].Vehicle4,
+									"Vehicle5": dtApx[i].Vehicle5
+								});
+							}
+							break;
+						case 3:
+							//	console.log(dtApx[i].Vehicle1+" :"+dtApx[i].Vehicle2+" :"+dtApx[i].Vehicle3);
+							if (dtApx[i].Vehicle1 == dtApx[i].Vehicle2 && dtApx[i].Vehicle2 == dtApx[i].Vehicle3) {
+								//console.log("For"+i+" YES present in all")
+							} else {
+								dataApx.push({
+									"Category_en": dtApx[i].APX,
+									"Cust_fac_desc_en": dtApx[i].INT_DESC,
+									"Vehicle1": dtApx[i].Vehicle1,
+									"Vehicle2": dtApx[i].Vehicle2,
+									"Vehicle3": dtApx[i].Vehicle3,
+									"Vehicle4": dtApx[i].Vehicle4,
+									"Vehicle5": dtApx[i].Vehicle5
+								});
+							}
+							break;
+						case 4:
+							if (dtApx[i].Vehicle1 == dtApx[i].Vehicle2 && dtApx[i].Vehicle2 == dtApx[i].Vehicle3 && dtApx[i].Vehicle3 == dtApx[i].Vehicle4) {
+								//	console.log("For"+i+" YES present in all")
+							} else {
+								dataApx.push({
+									"Category_en": dtApx[i].APX,
+									"Cust_fac_desc_en": dtApx[i].INT_DESC,
+									"Vehicle1": dtApx[i].Vehicle1,
+									"Vehicle2": dtApx[i].Vehicle2,
+									"Vehicle3": dtApx[i].Vehicle3,
+									"Vehicle4": dtApx[i].Vehicle4,
+									"Vehicle5": dtApx[i].Vehicle5
+								});
+							}
+							break;
+						case 5:
+							if (dtApx[i].Vehicle1 == dtApx[i].Vehicle2 && dtApx[i].Vehicle2 == dtApx[i].Vehicle3 && dtApx[i].Vehicle3 == dtApx[i].Vehicle4 &&
+								dtApx[i].Vehicle4 == dtApx[i].Vehicle5) {
+								//	console.log("For"+i+" YES present in all")
+							} else {
+								dataApx.push({
+									"Category_en": dtApx[i].APX,
+									"Cust_fac_desc_en": dtApx[i].INT_DESC,
+									"Vehicle1": dtApx[i].Vehicle1,
+									"Vehicle2": dtApx[i].Vehicle2,
+									"Vehicle3": dtApx[i].Vehicle3,
+									"Vehicle4": dtApx[i].Vehicle4,
+									"Vehicle5": dtApx[i].Vehicle5
+								});
+							}
+							break;
+						default: // code to be executed if n doesn't match any cases
+						}
 					}
-					// end of temp coding ============================================================
 
 					var tblModelExt = new sap.ui.model.json.JSONModel();
 					tblModelExt.setData({
@@ -366,14 +864,15 @@ sap.ui.define([
 
 					var tblModelCol = new sap.ui.model.json.JSONModel();
 					tblModelCol.setData({
-						columns: aColumnData,
+						columns: aColumnDataCol,
 						rows: dataColour
 					});
-					var tblModelOpt = new sap.ui.model.json.JSONModel();
-					tblModelOpt.setData({
-						columns: aColumnData,
-						rows: dataOpt
-					});
+					var tblModelOpt = new sap.ui.model.json.JSONModel(dtOpt);
+					CDO_controller.getView().setModel(tblModelOpt, "tblModelOpt");
+					/*	tblModelOpt.setData({
+							columns: aColumnDataOpt,
+							rows: dataOpt
+						});*/
 					var tblModelDim = new sap.ui.model.json.JSONModel();
 					tblModelDim.setData({
 						columns: aColumnData,
@@ -449,6 +948,7 @@ sap.ui.define([
 					var tblPowertrain = CDO_controller.getView().byId("pwrTrn");
 					tblPowertrain.setModel(tblModelPwr);
 					tblPowertrain.bindAggregation("columns", "/columns", function (index, context) {
+
 						return new sap.m.Column({
 							header: new sap.m.Label({
 								text: context.getObject().Vehicle
@@ -545,8 +1045,10 @@ sap.ui.define([
 						}
 						return row;
 					});
-					var tblOptionPack = CDO_controller.getView().byId("tblOptionPack");
-					tblOptionPack.setModel(tblModelOpt);
+					var tblOptionPack = CDO_controller.getView().byId("tblOptionPackStat");
+					tblOptionPack.setModel("tblModelOpt");
+
+					/*	tblOptionPack.setModel(tblModelOpt);
 					tblOptionPack.bindAggregation("columns", "/columns", function (index, context) {
 						return new sap.m.Column({
 							header: new sap.m.Label({
@@ -563,7 +1065,1235 @@ sap.ui.define([
 							}));
 						}
 						return row;
+					});*/
+					var tblAPX = CDO_controller.getView().byId("tblAPX");
+					tblAPX.setModel(tblModelApx);
+					tblAPX.bindAggregation("columns", "/columns", function (index, context) {
+						return new sap.m.Column({
+							header: new sap.m.Label({
+								text: context.getObject().Vehicle
+							}),
+						});
 					});
+					tblAPX.bindItems("/rows", function (index, context) {
+						var obj = context.getObject();
+						var row = new sap.m.ColumnListItem();
+						for (var k in obj) {
+							row.addCell(new sap.m.Text({
+								text: obj[k]
+							}));
+						}
+						return row;
+					});
+				}
+			}
+		},
+		handleRouteMatchedStdFeatureOn: function () {
+			var fixedData = {
+				Vehicle: " "
+			};
+
+			var aColumnData = [];
+			aColumnData.push(fixedData);
+			aColumnData.push(fixedData);
+
+			var aColumnDataCol = [];
+			aColumnDataCol.push(fixedData);
+			aColumnDataCol.push(fixedData);
+			
+			var arg2 = CDO_controller.arg2; // oEvent.getParameters().data.num2;//	var arg2 = oEvent.getParameters().data.num2;
+			var parseArg = JSON.parse(arg2);
+			var modelArg = new sap.ui.model.json.JSONModel(parseArg[0]);
+			CDO_controller.getView().setModel(modelArg, "modelArg");
+			var dataModelArg = CDO_controller.getView().getModel('modelArg').getData();
+			var brandCBVal = dataModelArg.brand;
+			var modelYearCBVal = dataModelArg.moYear;
+			var seriesCBVal = dataModelArg.series;
+
+			var empData;
+			var arrNewData = [];
+
+			var modelArr = [];
+			var newModelStr = "";
+			var modelText = [];
+			var modelDescString = "";
+
+			var suffixArr = [];
+			var newSuffixStr = "";
+			var suffixText = [];
+			var suffixDescString;
+
+			var vehArr = [];
+			var vehText = [];
+			var vehDescString = "";
+			var newVehStr = "";
+			var suffixTextVeh = [];
+
+			var parsePathArg = JSON.parse(parseArg[0].pathVeh);
+			var len = parsePathArg.length;
+
+			if (parseArg[0].model !== "") {
+				/*	if (parseArg[0].model !== "[]") {
+						newModelStr = "Model eq '" +parseArg[0].model;
+					} else {*/
+				var parseModelPathArg = JSON.parse(parseArg[0].model);
+				var lenModel = parseModelPathArg.length;
+				var jsonModel = JSON.parse(parseArg[0].model);
+				for (var i = 0; i < lenModel; i++) {
+					modelText[i] = jsonModel[i];
+					var modelText2 = "Model eq '" + modelText[i] + "'";
+					modelArr.push(modelText2);
+				}
+				modelDescString = modelArr.toString();
+				newModelStr = modelDescString.replace(/,/g, ' or ');
+				/*	}*/
+			} else {
+				modelDescString = "";
+				newModelStr = "";
+			}
+
+			if (parseArg[0].suffixDD !== "") {
+				/*console.log(parseArg[0].suffix);
+				if (parseArg[0].suffix !== "[]") {
+					newSuffixStr = "Suffix eq '" +parseArg[0].suffix;
+				} else {*/
+				var parseSuffixPathArg = JSON.parse(parseArg[0].suffixDD);
+				var lenSuffix = parseSuffixPathArg.length;
+				var jsonSuffixDD = JSON.parse(parseArg[0].suffixDD);
+				for (var j = 0; j < lenSuffix; j++) {
+					suffixText[j] = jsonSuffixDD[j];
+					var suffixText2 = "Suffix eq '" + suffixText[j] + "'";
+					suffixArr.push(suffixText2);
+				}
+				suffixDescString = suffixArr.toString();
+				newSuffixStr = suffixDescString.replace(/,/g, ' or ');
+				/*	}*/
+			} else {
+				suffixDescString = "";
+				newSuffixStr = "";
+			}
+			/*	if (parseArg[0].veh !== "") {
+					var parseVehPathArg = JSON.parse(parseArg[0].veh);
+					var lenVeh = parseVehPathArg.length;
+					var jsonVeh = JSON.parse(parseArg[0].veh);
+					for (var i = 0; i < lenVeh; i++) {
+						vehText[i] = jsonVeh[i];
+						var vehNum = i + 1;
+						var vehText2 = "IN_Vehicle" + vehNum + " eq '" + vehText[i] + "'";
+						vehArr.push(vehText2);
+					}
+					vehDescString = vehArr.toString();
+					newVehStr = vehDescString.replace(/,/g, ' and ');
+
+				} else {
+					vehDescString = "";
+					newVehStr = "";
+				}*/
+			if (parseArg[0].suffix !== "" && parseArg[0].veh !== "") {
+				var parseVehPathArg = JSON.parse(parseArg[0].veh);
+				var lenVeh = parseVehPathArg.length;
+				var jsonVeh = JSON.parse(parseArg[0].veh);
+				var jsonSuffix = JSON.parse(parseArg[0].suffix);
+				//var jsonSuffixVeh = JSON.parse(parseArg[0].suffix);
+				for (var i = 0; i < lenVeh; i++) {
+					suffixText[i] = jsonSuffix[i];
+					//	suffixTextVeh[i] = jsonSuffixVeh[i];
+					vehText[i] = jsonVeh[i];
+					var vehNum = i + 1;
+					var vehText2 = "IN_Vehicle" + vehNum + " eq '" + vehText[i] + suffixText[i] + "'";
+					vehArr.push(vehText2);
+				}
+				vehDescString = vehArr.toString();
+				newVehStr = vehDescString.replace(/,/g, ' and ');
+			} else {
+				vehDescString = "";
+				newVehStr = "";
+			}
+			var host = CDO_controller.host();
+			var url2 = "";
+			if (modelDescString == "" && suffixDescString !== "") {
+				console.log("1");
+				url2 = host +
+					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
+					"' and (" + newSuffixStr + ") and Modelyear eq  '" + modelYearCBVal + " ')";
+			} else if (suffixDescString == "" && modelDescString !== "") {
+				console.log("2");
+				url2 = host +
+					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
+					" ' and Modelyear eq  '" + modelYearCBVal + " 'and (" + newModelStr + ") )";
+			} else if (suffixDescString == "" && modelDescString == "") {
+				console.log("3");
+				url2 = host +
+					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
+					" ' and Modelyear eq  '" + modelYearCBVal + " ')";
+			} else {
+				console.log("4");
+				url2 = host +
+					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
+					" ' and Modelyear eq  '" + modelYearCBVal + " ' and (" + newModelStr + ") and (" + newSuffixStr + ") )";
+			}
+			$.ajax({
+				url: url2,
+				method: 'GET',
+				async: false,
+				dataType: 'json',
+				success: function (data, textStatus, jqXHR) {
+					var tblModel = new sap.ui.model.json.JSONModel(data.d.results);
+					CDO_controller.getView().setModel(tblModel, "searchTblModel");
+				},
+				error: function (jqXHR, textStatus, errorThrown) {
+					sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
+						sap
+						.m.MessageBox.Action.OK, null, null);
+				}
+			});
+			if (newVehStr !== "") {
+				var urlTable = host +
+					"/Z_VEHICLE_CATALOGUE_SRV/ZC_VOAS_COMP_HEADERSet?$filter= (" + newVehStr + ")&$expand=ZCVOASDEEP";
+				//IN_Vehicle1 eq '2019Camry SEAM' and IN_Vehicle2 eq '2019Camry LEAM' )&$expand=ZCVOASDEEP";
+				//	"/Z_VEHICLE_CATALOGUE_SRV/ZC_VOAS_COMP_HEADERSet?$filter=(IN_Vehicle1 eq '2018Camry SEA' and IN_Vehicle2 eq '2018Camry LEA' )&$expand=ZCVOASDEEP";
+
+				$.ajax({
+					url: urlTable,
+					method: 'GET',
+					async: false,
+					dataType: 'json',
+					success: function (data, textStatus, jqXHR) {
+						var tblModel = new sap.ui.model.json.JSONModel(data.d.results);
+						CDO_controller.getView().setModel(tblModel, "TblModel");
+					},
+					error: function (jqXHR, textStatus, errorThrown) {
+						sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
+							sap.m.MessageBox.Action.OK, null, null);
+					}
+				});
+			}
+
+			if (CDO_controller.getView().getModel("searchTblModel")) {
+				empData = CDO_controller.getView().getModel("searchTblModel").getData();
+				var modLen = empData.length;
+				for (var i = 0; i < len; i++) {
+					for (var k = 0; k < modLen; k++) {
+						if (parsePathArg[i] == k) {
+							var colname = empData[k].ENModelDesc + "  - SFX " + empData[k].Suffix;
+							var colname2 = empData[k].ENModelDesc;
+							//	aColumnData.push(empData[k]);
+							aColumnData.push({
+								Vehicle: colname
+							});
+							aColumnDataCol.push({
+								Vehicle: colname2
+							});
+							arrNewData.push(empData[k]);
+							break;
+						}
+					}
+				}
+				console.log(aColumnData);
+				var nModel = new sap.ui.model.json.JSONModel();
+				nModel.setData(arrNewData);
+				console.log(arrNewData);
+				CDO_controller.getView().setModel(nModel, "compareModel");
+				var stateSwitch = this.getView().byId("stdFeatSwitchId");
+				console.log(stateSwitch);
+				if (CDO_controller.getView().getModel("TblModel")) {
+					var dat = CDO_controller.getView().getModel("TblModel").getData();
+					var dtExt = "",
+						dtInt = "",
+						dtPwr = "",
+						dtSaf = "",
+						dtInfo = "",
+						dtCol = "",
+						dtDim = "",
+						dtOpt = "",
+						dtApx = "";
+
+					for (var j = 0; j < dat.length; j++) {
+						if (dat[j].Super_catgy == "EXTERIOR") {
+							dtExt = dat[j].ZCVOASDEEP.results;
+						}
+						if (dat[j].Super_catgy == "INTERIOR") {
+							dtInt = dat[j].ZCVOASDEEP.results;
+						}
+						if (dat[j].Super_catgy == "POWERTRAIN/MECHANICAL") {
+							dtPwr = dat[j].ZCVOASDEEP.results;
+						}
+						if (dat[j].Super_catgy == "SAFETY/CONVENIENCE") {
+							dtSaf = dat[j].ZCVOASDEEP.results;
+						}
+						if (dat[j].Super_catgy == "INFOTAINMENT") {
+							dtInfo = dat[j].ZCVOASDEEP.results;
+						}
+						if (dat[j].Super_catgy == "COLOR OPTIONS") {
+							dtCol = dat[j].ZCVOASDEEP.results;
+						}
+						if (dat[j].Super_catgy == "DIMENSIONS & SPECS") {
+							dtDim = dat[j].ZCVOASDEEP.results;
+						}
+						if (dat[j].Super_catgy == "APX") {
+							dtApx = dat[j].ZCVOASDEEP.results;
+						}
+						if (dat[j].Super_catgy == "OPTION PACKAGES") {
+							dtOpt = dat[j].ZCVOASDEEP.results;
+						}
+
+					}
+
+					var dataExterior = [];
+					for (var i = 0; i < dtExt.length; i++) {
+						dataExterior.push({
+							"Category_en": dtExt[i].Category_en,
+							"Cust_fac_desc_en": dtExt[i].Cust_fac_desc_en,
+							"Vehicle1": dtExt[i].Vehicle1,
+							"Vehicle2": dtExt[i].Vehicle2,
+							"Vehicle3": dtExt[i].Vehicle3,
+							"Vehicle4": dtExt[i].Vehicle4,
+							"Vehicle5": dtExt[i].Vehicle5
+						});
+					}
+					var dataInterior = [];
+					for (var i = 0; i < dtInt.length; i++) {
+						dataInterior.push({
+							"Category_en": dtInt[i].Category_en,
+							"Cust_fac_desc_en": dtInt[i].Cust_fac_desc_en,
+							"Vehicle1": dtInt[i].Vehicle1,
+							"Vehicle2": dtInt[i].Vehicle2,
+							"Vehicle3": dtInt[i].Vehicle3,
+							"Vehicle4": dtInt[i].Vehicle4,
+							"Vehicle5": dtInt[i].Vehicle5
+						});
+					}
+					var dataInfo = [];
+					for (var i = 0; i < dtInfo.length; i++) {
+						dataInfo.push({
+							"Category_en": dtInfo[i].Category_en,
+							"Cust_fac_desc_en": dtInfo[i].Cust_fac_desc_en,
+							"Vehicle1": dtInfo[i].Vehicle1,
+							"Vehicle2": dtInfo[i].Vehicle2,
+							"Vehicle3": dtInfo[i].Vehicle3,
+							"Vehicle4": dtInfo[i].Vehicle4,
+							"Vehicle5": dtInfo[i].Vehicle5
+						});
+					}
+					var dataPwr = [];
+					for (var i = 0; i < dtPwr.length; i++) {
+						dataPwr.push({
+							"Category_en": dtPwr[i].Category_en,
+							"Cust_fac_desc_en": dtPwr[i].Cust_fac_desc_en,
+							"Vehicle1": dtPwr[i].Vehicle1,
+							"Vehicle2": dtPwr[i].Vehicle2,
+							"Vehicle3": dtPwr[i].Vehicle3,
+							"Vehicle4": dtPwr[i].Vehicle4,
+							"Vehicle5": dtPwr[i].Vehicle5
+						});
+					}
+					var dataSafety = [];
+					for (var i = 0; i < dtSaf.length; i++) {
+						dataSafety.push({
+							"Category_en": dtSaf[i].Category_en,
+							"Cust_fac_desc_en": dtSaf[i].Cust_fac_desc_en,
+							"Vehicle1": dtSaf[i].Vehicle1,
+							"Vehicle2": dtSaf[i].Vehicle2,
+							"Vehicle3": dtSaf[i].Vehicle3,
+							"Vehicle4": dtSaf[i].Vehicle4,
+							"Vehicle5": dtSaf[i].Vehicle5
+						});
+					}
+
+					var dataColour = [];
+
+					for (var i = 0; i < dtCol.length; i++) {
+						dataColour.push({
+							"Category_en": dtCol[i].EXT + "-" + dtCol[i].EXT_DESC + "\n" + dtCol[i].INT_DESC,
+							"Cust_fac_desc_en": "MSRP: " + dtCol[i].MSRP + "\nDealer Net: " + dtCol[i].NETPRICE,
+							"Vehicle1": dtCol[i].Vehicle1,
+							"Vehicle2": dtCol[i].Vehicle2,
+							"Vehicle3": dtCol[i].Vehicle3,
+							"Vehicle4": dtCol[i].Vehicle4,
+							"Vehicle5": dtCol[i].Vehicle5
+						});
+					}
+					var dataDim = [];
+					for (var i = 0; i < dtDim.length; i++) {
+						dataDim.push({
+							"Category_en": dtDim[i].Dimensions,
+							"Cust_fac_desc_en": " ",
+							"Vehicle1": dtDim[i].Vehicle1,
+							"Vehicle2": dtDim[i].Vehicle2,
+							"Vehicle3": dtDim[i].Vehicle3,
+							"Vehicle4": dtDim[i].Vehicle4,
+							"Vehicle5": dtDim[i].Vehicle5
+						});
+					}
+					/*	var dataOpt = [];
+						for (var i = 0; i < dtOpt.length; i++) {
+							dataOpt.push({
+								"Vehicle1": dtOpt[i].Vehicle1,
+								"optPack": dtOpt[i].OptionPackages
+							});
+						}*/
+					var dataApx = [];
+					for (var i = 0; i < dtApx.length; i++) {
+						dataApx.push({
+							"Category_en": dtApx[i].APX,
+							"Cust_fac_desc_en": dtApx[i].INT_DESC,
+							"Vehicle1": dtApx[i].Vehicle1,
+							"Vehicle2": dtApx[i].Vehicle2,
+							"Vehicle3": dtApx[i].Vehicle3,
+							"Vehicle4": dtApx[i].Vehicle4,
+							"Vehicle5": dtApx[i].Vehicle5
+						});
+					}
+
+					var tblModelExt = new sap.ui.model.json.JSONModel();
+					tblModelExt.setData({
+						columns: aColumnData,
+						rows: dataExterior
+					});
+					var tblModelInt = new sap.ui.model.json.JSONModel();
+					tblModelInt.setData({
+						columns: aColumnData,
+						rows: dataInterior
+					});
+					var tblModelPwr = new sap.ui.model.json.JSONModel();
+					tblModelPwr.setData({
+						columns: aColumnData,
+						rows: dataPwr
+					});
+					var tblModelInfo = new sap.ui.model.json.JSONModel();
+					tblModelInfo.setData({
+						columns: aColumnData,
+						rows: dataInfo
+					});
+					var tblModelSaf = new sap.ui.model.json.JSONModel();
+					tblModelSaf.setData({
+						columns: aColumnData,
+						rows: dataSafety
+					});
+
+					var tblModelCol = new sap.ui.model.json.JSONModel();
+					tblModelCol.setData({
+						columns: aColumnDataCol,
+						rows: dataColour
+					});
+					var tblModelOpt = new sap.ui.model.json.JSONModel(dtOpt);
+					CDO_controller.getView().setModel(tblModelOpt, "tblModelOpt");
+					/*	tblModelOpt.setData({
+							columns: aColumnDataOpt,
+							rows: dataOpt
+						});*/
+					var tblModelDim = new sap.ui.model.json.JSONModel();
+					tblModelDim.setData({
+						columns: aColumnData,
+						rows: dataDim
+					});
+					var tblModelApx = new sap.ui.model.json.JSONModel();
+					tblModelApx.setData({
+						columns: aColumnData,
+						rows: dataApx
+					});
+
+					var tblExterior = CDO_controller.getView().byId("tblExterior");
+					tblExterior.setModel(tblModelExt);
+					tblExterior.bindAggregation("columns", "/columns", function (index, context) {
+						return new sap.m.Column({
+							header: new sap.m.Label({
+								text: context.getObject().Vehicle
+							}),
+						});
+					});
+					tblExterior.bindItems("/rows", function (index, context) {
+						var obj = context.getObject();
+						var row = new sap.m.ColumnListItem();
+						for (var k in obj) {
+							row.addCell(
+								new sap.m.Text({
+									text: obj[k]
+
+								}));
+						}
+						return row;
+					});
+
+					var tblInterior = CDO_controller.getView().byId("tblInterior");
+					tblInterior.setModel(tblModelInt);
+					tblInterior.bindAggregation("columns", "/columns", function (index, context) {
+						return new sap.m.Column({
+							header: new sap.m.Label({
+								text: context.getObject().Vehicle
+							}),
+						});
+					});
+					tblInterior.bindItems("/rows", function (index, context) {
+						var obj = context.getObject();
+						var row = new sap.m.ColumnListItem();
+						for (var k in obj) {
+							row.addCell(new sap.m.Text({
+								text: obj[k]
+									/*	{
+											parts: [{
+												path: 'obj[k]'
+											}],
+											//	formatter: CDO_controller.formatfunc(x)
+											formatter: function () {
+												//	console.log(x);
+												var returnCom = [];
+												if (obj[k] == "Y") {
+													returnCom.push("icon must be put");
+												} else {
+													returnCom.push(x);
+												}
+												console.log(returnCom);
+												console.log(JSON.stringify(returnCom));
+												return JSON.stringify(returnCom);
+
+											}
+										}*/
+							}));
+						}
+						return row;
+					});
+
+					var tblPowertrain = CDO_controller.getView().byId("pwrTrn");
+					tblPowertrain.setModel(tblModelPwr);
+					tblPowertrain.bindAggregation("columns", "/columns", function (index, context) {
+
+						return new sap.m.Column({
+							header: new sap.m.Label({
+								text: context.getObject().Vehicle
+							}),
+						});
+					});
+					tblPowertrain.bindItems("/rows", function (index, context) {
+						var obj = context.getObject();
+						var row = new sap.m.ColumnListItem();
+						for (var k in obj) {
+							row.addCell(new sap.m.Text({
+								text: obj[k]
+							}));
+						}
+						return row;
+					});
+					var tblSafety = CDO_controller.getView().byId("tblSafety");
+					tblSafety.setModel(tblModelSaf);
+					tblSafety.bindAggregation("columns", "/columns", function (index, context) {
+						return new sap.m.Column({
+							header: new sap.m.Label({
+								text: context.getObject().Vehicle
+							}),
+						});
+					});
+					tblSafety.bindItems("/rows", function (index, context) {
+						var obj = context.getObject();
+						var row = new sap.m.ColumnListItem();
+						for (var k in obj) {
+
+							row.addCell(new sap.m.Text({
+								text: obj[k]
+							}));
+						}
+						return row;
+					});
+					var tblInfotainment = CDO_controller.getView().byId("tblInfotainment");
+					tblInfotainment.setModel(tblModelInfo);
+					tblInfotainment.bindAggregation("columns", "/columns", function (index, context) {
+						return new sap.m.Column({
+							header: new sap.m.Label({
+								text: context.getObject().Vehicle
+							}),
+						});
+					});
+					tblInfotainment.bindItems("/rows", function (index, context) {
+						var obj = context.getObject();
+						var row = new sap.m.ColumnListItem();
+						for (var k in obj) {
+
+							row.addCell(new sap.m.Text({
+								text: obj[k]
+							}));
+						}
+						return row;
+					});
+					var tblColorOptions = CDO_controller.getView().byId("tblColorOptions");
+					tblColorOptions.setModel(tblModelCol);
+					tblColorOptions.bindAggregation("columns", "/columns", function (index, context) {
+						return new sap.m.Column({
+							header: new sap.m.Label({
+								text: context.getObject().Vehicle
+							}),
+						});
+					});
+					tblColorOptions.bindItems("/rows", function (index, context) {
+						var obj = context.getObject();
+						var row = new sap.m.ColumnListItem();
+						for (var k in obj) {
+
+							row.addCell(new sap.m.Text({
+								text: obj[k]
+							}));
+						}
+						return row;
+					});
+					var tblDimensions = CDO_controller.getView().byId("tblDimensions");
+					tblDimensions.setModel(tblModelDim);
+					tblDimensions.bindAggregation("columns", "/columns", function (index, context) {
+						return new sap.m.Column({
+							header: new sap.m.Label({
+								text: context.getObject().Vehicle
+							}),
+						});
+					});
+					tblDimensions.bindItems("/rows", function (index, context) {
+						var obj = context.getObject();
+						var row = new sap.m.ColumnListItem();
+						for (var k in obj) {
+
+							row.addCell(new sap.m.Text({
+								text: obj[k]
+							}));
+						}
+						return row;
+					});
+					var tblOptionPack = CDO_controller.getView().byId("tblOptionPackStat");
+					tblOptionPack.setModel("tblModelOpt");
+
+					/*	tblOptionPack.setModel(tblModelOpt);
+					tblOptionPack.bindAggregation("columns", "/columns", function (index, context) {
+						return new sap.m.Column({
+							header: new sap.m.Label({
+								text: context.getObject().Vehicle
+							}),
+						});
+					});
+					tblOptionPack.bindItems("/rows", function (index, context) {
+						var obj = context.getObject();
+						var row = new sap.m.ColumnListItem();
+						for (var k in obj) {
+							row.addCell(new sap.m.Text({
+								text: obj[k]
+							}));
+						}
+						return row;
+					});*/
+					var tblAPX = CDO_controller.getView().byId("tblAPX");
+					tblAPX.setModel(tblModelApx);
+					tblAPX.bindAggregation("columns", "/columns", function (index, context) {
+						return new sap.m.Column({
+							header: new sap.m.Label({
+								text: context.getObject().Vehicle
+							}),
+						});
+					});
+					tblAPX.bindItems("/rows", function (index, context) {
+						var obj = context.getObject();
+						var row = new sap.m.ColumnListItem();
+						for (var k in obj) {
+							row.addCell(new sap.m.Text({
+								text: obj[k]
+							}));
+						}
+						return row;
+					});
+				}
+			}
+		},
+		handleRouteMatched: function (oEvent) {
+			var fixedData = {
+				Vehicle: " "
+			};
+
+			var aColumnData = [];
+			aColumnData.push(fixedData);
+			aColumnData.push(fixedData);
+
+			var aColumnDataCol = [];
+			aColumnDataCol.push(fixedData);
+			aColumnDataCol.push(fixedData);
+			/*	var fixedDataOptPackage = {
+				'optPack': ''
+			};
+			var fixedDataOptPackage2 = {
+				'optPack': "Option Packages",
+			};
+			var aColumnDataOpt = [];
+			aColumnDataOpt.push(fixedDataOptPackage2);
+			aColumnDataOpt.push(fixedDataOptPackage);
+*/
+			var arg2 = oEvent.getParameters().data.num2;
+			CDO_controller.arg2 = arg2;
+			var parseArg = JSON.parse(arg2);
+			var modelArg = new sap.ui.model.json.JSONModel(parseArg[0]);
+			CDO_controller.getView().setModel(modelArg, "modelArg");
+			var dataModelArg = CDO_controller.getView().getModel('modelArg').getData();
+			var brandCBVal = dataModelArg.brand;
+			var modelYearCBVal = dataModelArg.moYear;
+			var seriesCBVal = dataModelArg.series;
+
+			var empData;
+			var arrNewData = [];
+
+			var modelArr = [];
+			var newModelStr = "";
+			var modelText = [];
+			var modelDescString = "";
+
+			var suffixArr = [];
+			var newSuffixStr = "";
+			var suffixText = [];
+			var suffixDescString;
+
+			var vehArr = [];
+			var vehText = [];
+			var vehDescString = "";
+			var newVehStr = "";
+			var suffixTextVeh = [];
+
+			var parsePathArg = JSON.parse(parseArg[0].pathVeh);
+			var len = parsePathArg.length;
+
+			if (parseArg[0].model !== "") {
+				/*	if (parseArg[0].model !== "[]") {
+						newModelStr = "Model eq '" +parseArg[0].model;
+					} else {*/
+				var parseModelPathArg = JSON.parse(parseArg[0].model);
+				var lenModel = parseModelPathArg.length;
+				var jsonModel = JSON.parse(parseArg[0].model);
+				for (var i = 0; i < lenModel; i++) {
+					modelText[i] = jsonModel[i];
+					var modelText2 = "Model eq '" + modelText[i] + "'";
+					modelArr.push(modelText2);
+				}
+				modelDescString = modelArr.toString();
+				newModelStr = modelDescString.replace(/,/g, ' or ');
+				/*	}*/
+			} else {
+				modelDescString = "";
+				newModelStr = "";
+			}
+
+			if (parseArg[0].suffixDD !== "") {
+				/*console.log(parseArg[0].suffix);
+				if (parseArg[0].suffix !== "[]") {
+					newSuffixStr = "Suffix eq '" +parseArg[0].suffix;
+				} else {*/
+				var parseSuffixPathArg = JSON.parse(parseArg[0].suffixDD);
+				var lenSuffix = parseSuffixPathArg.length;
+				var jsonSuffixDD = JSON.parse(parseArg[0].suffixDD);
+				for (var j = 0; j < lenSuffix; j++) {
+					suffixText[j] = jsonSuffixDD[j];
+					var suffixText2 = "Suffix eq '" + suffixText[j] + "'";
+					suffixArr.push(suffixText2);
+				}
+				suffixDescString = suffixArr.toString();
+				newSuffixStr = suffixDescString.replace(/,/g, ' or ');
+				/*	}*/
+			} else {
+				suffixDescString = "";
+				newSuffixStr = "";
+			}
+			/*	if (parseArg[0].veh !== "") {
+					var parseVehPathArg = JSON.parse(parseArg[0].veh);
+					var lenVeh = parseVehPathArg.length;
+					var jsonVeh = JSON.parse(parseArg[0].veh);
+					for (var i = 0; i < lenVeh; i++) {
+						vehText[i] = jsonVeh[i];
+						var vehNum = i + 1;
+						var vehText2 = "IN_Vehicle" + vehNum + " eq '" + vehText[i] + "'";
+						vehArr.push(vehText2);
+					}
+					vehDescString = vehArr.toString();
+					newVehStr = vehDescString.replace(/,/g, ' and ');
+
+				} else {
+					vehDescString = "";
+					newVehStr = "";
+				}*/
+			if (parseArg[0].suffix !== "" && parseArg[0].veh !== "") {
+				var parseVehPathArg = JSON.parse(parseArg[0].veh);
+				var lenVeh = parseVehPathArg.length;
+				var jsonVeh = JSON.parse(parseArg[0].veh);
+				var jsonSuffix = JSON.parse(parseArg[0].suffix);
+				//var jsonSuffixVeh = JSON.parse(parseArg[0].suffix);
+				for (var i = 0; i < lenVeh; i++) {
+					suffixText[i] = jsonSuffix[i];
+					//	suffixTextVeh[i] = jsonSuffixVeh[i];
+					vehText[i] = jsonVeh[i];
+					var vehNum = i + 1;
+					var vehText2 = "IN_Vehicle" + vehNum + " eq '" + vehText[i] + suffixText[i] + "'";
+					vehArr.push(vehText2);
+				}
+				vehDescString = vehArr.toString();
+				newVehStr = vehDescString.replace(/,/g, ' and ');
+			} else {
+				vehDescString = "";
+				newVehStr = "";
+			}
+			var host = CDO_controller.host();
+			var url2 = "";
+			if (modelDescString == "" && suffixDescString !== "") {
+				console.log("1");
+				url2 = host +
+					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
+					"' and (" + newSuffixStr + ") and Modelyear eq  '" + modelYearCBVal + " ')";
+			} else if (suffixDescString == "" && modelDescString !== "") {
+				console.log("2");
+				url2 = host +
+					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
+					" ' and Modelyear eq  '" + modelYearCBVal + " 'and (" + newModelStr + ") )";
+			} else if (suffixDescString == "" && modelDescString == "") {
+				console.log("3");
+				url2 = host +
+					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
+					" ' and Modelyear eq  '" + modelYearCBVal + " ')";
+			} else {
+				console.log("4");
+				url2 = host +
+					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
+					" ' and Modelyear eq  '" + modelYearCBVal + " ' and (" + newModelStr + ") and (" + newSuffixStr + ") )";
+			}
+			$.ajax({
+				url: url2,
+				method: 'GET',
+				async: false,
+				dataType: 'json',
+				success: function (data, textStatus, jqXHR) {
+					var tblModel = new sap.ui.model.json.JSONModel(data.d.results);
+					CDO_controller.getView().setModel(tblModel, "searchTblModel");
+				},
+				error: function (jqXHR, textStatus, errorThrown) {
+					sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
+						sap
+						.m.MessageBox.Action.OK, null, null);
+				}
+			});
+			if (newVehStr !== "") {
+				var urlTable = host +
+					"/Z_VEHICLE_CATALOGUE_SRV/ZC_VOAS_COMP_HEADERSet?$filter= (" + newVehStr + ")&$expand=ZCVOASDEEP";
+				//IN_Vehicle1 eq '2019Camry SEAM' and IN_Vehicle2 eq '2019Camry LEAM' )&$expand=ZCVOASDEEP";
+				//	"/Z_VEHICLE_CATALOGUE_SRV/ZC_VOAS_COMP_HEADERSet?$filter=(IN_Vehicle1 eq '2018Camry SEA' and IN_Vehicle2 eq '2018Camry LEA' )&$expand=ZCVOASDEEP";
+
+				$.ajax({
+					url: urlTable,
+					method: 'GET',
+					async: false,
+					dataType: 'json',
+					success: function (data, textStatus, jqXHR) {
+						var tblModel = new sap.ui.model.json.JSONModel(data.d.results);
+						CDO_controller.getView().setModel(tblModel, "TblModel");
+					},
+					error: function (jqXHR, textStatus, errorThrown) {
+						sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
+							sap.m.MessageBox.Action.OK, null, null);
+					}
+				});
+			}
+
+			if (CDO_controller.getView().getModel("searchTblModel")) {
+				empData = CDO_controller.getView().getModel("searchTblModel").getData();
+				var modLen = empData.length;
+				for (var i = 0; i < len; i++) {
+					for (var k = 0; k < modLen; k++) {
+						if (parsePathArg[i] == k) {
+							var colname = empData[k].ENModelDesc + "  - SFX " + empData[k].Suffix;
+							var colname2 = empData[k].ENModelDesc;
+							//	aColumnData.push(empData[k]);
+							aColumnData.push({
+								Vehicle: colname
+							});
+							aColumnDataCol.push({
+								Vehicle: colname2
+							});
+							arrNewData.push(empData[k]);
+							break;
+						}
+					}
+				}
+				console.log(aColumnData);
+				var nModel = new sap.ui.model.json.JSONModel();
+				nModel.setData(arrNewData);
+				console.log(arrNewData);
+				CDO_controller.getView().setModel(nModel, "compareModel");
+				var stateSwitch = this.getView().byId("stdFeatSwitchId");
+				console.log(stateSwitch);
+				if (CDO_controller.getView().getModel("TblModel")) {
+					var dat = CDO_controller.getView().getModel("TblModel").getData();
+					var dtExt = "",
+						dtInt = "",
+						dtPwr = "",
+						dtSaf = "",
+						dtInfo = "",
+						dtCol = "",
+						dtDim = "",
+						dtOpt = "",
+						dtApx = "";
+
+					for (var j = 0; j < dat.length; j++) {
+						if (dat[j].Super_catgy == "EXTERIOR") {
+							dtExt = dat[j].ZCVOASDEEP.results;
+						}
+						if (dat[j].Super_catgy == "INTERIOR") {
+							dtInt = dat[j].ZCVOASDEEP.results;
+						}
+						if (dat[j].Super_catgy == "POWERTRAIN/MECHANICAL") {
+							dtPwr = dat[j].ZCVOASDEEP.results;
+						}
+						if (dat[j].Super_catgy == "SAFETY/CONVENIENCE") {
+							dtSaf = dat[j].ZCVOASDEEP.results;
+						}
+						if (dat[j].Super_catgy == "INFOTAINMENT") {
+							dtInfo = dat[j].ZCVOASDEEP.results;
+						}
+						if (dat[j].Super_catgy == "COLOR OPTIONS") {
+							dtCol = dat[j].ZCVOASDEEP.results;
+						}
+						if (dat[j].Super_catgy == "DIMENSIONS & SPECS") {
+							dtDim = dat[j].ZCVOASDEEP.results;
+						}
+						if (dat[j].Super_catgy == "APX") {
+							dtApx = dat[j].ZCVOASDEEP.results;
+						}
+						if (dat[j].Super_catgy == "OPTION PACKAGES") {
+							dtOpt = dat[j].ZCVOASDEEP.results;
+						}
+
+					}
+
+					var dataExterior = [];
+					for (var i = 0; i < dtExt.length; i++) {
+						dataExterior.push({
+							"Category_en": dtExt[i].Category_en,
+							"Cust_fac_desc_en": dtExt[i].Cust_fac_desc_en,
+							"Vehicle1": dtExt[i].Vehicle1,
+							"Vehicle2": dtExt[i].Vehicle2,
+							"Vehicle3": dtExt[i].Vehicle3,
+							"Vehicle4": dtExt[i].Vehicle4,
+							"Vehicle5": dtExt[i].Vehicle5
+						});
+					}
+					var dataInterior = [];
+					for (var i = 0; i < dtInt.length; i++) {
+						dataInterior.push({
+							"Category_en": dtInt[i].Category_en,
+							"Cust_fac_desc_en": dtInt[i].Cust_fac_desc_en,
+							"Vehicle1": dtInt[i].Vehicle1,
+							"Vehicle2": dtInt[i].Vehicle2,
+							"Vehicle3": dtInt[i].Vehicle3,
+							"Vehicle4": dtInt[i].Vehicle4,
+							"Vehicle5": dtInt[i].Vehicle5
+						});
+					}
+					var dataInfo = [];
+					for (var i = 0; i < dtInfo.length; i++) {
+						dataInfo.push({
+							"Category_en": dtInfo[i].Category_en,
+							"Cust_fac_desc_en": dtInfo[i].Cust_fac_desc_en,
+							"Vehicle1": dtInfo[i].Vehicle1,
+							"Vehicle2": dtInfo[i].Vehicle2,
+							"Vehicle3": dtInfo[i].Vehicle3,
+							"Vehicle4": dtInfo[i].Vehicle4,
+							"Vehicle5": dtInfo[i].Vehicle5
+						});
+					}
+					var dataPwr = [];
+					for (var i = 0; i < dtPwr.length; i++) {
+						dataPwr.push({
+							"Category_en": dtPwr[i].Category_en,
+							"Cust_fac_desc_en": dtPwr[i].Cust_fac_desc_en,
+							"Vehicle1": dtPwr[i].Vehicle1,
+							"Vehicle2": dtPwr[i].Vehicle2,
+							"Vehicle3": dtPwr[i].Vehicle3,
+							"Vehicle4": dtPwr[i].Vehicle4,
+							"Vehicle5": dtPwr[i].Vehicle5
+						});
+					}
+					var dataSafety = [];
+					for (var i = 0; i < dtSaf.length; i++) {
+						dataSafety.push({
+							"Category_en": dtSaf[i].Category_en,
+							"Cust_fac_desc_en": dtSaf[i].Cust_fac_desc_en,
+							"Vehicle1": dtSaf[i].Vehicle1,
+							"Vehicle2": dtSaf[i].Vehicle2,
+							"Vehicle3": dtSaf[i].Vehicle3,
+							"Vehicle4": dtSaf[i].Vehicle4,
+							"Vehicle5": dtSaf[i].Vehicle5
+						});
+					}
+
+					var dataColour = [];
+
+					for (var i = 0; i < dtCol.length; i++) {
+						dataColour.push({
+							"Category_en": dtCol[i].EXT + "-" + dtCol[i].EXT_DESC + "\n" + dtCol[i].INT_DESC,
+							"Cust_fac_desc_en": "MSRP: " + dtCol[i].MSRP + "\nDealer Net: " + dtCol[i].NETPRICE,
+							"Vehicle1": dtCol[i].Vehicle1,
+							"Vehicle2": dtCol[i].Vehicle2,
+							"Vehicle3": dtCol[i].Vehicle3,
+							"Vehicle4": dtCol[i].Vehicle4,
+							"Vehicle5": dtCol[i].Vehicle5
+						});
+					}
+					var dataDim = [];
+					for (var i = 0; i < dtDim.length; i++) {
+						dataDim.push({
+							"Category_en": dtDim[i].Dimensions,
+							"Cust_fac_desc_en": " ",
+							"Vehicle1": dtDim[i].Vehicle1,
+							"Vehicle2": dtDim[i].Vehicle2,
+							"Vehicle3": dtDim[i].Vehicle3,
+							"Vehicle4": dtDim[i].Vehicle4,
+							"Vehicle5": dtDim[i].Vehicle5
+						});
+					}
+					/*	var dataOpt = [];
+						for (var i = 0; i < dtOpt.length; i++) {
+							dataOpt.push({
+								"Vehicle1": dtOpt[i].Vehicle1,
+								"optPack": dtOpt[i].OptionPackages
+							});
+						}*/
+					var dataApx = [];
+					for (var i = 0; i < dtApx.length; i++) {
+						dataApx.push({
+							"Category_en": dtApx[i].APX,
+							"Cust_fac_desc_en": dtApx[i].INT_DESC,
+							"Vehicle1": dtApx[i].Vehicle1,
+							"Vehicle2": dtApx[i].Vehicle2,
+							"Vehicle3": dtApx[i].Vehicle3,
+							"Vehicle4": dtApx[i].Vehicle4,
+							"Vehicle5": dtApx[i].Vehicle5
+						});
+					}
+
+					var tblModelExt = new sap.ui.model.json.JSONModel();
+					tblModelExt.setData({
+						columns: aColumnData,
+						rows: dataExterior
+					});
+					var tblModelInt = new sap.ui.model.json.JSONModel();
+					tblModelInt.setData({
+						columns: aColumnData,
+						rows: dataInterior
+					});
+					var tblModelPwr = new sap.ui.model.json.JSONModel();
+					tblModelPwr.setData({
+						columns: aColumnData,
+						rows: dataPwr
+					});
+					var tblModelInfo = new sap.ui.model.json.JSONModel();
+					tblModelInfo.setData({
+						columns: aColumnData,
+						rows: dataInfo
+					});
+					var tblModelSaf = new sap.ui.model.json.JSONModel();
+					tblModelSaf.setData({
+						columns: aColumnData,
+						rows: dataSafety
+					});
+
+					var tblModelCol = new sap.ui.model.json.JSONModel();
+					tblModelCol.setData({
+						columns: aColumnDataCol,
+						rows: dataColour
+					});
+					var tblModelOpt = new sap.ui.model.json.JSONModel(dtOpt);
+					CDO_controller.getView().setModel(tblModelOpt, "tblModelOpt");
+					/*	tblModelOpt.setData({
+							columns: aColumnDataOpt,
+							rows: dataOpt
+						});*/
+					var tblModelDim = new sap.ui.model.json.JSONModel();
+					tblModelDim.setData({
+						columns: aColumnData,
+						rows: dataDim
+					});
+					var tblModelApx = new sap.ui.model.json.JSONModel();
+					tblModelApx.setData({
+						columns: aColumnData,
+						rows: dataApx
+					});
+
+					var tblExterior = CDO_controller.getView().byId("tblExterior");
+					tblExterior.setModel(tblModelExt);
+					tblExterior.bindAggregation("columns", "/columns", function (index, context) {
+						return new sap.m.Column({
+							header: new sap.m.Label({
+								text: context.getObject().Vehicle
+							}),
+						});
+					});
+					tblExterior.bindItems("/rows", function (index, context) {
+						var obj = context.getObject();
+						var row = new sap.m.ColumnListItem();
+						for (var k in obj) {
+							row.addCell(
+								new sap.m.Text({
+									text: obj[k]
+
+								}));
+						}
+						return row;
+					});
+
+					var tblInterior = CDO_controller.getView().byId("tblInterior");
+					tblInterior.setModel(tblModelInt);
+					tblInterior.bindAggregation("columns", "/columns", function (index, context) {
+						return new sap.m.Column({
+							header: new sap.m.Label({
+								text: context.getObject().Vehicle
+							}),
+						});
+					});
+					tblInterior.bindItems("/rows", function (index, context) {
+						var obj = context.getObject();
+						var row = new sap.m.ColumnListItem();
+						for (var k in obj) {
+							row.addCell(new sap.m.Text({
+								text: obj[k]
+									/*	{
+											parts: [{
+												path: 'obj[k]'
+											}],
+											//	formatter: CDO_controller.formatfunc(x)
+											formatter: function () {
+												//	console.log(x);
+												var returnCom = [];
+												if (obj[k] == "Y") {
+													returnCom.push("icon must be put");
+												} else {
+													returnCom.push(x);
+												}
+												console.log(returnCom);
+												console.log(JSON.stringify(returnCom));
+												return JSON.stringify(returnCom);
+
+											}
+										}*/
+							}));
+						}
+						return row;
+					});
+
+					var tblPowertrain = CDO_controller.getView().byId("pwrTrn");
+					tblPowertrain.setModel(tblModelPwr);
+					tblPowertrain.bindAggregation("columns", "/columns", function (index, context) {
+
+						return new sap.m.Column({
+							header: new sap.m.Label({
+								text: context.getObject().Vehicle
+							}),
+						});
+					});
+					tblPowertrain.bindItems("/rows", function (index, context) {
+						var obj = context.getObject();
+						var row = new sap.m.ColumnListItem();
+						for (var k in obj) {
+							row.addCell(new sap.m.Text({
+								text: obj[k]
+							}));
+						}
+						return row;
+					});
+					var tblSafety = CDO_controller.getView().byId("tblSafety");
+					tblSafety.setModel(tblModelSaf);
+					tblSafety.bindAggregation("columns", "/columns", function (index, context) {
+						return new sap.m.Column({
+							header: new sap.m.Label({
+								text: context.getObject().Vehicle
+							}),
+						});
+					});
+					tblSafety.bindItems("/rows", function (index, context) {
+						var obj = context.getObject();
+						var row = new sap.m.ColumnListItem();
+						for (var k in obj) {
+
+							row.addCell(new sap.m.Text({
+								text: obj[k]
+							}));
+						}
+						return row;
+					});
+					var tblInfotainment = CDO_controller.getView().byId("tblInfotainment");
+					tblInfotainment.setModel(tblModelInfo);
+					tblInfotainment.bindAggregation("columns", "/columns", function (index, context) {
+						return new sap.m.Column({
+							header: new sap.m.Label({
+								text: context.getObject().Vehicle
+							}),
+						});
+					});
+					tblInfotainment.bindItems("/rows", function (index, context) {
+						var obj = context.getObject();
+						var row = new sap.m.ColumnListItem();
+						for (var k in obj) {
+
+							row.addCell(new sap.m.Text({
+								text: obj[k]
+							}));
+						}
+						return row;
+					});
+					var tblColorOptions = CDO_controller.getView().byId("tblColorOptions");
+					tblColorOptions.setModel(tblModelCol);
+					tblColorOptions.bindAggregation("columns", "/columns", function (index, context) {
+						return new sap.m.Column({
+							header: new sap.m.Label({
+								text: context.getObject().Vehicle
+							}),
+						});
+					});
+					tblColorOptions.bindItems("/rows", function (index, context) {
+						var obj = context.getObject();
+						var row = new sap.m.ColumnListItem();
+						for (var k in obj) {
+
+							row.addCell(new sap.m.Text({
+								text: obj[k]
+							}));
+						}
+						return row;
+					});
+					var tblDimensions = CDO_controller.getView().byId("tblDimensions");
+					tblDimensions.setModel(tblModelDim);
+					tblDimensions.bindAggregation("columns", "/columns", function (index, context) {
+						return new sap.m.Column({
+							header: new sap.m.Label({
+								text: context.getObject().Vehicle
+							}),
+						});
+					});
+					tblDimensions.bindItems("/rows", function (index, context) {
+						var obj = context.getObject();
+						var row = new sap.m.ColumnListItem();
+						for (var k in obj) {
+
+							row.addCell(new sap.m.Text({
+								text: obj[k]
+							}));
+						}
+						return row;
+					});
+					var tblOptionPack = CDO_controller.getView().byId("tblOptionPackStat");
+					tblOptionPack.setModel("tblModelOpt");
+
+					/*	tblOptionPack.setModel(tblModelOpt);
+					tblOptionPack.bindAggregation("columns", "/columns", function (index, context) {
+						return new sap.m.Column({
+							header: new sap.m.Label({
+								text: context.getObject().Vehicle
+							}),
+						});
+					});
+					tblOptionPack.bindItems("/rows", function (index, context) {
+						var obj = context.getObject();
+						var row = new sap.m.ColumnListItem();
+						for (var k in obj) {
+							row.addCell(new sap.m.Text({
+								text: obj[k]
+							}));
+						}
+						return row;
+					});*/
 					var tblAPX = CDO_controller.getView().byId("tblAPX");
 					tblAPX.setModel(tblModelApx);
 					tblAPX.bindAggregation("columns", "/columns", function (index, context) {
@@ -668,5 +2398,3 @@ sap.ui.define([
 		}
 	});
 }, /* bExport= */ true);
-
-						
