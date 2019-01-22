@@ -181,7 +181,7 @@ alert("This should update or create What's New record.");
 					//	var evtContext=tbl.getSelectedItem();
 							//	this.deleteAtt(evtContext);
 					} else {
-						//
+						// 
 					}
 				},
 				styleClass: "",
