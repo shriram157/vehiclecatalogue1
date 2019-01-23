@@ -124,7 +124,7 @@ sap.ui.define([
 					});
 				};
 			});
-
+	},
 		/*	this.oUploadedFile = file; //oEvent.getParameter("files")[0];
 			reader.readAsBinaryString(this.oUploadedFile);
 
@@ -136,7 +136,7 @@ sap.ui.define([
 			}, this);*/
 
 			//reader.readAsDataURL(file);
-		},
+	
 		//},
 
 		_onButtonPress1: function () {
