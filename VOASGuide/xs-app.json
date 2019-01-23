@@ -1,6 +1,6 @@
 {
 	"welcomeFile": "/VOASGuide/index.html",
-	"authenticationMethod": "none",
+	"authenticationMethod": "route",
 	"logout": {
 		"logoutEndpoint": "/do/logout"
 	},
@@ -11,13 +11,10 @@
 	}, {
 		"source": "/node(.*)",
 		"destination": "voasGuide_Node_backend",
-		"csrfProtection": false,
-		"authenticationType": "none"
-
+		"csrfProtection": false
 	}, {
 		"source": "/userDetails(.*)",
 		"destination": "voasGuide_Node_backend",
-		"csrfProtection": false,
-		"authenticationType": "none"
+		"csrfProtection": false
 	}]
 }

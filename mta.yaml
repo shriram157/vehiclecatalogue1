@@ -14,14 +14,13 @@ modules:
      service-url: '${default-url}'
      disk-quota: 256MB
      memory: 256MB
-
   provides:
    - name: voasGuide_Node_api
      properties:
         url: ${default-url}
   requires:
    - name: VOAS_GUIDE_APIM_CUPS
-
+   - name: uaa_VOASGuide
 - name: VOASGuide
   type: html5
   path: VOASGuide
@@ -45,6 +44,7 @@ modules:
          forwardAuthToken: true
   provides:
      - name: VOASGuide
+
 resources:
 - name: uaa_VOASGuide
   parameters:
@@ -52,13 +52,11 @@ resources:
      service-plan: application
      service: xsuaa
   type: org.cloudfoundry.managed-service
-
 - name: dest_VOASGuide
   parameters:
      service-plan: lite
      service: destination
   type: org.cloudfoundry.managed-service
-
 - name: VOAS_GUIDE_APIM_CUPS
   type: org.cloudfoundry.existing-service
   parameters:
