@@ -2,11 +2,12 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 	"sap/m/MessageBox",
 	"./util/CreateVehicleGuideDialog",
 	"./util/utilities",
-	"sap/ui/core/routing/History"
-], function (BaseController, MessageBox, CreateVehicleGuideDialog, Utilities, History) {
+	"sap/ui/core/routing/History", "com/sap/build/toyota-canada/vehiclesGuideV3/Formatter/formatter"
+], function (BaseController, MessageBox, CreateVehicleGuideDialog, Utilities, History, formatter) {
 	"use strict";
 	var DetailController;
 	return BaseController.extend("com.sap.build.toyota-canada.vehiclesGuideV3.controller.DetailsOption", {
+		formatter: formatter,
 		onInit: function () {
 			DetailController = this;
 			DetailController.oRouter = sap.ui.core.UIComponent.getRouterFor(DetailController);
@@ -44,16 +45,16 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				'veh': ''
 			};
 			var fixedData2 = {
-				'veh': veh+ "  - SFX " + suffix,
+				'veh': veh + "  - SFX " + suffix,
 			};
-				var fixedDataCol = {
+			var fixedDataCol = {
 				'veh': veh,
 			};
 			var aColumnData = [];
 			aColumnData.push(fixedData);
 			aColumnData.push(fixedData);
 			aColumnData.push(fixedData2);
-				var aColumnDataCol = [];
+			var aColumnDataCol = [];
 			aColumnDataCol.push(fixedData);
 			aColumnDataCol.push(fixedData);
 			aColumnDataCol.push(fixedDataCol);
@@ -145,9 +146,21 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				var dataColour = [];
 
 				for (var i = 0; i < dtCol.length; i++) {
+					var msrp = [],
+						net = [];
+					if (dtCol[i].MSRP != undefined && dtCol[i].MSRP != null && !isNaN(dtCol[i].MSRP) && dtCol[i].MSRP != "") {
+						msrp[i] = parseInt(dtCol[i].MSRP);
+					} else {
+						msrp[i] = "";
+					}
+					if (dtCol[i].NETPRICE != undefined && dtCol[i].NETPRICE != null && !isNaN(dtCol[i].NETPRICE) && dtCol[i].NETPRICE != "") {
+						net[i] = parseInt(dtCol[i].NETPRICE);
+					} else {
+						net[i] = "";
+					}
 					dataColour.push({
 						"Category_en": dtCol[i].EXT + "-" + dtCol[i].EXT_DESC + "\n" + dtCol[i].INT_DESC,
-						"Cust_fac_desc_en": "MSRP: " + dtCol[i].MSRP + "\nDealer Net: " + dtCol[i].NETPRICE,
+						"Cust_fac_desc_en": "MSRP: $ " + msrp[i] + "\nDealer Net: $" + net[i],
 						"Vehicle1": dtCol[i].Vehicle1
 					});
 				}
@@ -161,8 +174,22 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				}
 				var dataOpt = [];
 				for (var i = 0; i < dtOpt.length; i++) {
+
+					var msrp = [],
+						net = [];
+					if (dtOpt[i].MSRP != undefined && dtOpt[i].MSRP != null && !isNaN(dtOpt[i].MSRP) && dtOpt[i].MSRP != "") {
+						msrp[i] = parseInt(dtOpt[i].MSRP);
+					} else {
+						msrp[i] = "";
+					}
+					if (dtOpt[i].NETPRICE != undefined && dtOpt[i].NETPRICE != null && !isNaN(dtOpt[i].NETPRICE) && dtOpt[i].NETPRICE != "") {
+						net[i] = parseInt(dtOpt[i].NETPRICE);
+					} else {
+						net[i] = "";
+					}
 					dataOpt.push({
-						"Category_en": dtOpt[i].Vehicle1+ "\n" +"MSRP: "+dtOpt[i].MSRP+ " " +"Dealer Net: "+dtOpt[i].NETPRICE,
+						"Category_en": dtOpt[i].Vehicle1 + "\n" + "MSRP: $ " + msrp[i] + "\nDealer Net: $" + net[i],
+						//	"Category_en": dtOpt[i].Vehicle1 + "\n" + "MSRP: " + dtOpt[i].MSRP + " " + "Dealer Net: " + dtOpt[i].NETPRICE,
 						"Vehicle1": dtOpt[i].OptionPackages
 					});
 				}

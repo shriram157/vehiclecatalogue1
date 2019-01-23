@@ -7,7 +7,8 @@
 					<Image id="idLexusLogo" src="images/Lexus_EN.png" width="100px"/>
 					</f:heading>-->
 				<f:actions>
-					<ToolbarSpacer/> <!--	<variants:VariantManagement/>-->
+					<ToolbarSpacer/>
+					<!--	<variants:VariantManagement/>-->
 					<!--<Button icon="sap-icon://action" type="Transparent"/>-->
 				</f:actions>
 			</f:DynamicPageTitle>
@@ -61,15 +62,14 @@
 							<filterbar:FilterItem label="Suffix"
 								name="Fiori_ListReport_ListReport_0-filterBars-Fiori_ListReport_FilterBar-1-filters-Fiori_ListReport_ComboBoxFilter-1538673656505---0">
 								<filterbar:control>
-									<MultiComboBox id="id_suffixCB" enabled="false" selectionFinish="onChange_Suffix" 
-										items="{path:'suffixdropDownModel>/', templateShareable:true}"> <!--selectionFinish="onChange_Suffix" -->
+									<MultiComboBox id="id_suffixCB" enabled="false" selectionFinish="onChange_Suffix"
+										items="{path:'suffixdropDownModel>/', templateShareable:true}">
+										<!--selectionFinish="onChange_Suffix" -->
 										<items>
 											<core:Item key="{suffixdropDownModel>}" text="{suffixdropDownModel>}"/>
 											<!--text="{parts: [{path:'suffixdropDownModel>'},{path:'suffixdropDownModel>'}] , formatter: 'formatter.formatSuffixInList'}"  -->
-											
 										</items>
 									</MultiComboBox>
-					
 								</filterbar:control>
 							</filterbar:FilterItem>
 							<!--<filterbar:FilterItem label="" name="Fiori_ListReport_ListReport_0_go">
@@ -137,18 +137,22 @@
 						<items>
 							<ColumnListItem type="Navigation">
 								<cells>
-									<ObjectIdentifier text="{parts: [{path:'searchTblModel>Modelyear'},{path:'searchTblModel>Model'},{path:'searchTblModel>ENModelDesc'},{path:'searchTblModel>Suffix'},{path:'searchTblModel>suffix_desc_en'}] , formatter: 'formatter.formatVehicle'}"/>
-									<!--title="{searchTblModel>Vehicle}" text="{parts: [{path:'searchTblModel>Suffix'},{path:'searchTblModel>Suffix'}] , formatter: 'formatter.formatSuffix'}"/>--><!-- text="SFX- {searchTblModel>Suffix}"/>-->
+									<ObjectIdentifier
+										text="{parts: [{path:'searchTblModel>Modelyear'},{path:'searchTblModel>Model'},{path:'searchTblModel>ENModelDesc'},{path:'searchTblModel>Suffix'},{path:'searchTblModel>suffix_desc_en'}] , formatter: 'formatter.formatVehicle'}"/>
+									<!--title="{searchTblModel>Vehicle}" text="{parts: [{path:'searchTblModel>Suffix'},{path:'searchTblModel>Suffix'}] , formatter: 'formatter.formatSuffix'}"/>-->
+									<!-- text="SFX- {searchTblModel>Suffix}"/>-->
 									<ObjectIdentifier
 										text="{parts: [{path:'searchTblModel>Features'},{path:'searchTblModel>Features'}] , formatter: 'formatter.formatFeatures'}"/>
-									<ObjectIdentifier text="Dealer Net: {searchTblModel>NETPRICE}" title="MSRP: {searchTblModel>MSRP}"/>
+									<!--				<ObjectIdentifier text="Dealer Net: {searchTblModel>NETPRICE}" title="MSRP: {searchTblModel>MSRP}"/>-->
+									<ObjectIdentifier
+										text="{parts: [{path:'searchTblModel>NETPRICE'},{path:'searchTblModel>NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"
+										title="{parts: [{path:'searchTblModel>MSRP'},{path:'searchTblModel>MSRP'}] , formatter: 'formatter.decimalFormatter'}"/>
 								</cells>
 							</ColumnListItem>
 						</items>
 					</Table>
 				</items>
 			</VBox>
-			
 		</f:content>
 		<f:footer>
 			<OverflowToolbar >

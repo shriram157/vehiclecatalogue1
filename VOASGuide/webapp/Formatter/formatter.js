@@ -42,6 +42,47 @@ var formatter = {
 		} else {
 			return sTrimval;
 		}
-	}
+	},
+	decimalFormatter: function (oDecVal,oDecVal2) {
+            if (oDecVal != undefined && oDecVal != null && !isNaN(oDecVal)&& oDecVal!="") {
+                var returnVal = parseInt(oDecVal);
+                var returnString="MSRP: $"+returnVal;
+                if (returnVal == 0.00) {
+                    return "MSRP: $0";
+                } else {
+                    return returnString;
+                }
+            } else {
+                return "MSRP: $";
+            }
+        },
+        	decimalFormatterDealer: function (oDecVal,oDecVal2) {
+            if (oDecVal != undefined && oDecVal != null && !isNaN(oDecVal)&& oDecVal!="") {
+                var returnVal = parseInt(oDecVal);
+                var returnString="Dealer Net: $"+returnVal;
+                if (returnVal == 0.00) {
+                    return "Dealer Net: $0";
+                } else {
+                    return returnString;
+                }
+            } else {
+                return "Dealer Net: $";
+            }
+        },
+        decimalFormatterDealerMSRP: function (oDecVal,msrp) {
+            if (oDecVal != undefined && oDecVal != null && !isNaN(oDecVal)&& oDecVal!="") {
+                var returnVal = parseInt(oDecVal);
+                var returnVal2 = parseInt(msrp);
+                var returnString="Dealer Net: $"+returnVal + "MSRP: $"+returnVal2;
+                if (returnVal == 0.00&&returnVal2==0) {
+                    return "Dealer Net: $0 MSRP: $0";
+                } else {
+                    return returnString;
+                }
+            } else {
+                return "Dealer Net: $  MSRP: $";
+            }
+        }
+
 
 };

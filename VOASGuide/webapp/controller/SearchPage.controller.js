@@ -20,21 +20,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				showCancelButton: false
 			});
 		},
-		_listOfBrand: function () {
-			var data = {
-				"modelBrand": [{
-					"key": "1",
-					"text": "TOYOTA"
-				}, {
-					"key": "2",
-					"text": "LEXUS"
-				}]
-			};
-			var modelBrandModel = new sap.ui.model.json.JSONModel();
-			modelBrandModel.setData(data);
-			this.getView().setModel(modelBrandModel, "brandModelNew");
-			//this.getView().byId("idNew_brandCB").setModel("brandModelNew");
-		},
+	
 		refreshTableData: function () {
 			var oModel = searchController.getView().getModel("searchTblModel");
 			if (oModel !== undefined) {
@@ -191,8 +177,8 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			var modelCB = searchController.getView().byId("id_modelCB");
 			var suffixCB = searchController.getView().byId("id_suffixCB");
 			searchController.refreshTableData();
-			modelYearCB.setValue("");
-			seriesCB.setValue("");
+			modelYearCB.setValue(" ");
+			seriesCB.setValue(" ");
 			modelCB.setSelectedItems("");
 			suffixCB.setSelectedItems("");
 
@@ -211,8 +197,10 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 
 			var brandCBVal = brandCB.getValue();
 			var modelYearCBVal = modelYearCB.getValue();
+		
 			if (seriesCB.getValue() !== "") {
-				seriesCB.setValue("");
+				seriesCB.setValue(" ");
+				seriesCB.setSelectedKey(null);
 			}
 			modelCB.setSelectedItems("");
 			suffixCB.setSelectedItems("");
@@ -220,7 +208,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			if (brandCB.getValue() != "" && modelYearCB.getValue() != "") {
 				seriesCB.setEnabled(true);
 			}
-
+	
 			var host = searchController.host();
 			var url = host +
 				"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(Brand eq '" + brandCBVal + "' and Modelyear eq '" + modelYearCBVal +
@@ -233,7 +221,8 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				dataType: 'json',
 				success: function (data, textStatus, jqXHR) {
 					if (seriesCB.getValue() !== "") {
-						seriesCB.setValue("");
+						seriesCB.setValue(" ");
+						seriesCB.setSelectedKey(null);
 					}
 					//	var oModel = new sap.ui.model.json.JSONModel(data.d.results);
 					var oModel = new sap.ui.model.json.JSONModel();

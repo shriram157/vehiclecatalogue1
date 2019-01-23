@@ -39,7 +39,8 @@
 										<items>
 											<Label text="Include Common Features" design="Standard" width="106px" required="false" textAlign="Right" textDirection="Inherit"
 												visible="true" class="sapUiTinyMargin" wrapping="true"/>
-											<Switch id="stdFeatSwitchId" change="onSwitchstateChange" state="false" customTextOff="On" customTextOn="Off" type="Default" enabled="true" visible="true" class="sapUiTinyMargin"/>
+											<Switch id="stdFeatSwitchId" change="onSwitchstateChange" state="false" customTextOff="On" customTextOn="Off" type="Default" enabled="true"
+												visible="true" class="sapUiTinyMargin"/>
 										</items>
 									</HBox>
 									<HBox width="100%" items="{path:'compareModel>/', templateShareable:true}">
@@ -48,9 +49,11 @@
 												<items>
 													<Title text="{compareModel>ENModelDesc} - ({compareModel>Model}) - SFX {compareModel>Suffix}" wrapping="true"/>
 													<Text text="Model: {compareModel>ENModelDesc}" wrapping="true"></Text>
-													<Text text="MSRP: {compareModel>MSRP}" wrapping="true"></Text>
-													<Text text="Dealer Net: {compareModel>NETPRICE}" wrapping="true"></Text>
+													<Text text="{parts: [{path:'compareModel>MSRP'},{path:'compareModel>MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
+													<Text text="{parts: [{path:'compareModel>NETPRICE'},{path:'compareModel>NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+													<!--	<Text text="Dealer Net: ${compareModel>NETPRICE}" wrapping="true"></Text>-->
 												</items>
+												<!--	<Text text="MSRP: ${compareModel>MSRP}"  formatter:format.formatter.decimalFormatter wrapping="true"></Text>-->
 											</VBox>
 										</items>
 									</HBox>
@@ -129,7 +132,8 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="Option Packages">
 						<uxap:blocks>
-							<Table id="tblOptionPackStat" items="{path:'tblModelOpt>/', templateShareable:true}" width="100%" growing="true" growingScrollToLoad="false" growingThreshold="30" mode="None">
+							<Table id="tblOptionPackStat" items="{path:'tblModelOpt>/', templateShareable:true}" width="100%" growing="true" growingScrollToLoad="false"
+								growingThreshold="30" mode="None">
 								<columns>
 									<Column minScreenWidth="Phone" width="50%">
 										<header>
@@ -145,8 +149,8 @@
 								<items>
 									<ColumnListItem>
 										<cells>
-											<ObjectIdentifier title="{tblModelOpt>Vehicle1}" text="MSRP: {tblModelOpt>MSRP} Dealer Net: {tblModelOpt>NETPRICE}"/>
-											<!--text="{parts: [MSRP: {path:'tblModelOpt>MSRP'},Dealer Net: {path:'tblModelOpt>NETPRICE'}] , formatter: 'formatter.formatSuffix'}"-->
+											<ObjectIdentifier title="{tblModelOpt>Vehicle1}"
+												text="{parts: [{path:'tblModelOpt>NETPRICE'},{path:'tblModelOpt>MSRP'}] , formatter: 'formatter.decimalFormatterDealerMSRP'}"/>
 											<ObjectIdentifier text="{tblModelOpt>OptionPackages}"/>
 										</cells>
 									</ColumnListItem>
