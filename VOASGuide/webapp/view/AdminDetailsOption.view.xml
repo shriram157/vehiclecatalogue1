@@ -3,12 +3,12 @@
 	<uxap:ObjectPageLayout showTitleInHeaderContent="false" showHeaderContent="true" showEditHeaderButton="false" showFooter="false"
 		class="sapUiSizeCompact">
 		<uxap:headerTitle>
-			<uxap:ObjectPageHeader objectTitle="2019 Toyota Camry" objectSubtitle="" isObjectIconAlwaysVisible="false" isObjectTitleAlwaysVisible="true"
+			<uxap:ObjectPageHeader objectTitle="{modelDetail>/moYear} {modelDetail>/brand} {modelDetail>/series}" objectSubtitle="" isObjectIconAlwaysVisible="false" isObjectTitleAlwaysVisible="true"
 				isObjectSubtitleAlwaysVisible="true" showPlaceholder="true" objectImageURI="/build/uilibraries/content/static/image-canvas.svg">
 				<uxap:navigationBar>
 					<Bar>
 						<contentLeft>
-							<Button type="Back" press="onNavBack"/>
+							<Button type="Back" press="_onFioriObjectPageHeaderPress"/>
 						</contentLeft>
 						<contentMiddle>
 							<Title text="Manage Vehicle Series Details"/>
@@ -33,8 +33,8 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="What's New">
 						<uxap:blocks>
-							<Table width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="SingleSelectLeft"
-								items="{path:'/WhatsNewAdminSet', templateShareable:true}">
+							<Table id="whatsNewTbl" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="2" mode="SingleSelectLeft"
+								items="{path:'whatsNewTblModel>/', templateShareable:true}">
 								<headerToolbar>
 									<OverflowToolbar design="Transparent">
 										<content>
@@ -82,10 +82,10 @@
 								<items>
 									<ColumnListItem type="Active">
 										<cells>
-											<Link text="{filename}" href="http://www.build.me" target="_blank"/>
-											<ObjectStatus text="{comment}"/>
-											<ObjectIdentifier title="{date}" text="{EndDateDetails}"/>
-											<ObjectIdentifier title="{lang}" text="{EndDateDetails}"/>
+											<Text text="{whatsNewTblModel>FileName}"/>
+											<ObjectStatus text="{whatsNewTblModel>Comment}"/>
+											<ObjectIdentifier title="{whatsNewTblModel>Lastupdate}"/>
+											<ObjectIdentifier title="{whatsNewTblModel>Language}"/>
 										</cells>
 									</ColumnListItem>
 								</items>
@@ -98,8 +98,8 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="Walk-up">
 						<uxap:blocks>
-							<Table width="100%" growing="false" growingScrollToLoad="true" growingThreshold="5" mode="SingleSelectLeft"
-								items="{path:'/WalkupAdminSet', templateShareable:true}">
+							<Table id="walkUpTbl" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="2" mode="SingleSelectLeft"
+								items="{path:'walkUpTblModel>/', templateShareable:true}">
 								<headerToolbar>
 									<OverflowToolbar design="Transparent">
 										<content>
@@ -147,10 +147,10 @@
 								<items>
 									<ColumnListItem type="Active">
 										<cells>
-											<Link text="{filename}" href="http://www.build.me" target="_blank"/>
-											<ObjectStatus text="{comment}"/>
-											<ObjectIdentifier title="{date}" text="{EndDateDetails}"/>
-											<ObjectIdentifier title="{lang}" text="{EndDateDetails}"/>
+											<Text text="{walkUpTblModel>FileName}"/>
+											<ObjectStatus text="{walkUpTblModel>Comment}"/>
+											<ObjectIdentifier title="{walkUpTblModel>Lastupdate}"/>
+											<ObjectIdentifier title="{walkUpTblModel>Language}"/>
 										</cells>
 									</ColumnListItem>
 								</items>
@@ -163,8 +163,8 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="Supplement Guide">
 						<uxap:blocks>
-							<Table id="suppTbl" width="100%" growing="true" growingScrollToLoad="true" growingThreshold="25" mode="SingleSelectLeft"
-								items="{path:'/', templateShareable:true}">
+							<Table id="suppTbl" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="2" mode="SingleSelectLeft"
+								items="{path:'suppTblModel>/', templateShareable:true}">
 								<headerToolbar>
 									<OverflowToolbar design="Transparent">
 										<content>
@@ -212,10 +212,10 @@
 								<items>
 									<ColumnListItem type="Active">
 										<cells>
-											<Link text="{filename}" href="http://www.build.me" target="_blank"/>
-											<ObjectStatus text="{comment}"/>
-											<ObjectIdentifier title="{date}" text="{EndDateDetails}"/>
-											<ObjectIdentifier title="{lang}" text="{EndDateDetails}"/>
+											<Text text="{suppTblModel>FileName}"/>
+											<ObjectStatus text="{suppTblModel>Comment}"/>
+											<ObjectIdentifier title="{suppTblModel>Lastupdate}"/>
+											<ObjectIdentifier title="{suppTblModel>Language}"/>
 										</cells>
 									</ColumnListItem>
 								</items>

@@ -13,28 +13,10 @@
 									<Label text="" design="Standard" width="100%" required="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
 								</form:label>
 								<form:fields>
-									<!--<Button text="Upload PDF" type="Default" icon="sap-icon://upload" iconFirst="true" width="auto" enabled="true" visible="true"
-										iconDensityAware="false"/>-->
 									<u:FileUploader id="suppFileUploadId" name="myFileUpload" uploadUrl="upload/" tooltip="Upload your file to the server"
 										uploadComplete="handleUploadComplete"/>
 								</form:fields>
 							</form:FormElement>
-							<!--	<form:FormElement visible="true">
-								<form:label>
-									<Label text="Effective Date" design="Standard" width="100%" required="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
-								</form:label>
-								<form:fields>
-									<DatePicker width="auto" displayFormat="medium" enabled="true" visible="true" valueFormat="yyyyMMdd"/>
-								</form:fields>
-							</form:FormElement>
-							<form:FormElement visible="true">
-								<form:label>
-									<Label text="Expiry Date" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
-								</form:label>
-								<form:fields>
-									<DatePicker width="auto" displayFormat="medium" enabled="true" visible="true" valueFormat="yyyyMMdd"/>
-								</form:fields>
-							</form:FormElement>-->
 							<form:FormElement visible="true">
 								<form:label>
 									<Label text="Comments" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>

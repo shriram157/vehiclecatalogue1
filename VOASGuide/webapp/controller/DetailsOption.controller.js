@@ -22,7 +22,6 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			var veh = parseArg[0].veh;
 			var suffix = parseArg[0].suffix;
 			var vehSuffix = veh + suffix;
-			console.log(vehSuffix);
 			DetailController.getView().setModel(modelDetail, "modelDetail");
 			var host = DetailController.host();
 			var urlTable = host + "/Z_VEHICLE_CATALOGUE_SRV/ZC_VOAS_COMP_HEADERSet?$filter=(IN_Vehicle1 eq '" + vehSuffix +
@@ -544,6 +543,24 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				oDialog.setRouter(DetailController.oRouter);
 			}
 			oDialog.open();
+
+		},
+		manageSeries: function () {
+			var model = DetailController.getView().getModel("modelDetail");
+			var data = model.getData();
+
+			var arr = [{
+				"brand": data.brand,
+				"moYear": data.moYear,
+				"series": data.series,
+				"suffix":data.suffix,
+				"model":data.model,
+				"modelDesc":data.ENModelDesc      
+			}];
+			var routeData = JSON.stringify(arr);
+			DetailController.oRouter.navTo("AdminDetailsOption", {
+				num3: routeData
+			});
 
 		},
 		_onFioriObjectPageActionButtonPress4: function (oEvent) { //Manage series page

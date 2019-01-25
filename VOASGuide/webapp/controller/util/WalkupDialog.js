@@ -64,22 +64,107 @@ sap.ui.define([
 
 		},
 		_uploadPDFFile: function (oEvent) {
-
+			var modelAdm=sap.ui.getCore().getModel("modelAdmin");
+			var modelAdmData=modelAdm.getData();
 			oEvent = jQuery.extend(true, {}, oEvent);
 			return new Promise(function (fnResolve) {
 					fnResolve(true);
 				})
 				.then(function (result) {
-					alert("This should update or create What's New record.");
+					var sLocation = window.location.host;
+					var sLocation_conf = sLocation.search("webide");
+					if (sLocation_conf == 0) {
+						this.sPrefix = "/voasguide_node";
+					} else {
+						this.sPrefix = "";
+					}
+					this.nodeJsUrl = this.sPrefix + "/node";
+					var comment = this._oView.byId("__component0---AdminDetailsOption--walkUp_TA_Comment").getValue(); // "ok"; 
+					var filename = this._oView.byId("__component0---AdminDetailsOption--walkUpFileUploadId").mProperties.value; //"abc.pdf";
+					var date = new Date();
+					var date2 = sap.ui.core.format.DateFormat.getDateInstance({
+						pattern: "yyyyMMdd"
+					});
+					var date3 = date2.format(date);
+					var langSwitchState = this._oView.byId("__component0---AdminDetailsOption--walkUp_Switch_Lang").mProperties.state;
+					var lang = "";
+					if (langSwitchState == true) {
+						lang = "FR";
+					} else {
+						lang = "EN";
+					}
 
+					//var oURL = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileSet('" + filename + "')/$value";
+						var oFileUploader = this._oView.byId("__component0---AdminDetailsOption--walkUpFileUploadId");
+					var oURL2 = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileSet(Comment='" + comment + "',FileName='" + filename + "',Language='" +
+						lang + "',Lastupdate='" + date3 + "',Tab='Walkup')/$value";
+					var oUrl3= this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'Walkup')";
+					var token;
+					var tbl = sap.ushell.components.walkUpTbl;
+						var file = jQuery.sap.domById(oFileUploader.getId() + "-fu").files[0];
+				var base64_marker = 'data:' + file.type + ';base64,';
+				var reader = new FileReader();
+				reader.onload = function readSuccess(evt) {
+					var base64Index = evt.target.result.indexOf(base64_marker) + base64_marker.length;
+					var _base64 = evt.target.result.substring(base64Index);
+					$.ajax({
+						url: oURL2,
+						type: 'GET',
+						beforeSend: function (xhr) {
+							xhr.setRequestHeader("X-CSRF-Token", "Fetch");
+						},
+						complete: function (xhr) {
+							token = xhr.getResponseHeader("X-CSRF-Token");
+							$.ajax({
+								type: 'PUT',
+								url: oURL2,
+								data:_base64,
+								dataType: "application/pdf",
+								beforeSend: function (xhr) {
+									xhr.setRequestHeader('X-CSRF-Token', token);
+								},
+								success: function (data) {
+									console.log("PUT success: "+data);
+									$.ajax({
+										url: oUrl3,
+										method: 'GET',
+										async: false,
+										dataType: "json",
+										success: function (data, textStatus, jqXHR) {
+											console.log("GET success: ");
+											console.log(data.d.results);
+											var tblModel = new sap.ui.model.json.JSONModel(data.d.results);
+											sap.ui.getCore().setModel(tblModel,"walkUpTblModel");
+											tbl.setModel(tblModel,"walkUpTblModel");
+										},
+										error: function (jqXHR, textStatus, errorThrown) {
+											console.log("GET ERROR ");
+											onsole.log(jqXHR, textStatus, errorThrown);
+											sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR,
+												"Error",
+												sap
+												.m.MessageBox.Action.OK, null, null);
+										}
+									});
+								},
+								error: function (data) {
+									sap.m.MessageBox.show("Error occurred while sending data. Please try again later.", sap.m.MessageBox.Icon.ERROR,
+										"Error", sap
+										.m.MessageBox.Action.OK, null, null);
+								}
+
+							});
+						}
+					});
+				};
+				reader.readAsText(file);
+		
 				}.bind(this))
 				.then(function (result) {
 					if (result === false) {
 						return false;
 					} else {
-
 						this.close();
-
 					}
 				}.bind(this)).catch(function (err) {
 					if (err !== undefined) {

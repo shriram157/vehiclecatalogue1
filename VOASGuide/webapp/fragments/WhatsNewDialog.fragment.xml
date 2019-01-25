@@ -1,5 +1,4 @@
-<core:FragmentDefinition xmlns:core="sap.ui.core"
-	controllerName="com.sap.build.toyota-canada.vehiclesGuideV3.controller.util.WhatsNewDialog" xmlns="sap.m" xmlns:form="sap.ui.layout.form"
+<core:FragmentDefinition xmlns:core="sap.ui.core" id="whatsNew_fragmentId" controllerName="com.sap.build.toyota-canada.vehiclesGuideV3.controller.util.WhatsNewDialog" xmlns="sap.m" xmlns:form="sap.ui.layout.form"
 	xmlns:u="sap.ui.unified">
 	<Dialog horizontalScrolling="true" showHeader="true" state="None" stretch="false" title="What's New Section PDF" type="Standard"
 		verticalScrolling="true">
@@ -14,34 +13,15 @@
 									<Label text="" design="Standard" width="100%" required="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
 								</form:label>
 								<form:fields>
-									<!--<Button text="Upload PDF" type="Default" icon="sap-icon://upload" iconFirst="true" width="auto" enabled="true" visible="true"
-										iconDensityAware="false"/>-->
-									<u:FileUploader name="myFileUpload" uploadUrl="upload/" tooltip="Upload your file to the server"
-										uploadComplete="handleUploadComplete"/>
+									<u:FileUploader id="whatsNewFileUploadId" name="myFileUpload" uploadUrl="upload/" tooltip="Upload your file to the server" uploadComplete="handleUploadComplete"/>
 								</form:fields>
 							</form:FormElement>
-							<!--	<form:FormElement visible="true">
-								<form:label>
-									<Label text="Effective Date" design="Standard" width="100%" required="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
-								</form:label>
-								<form:fields>
-									<DatePicker width="auto" displayFormat="medium" enabled="true" visible="true" valueFormat="yyyyMMdd"/>
-								</form:fields>
-							</form:FormElement>
-							<form:FormElement visible="true">
-								<form:label>
-									<Label text="Expiry Date" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
-								</form:label>
-								<form:fields>
-									<DatePicker width="auto" displayFormat="medium" enabled="true" visible="true" valueFormat="yyyyMMdd"/>
-								</form:fields>
-							</form:FormElement>-->
 							<form:FormElement visible="true">
 								<form:label>
 									<Label text="Comments" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
 								</form:label>
 								<form:fields>
-									<TextArea rows="2" cols="20" maxLength="0" wrapping="None" enabled="true" visible="true"/>
+									<TextArea  id="whatsNew_TA_Comment" rows="2" cols="20" maxLength="0" wrapping="None" enabled="true" visible="true"/>
 								</form:fields>
 							</form:FormElement>
 							<form:FormElement visible="true" class="sapUiResponsiveMargin">
@@ -49,7 +29,7 @@
 									<Label text="Language" design="Bold" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
 								</form:label>
 								<form:fields>
-									<Switch state="true" customTextOff="En" customTextOn="Fr" type="Default" enabled="true" visible="true" class="sapUiTinyMargin"/>
+									<Switch  id="whatsNew_Switch_Lang" state="true" customTextOff="En" customTextOn="Fr" type="Default" enabled="true" visible="true" class="sapUiTinyMargin"/>
 								</form:fields>
 							</form:FormElement>
 						</form:formElements>

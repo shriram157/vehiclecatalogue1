@@ -43,7 +43,7 @@
 						</layoutData>
 					</Button>
 					<Button text="Manage Series" icon="sap-icon://edit" iconFirst="true" type="Transparent" enabled="true"
-						press="_onFioriObjectPageActionButtonPress4">
+						press="manageSeries">
 						<layoutData>
 							<OverflowToolbarLayoutData/>
 						</layoutData>

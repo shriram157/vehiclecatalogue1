@@ -2,8 +2,9 @@ sap.ui.define([
 	"sap/ui/core/UIComponent",
 	"sap/ui/Device",
 	"./model/errorHandling",
-	"com/sap/build/toyota-canada/vehiclesGuideV3/model/models"
-], function (UIComponent, Device, errorHandling, models) {
+	"com/sap/build/toyota-canada/vehiclesGuideV3/model/models",
+		"sap/ui/model/odata/v2/ODataModel"
+], function (UIComponent, Device, errorHandling, models,ODataModel) {
 	"use strict";
 	var navigationWithContext = {
 
@@ -34,8 +35,10 @@ sap.ui.define([
 			// set the device model
 			this.setModel(models.createDeviceModel(), "device");
 			var employeemodel = new sap.ui.model.json.JSONModel();
-			employeemodel.loadData("model/DataDetail.json");
+		/*	employeemodel.loadData("model/DataDetail.json");
 			sap.ui.getCore().setModel(employeemodel, "employee");
+			
+		*/
 
 		},
 		getNavigationPropertyForNavigationWithContext: function (sEntityNameSet, targetPageName) {

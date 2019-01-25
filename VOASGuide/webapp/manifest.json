@@ -17,6 +17,15 @@
 			"initData": {
 				"uri": "model/ComboBox.json",
 				"type": "JSON"
+			},
+			
+			"Z_VEHICLE_CATALOGUE_SRV": {
+				"uri": "/node/Z_VEHICLE_CATALOGUE_SRV/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0",
+					"localUri": "localService/Z_VEHICLE_CATALOGUE_SRV/metadata.xml"
+				}
 			}
 		}
 	},
@@ -107,7 +116,7 @@
 					"CompareDetailsOption"
 				]
 			}, {
-				"pattern": "AdminDetailsOption/:context:",
+				"pattern": "AdminDetailsOption/{num3}",
 				"name": "AdminDetailsOption",
 				"target": [
 					"AdminDetailsOption"
