@@ -94,9 +94,9 @@
 								iconDensityAware="false" press="_onCreateWalkUp"/>
 							<Button text="Supplemental" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true" enabled="true" visible="true"
 								iconDensityAware="false" press="_onCreateSupplemental"/>
-							<Button text="Create Vehicle Guide" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true" enabled="true" visible="true"
+							<Button text="Vehicle Guide" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true" enabled="true" visible="true"
 								iconDensityAware="false" press="_onCreateVehGuide"/>
-							<Button text="Create Pocket Summary" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true" enabled="true" visible="true"
+							<Button text="Pocket Summary" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true" enabled="true" visible="true"
 								iconDensityAware="false" press="_onCreatePocSum"/>
 						</content>
 					</OverflowToolbar>

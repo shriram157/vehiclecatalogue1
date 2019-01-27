@@ -3,17 +3,16 @@ sap.ui.define([
 	"sap/m/MessageBox",
 	"./utilities",
 	"sap/ui/core/routing/History"
-], function (ManagedObject, MessageBox, Utilities, History) {
-var CreateWhatsNewDialogController;
+], function (ManagedObject, MessageBox, utilities, History) {
+	var CreateWhatsNewDialogController;
 	return ManagedObject.extend("com.sap.build.toyota-canada.vehiclesGuideV3.controller.util.CreateWhatsNewDialog", {
 		constructor: function (oView) {
-			CreateWhatsNewDialogController=this;
+			CreateWhatsNewDialogController = this;
 			CreateWhatsNewDialogController._oView = oView;
-			CreateWhatsNewDialogController._oControl = sap.ui.xmlfragment(oView.getId(), "com.sap.build.toyota-canada.vehiclesGuideV3.fragments.CreateWhatsNewDialog",
+			CreateWhatsNewDialogController._oControl = sap.ui.xmlfragment(oView.getId(),
+				"com.sap.build.toyota-canada.vehiclesGuideV3.fragments.CreateWhatsNewDialog",
 				CreateWhatsNewDialogController);
 			CreateWhatsNewDialogController._bInit = false;
-			//	CreateWhatsNewDialogController.listOfBrand();
-			//	CreateWhatsNewDialogController.listOfModelYear();
 		},
 
 		exit: function () {
@@ -123,7 +122,7 @@ var CreateWhatsNewDialogController;
 			if (seriesCB.getValue() !== "") {
 				seriesCB.setValue("");
 			}
-			
+
 			var sLocation = window.location.host;
 			var sLocation_conf = sLocation.search("webide");
 			if (sLocation_conf == 0) {

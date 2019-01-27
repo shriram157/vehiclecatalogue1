@@ -4,8 +4,8 @@
 		class="sapUiSizeCompact">
 		<uxap:headerTitle>
 			<uxap:ObjectPageHeader objectTitle="{modelArg>/moYear} {modelArg>/brand} {modelArg>/series} - Compare" objectSubtitle=""
-				isObjectIconAlwaysVisible="false" isObjectTitleAlwaysVisible="true" isObjectSubtitleAlwaysVisible="true" showPlaceholder="true"
-				objectImageURI="/build/uilibraries/content/static/image-canvas.svg">
+				isObjectIconAlwaysVisible="false" isObjectTitleAlwaysVisible="true" isObjectSubtitleAlwaysVisible="true" showPlaceholder="true">
+				<!--objectImageURI="/build/uilibraries/content/static/image-canvas.svg"-->
 				<uxap:navigationBar>
 					<Bar>
 						<contentLeft>
@@ -18,58 +18,567 @@
 					</Bar>
 				</uxap:navigationBar>
 				<uxap:actions>
-					<Button text="Create Vehicle Guide" icon="sap-icon://pdf-attachment" iconFirst="false" type="Default" enabled="true"
-						press="_onFioriObjectPageActionButtonPress">
-						<layoutData>
-							<OverflowToolbarLayoutData moveToOverflow="true"/>
-						</layoutData>
-					</Button>
+					<Button text="Vehicle Guide" icon="sap-icon://pdf-attachment" iconFirst="true" type="Default" enabled="true"
+						press="_onCreateVehGuide"/>
+					<Button text="What's New Guide" icon="sap-icon://pdf-attachment" iconFirst="true" type="Default" enabled="true"
+						press="_onCreateWhatsNew"/>
+					<Button text="Walk-up Guide" icon="sap-icon://pdf-attachment" iconFirst="true" type="Default" enabled="true"
+						press="_onCreateWalkUp"/>
+					<Button text="Supplemental Guide" icon="sap-icon://pdf-attachment" iconFirst="true" type="Default" enabled="true"
+						press="_onCreateSupplemental"/>
+					<Button text="Pocket Summary" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true" enabled="true" visible="true"
+						iconDensityAware="false" press="_onCreatePocSum"/>
 				</uxap:actions>
 				<uxap:breadCrumbsLinks/>
 			</uxap:ObjectPageHeader>
 		</uxap:headerTitle>
 		<uxap:headerContent>
-			<VBox>
+			<!--<VBox>
 				<items>
 					<HBox>
-						<items>
+						<items>-->
 							<HBox>
 								<items>
-									<HBox>
+									<!--<HBox>
 										<items>
-											<Label text="Include Common Features" design="Standard" width="106px" required="false" textAlign="Right" textDirection="Inherit"
+											<Label text="Include Common Features" design="Standard" width="165px" required="false" textAlign="Left" textDirection="Inherit"
 												visible="true" class="sapUiTinyMargin" wrapping="true"/>
 											<Switch id="stdFeatSwitchId" change="onSwitchstateChange" state="false" customTextOff="On" customTextOn="Off" type="Default" enabled="true"
 												visible="true" class="sapUiTinyMargin"/>
 										</items>
-									</HBox>
-									<HBox width="100%" items="{path:'compareModel>/', templateShareable:true}">
+									</HBox>-->
+									<Table id="idTbl_compare2vehicles" visible="false" width="100%">
+										<columns>
+											<Column minScreenWidth="Phone">
+												<header>
+													<!--<Text text=""/>-->
+													<HBox>
+														<items>
+															<Label text="Include Common Features" design="Standard"  required="false" textAlign="Left" textDirection="Inherit"
+																visible="true" class="sapUiTinyMargin" wrapping="true"/>
+															<Switch id="stdFeatSwitchId2" change="onSwitchstateChange" state="false" customTextOff="On" customTextOn="Off" type="Default" enabled="true"
+																visible="true" class="sapUiTinyMargin"/>
+														</items>
+													</HBox>
+												</header>
+											</Column>
+											<Column minScreenWidth="Phone">
+												<header>
+													<Text text=""/>
+												</header>
+											</Column>
+											<Column minScreenWidth="Phone">
+												<header>
+													<VBox class="vbox_textAlign1">
+														<items>
+															<Title text="{compareModel>/0/ENModelDesc} - ({compareModel>/0/Model}) - SFX {compareModel>/0/Suffix}" wrapping="true"/>
+															<Text text="Model: {compareModel>/0/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{parts: [{path:'compareModel>/0/MSRP'},{path:'compareModel>/0/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
+															<Text text="{parts: [{path:'compareModel>/0/NETPRICE'},{path:'compareModel>/0/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+														</items>
+													</VBox>
+												</header>
+											</Column>
+											<Column minScreenWidth="Phone">
+												<header>
+													<VBox class="vbox_textAlign1">
+														<items>
+															<Title text="{compareModel>/1/ENModelDesc} - ({compareModel>/1/Model}) - SFX {compareModel>/1/Suffix}" wrapping="true"/>
+															<Text text="Model: {compareModel>/1/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{parts: [{path:'compareModel>/1/MSRP'},{path:'compareModel>/1/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
+															<Text text="{parts: [{path:'compareModel>/1/NETPRICE'},{path:'compareModel>/1/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+														</items>
+													</VBox>
+												</header>
+											</Column>
+										</columns>
+										<ColumnListItem visible="false">
+											<cells></cells>
+										</ColumnListItem>
+									</Table>
+									<Table id="idTbl_compare3vehicles" visible="false" width="100%">
+										<columns>
+											<Column minScreenWidth="Phone">
+												<header>
+												<HBox>
+														<items>
+															<Label text="Include Common Features" design="Standard"  required="false" textAlign="Left" textDirection="Inherit"
+																visible="true" class="sapUiTinyMargin" wrapping="true"/>
+															<Switch id="stdFeatSwitchId3" change="onSwitchstateChange" state="false" customTextOff="On" customTextOn="Off" type="Default" enabled="true"
+																visible="true" class="sapUiTinyMargin"/>
+														</items>
+													</HBox>
+												</header>
+											</Column>
+											<Column minScreenWidth="Phone">
+												<header>
+													<Text text=""/>
+												</header>
+											</Column>
+											<Column minScreenWidth="Phone">
+												<header>
+													<VBox class="vbox_textAlign1">
+														<items>
+															<Title text="{compareModel>/0/ENModelDesc} - ({compareModel>/0/Model}) - SFX {compareModel>/0/Suffix}" wrapping="true"/>
+															<Text text="Model: {compareModel>/0/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{parts: [{path:'compareModel>/0/MSRP'},{path:'compareModel>/0/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
+															<Text text="{parts: [{path:'compareModel>/0/NETPRICE'},{path:'compareModel>/0/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+														</items>
+													</VBox>
+												</header>
+											</Column>
+											<Column minScreenWidth="Phone">
+												<header>
+													<VBox class="vbox_textAlign1">
+														<items>
+															<Title text="{compareModel>/1/ENModelDesc} - ({compareModel>/1/Model}) - SFX {compareModel>/1/Suffix}" wrapping="true"/>
+															<Text text="Model: {compareModel>/1/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{parts: [{path:'compareModel>/1/MSRP'},{path:'compareModel>/1/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
+															<Text text="{parts: [{path:'compareModel>/1/NETPRICE'},{path:'compareModel>/1/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+														</items>
+													</VBox>
+												</header>
+											</Column>
+											<Column minScreenWidth="Phone">
+												<header>
+													<VBox >
+														<items>
+															<Title text="{compareModel>/2/ENModelDesc} - ({compareModel>/2/Model}) - SFX {compareModel>/2/Suffix}" wrapping="true"/>
+															<Text text="Model: {compareModel>/2/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{parts: [{path:'compareModel>/2/MSRP'},{path:'compareModel>/2/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
+															<Text text="{parts: [{path:'compareModel>/2/NETPRICE'},{path:'compareModel>/2/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+														</items>
+													</VBox>
+												</header>
+											</Column>
+										</columns>
+										<ColumnListItem type="Navigation" visible="false">
+											<cells></cells>
+										</ColumnListItem>
+									</Table>
+									<Table id="idTbl_compare4vehicles" visible="false" width="100%">
+										<columns>
+											<Column minScreenWidth="Phone">
+												<header>
+													<HBox>
+														<items>
+															<Label text="Include Common Features" design="Standard"  required="false" textAlign="Left" textDirection="Inherit"
+																visible="true" class="sapUiTinyMargin" wrapping="true"/>
+															<Switch id="stdFeatSwitchId4" change="onSwitchstateChange" state="false" customTextOff="On" customTextOn="Off" type="Default" enabled="true"
+																visible="true" class="sapUiTinyMargin"/>
+														</items>
+													</HBox>
+												</header>
+											</Column>
+											<Column minScreenWidth="Phone">
+												<header>
+													<Text text=""/>
+												</header>
+											</Column>
+											<Column minScreenWidth="Phone">
+												<header>
+													<VBox class="vbox_textAlign1">
+														<items>
+															<Title text="{compareModel>/0/ENModelDesc} - ({compareModel>/0/Model}) - SFX {compareModel>/0/Suffix}" wrapping="true"/>
+															<Text text="Model: {compareModel>/0/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{parts: [{path:'compareModel>/0/MSRP'},{path:'compareModel>/0/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
+															<Text text="{parts: [{path:'compareModel>/0/NETPRICE'},{path:'compareModel>/0/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+														</items>
+													</VBox>
+												</header>
+											</Column>
+											<Column minScreenWidth="Phone">
+												<header>
+													<VBox class="vbox_textAlign1">
+														<items>
+															<Title text="{compareModel>/1/ENModelDesc} - ({compareModel>/1/Model}) - SFX {compareModel>/1/Suffix}" wrapping="true"/>
+															<Text text="Model: {compareModel>/1/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{parts: [{path:'compareModel>/1/MSRP'},{path:'compareModel>/1/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
+															<Text text="{parts: [{path:'compareModel>/1/NETPRICE'},{path:'compareModel>/1/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+														</items>
+													</VBox>
+												</header>
+											</Column>
+											<Column minScreenWidth="Phone">
+												<header>
+													<VBox class="vbox_textAlign1">
+														<items>
+															<Title text="{compareModel>/2/ENModelDesc} - ({compareModel>/2/Model}) - SFX {compareModel>/2/Suffix}" wrapping="true"/>
+															<Text text="Model: {compareModel>/2/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{parts: [{path:'compareModel>/2/MSRP'},{path:'compareModel>/2/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
+															<Text text="{parts: [{path:'compareModel>/2/NETPRICE'},{path:'compareModel>/2/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+														</items>
+													</VBox>
+												</header>
+											</Column>
+											<Column minScreenWidth="Phone">
+												<header>
+													<VBox class="vbox_textAlign1">
+														<items>
+															<Title text="{compareModel>/3/ENModelDesc} - ({compareModel>/3/Model}) - SFX {compareModel>/3/Suffix}" wrapping="true"/>
+															<Text text="Model: {compareModel>/3/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{parts: [{path:'compareModel>/3/MSRP'},{path:'compareModel>/3/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
+															<Text text="{parts: [{path:'compareModel>/3/NETPRICE'},{path:'compareModel>/3/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+														</items>
+													</VBox>
+												</header>
+											</Column>
+										</columns>
+										<ColumnListItem type="Navigation" visible="false">
+											<cells></cells>
+										</ColumnListItem>
+									</Table>
+									<Table id="idTbl_compare5vehicles" visible="false" width="100%">
+										<columns>
+											<Column minScreenWidth="Phone">
+												<header>
+													<HBox>
+														<items>
+															<Label text="Include Common Features" design="Standard"  required="false" textAlign="Left" textDirection="Inherit"
+																visible="true" class="sapUiTinyMargin" wrapping="true"/>
+															<Switch id="stdFeatSwitchId5" change="onSwitchstateChange" state="false" customTextOff="On" customTextOn="Off" type="Default" enabled="true"
+																visible="true" class="sapUiTinyMargin"/>
+														</items>
+													</HBox>
+												</header>
+											</Column>
+											<Column minScreenWidth="Phone">
+												<header>
+													<Text text=""/>
+												</header>
+											</Column>
+											<Column minScreenWidth="Phone">
+												<header>
+													<VBox class="vbox_textAlign1">
+														<items>
+															<Title text="{compareModel>/0/ENModelDesc} - ({compareModel>/0/Model}) - SFX {compareModel>/0/Suffix}" wrapping="true"/>
+															<Text text="Model: {compareModel>/0/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{parts: [{path:'compareModel>/0/MSRP'},{path:'compareModel>/0/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
+															<Text text="{parts: [{path:'compareModel>/0/NETPRICE'},{path:'compareModel>/0/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+														</items>
+													</VBox>
+												</header>
+											</Column>
+											<Column minScreenWidth="Phone">
+												<header>
+													<VBox class="vbox_textAlign1">
+														<items>
+															<Title text="{compareModel>/1/ENModelDesc} - ({compareModel>/1/Model}) - SFX {compareModel>/1/Suffix}" wrapping="true"/>
+															<Text text="Model: {compareModel>/1/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{parts: [{path:'compareModel>/1/MSRP'},{path:'compareModel>/1/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
+															<Text text="{parts: [{path:'compareModel>/1/NETPRICE'},{path:'compareModel>/1/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+														</items>
+													</VBox>
+												</header>
+											</Column>
+											<Column minScreenWidth="Phone">
+												<header>
+													<VBox class="vbox_textAlign1">
+														<items>
+															<Title text="{compareModel>/2/ENModelDesc} - ({compareModel>/2/Model}) - SFX {compareModel>/2/Suffix}" wrapping="true"/>
+															<Text text="Model: {compareModel>/2/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{parts: [{path:'compareModel>/2/MSRP'},{path:'compareModel>/2/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
+															<Text text="{parts: [{path:'compareModel>/2/NETPRICE'},{path:'compareModel>/2/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+														</items>
+													</VBox>
+												</header>
+											</Column>
+											<Column minScreenWidth="Phone">
+												<header>
+													<VBox class="vbox_textAlign1">
+														<items>
+															<Title text="{compareModel>/3/ENModelDesc} - ({compareModel>/3/Model}) - SFX {compareModel>/3/Suffix}" wrapping="true"/>
+															<Text text="Model: {compareModel>/3/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{parts: [{path:'compareModel>/3/MSRP'},{path:'compareModel>/3/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
+															<Text text="{parts: [{path:'compareModel>/3/NETPRICE'},{path:'compareModel>/3/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+														</items>
+													</VBox>
+												</header>
+											</Column>
+											<Column minScreenWidth="Phone">
+												<header>
+													<VBox class="vbox_textAlign1">
+														<items>
+															<Title text="{compareModel>/4/ENModelDesc} - ({compareModel>/4/Model}) - SFX {compareModel>/4/Suffix}" wrapping="true"/>
+															<Text text="Model: {compareModel>/4/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{parts: [{path:'compareModel>/4/MSRP'},{path:'compareModel>/4/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
+															<Text text="{parts: [{path:'compareModel>/4/NETPRICE'},{path:'compareModel>/4/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+														</items>
+													</VBox>
+												</header>
+											</Column>
+										</columns>
+										<ColumnListItem type="Navigation" visible="false">
+											<cells></cells>
+										</ColumnListItem>
+									</Table>
+									<!--	<HBox id="hboxCompare" width="100%" items="{path:'compareModel>/', templateShareable:true}">
 										<items>
-											<VBox class="sapUiLargeMarginBegin sapUiLargeMarginEnd">
+											<VBox  >
 												<items>
 													<Title text="{compareModel>ENModelDesc} - ({compareModel>Model}) - SFX {compareModel>Suffix}" wrapping="true"/>
 													<Text text="Model: {compareModel>ENModelDesc}" wrapping="true"></Text>
 													<Text text="{parts: [{path:'compareModel>MSRP'},{path:'compareModel>MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
 													<Text text="{parts: [{path:'compareModel>NETPRICE'},{path:'compareModel>NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
-													<!--	<Text text="Dealer Net: ${compareModel>NETPRICE}" wrapping="true"></Text>-->
+												
 												</items>
-												<!--	<Text text="MSRP: ${compareModel>MSRP}"  formatter:format.formatter.decimalFormatter wrapping="true"></Text>-->
+												
 											</VBox>
 										</items>
-									</HBox>
+									</HBox>-->
 								</items>
 							</HBox>
-						</items>
+						<!--</items>
 					</HBox>
 				</items>
-			</VBox>
+			</VBox>-->
 		</uxap:headerContent>
 		<uxap:sections>
 			<uxap:ObjectPageSection title="Interior">
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="Interior">
 						<uxap:blocks>
-							<Table id="tblInterior" width="100%" growing="true" growingScrollToLoad="false" growingThreshold="30" mode="None"></Table>
+						<!--	<VBox>
+								<items>-->
+									<!--<Table id="idTbl_compare2vehicles" visible="false" width="100%"  >
+										<columns>
+											<Column minScreenWidth="Phone">
+												<header>
+													<Text text=""/>
+												</header>
+											</Column>
+											<Column minScreenWidth="Phone">
+												<header>
+													<Text text=""/>
+												</header>
+											</Column>
+											<Column minScreenWidth="Phone">
+												<header>
+													<VBox class="vbox_textAlign1" >
+														<items>
+															<Title   text="{compareModel>/0/ENModelDesc} - ({compareModel>/0/Model}) - SFX {compareModel>/0/Suffix}" wrapping="true"/>
+															<Text   text="Model: {compareModel>/0/ENModelDesc}" wrapping="true"></Text>
+															<Text   text="{parts: [{path:'compareModel>/0/MSRP'},{path:'compareModel>/0/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
+															<Text   text="{parts: [{path:'compareModel>/0/NETPRICE'},{path:'compareModel>/0/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+														</items>
+													</VBox>
+												</header>
+											</Column>
+											<Column minScreenWidth="Phone">
+												<header>
+													<VBox  class="vbox_textAlign1" >
+														<items>
+															<Title text="{compareModel>/1/ENModelDesc} - ({compareModel>/1/Model}) - SFX {compareModel>/1/Suffix}" wrapping="true"/>
+															<Text text="Model: {compareModel>/1/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{parts: [{path:'compareModel>/1/MSRP'},{path:'compareModel>/1/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
+															<Text text="{parts: [{path:'compareModel>/1/NETPRICE'},{path:'compareModel>/1/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+														</items>
+													</VBox>
+												</header>
+											</Column>
+										</columns>
+										<ColumnListItem  visible="false">
+											<cells></cells>
+										</ColumnListItem>
+									</Table>
+									<Table id="idTbl_compare3vehicles" visible="false" width="100%"  >
+										<columns>
+											<Column minScreenWidth="Phone">
+												<header>
+													<Text text=""/>
+												</header>
+											</Column>
+											<Column minScreenWidth="Phone">
+												<header>
+													<Text text=""/>
+												</header>
+											</Column>
+											<Column minScreenWidth="Phone">
+												<header>
+													<VBox  class="vbox_textAlign1">
+														<items>
+															<Title text="{compareModel>/0/ENModelDesc} - ({compareModel>/0/Model}) - SFX {compareModel>/0/Suffix}" wrapping="true"/>
+															<Text text="Model: {compareModel>/0/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{parts: [{path:'compareModel>/0/MSRP'},{path:'compareModel>/0/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
+															<Text text="{parts: [{path:'compareModel>/0/NETPRICE'},{path:'compareModel>/0/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+														</items>
+													</VBox>
+												</header>
+											</Column>
+											<Column minScreenWidth="Phone">
+												<header>
+													<VBox  class="vbox_textAlign1">
+														<items>
+															<Title text="{compareModel>/1/ENModelDesc} - ({compareModel>/1/Model}) - SFX {compareModel>/1/Suffix}" wrapping="true"/>
+															<Text text="Model: {compareModel>/1/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{parts: [{path:'compareModel>/1/MSRP'},{path:'compareModel>/1/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
+															<Text text="{parts: [{path:'compareModel>/1/NETPRICE'},{path:'compareModel>/1/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+														</items>
+													</VBox>
+												</header>
+											</Column>
+											<Column minScreenWidth="Phone">
+												<header>
+													<VBox  >
+														<items>
+															<Title text="{compareModel>/2/ENModelDesc} - ({compareModel>/2/Model}) - SFX {compareModel>/2/Suffix}" wrapping="true"/>
+															<Text text="Model: {compareModel>/2/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{parts: [{path:'compareModel>/2/MSRP'},{path:'compareModel>/2/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
+															<Text text="{parts: [{path:'compareModel>/2/NETPRICE'},{path:'compareModel>/2/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+														</items>
+													</VBox>
+												</header>
+											</Column>
+										</columns>
+										<ColumnListItem type="Navigation" visible="false">
+											<cells></cells>
+										</ColumnListItem>
+									</Table>
+									<Table id="idTbl_compare4vehicles" visible="false" width="100%" >
+										<columns>
+											<Column minScreenWidth="Phone">
+												<header>
+													<Text text=""/>
+												</header>
+											</Column>
+											<Column minScreenWidth="Phone">
+												<header>
+													<Text text=""/>
+												</header>
+											</Column>
+											<Column minScreenWidth="Phone">
+												<header>
+													<VBox  class="vbox_textAlign1">
+														<items>
+															<Title text="{compareModel>/0/ENModelDesc} - ({compareModel>/0/Model}) - SFX {compareModel>/0/Suffix}" wrapping="true"/>
+															<Text text="Model: {compareModel>/0/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{parts: [{path:'compareModel>/0/MSRP'},{path:'compareModel>/0/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
+															<Text text="{parts: [{path:'compareModel>/0/NETPRICE'},{path:'compareModel>/0/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+														</items>
+													</VBox>
+												</header>
+											</Column>
+											<Column minScreenWidth="Phone">
+												<header>
+													<VBox  class="vbox_textAlign1">
+														<items>
+															<Title text="{compareModel>/1/ENModelDesc} - ({compareModel>/1/Model}) - SFX {compareModel>/1/Suffix}" wrapping="true"/>
+															<Text text="Model: {compareModel>/1/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{parts: [{path:'compareModel>/1/MSRP'},{path:'compareModel>/1/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
+															<Text text="{parts: [{path:'compareModel>/1/NETPRICE'},{path:'compareModel>/1/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+														</items>
+													</VBox>
+												</header>
+											</Column>
+											<Column minScreenWidth="Phone">
+												<header>
+													<VBox  class="vbox_textAlign1">
+														<items>
+															<Title text="{compareModel>/2/ENModelDesc} - ({compareModel>/2/Model}) - SFX {compareModel>/2/Suffix}" wrapping="true"/>
+															<Text text="Model: {compareModel>/2/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{parts: [{path:'compareModel>/2/MSRP'},{path:'compareModel>/2/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
+															<Text text="{parts: [{path:'compareModel>/2/NETPRICE'},{path:'compareModel>/2/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+														</items>
+													</VBox>
+												</header>
+											</Column>
+											<Column minScreenWidth="Phone">
+												<header>
+													<VBox  class="vbox_textAlign1">
+														<items>
+															<Title text="{compareModel>/3/ENModelDesc} - ({compareModel>/3/Model}) - SFX {compareModel>/3/Suffix}" wrapping="true"/>
+															<Text text="Model: {compareModel>/3/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{parts: [{path:'compareModel>/3/MSRP'},{path:'compareModel>/3/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
+															<Text text="{parts: [{path:'compareModel>/3/NETPRICE'},{path:'compareModel>/3/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+														</items>
+													</VBox>
+												</header>
+											</Column>
+										</columns>
+										<ColumnListItem type="Navigation" visible="false">
+											<cells></cells>
+										</ColumnListItem>
+									</Table>
+									<Table id="idTbl_compare5vehicles" visible="false" width="100%"  >
+										<columns>
+											<Column minScreenWidth="Phone">
+												<header>
+													<Text text=""/>
+												</header>
+											</Column>
+											<Column minScreenWidth="Phone">
+												<header>
+													<Text text=""/>
+												</header>
+											</Column>
+											<Column minScreenWidth="Phone">
+												<header>
+													<VBox  class="vbox_textAlign1">
+														<items>
+															<Title text="{compareModel>/0/ENModelDesc} - ({compareModel>/0/Model}) - SFX {compareModel>/0/Suffix}" wrapping="true"/>
+															<Text text="Model: {compareModel>/0/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{parts: [{path:'compareModel>/0/MSRP'},{path:'compareModel>/0/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
+															<Text text="{parts: [{path:'compareModel>/0/NETPRICE'},{path:'compareModel>/0/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+														</items>
+													</VBox>
+												</header>
+											</Column>
+											<Column minScreenWidth="Phone">
+												<header>
+													<VBox  class="vbox_textAlign1">
+														<items>
+															<Title text="{compareModel>/1/ENModelDesc} - ({compareModel>/1/Model}) - SFX {compareModel>/1/Suffix}" wrapping="true"/>
+															<Text text="Model: {compareModel>/1/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{parts: [{path:'compareModel>/1/MSRP'},{path:'compareModel>/1/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
+															<Text text="{parts: [{path:'compareModel>/1/NETPRICE'},{path:'compareModel>/1/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+														</items>
+													</VBox>
+												</header>
+											</Column>
+											<Column minScreenWidth="Phone">
+												<header>
+													<VBox  class="vbox_textAlign1">
+														<items>
+															<Title text="{compareModel>/2/ENModelDesc} - ({compareModel>/2/Model}) - SFX {compareModel>/2/Suffix}" wrapping="true"/>
+															<Text text="Model: {compareModel>/2/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{parts: [{path:'compareModel>/2/MSRP'},{path:'compareModel>/2/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
+															<Text text="{parts: [{path:'compareModel>/2/NETPRICE'},{path:'compareModel>/2/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+														</items>
+													</VBox>
+												</header>
+											</Column>
+											<Column minScreenWidth="Phone">
+												<header>
+													<VBox  class="vbox_textAlign1">
+														<items>
+															<Title text="{compareModel>/3/ENModelDesc} - ({compareModel>/3/Model}) - SFX {compareModel>/3/Suffix}" wrapping="true"/>
+															<Text text="Model: {compareModel>/3/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{parts: [{path:'compareModel>/3/MSRP'},{path:'compareModel>/3/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
+															<Text text="{parts: [{path:'compareModel>/3/NETPRICE'},{path:'compareModel>/3/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+														</items>
+													</VBox>
+												</header>
+											</Column>
+											<Column minScreenWidth="Phone">
+												<header>
+													<VBox  class="vbox_textAlign1">
+														<items>
+															<Title text="{compareModel>/4/ENModelDesc} - ({compareModel>/4/Model}) - SFX {compareModel>/4/Suffix}" wrapping="true"/>
+															<Text text="Model: {compareModel>/4/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{parts: [{path:'compareModel>/4/MSRP'},{path:'compareModel>/4/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
+															<Text text="{parts: [{path:'compareModel>/4/NETPRICE'},{path:'compareModel>/4/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+														</items>
+													</VBox>
+												</header>
+											</Column>
+										</columns>
+										<ColumnListItem type="Navigation" visible="false">
+											<cells></cells>
+										</ColumnListItem>
+									</Table>-->
+									<Table id="tblInterior" width="100%" growing="true" growingScrollToLoad="false" growingThreshold="30" mode="None" class="tbsCssCenter"></Table>
+								<!--</items>
+							</VBox>-->
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>

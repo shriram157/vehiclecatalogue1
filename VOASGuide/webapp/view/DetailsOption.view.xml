@@ -4,8 +4,8 @@
 		class="sapUiSizeCompact">
 		<uxap:headerTitle>
 			<uxap:ObjectPageHeader objectTitle="{modelDetail>/moYear} {modelDetail>/brand} {modelDetail>/series} - See All Features"
-				isObjectIconAlwaysVisible="false" isObjectTitleAlwaysVisible="true" isObjectSubtitleAlwaysVisible="true" showPlaceholder="true"
-				objectImageURI="/build/uilibraries/content/static/image-canvas.svg">
+				isObjectIconAlwaysVisible="false" isObjectTitleAlwaysVisible="true" isObjectSubtitleAlwaysVisible="true" showPlaceholder="true">
+				<!--objectImageURI="/build/uilibraries/content/static/image-canvas.svg"-->
 				<uxap:navigationBar>
 					<Bar>
 						<contentLeft>
@@ -17,37 +17,19 @@
 						<contentRight/>
 					</Bar>
 				</uxap:navigationBar>
-				<uxap:actions>
-					<Button text="Create Vehicle Guide" icon="sap-icon://pdf-attachment" iconFirst="true" type="Default" enabled="true"
-						press="_onFioriObjectPageActionButtonPress">
-						<layoutData>
-							<OverflowToolbarLayoutData/>
-						</layoutData>
-					</Button>
-					<Button text="Create What's New Guide" icon="sap-icon://pdf-attachment" iconFirst="true" type="Default" enabled="true"
-						press="_onFioriObjectPageActionButtonPress1">
-						<layoutData>
-							<OverflowToolbarLayoutData/>
-						</layoutData>
-					</Button>
-					<Button text="Create Walk-up Guide" icon="sap-icon://pdf-attachment" iconFirst="true" type="Default" enabled="true"
-						press="_onFioriObjectPageActionButtonPress2">
-						<layoutData>
-							<OverflowToolbarLayoutData/>
-						</layoutData>
-					</Button>
-					<Button text="Create Supplemental Guide" icon="sap-icon://pdf-attachment" iconFirst="true" type="Default" enabled="true"
-						press="_onFioriObjectPageActionButtonPress3">
-						<layoutData>
-							<OverflowToolbarLayoutData/>
-						</layoutData>
-					</Button>
+				<uxap:actions> <!--	press="_onFioriObjectPageActionButtonPress"-->
+					<Button text="Vehicle Guide" icon="sap-icon://pdf-attachment" iconFirst="true" type="Default" enabled="true"
+						press="_onCreateVehGuide"/>
+					<Button text="What's New Guide" icon="sap-icon://pdf-attachment" iconFirst="true" type="Default" enabled="true"
+						press="_onCreateWhatsNew"/>
+					<Button text="Walk-up Guide" icon="sap-icon://pdf-attachment" iconFirst="true" type="Default" enabled="true"
+						press="_onCreateWalkUp"/>
+					<Button text="Supplemental Guide" icon="sap-icon://pdf-attachment" iconFirst="true" type="Default" enabled="true"
+						press="_onCreateSupplemental"/>
+					<Button text="Pocket Summary" type="Default" icon="sap-icon://edit" iconFirst="true" enabled="true" visible="true"
+						iconDensityAware="false" press="_onCreatePocSum"/>
 					<Button text="Manage Series" icon="sap-icon://edit" iconFirst="true" type="Transparent" enabled="true"
-						press="manageSeries">
-						<layoutData>
-							<OverflowToolbarLayoutData/>
-						</layoutData>
-					</Button>
+						press="manageSeries"/>
 				</uxap:actions>
 				<uxap:breadCrumbsLinks/>
 			</uxap:ObjectPageHeader>

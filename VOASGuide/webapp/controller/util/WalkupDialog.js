@@ -3,7 +3,7 @@ sap.ui.define([
 	"sap/m/MessageBox",
 	"./utilities",
 	"sap/ui/core/routing/History"
-], function (ManagedObject, MessageBox, Utilities, History) {
+], function (ManagedObject, MessageBox, utilities, History) {
 
 	return ManagedObject.extend("com.sap.build.toyota-canada.vehiclesGuideV3.controller.util.WalkupDialog", {
 		constructor: function (oView) {
@@ -64,8 +64,8 @@ sap.ui.define([
 
 		},
 		_uploadPDFFile: function (oEvent) {
-			var modelAdm=sap.ui.getCore().getModel("modelAdmin");
-			var modelAdmData=modelAdm.getData();
+			var modelAdm = sap.ui.getCore().getModel("modelAdmin");
+			var modelAdmData = modelAdm.getData();
 			oEvent = jQuery.extend(true, {}, oEvent);
 			return new Promise(function (fnResolve) {
 					fnResolve(true);
@@ -95,70 +95,73 @@ sap.ui.define([
 					}
 
 					//var oURL = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileSet('" + filename + "')/$value";
-						var oFileUploader = this._oView.byId("__component0---AdminDetailsOption--walkUpFileUploadId");
-					var oURL2 = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileSet(Comment='" + comment + "',FileName='" + filename + "',Language='" +
+					var oFileUploader = this._oView.byId("__component0---AdminDetailsOption--walkUpFileUploadId");
+					var oURL4 = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileSet(Comment='" + comment + "',FileName='" + filename + "',Language='" +
 						lang + "',Lastupdate='" + date3 + "',Tab='Walkup')/$value";
-					var oUrl3= this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'Walkup')";
+					var oURL2 = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileSet(Comment='" + comment + "',FileName='" + filename + "',Language='" +
+						lang + "',Lastupdate='" + date3 + "',Tab='Walkup',Model='" + modelAdmData.modelDesc + "',Model_year='" + modelAdmData.moYear +
+						"',Tciseries='" + modelAdmData.series + "',Brand='" + modelAdmData.brand + "')/$value";
+					var oUrl5 = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'Walkup')";
+					var oUrl3= this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'Walkup' and Model eq '"+modelAdmData.modelDesc+"' and Model_year eq '"+modelAdmData.moYear+"' and Tciseries eq '"+modelAdmData.series+"' and Brand eq '"+modelAdmData.brand+"')";
 					var token;
 					var tbl = sap.ushell.components.walkUpTbl;
-						var file = jQuery.sap.domById(oFileUploader.getId() + "-fu").files[0];
-				var base64_marker = 'data:' + file.type + ';base64,';
-				var reader = new FileReader();
-				reader.onload = function readSuccess(evt) {
-					var base64Index = evt.target.result.indexOf(base64_marker) + base64_marker.length;
-					var _base64 = evt.target.result.substring(base64Index);
-					$.ajax({
-						url: oURL2,
-						type: 'GET',
-						beforeSend: function (xhr) {
-							xhr.setRequestHeader("X-CSRF-Token", "Fetch");
-						},
-						complete: function (xhr) {
-							token = xhr.getResponseHeader("X-CSRF-Token");
-							$.ajax({
-								type: 'PUT',
-								url: oURL2,
-								data:_base64,
-								dataType: "application/pdf",
-								beforeSend: function (xhr) {
-									xhr.setRequestHeader('X-CSRF-Token', token);
-								},
-								success: function (data) {
-									console.log("PUT success: "+data);
-									$.ajax({
-										url: oUrl3,
-										method: 'GET',
-										async: false,
-										dataType: "json",
-										success: function (data, textStatus, jqXHR) {
-											console.log("GET success: ");
-											console.log(data.d.results);
-											var tblModel = new sap.ui.model.json.JSONModel(data.d.results);
-											sap.ui.getCore().setModel(tblModel,"walkUpTblModel");
-											tbl.setModel(tblModel,"walkUpTblModel");
-										},
-										error: function (jqXHR, textStatus, errorThrown) {
-											console.log("GET ERROR ");
-											onsole.log(jqXHR, textStatus, errorThrown);
-											sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR,
-												"Error",
-												sap
-												.m.MessageBox.Action.OK, null, null);
-										}
-									});
-								},
-								error: function (data) {
-									sap.m.MessageBox.show("Error occurred while sending data. Please try again later.", sap.m.MessageBox.Icon.ERROR,
-										"Error", sap
-										.m.MessageBox.Action.OK, null, null);
-								}
+					var file = jQuery.sap.domById(oFileUploader.getId() + "-fu").files[0];
+					var base64_marker = 'data:' + file.type + ';base64,';
+					var reader = new FileReader();
+					reader.onload = function readSuccess(evt) {
+						var base64Index = evt.target.result.indexOf(base64_marker) + base64_marker.length;
+						var _base64 = evt.target.result.substring(base64Index);
+						$.ajax({
+							url: oURL2,
+							type: 'GET',
+							beforeSend: function (xhr) {
+								xhr.setRequestHeader("X-CSRF-Token", "Fetch");
+							},
+							complete: function (xhr) {
+								token = xhr.getResponseHeader("X-CSRF-Token");
+								$.ajax({
+									type: 'PUT',
+									url: oURL2,
+									data: _base64,
+									dataType: "application/pdf",
+									beforeSend: function (xhr) {
+										xhr.setRequestHeader('X-CSRF-Token', token);
+									},
+									success: function (data) {
+										console.log("PUT success: " + data);
+										$.ajax({
+											url: oUrl3,
+											method: 'GET',
+											async: false,
+											dataType: "json",
+											success: function (data, textStatus, jqXHR) {
+												console.log("GET success: ");
+												console.log(data.d.results);
+												var tblModel = new sap.ui.model.json.JSONModel(data.d.results);
+												sap.ui.getCore().setModel(tblModel, "walkUpTblModel");
+												tbl.setModel(tblModel, "walkUpTblModel");
+											},
+											error: function (jqXHR, textStatus, errorThrown) {
 
-							});
-						}
-					});
-				};
-				reader.readAsText(file);
-		
+												sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR,
+													"Error",
+													sap
+													.m.MessageBox.Action.OK, null, null);
+											}
+										});
+									},
+									error: function (data) {
+										sap.m.MessageBox.show("Error occurred while sending data. Please try again later.", sap.m.MessageBox.Icon.ERROR,
+											"Error", sap
+											.m.MessageBox.Action.OK, null, null);
+									}
+
+								});
+							}
+						});
+					};
+					reader.readAsText(file);
+
 				}.bind(this))
 				.then(function (result) {
 					if (result === false) {

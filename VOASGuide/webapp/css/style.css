@@ -1,5 +1,6 @@
 /* Enter your custom styles here */
 
+
 /* Enter your custom styles here */
 
 @import url('https://fonts.googleapis.com/css?family=Raleway');
@@ -30,8 +31,9 @@
 
 
 /*custom color on header*/
-.justifyCenter{
-	justify-content:center;
+
+.justifyCenter {
+    justify-content: center;
 }
 
 .marginCss {
@@ -78,9 +80,11 @@
 .justifyContentEnd {
     justify-content: flex-end;
 }
-.titleFontSize{
-	font-size: larger;
+
+.titleFontSize {
+    font-size: larger;
 }
+
 .fontsize {
     font-size: large;
     font-weight: bold;
@@ -122,12 +126,14 @@
     text-align: center!important;
     font-weight: bold;
 }
+
 .msgStripCss2 {
-	text-align: left;
+    text-align: left;
     font-weight: bold;
     font-size: x-large;
-    height:4rem;
+    height: 4rem;
 }
+
 .VBox_color {
     background-color: #ECEBEC;
 }
@@ -136,13 +142,14 @@
     background-color: #ECEBEC;
     width: 69%;
 }
+
 .msgStripFormat .sapUiFormEdit .sapMText {
     display: block;
     min-height: 3rem;
     line-height: 1.375rem;
     padding-top: 0.8125rem;
     padding-bottom: 0.8125rem;
-    text-align:center !important;
+    text-align: center !important;
 }
 
 .sapMBtnPaddingRight {
@@ -152,7 +159,56 @@
 .sapMBtnPaddingLeft {
     padding-left: 0rem;
 }
+
 .FormTitle .sapUiFormM .sapUiFormContainerTitle>.sapUiFormTitle {
     height: 0.5rem;
     line-height: 1rem;
 }
+.vbox_textAlign{
+	text-align:left !important;
+	font-size:medium !important;
+}
+.vbox_textAlign1{
+	text-align:left !important;
+}
+.vbox_textAlign2{
+	text-align:left !important;
+	font-size:medium !important;
+}
+/*.paddingleft1{
+	padding-left:32rem;
+}
+.paddingleft2{
+	padding-left:22rem;
+}
+.paddingleft3{
+	padding-left:16rem;
+}
+.paddingleft4{
+	padding-left:12rem;
+}*/
+/*.centerAlignTable {
+    text-align: center !important;
+}
+
+.sapMColumnHeader {
+    display: -webkit-inline-box;
+    flex: 1 1 auto;
+    padding: .875rem .5rem 1rem;
+}
+sapUiSizeCompact .sapMListTblCell {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    vertical-align: middle;
+    text-align: center;
+}
+.sapMListTblCell {
+    padding: .875rem .5rem;
+    vertical-align: top;
+    font-size: 0.875rem;
+     text-align: center; 
+}
+.sapMListTbl {
+    font-size: 0.875rem;
+    text-align: center;
+}*/

@@ -3,43 +3,149 @@ sap.ui.define([
 	"sap/m/MessageBox",
 	"./utilities",
 	"sap/ui/core/routing/History"
-], function (ManagedObject, MessageBox, Utilities, History) {
-
+], function (ManagedObject, MessageBox, utilities, History) {
+	var CreateSuppGuideController;
 	return ManagedObject.extend("com.sap.build.toyota-canada.vehiclesGuideV3.controller.util.CreateSupplementalGuide", {
 		constructor: function (oView) {
-			this._oView = oView;
-			this._oControl = sap.ui.xmlfragment(oView.getId(), "com.sap.build.toyota-canada.vehiclesGuideV3.fragments.CreateSupplementalGuide", this);
-			this._bInit = false;
+			CreateSuppGuideController = this;
+			CreateSuppGuideController._oView = oView;
+			CreateSuppGuideController._oControl = sap.ui.xmlfragment(oView.getId(),
+				"com.sap.build.toyota-canada.vehiclesGuideV3.fragments.CreateSupplementalGuide", CreateSuppGuideController);
+			CreateSuppGuideController._bInit = false;
 		},
+		onInit: function () {
 
+			CreateSuppGuideController._oDialog = CreateSuppGuideController.getControl();
+			CreateSuppGuideController.listOfBrand();
+			CreateSuppGuideController.listOfModelYear();
+
+		},
+		listOfBrand: function () {
+			var data = {
+				"modelBrand": [{
+					"key": "1",
+					"text": "TOYOTA"
+				}, {
+					"key": "2",
+					"text": "LEXUS"
+				}]
+			};
+			var modelBrandModel = new sap.ui.model.json.JSONModel();
+			modelBrandModel.setData(data);
+			CreateSuppGuideController.getView().setModel(modelBrandModel, "brandModelNew");
+		},
+		listOfModelYear: function () {
+			var d = new Date();
+			var currentModelYear = d.getFullYear();
+			var oldYear = currentModelYear - 1;
+			var nextModelYear = currentModelYear + 1;
+			var nextModelYear2 = currentModelYear + 2;
+			var nextModelYear3 = currentModelYear + 3;
+			var data = {
+				"modelYear": [{
+					"key": "5",
+					"text": oldYear
+				}, {
+					"key": "1",
+					"text": currentModelYear
+				}, {
+					"key": "2",
+					"text": nextModelYear
+				}, {
+					"key": "3",
+					"text": nextModelYear2
+				}, {
+					"key": "4",
+					"text": nextModelYear3
+				}]
+			};
+			var modelYearModel = new sap.ui.model.json.JSONModel();
+			modelYearModel.setData(data);
+			CreateSuppGuideController.getView().setModel(modelYearModel, "yearModelNew");
+		},
+		onChange_ModelYear: function () {
+
+			var brandCB = CreateSuppGuideController.getView().byId("idSupp_brandCB");
+			var modelYearCB = CreateSuppGuideController.getView().byId("idSupp_modelYearCB");
+			var seriesCB = CreateSuppGuideController.getView().byId("idSupp_seriesCB");
+
+			var brandCBVal = brandCB.getValue();
+			var modelYearCBVal = modelYearCB.getValue();
+			if (seriesCB.getValue() !== "") {
+				seriesCB.setValue("");
+			}
+
+			var sLocation = window.location.host;
+			var sLocation_conf = sLocation.search("webide");
+			if (sLocation_conf == 0) {
+				CreateSuppGuideController.sPrefix = "/voasguide_node";
+			} else {
+				CreateSuppGuideController.sPrefix = "";
+			}
+			CreateSuppGuideController.nodeJsUrl = CreateSuppGuideController.sPrefix + "/node";
+			var host = CreateSuppGuideController.nodeJsUrl;
+			var url = host +
+				"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(Brand eq '" + brandCBVal + "' and Modelyear eq '" + modelYearCBVal +
+				"')";
+			//	"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter= (Brand eq 'TOYOTA' and Modelyear eq '2018')";
+			$.ajax({
+				url: url,
+				method: 'GET',
+				async: false,
+				dataType: 'json',
+				success: function (data, textStatus, jqXHR) {
+					//	var oModel = new sap.ui.model.json.JSONModel(data.d.results);
+					var oModel = new sap.ui.model.json.JSONModel();
+
+					var arr = [];
+					var j = 0;
+					for (var c = 0; c < data.d.results.length; c++) {
+						for (var i = 0; i < data.d.results.length; i++) {
+							if ($.inArray(data.d.results[i]["TCISeries"], arr) < 0) {
+								arr[j] = data.d.results[i]["TCISeries"];
+								j++;
+
+							}
+						}
+					}
+
+					oModel.setData(arr);
+					CreateSuppGuideController.getView().setModel(oModel, "seriesdropDownModelNew");
+				},
+				error: function (jqXHR, textStatus, errorThrown) {
+					sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error", sap
+						.m.MessageBox.Action.OK, null, null);
+				}
+			});
+		},
 		exit: function () {
-			delete this._oView;
+			delete CreateSuppGuideController._oView;
 		},
 
 		getView: function () {
-			return this._oView;
+			return CreateSuppGuideController._oView;
 		},
 
 		getControl: function () {
-			return this._oControl;
+			return CreateSuppGuideController._oControl;
 		},
 
 		getOwnerComponent: function () {
-			return this._oView.getController().getOwnerComponent();
+			return CreateSuppGuideController._oView.getController().getOwnerComponent();
 		},
 
 		open: function () {
-			var oView = this._oView;
-			var oControl = this._oControl;
+			var oView = CreateSuppGuideController._oView;
+			var oControl = CreateSuppGuideController._oControl;
 
-			if (!this._bInit) {
+			if (!CreateSuppGuideController._bInit) {
 
 				// Initialize our fragment
-				this.onInit();
+				CreateSuppGuideController.onInit();
 
-				this._bInit = true;
+				CreateSuppGuideController._bInit = true;
 
-				// connect fragment to the root view of this component (models, lifecycle)
+				// connect fragment to the root view of CreateSuppGuideController component (models, lifecycle)
 				oView.addDependent(oControl);
 			}
 
@@ -52,11 +158,11 @@ sap.ui.define([
 		},
 
 		close: function () {
-			this._oControl.close();
+			CreateSuppGuideController._oControl.close();
 		},
 
 		setRouter: function (oRouter) {
-			this.oRouter = oRouter;
+			CreateSuppGuideController.oRouter = oRouter;
 
 		},
 		getBindingParameters: function () {
@@ -70,18 +176,18 @@ sap.ui.define([
 					fnResolve(true);
 				})
 				.then(function (result) {
-					alert("This should Generate and display Active (Based on Today's Date) What's New Pdf in new window");
+					alert("CreateSuppGuideController should Generate and display Active (Based on Today's Date) Supplement Pdf in new window");
 
-				}.bind(this))
+				}.bind(CreateSuppGuideController))
 				.then(function (result) {
 					if (result === false) {
 						return false;
 					} else {
 
-						this.close();
+						CreateSuppGuideController.close();
 
 					}
-				}.bind(this)).catch(function (err) {
+				}.bind(CreateSuppGuideController)).catch(function (err) {
 					if (err !== undefined) {
 						MessageBox.error(err.message);
 					}
@@ -89,16 +195,12 @@ sap.ui.define([
 		},
 		_onButtonPress1: function () {
 
-			this.close();
+			CreateSuppGuideController.close();
 
 		},
-		onInit: function () {
 
-			this._oDialog = this.getControl();
-
-		},
 		onExit: function () {
-			this._oDialog.destroy();
+			CreateSuppGuideController._oDialog.destroy();
 
 			// to destroy templates for bound aggregations when templateShareable is true on exit to prevent duplicateId issue
 			var aControls = [{
@@ -112,7 +214,7 @@ sap.ui.define([
 				"groups": ["items"]
 			}];
 			for (var i = 0; i < aControls.length; i++) {
-				var oControl = this.getView().byId(aControls[i].controlId);
+				var oControl = CreateSuppGuideController.getView().byId(aControls[i].controlId);
 				for (var j = 0; j < aControls[i].groups.length; j++) {
 					var sAggregationName = aControls[i].groups[j];
 					var oBindingInfo = oControl.getBindingInfo(sAggregationName);

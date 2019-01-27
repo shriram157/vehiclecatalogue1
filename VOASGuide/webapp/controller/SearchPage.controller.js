@@ -4,7 +4,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 	"./util/utilities", "./util/CreateWalkUpGuide", "./util/CreateSupplementalGuide",
 	"sap/ui/core/routing/History", "sap/ui/model/json/JSONModel", "com/sap/build/toyota-canada/vehiclesGuideV3/Formatter/formatter"
 ], function (BaseController, CreateVehicleGuideDialog, CreatePocketSummaryDialog, SuplementalDialog, WalkupDialog,
-	CreateWhatsNewDialog, Utilities, CreateWalkUpGuide, CreateSupplementalGuide, History, JSONModel, formatter) {
+	CreateWhatsNewDialog, utilities, CreateWalkUpGuide, CreateSupplementalGuide, History, JSONModel, formatter) {
 	"use strict";
 	var searchController;
 	return BaseController.extend("com.sap.build.toyota-canada.vehiclesGuideV3.controller.SearchPage", {

@@ -8,7 +8,7 @@ sap.ui.define([
 	"sap/m/MessageBox",
 	"./utilities",
 	"sap/ui/core/routing/History", "sap/ui/model/odata/v2/ODataModel"
-], function (BaseController, base64, ManagedObject, MessageBox, Utilities, History, ODataModel) {
+], function (BaseController, base64, ManagedObject, MessageBox, utilities, History, ODataModel) {
 	var supCont;
 
 	return ManagedObject.extend("com.sap.build.toyota-canada.vehiclesGuideV3.controller.util.SuplementalDialog", {
@@ -103,9 +103,14 @@ sap.ui.define([
 
 					//var oURL = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileSet('" + filename + "')/$value";
 						var oFileUploader = this._oView.byId("__component0---AdminDetailsOption--suppFileUploadId");
-					var oURL2 = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileSet(Comment='" + comment + "',FileName='" + filename + "',Language='" +
+					var oURL4 = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileSet(Comment='" + comment + "',FileName='" + filename + "',Language='" +
 						lang + "',Lastupdate='" + date3 + "',Tab='suppliment')/$value";
-					var oUrl3= this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'suppliment')";
+						//Model='Camry',Model_year='2018',Tciseries ='Cam',Brand='Toyota'
+					var oUrl5= this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'suppliment')";
+					 //and Model eq 'CamryLE' and Model_year eq '2018' and Tciseries eq 'CAMRY' and Brand eq 'TOYOTA'
+					var oUrl3= this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'suppliment' and Model eq '"+modelAdmData.modelDesc+"' and Model_year eq '"+modelAdmData.moYear+"' and Tciseries eq '"+modelAdmData.series+"' and Brand eq '"+modelAdmData.brand+"')";
+					var oURL2 = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileSet(Comment='" + comment + "',FileName='" + filename + "',Language='" +
+						lang + "',Lastupdate='" + date3 + "',Tab='suppliment',Model='"+modelAdmData.modelDesc+"',Model_year='"+modelAdmData.moYear+"',Tciseries='"+modelAdmData.series+"',Brand='"+modelAdmData.brand+"')/$value";
 					var token;
 					var tbl = sap.ushell.components.suppTbl;
 						var file = jQuery.sap.domById(oFileUploader.getId() + "-fu").files[0];
@@ -145,12 +150,8 @@ sap.ui.define([
 											tbl.setModel(tblModel,"suppTblModel");
 										},
 										error: function (jqXHR, textStatus, errorThrown) {
-											console.log("GET ERROR ");
-											onsole.log(jqXHR, textStatus, errorThrown);
-											sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR,
-												"Error",
-												sap
-												.m.MessageBox.Action.OK, null, null);
+										sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR,
+												"Error",sap.m.MessageBox.Action.OK, null, null);
 										}
 									});
 								},

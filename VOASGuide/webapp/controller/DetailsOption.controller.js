@@ -1,9 +1,10 @@
 sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseController",
-	"sap/m/MessageBox",
-	"./util/CreateVehicleGuideDialog",
-	"./util/utilities",
+"./util/CreatePocketSummaryDialog", "./util/CreateWhatsNewDialog","./util/CreateWalkUpGuide",
+		"./util/CreateSupplementalGuide","./util/CreateVehicleGuideDialog",
+	"sap/m/MessageBox","./util/utilities",
 	"sap/ui/core/routing/History", "com/sap/build/toyota-canada/vehiclesGuideV3/Formatter/formatter"
-], function (BaseController, MessageBox, CreateVehicleGuideDialog, Utilities, History, formatter) {
+], function (BaseController,CreatePocketSummaryDialog,CreateWhatsNewDialog,CreateWalkUpGuide,CreateSupplementalGuide,
+		CreateVehicleGuideDialog, MessageBox, utilities, History, formatter) {
 	"use strict";
 	var DetailController;
 	return BaseController.extend("com.sap.build.toyota-canada.vehiclesGuideV3.controller.DetailsOption", {
@@ -481,7 +482,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			return oQuery;
 			console.log(oQuery);
 		},
-		_onFioriObjectPageActionButtonPress: function () {
+			_onCreateVehGuide: function () {
 
 			var sDialogName = "CreateVehicleGuideDialog";
 			DetailController.mDialogs = DetailController.mDialogs || {};
@@ -489,6 +490,48 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 
 			if (!oDialog) {
 				oDialog = new CreateVehicleGuideDialog(DetailController.getView());
+				DetailController.mDialogs[sDialogName] = oDialog;
+				oDialog.setRouter(DetailController.oRouter);
+			}
+			oDialog.open();
+
+		},
+		_onCreateWhatsNew: function () {
+			var sDialogName = "CreateWhatsNewDialog";
+			DetailController.mDialogs = DetailController.mDialogs || {};
+			var oDialog = DetailController.mDialogs[sDialogName];
+
+			if (!oDialog) {
+				oDialog = new CreateWhatsNewDialog(DetailController.getView());
+				DetailController.mDialogs[sDialogName] = oDialog;
+
+				// For navigation.
+				oDialog.setRouter(DetailController.oRouter);
+			}
+			oDialog.open();
+		},
+		_onCreateWalkUp: function () {
+
+			var sDialogName = "CreateWalkUpGuide";
+			DetailController.mDialogs = DetailController.mDialogs || {};
+			var oDialog = DetailController.mDialogs[sDialogName];
+
+			if (!oDialog) {
+				oDialog = new CreateWalkUpGuide(DetailController.getView());
+				DetailController.mDialogs[sDialogName] = oDialog;
+
+				// For navigation.
+				oDialog.setRouter(DetailController.oRouter);
+			}
+			oDialog.open();
+		},
+		_onCreateSupplemental: function () {
+			var sDialogName = "CreateSupplementalGuide";
+			DetailController.mDialogs = DetailController.mDialogs || {};
+			var oDialog = DetailController.mDialogs[sDialogName];
+
+			if (!oDialog) {
+				oDialog = new CreateSupplementalGuide(DetailController.getView());
 				DetailController.mDialogs[sDialogName] = oDialog;
 
 				// For navigation.
@@ -497,53 +540,16 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			oDialog.open();
 
 		},
-		_onFioriObjectPageActionButtonPress1: function () {
-
-			var sDialogName = "CreateVehicleGuideDialog";
+		_onCreatePocSum: function () {
+			var sDialogName = "CreatePocketSummaryDialog";
 			DetailController.mDialogs = DetailController.mDialogs || {};
 			var oDialog = DetailController.mDialogs[sDialogName];
-
 			if (!oDialog) {
-				oDialog = new CreateVehicleGuideDialog(DetailController.getView());
+				oDialog = new CreatePocketSummaryDialog(DetailController.getView());
 				DetailController.mDialogs[sDialogName] = oDialog;
-
-				// For navigation.
 				oDialog.setRouter(DetailController.oRouter);
 			}
 			oDialog.open();
-
-		},
-		_onFioriObjectPageActionButtonPress2: function () {
-
-			var sDialogName = "CreateVehicleGuideDialog";
-			DetailController.mDialogs = DetailController.mDialogs || {};
-			var oDialog = DetailController.mDialogs[sDialogName];
-
-			if (!oDialog) {
-				oDialog = new CreateVehicleGuideDialog(DetailController.getView());
-				DetailController.mDialogs[sDialogName] = oDialog;
-
-				// For navigation.
-				oDialog.setRouter(DetailController.oRouter);
-			}
-			oDialog.open();
-
-		},
-		_onFioriObjectPageActionButtonPress3: function () {
-
-			var sDialogName = "CreateVehicleGuideDialog";
-			DetailController.mDialogs = DetailController.mDialogs || {};
-			var oDialog = DetailController.mDialogs[sDialogName];
-
-			if (!oDialog) {
-				oDialog = new CreateVehicleGuideDialog(DetailController.getView());
-				DetailController.mDialogs[sDialogName] = oDialog;
-
-				// For navigation.
-				oDialog.setRouter(DetailController.oRouter);
-			}
-			oDialog.open();
-
 		},
 		manageSeries: function () {
 			var model = DetailController.getView().getModel("modelDetail");

@@ -33,23 +33,23 @@
 								<form:label>
 									<Label text="Label" design="Bold" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="false"/>
 								</form:label>
-								<form:fields>
-									<ComboBox placeholder="Select Brand" editable="true" enabled="true" visible="true" width="400px" valueState="None" maxWidth="100%"
-										class="sapUiResponsiveMargin" items="{path:'/ProductCollection', templateShareable:true}">
+							<form:fields>
+									<ComboBox id="idVeh_brandCB" placeholder="Select Brand" editable="true" enabled="true" visible="true" width="400px" valueState="None" maxWidth="100%"
+										class="sapUiResponsiveMargin" items="{path:'brandModelNew>/modelBrand', templateShareable:true}">
 										<items>
-											<core:Item text="{Category}" enabled="true" key="{Brand}"/>
+												<core:Item key="{brandModelNew>key}" text="{brandModelNew>text}"/>
 										</items>
 									</ComboBox>
-									<ComboBox placeholder="Select Year" editable="true" enabled="true" visible="true" width="398px" valueState="None" maxWidth="100%"
-										class="sapUiResponsiveMargin" items="{path:'/VehicleSet', templateShareable:true}">
+									<ComboBox id="idVeh_modelYearCB" change="onChange_ModelYear" placeholder="Select Year" editable="true" enabled="true" visible="true" width="398px" valueState="None" maxWidth="100%"
+										class="sapUiResponsiveMargin" items="{path:'yearModelNew>/modelYear', templateShareable:true}">
 										<items>
-											<core:Item text="{ModelYear}" enabled="true" key="{ModelYear}"/>
+											<core:Item key="{yearModelNew>key}" enabled="true" text="{yearModelNew>text}"/>
 										</items>
 									</ComboBox>
-									<ComboBox placeholder="Select Series" editable="true" enabled="true" visible="true" width="397px" valueState="None" maxWidth="100%"
-										class="sapUiResponsiveMargin" items="{path:'/VehicleSet', templateShareable:true}">
+									<ComboBox id="idVeh_seriesCB" placeholder="Select Series" editable="true" enabled="true" visible="true" width="397px" valueState="None" maxWidth="100%"
+										class="sapUiResponsiveMargin" items="{path:'seriesdropDownModelNew>/', templateShareable:true}">
 										<items>
-											<core:Item text="{Series}" enabled="true" key="{Series}"/>
+											<core:Item text="{seriesdropDownModelNew>}" enabled="true" key="{seriesdropDownModelNew>}"/>
 										</items>
 									</ComboBox>
 								</form:fields>

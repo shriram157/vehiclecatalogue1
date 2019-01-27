@@ -3,16 +3,102 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 	"./util/SuplementalDialog", "./util/WhatsNewDialog", "./util/WalkupDialog",
 	"./util/utilities",
 	"sap/ui/core/routing/History"
-], function (BaseController, MessageBox, SuplementalDialog, WhatsNewDialog, WalkupDialog, Utilities, History) {
+], function (BaseController, MessageBox, SuplementalDialog, WhatsNewDialog, WalkupDialog, utilities, History) {
 	"use strict";
 	var AdminDetailCntroller;
 	return BaseController.extend("com.sap.build.toyota-canada.vehiclesGuideV3.controller.AdminDetailsOption", {
+			onInit: function () {
+			AdminDetailCntroller = this;
+			AdminDetailCntroller.oRouter = sap.ui.core.UIComponent.getRouterFor(AdminDetailCntroller);
+			AdminDetailCntroller.oRouter.getTarget("AdminDetailsOption").attachDisplay(jQuery.proxy(AdminDetailCntroller.handleRouteMatched,
+				AdminDetailCntroller));
+			sap.ushell.components.suppTbl = AdminDetailCntroller.getView().byId("suppTbl");
+			sap.ushell.components.walkUpTbl = AdminDetailCntroller.getView().byId("walkUpTbl");
+			sap.ushell.components.whatsNewTbl = AdminDetailCntroller.getView().byId("whatsNewTbl");
+			/*AdminDetailCntroller.suppTableOnPageLoad();
+			AdminDetailCntroller.walkUpTableOnPageLoad();
+			AdminDetailCntroller.whatsNewTableOnPageLoad();*/
+		},
 		handleRouteMatched: function (oEvent) {
 			var parseArg = JSON.parse(oEvent.getParameters().data.num3);
 			console.log(parseArg[0]);
 			var modelDetail = new sap.ui.model.json.JSONModel(parseArg[0]);
 			AdminDetailCntroller.getView().setModel(modelDetail, "modelDetail");
-			sap.ui.getCore().setModel(modelDetail,"modelAdmin");
+			sap.ui.getCore().setModel(modelDetail, "modelAdmin");
+			AdminDetailCntroller.suppTableOnPageLoad();
+			AdminDetailCntroller.walkUpTableOnPageLoad();
+			AdminDetailCntroller.whatsNewTableOnPageLoad();
+		},
+		suppTableOnPageLoad: function () {
+			var modelAdm = sap.ui.getCore().getModel("modelAdmin");
+			var modelAdmData = modelAdm.getData();
+			var tbl=AdminDetailCntroller.getView().byId("suppTbl");
+			var host = AdminDetailCntroller.host();
+			var oUrl4 = host + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'suppliment')";
+			var oUrl3= host + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'suppliment' and Model eq '"+modelAdmData.modelDesc+"' and Model_year eq '"+modelAdmData.moYear+"' and Tciseries eq '"+modelAdmData.series+"' and Brand eq '"+modelAdmData.brand+"')";
+			$.ajax({
+				url: oUrl3,
+				method: 'GET',
+				async: false,
+				dataType: "json",
+				success: function (data, textStatus, jqXHR) {
+					var tblModel = new sap.ui.model.json.JSONModel(data.d.results);
+					sap.ui.getCore().setModel(tblModel, "suppTblModel");
+					tbl.setModel(tblModel, "suppTblModel");
+				},
+				error: function (jqXHR, textStatus, errorThrown) {
+					sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR,
+						"Error",sap.m.MessageBox.Action.OK, null, null);
+				}
+			});
+		},
+		walkUpTableOnPageLoad: function () {
+			var modelAdm = sap.ui.getCore().getModel("modelAdmin");
+			var modelAdmData = modelAdm.getData();
+			var tbl=AdminDetailCntroller.getView().byId("walkUpTbl");
+			var host = AdminDetailCntroller.host();
+			var oUrl4 = host + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'Walkup')";
+		var oUrl3= host + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'Walkup' and Model eq '"+modelAdmData.modelDesc+"' and Model_year eq '"+modelAdmData.moYear+"' and Tciseries eq '"+modelAdmData.series+"' and Brand eq '"+modelAdmData.brand+"')";
+			$.ajax({
+				url: oUrl3,
+				method: 'GET',
+				async: false,
+				dataType: "json",
+				success: function (data, textStatus, jqXHR) {
+					console.log(data.d.results);
+					var tblModel = new sap.ui.model.json.JSONModel(data.d.results);
+					sap.ui.getCore().setModel(tblModel, "walkUpTblModel");
+					tbl.setModel(tblModel, "walkUpTblModel");
+				},
+				error: function (jqXHR, textStatus, errorThrown) {
+					sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR,
+						"Error",sap.m.MessageBox.Action.OK, null, null);
+				}
+			});
+		},
+		whatsNewTableOnPageLoad: function () {
+			var modelAdm = sap.ui.getCore().getModel("modelAdmin");
+			var modelAdmData = modelAdm.getData();
+			var tbl=AdminDetailCntroller.getView().byId("whatsNewTbl");
+			var host = AdminDetailCntroller.host();
+			var oUrl4 = host + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'WhatsNew')";
+		var oUrl3= host + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'WhatsNew' and Model eq '"+modelAdmData.modelDesc+"' and Model_year eq '"+modelAdmData.moYear+"' and Tciseries eq '"+modelAdmData.series+"' and Brand eq '"+modelAdmData.brand+"')";
+			$.ajax({
+				url: oUrl3,
+				method: 'GET',
+				async: false,
+				dataType: "json",
+				success: function (data, textStatus, jqXHR) {
+					console.log(data.d.results);
+					var tblModel = new sap.ui.model.json.JSONModel(data.d.results);
+					sap.ui.getCore().setModel(tblModel, "whatsNewTblModel");
+					tbl.setModel(tblModel, "whatsNewTblModel");
+				},
+				error: function (jqXHR, textStatus, errorThrown) {
+					sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR,
+						"Error",sap.m.MessageBox.Action.OK, null, null);
+				}
+			});
 		},
 		/*handleRouteMatched: function (oEvent) {
 			var sAppId = "App5bb531dd96990b5ac99be4fa";
@@ -102,18 +188,18 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 
 		},
 		_deleteWhatNew: function (evt) {
-				var host = AdminDetailCntroller.host();
+			var host = AdminDetailCntroller.host();
 			var tbl = evt.getSource().getParent().getParent();
 			var errMsg = "Are you sure you want to Delete the selected What's New PDF?"; //AdminDetailCntroller.getView().getModel("i18n").getResourceBundle().getText("deleteError");
 			var title = "Delete"; //AdminDetailCntroller.getView().getModel("i18n").getResourceBundle().getText("title1");
-		
+
 			sap.m.MessageBox.show(errMsg, {
 				icon: sap.m.MessageBox.Icon.WARNING,
 				title: title,
 				actions: [sap.m.MessageBox.Action.DELETE, sap.m.MessageBox.Action.CANCEL],
 				onClose: function (sAction) {
 					if (sAction === "DELETE") {
-					
+
 						var evtContext = tbl._aSelectedPaths[0];
 						if (evtContext != undefined && evtContext != null && evtContext != "") {
 							var oIndex = parseInt(evtContext.substring(evtContext.lastIndexOf('/') + 1));
@@ -125,7 +211,8 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 							var Language = data[oIndex].Language;
 							var Lastupdate = data[oIndex].Lastupdate;
 							var url2 = host +
-								"/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Language eq '"+Language+"' and Lastupdate eq '"+Lastupdate+"' and FileName eq '"+FileName+"')";
+								"/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Language eq '" + Language + "' and Lastupdate eq '" + Lastupdate +
+								"' and FileName eq '" + FileName + "')";
 							data.splice(oIndex, 1);
 							modelSupp.setData(data);
 							tbl.setModel(modelSupp);
@@ -134,16 +221,16 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 								method: 'GET',
 								async: false,
 								dataType: "json",
-								success: function (data, textStatus, jqXHR) {
-								},
+								success: function (data, textStatus, jqXHR) {},
 								error: function (jqXHR, textStatus, errorThrown) {
-									sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR,"Error",sap.m.MessageBox.Action.OK, null, null);
+									sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR,
+										"Error", sap.m.MessageBox.Action.OK, null, null);
 								}
 							});
 						}
-					
+
 					} else {
-					//
+						//
 					}
 				},
 				styleClass: "",
@@ -226,7 +313,8 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 							var Language = data[oIndex].Language;
 							var Lastupdate = data[oIndex].Lastupdate;
 							var url2 = host +
-								"/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Language eq '"+Language+"' and Lastupdate eq '"+Lastupdate+"' and FileName eq '"+FileName+"')";
+								"/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Language eq '" + Language + "' and Lastupdate eq '" + Lastupdate +
+								"' and FileName eq '" + FileName + "')";
 							data.splice(oIndex, 1);
 							modelSupp.setData(data);
 							tbl.setModel(modelSupp);
@@ -235,10 +323,10 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 								method: 'GET',
 								async: false,
 								dataType: "json",
-								success: function (data, textStatus, jqXHR) {
-								},
+								success: function (data, textStatus, jqXHR) {},
 								error: function (jqXHR, textStatus, errorThrown) {
-									sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR,"Error",sap.m.MessageBox.Action.OK, null, null);
+									sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR,
+										"Error", sap.m.MessageBox.Action.OK, null, null);
 								}
 							});
 						}
@@ -270,7 +358,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 
 		},
 		_deleteFileWalkUp: function (evt) {
-				var host = AdminDetailCntroller.host();
+			var host = AdminDetailCntroller.host();
 			var tbl = evt.getSource().getParent().getParent();
 			var errMsg = "Are you sure you want to Delete the selected Walk Up PDF?"; //AdminDetailCntroller.getView().getModel("i18n").getResourceBundle().getText("deleteError");
 			var title = "Delete"; //AdminDetailCntroller.getView().getModel("i18n").getResourceBundle().getText("title1");
@@ -280,7 +368,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				actions: [sap.m.MessageBox.Action.DELETE, sap.m.MessageBox.Action.CANCEL],
 				onClose: function (sAction) {
 					if (sAction === "DELETE") {
-					
+
 						var evtContext = tbl._aSelectedPaths[0];
 						if (evtContext != undefined && evtContext != null && evtContext != "") {
 							var oIndex = parseInt(evtContext.substring(evtContext.lastIndexOf('/') + 1));
@@ -292,7 +380,8 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 							var Language = data[oIndex].Language;
 							var Lastupdate = data[oIndex].Lastupdate;
 							var url2 = host +
-								"/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Language eq '"+Language+"' and Lastupdate eq '"+Lastupdate+"' and FileName eq '"+FileName+"')";
+								"/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Language eq '" + Language + "' and Lastupdate eq '" + Lastupdate +
+								"' and FileName eq '" + FileName + "')";
 							data.splice(oIndex, 1);
 							modelSupp.setData(data);
 							tbl.setModel(modelSupp);
@@ -301,14 +390,14 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 								method: 'GET',
 								async: false,
 								dataType: "json",
-								success: function (data, textStatus, jqXHR) {
-								},
+								success: function (data, textStatus, jqXHR) {},
 								error: function (jqXHR, textStatus, errorThrown) {
-									sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR,"Error",sap.m.MessageBox.Action.OK, null, null);
+									sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR,
+										"Error", sap.m.MessageBox.Action.OK, null, null);
 								}
 							});
 						}
-					
+
 					} else {
 						//
 					}
@@ -320,15 +409,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			});
 		},
 
-		onInit: function () {
-			AdminDetailCntroller = this;
-			AdminDetailCntroller.oRouter = sap.ui.core.UIComponent.getRouterFor(AdminDetailCntroller);
-			AdminDetailCntroller.oRouter.getTarget("AdminDetailsOption").attachDisplay(jQuery.proxy(AdminDetailCntroller.handleRouteMatched,
-				AdminDetailCntroller));
-			sap.ushell.components.suppTbl = AdminDetailCntroller.getView().byId("suppTbl");
-			sap.ushell.components.walkUpTbl = AdminDetailCntroller.getView().byId("walkUpTbl");
-			sap.ushell.components.whatsNewTbl = AdminDetailCntroller.getView().byId("whatsNewTbl");
-		},
+	
 		onExit: function () {
 
 			// to destroy templates for bound aggregations when templateShareable is true on exit to prevent duplicateId issue

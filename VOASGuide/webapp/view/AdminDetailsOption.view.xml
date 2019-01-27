@@ -4,7 +4,7 @@
 		class="sapUiSizeCompact">
 		<uxap:headerTitle>
 			<uxap:ObjectPageHeader objectTitle="{modelDetail>/moYear} {modelDetail>/brand} {modelDetail>/series}" objectSubtitle="" isObjectIconAlwaysVisible="false" isObjectTitleAlwaysVisible="true"
-				isObjectSubtitleAlwaysVisible="true" showPlaceholder="true" objectImageURI="/build/uilibraries/content/static/image-canvas.svg">
+				isObjectSubtitleAlwaysVisible="true" showPlaceholder="true"> <!--objectImageURI="/build/uilibraries/content/static/image-canvas.svg"-->
 				<uxap:navigationBar>
 					<Bar>
 						<contentLeft>
@@ -83,9 +83,9 @@
 									<ColumnListItem type="Active">
 										<cells>
 											<Text text="{whatsNewTblModel>FileName}"/>
-											<ObjectStatus text="{whatsNewTblModel>Comment}"/>
-											<ObjectIdentifier title="{whatsNewTblModel>Lastupdate}"/>
-											<ObjectIdentifier title="{whatsNewTblModel>Language}"/>
+											<Text text="{whatsNewTblModel>Comment}"/>
+											<Text text="{whatsNewTblModel>Lastupdate}"/>
+											<Text text="{whatsNewTblModel>Language}"/>
 										</cells>
 									</ColumnListItem>
 								</items>
@@ -148,9 +148,9 @@
 									<ColumnListItem type="Active">
 										<cells>
 											<Text text="{walkUpTblModel>FileName}"/>
-											<ObjectStatus text="{walkUpTblModel>Comment}"/>
-											<ObjectIdentifier title="{walkUpTblModel>Lastupdate}"/>
-											<ObjectIdentifier title="{walkUpTblModel>Language}"/>
+											<Text text="{walkUpTblModel>Comment}"/>
+											<Text text="{walkUpTblModel>Lastupdate}"/>
+											<Text text="{walkUpTblModel>Language}"/>
 										</cells>
 									</ColumnListItem>
 								</items>
@@ -213,9 +213,9 @@
 									<ColumnListItem type="Active">
 										<cells>
 											<Text text="{suppTblModel>FileName}"/>
-											<ObjectStatus text="{suppTblModel>Comment}"/>
-											<ObjectIdentifier title="{suppTblModel>Lastupdate}"/>
-											<ObjectIdentifier title="{suppTblModel>Language}"/>
+											<Text text="{suppTblModel>Comment}"/>
+											<Text text="{suppTblModel>Lastupdate}"/>
+											<Text text="{suppTblModel>Language}"/>
 										</cells>
 									</ColumnListItem>
 								</items>
