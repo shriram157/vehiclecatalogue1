@@ -19,8 +19,8 @@ modules:
      properties:
         url: ${default-url}
   requires:
-   - name: VOAS_GUIDE_APIM_CUPS
    - name: uaa_VOASGuide
+   - name: VOAS_GUIDE_APIM_CUPS
 - name: VOASGuide
   type: html5
   path: VOASGuide
@@ -33,30 +33,30 @@ modules:
      memory: 256MB
   build-parameters:
      builder: grunt
+  provides:
+     - name: VOASGuide
   requires:
-   - name: uaa_VOASGuide
    - name: dest_VOASGuide
+   - name: uaa_VOASGuide
    - name: voasGuide_Node_api
      group: destinations
      properties:
          name: voasGuide_Node_backend
          url: '~{url}'
          forwardAuthToken: true
-  provides:
-     - name: VOASGuide
 
 resources:
-- name: uaa_VOASGuide
-  parameters:
-     path: ./xs-security.json
-     service-plan: application
-     service: xsuaa
-  type: org.cloudfoundry.managed-service
 - name: dest_VOASGuide
-  parameters:
-     service-plan: lite
-     service: destination
   type: org.cloudfoundry.managed-service
+  parameters:
+     service: destination
+     service-plan: lite
+- name: uaa_VOASGuide
+  type: org.cloudfoundry.managed-service
+  parameters:
+     service: xsuaa
+     service-plan: application
+     path: ./xs-security.json
 - name: VOAS_GUIDE_APIM_CUPS
   type: org.cloudfoundry.existing-service
   parameters:

@@ -1,34 +1,26 @@
 {
 	"dependencies": {
+		"@sap/hdbext": "4.3.4",
+		"@sap/logging": "^3.3.1",
 		"@sap/xsenv": "1.2.9",
 		"@sap/xssec": "2.1.10",
-		"@sap/hdbext": "4.3.4",
-		"@sap/textbundle": "2.1.0",
-		"@sap/logging": "^3.3.1",
-		"@sap/jobs-client": "1.1.1",
-		"passport": "0.3.2",
-		"express": "^4.16.4",
 		"async": "2.5.0",
-		"ws": "1.1.4",
-		"body-parser": "^1.18.3",
-		"boom": "^2.10.1",
-		"cf-nodejs-logging-support": "^3.0.13"
+		"cf-nodejs-logging-support": "^3.0.13",
+		"express": "^4.16.4",
+		"passport": "0.3.2"
 	},
 	"description": "Node module for VOAS Guide Application processing",
 	"devDependencies": {
-		"gulp": "3.9.1",
-		"gulp-replace": "0.5.4",
-		"jasmine-reporters": "2.1.1",
-		"gulp-jasmine": "2.4.1",
-		"gulp-istanbul": "1.1.1"
+		"jest": "^23.6.0",
+		"jest-junit": "^5.2.0"
 	},
 	"files": [],
 	"main": "server.js",
 	"name": "voasGuide_Node",
 	"scripts": {
-		"start": "node server.js",
-		"test": "node ./node_modules/gulp/bin/gulp test",
-		"test-coverage": "node ./node_modules/gulp/bin/gulp test-coverage"
+		"test": "jest --config jest.json",
+		"test-coverage": "jest --coverage --config jest.json",
+		"start": "node server.js"
 	},
 	"engines": {
 		"node": "8.x"
