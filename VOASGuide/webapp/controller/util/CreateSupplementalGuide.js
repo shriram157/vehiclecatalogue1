@@ -18,7 +18,69 @@ sap.ui.define([
 			CreateSuppGuideController._oDialog = CreateSuppGuideController.getControl();
 			CreateSuppGuideController.listOfBrand();
 			CreateSuppGuideController.listOfModelYear();
+var brandCB = sap.ushell.components.brandCB;
+			var moYearCB = sap.ushell.components.modelYearCB;
+			var seriesCB = sap.ushell.components.seriesCB;
+			var brandVal = brandCB.getValue();
 
+			if (brandVal != " " && brandVal != "" && brandVal != null && brandVal != undefined) {
+				CreateSuppGuideController.getView().byId("idSupp_brandCB").setValue(brandVal);
+				CreateSuppGuideController.getView().byId("idSupp_brandCB").setEnabled(false);
+			} else {
+				CreateSuppGuideController.getView().byId("idSupp_brandCB").setEnabled(true);
+			}
+			var moYearVal = moYearCB.getValue();
+			if (moYearVal != " " && moYearVal != "" && moYearVal != null && moYearVal != undefined) {
+				CreateSuppGuideController.getView().byId("idSupp_modelYearCB").setValue(moYearVal);
+				CreateSuppGuideController.getView().byId("idSupp_modelYearCB").setEnabled(false);
+			} else {
+				CreateSuppGuideController.getView().byId("idSupp_modelYearCB").setEnabled(true);
+			}
+			var seriesVal = seriesCB.getValue();
+			if (seriesVal != " " && seriesVal != "" && seriesVal != null && seriesVal != undefined) {
+				CreateSuppGuideController.getView().byId("idSupp_seriesCB").setValue(seriesVal);
+				CreateSuppGuideController.getView().byId("idSupp_seriesCB").setEnabled(false);
+			} else {
+				CreateSuppGuideController.getView().byId("idSupp_seriesCB").setEnabled(true);
+				var sLocation = window.location.host;
+				var sLocation_conf = sLocation.search("webide");
+				if (sLocation_conf == 0) {
+					CreateSuppGuideController.sPrefix = "/voasguide_node";
+				} else {
+					CreateSuppGuideController.sPrefix = "";
+				}
+				CreateSuppGuideController.nodeJsUrl = CreateSuppGuideController.sPrefix + "/node";
+				var host = CreateSuppGuideController.nodeJsUrl;
+				var url = host +
+					"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(Brand eq '" + brandVal + "' and Modelyear eq '" + moYearVal +
+					"')";
+				$.ajax({
+					url: url,
+					method: 'GET',
+					async: false,
+					dataType: 'json',
+					success: function (data, textStatus, jqXHR) {
+						var oModel = new sap.ui.model.json.JSONModel();
+						var arr = [];
+						var j = 0;
+						for (var c = 0; c < data.d.results.length; c++) {
+							for (var i = 0; i < data.d.results.length; i++) {
+								if ($.inArray(data.d.results[i]["TCISeries"], arr) < 0) {
+									arr[j] = data.d.results[i]["TCISeries"];
+									j++;
+								}
+							}
+						}
+						oModel.setData(arr);
+						CreateSuppGuideController.getView().setModel(oModel, "seriesdropDownModelNew");
+					},
+					error: function (jqXHR, textStatus, errorThrown) {
+						sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
+							sap
+							.m.MessageBox.Action.OK, null, null);
+					}
+				});
+			}
 		},
 		listOfBrand: function () {
 			var data = {
@@ -65,7 +127,7 @@ sap.ui.define([
 		},
 		onChange_ModelYear: function () {
 
-			var brandCB = CreateSuppGuideController.getView().byId("idSupp_brandCB");
+		var brandCB = CreateSuppGuideController.getView().byId("idSupp_brandCB");
 			var modelYearCB = CreateSuppGuideController.getView().byId("idSupp_modelYearCB");
 			var seriesCB = CreateSuppGuideController.getView().byId("idSupp_seriesCB");
 
@@ -159,6 +221,7 @@ sap.ui.define([
 
 		close: function () {
 			CreateSuppGuideController._oControl.close();
+			CreateSuppGuideController._oDialog.destroy();
 		},
 
 		setRouter: function (oRouter) {

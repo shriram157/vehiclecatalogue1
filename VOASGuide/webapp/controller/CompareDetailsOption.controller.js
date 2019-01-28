@@ -908,7 +908,7 @@ sap.ui.define([
 
 					var tblModelCol = new sap.ui.model.json.JSONModel();
 					tblModelCol.setData({
-						columns: aColumnDataCol,
+						columns: aColumnData,
 						rows: dataColour
 					});
 					var tblModelOpt = new sap.ui.model.json.JSONModel(dtOpt);
@@ -1574,7 +1574,7 @@ sap.ui.define([
 
 					var tblModelCol = new sap.ui.model.json.JSONModel();
 					tblModelCol.setData({
-						columns: aColumnDataCol,
+						columns: aColumnData,
 						rows: dataColour
 					});
 					var tblModelOpt = new sap.ui.model.json.JSONModel(dtOpt);
@@ -2242,7 +2242,7 @@ sap.ui.define([
 
 					var tblModelCol = new sap.ui.model.json.JSONModel();
 					tblModelCol.setData({
-						columns: aColumnDataCol,
+						columns: aColumnData,
 						rows: dataColour
 					});
 					var tblModelOpt = new sap.ui.model.json.JSONModel(dtOpt);
@@ -2492,11 +2492,11 @@ sap.ui.define([
 			CDO_controller.mDialogs = CDO_controller.mDialogs || {};
 			var oDialog = CDO_controller.mDialogs[sDialogName];
 
-			if (!oDialog) {
+		//	if (!oDialog) {
 				oDialog = new CreateVehicleGuideDialog(CDO_controller.getView());
 				CDO_controller.mDialogs[sDialogName] = oDialog;
 				oDialog.setRouter(CDO_controller.oRouter);
-			}
+		//	}
 			oDialog.open();
 
 		},
@@ -2505,13 +2505,13 @@ sap.ui.define([
 			CDO_controller.mDialogs = CDO_controller.mDialogs || {};
 			var oDialog = CDO_controller.mDialogs[sDialogName];
 
-			if (!oDialog) {
+		//	if (!oDialog) {
 				oDialog = new CreateWhatsNewDialog(CDO_controller.getView());
 				CDO_controller.mDialogs[sDialogName] = oDialog;
 
 				// For navigation.
 				oDialog.setRouter(CDO_controller.oRouter);
-			}
+		//	}
 			oDialog.open();
 		},
 		_onCreateWalkUp: function () {
@@ -2520,13 +2520,13 @@ sap.ui.define([
 			CDO_controller.mDialogs = CDO_controller.mDialogs || {};
 			var oDialog = CDO_controller.mDialogs[sDialogName];
 
-			if (!oDialog) {
+		//	if (!oDialog) {
 				oDialog = new CreateWalkUpGuide(CDO_controller.getView());
 				CDO_controller.mDialogs[sDialogName] = oDialog;
 
 				// For navigation.
 				oDialog.setRouter(CDO_controller.oRouter);
-			}
+		//	}
 			oDialog.open();
 		},
 		_onCreateSupplemental: function () {
@@ -2534,13 +2534,13 @@ sap.ui.define([
 			CDO_controller.mDialogs = CDO_controller.mDialogs || {};
 			var oDialog = CDO_controller.mDialogs[sDialogName];
 
-			if (!oDialog) {
+		//	if (!oDialog) {
 				oDialog = new CreateSupplementalGuide(CDO_controller.getView());
 				CDO_controller.mDialogs[sDialogName] = oDialog;
 
 				// For navigation.
 				oDialog.setRouter(CDO_controller.oRouter);
-			}
+		//	}
 			oDialog.open();
 
 		},
@@ -2548,11 +2548,11 @@ sap.ui.define([
 			var sDialogName = "CreatePocketSummaryDialog";
 			CDO_controller.mDialogs = CDO_controller.mDialogs || {};
 			var oDialog = CDO_controller.mDialogs[sDialogName];
-			if (!oDialog) {
+		//	if (!oDialog) {
 				oDialog = new CreatePocketSummaryDialog(CDO_controller.getView());
 				CDO_controller.mDialogs[sDialogName] = oDialog;
 				oDialog.setRouter(CDO_controller.oRouter);
-			}
+		//	}
 			oDialog.open();
 		},
 		onExit: function () {

@@ -6,6 +6,7 @@ sap.ui.define([
 ], function (ManagedObject, MessageBox, utilities, History) {
 	var CreateWhatsNewDialogController;
 	return ManagedObject.extend("com.sap.build.toyota-canada.vehiclesGuideV3.controller.util.CreateWhatsNewDialog", {
+
 		constructor: function (oView) {
 			CreateWhatsNewDialogController = this;
 			CreateWhatsNewDialogController._oView = oView;
@@ -14,7 +15,79 @@ sap.ui.define([
 				CreateWhatsNewDialogController);
 			CreateWhatsNewDialogController._bInit = false;
 		},
+		onInit: function () {
 
+			CreateWhatsNewDialogController._oDialog = CreateWhatsNewDialogController.getControl();
+			CreateWhatsNewDialogController.listOfBrand();
+			CreateWhatsNewDialogController.listOfModelYear();
+			var brandCB = sap.ushell.components.brandCB;
+			var moYearCB = sap.ushell.components.modelYearCB;
+			var seriesCB = sap.ushell.components.seriesCB;
+			var brandVal = brandCB.getValue();
+			if (brandVal != " " && brandVal != "" && brandVal != null && brandVal != undefined) {
+				CreateWhatsNewDialogController.getView().byId("idNew_brandCB").setValue(brandVal);
+				CreateWhatsNewDialogController.getView().byId("idNew_brandCB").setEnabled(false);
+			} else {
+				CreateWhatsNewDialogController.getView().byId("idNew_brandCB").setEnabled(true);
+			}
+			var moYearVal = moYearCB.getValue();
+			if (moYearVal != " " && moYearVal != "" && moYearVal != null && moYearVal != undefined) {
+				CreateWhatsNewDialogController.getView().byId("idNew_modelYearCB").setValue(moYearVal);
+				CreateWhatsNewDialogController.getView().byId("idNew_modelYearCB").setEnabled(false);
+			} else {
+				CreateWhatsNewDialogController.getView().byId("idNew_modelYearCB").setEnabled(true);
+			}
+			var seriesVal = seriesCB.getValue();
+			if (seriesVal != " " && seriesVal != "" && seriesVal != null && seriesVal != undefined) {
+				CreateWhatsNewDialogController.getView().byId("id_seriesCBNew").setValue(seriesVal);
+				CreateWhatsNewDialogController.getView().byId("id_seriesCBNew").setEnabled(false);
+			} else {
+				CreateWhatsNewDialogController.getView().byId("id_seriesCBNew").setEnabled(true);
+				var sLocation = window.location.host;
+				var sLocation_conf = sLocation.search("webide");
+				if (sLocation_conf == 0) {
+					CreateWhatsNewDialogController.sPrefix = "/voasguide_node";
+				} else {
+					CreateWhatsNewDialogController.sPrefix = "";
+				}
+				CreateWhatsNewDialogController.nodeJsUrl = CreateWhatsNewDialogController.sPrefix + "/node";
+				var host = CreateWhatsNewDialogController.nodeJsUrl;
+				var url = host +
+					"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(Brand eq '" + brandVal + "' and Modelyear eq '" + moYearVal +
+					"')";
+				$.ajax({
+					url: url,
+					method: 'GET',
+					async: false,
+					dataType: 'json',
+					success: function (data, textStatus, jqXHR) {
+						//	var oModel = new sap.ui.model.json.JSONModel(data.d.results);
+						var oModel = new sap.ui.model.json.JSONModel();
+
+						var arr = [];
+						var j = 0;
+						for (var c = 0; c < data.d.results.length; c++) {
+							for (var i = 0; i < data.d.results.length; i++) {
+								if ($.inArray(data.d.results[i]["TCISeries"], arr) < 0) {
+									arr[j] = data.d.results[i]["TCISeries"];
+									j++;
+
+								}
+							}
+						}
+
+						oModel.setData(arr);
+						CreateWhatsNewDialogController.getView().setModel(oModel, "seriesdropDownModelNew");
+					},
+					error: function (jqXHR, textStatus, errorThrown) {
+						sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
+							sap
+							.m.MessageBox.Action.OK, null, null);
+					}
+				});
+			}
+
+		},
 		exit: function () {
 			delete CreateWhatsNewDialogController._oView;
 		},
@@ -56,6 +129,7 @@ sap.ui.define([
 
 		close: function () {
 			CreateWhatsNewDialogController._oControl.close();
+			CreateWhatsNewDialogController._oDialog.destroy();
 		},
 
 		setRouter: function (oRouter) {
@@ -111,6 +185,7 @@ sap.ui.define([
 			modelYearModel.setData(data);
 			CreateWhatsNewDialogController.getView().setModel(modelYearModel, "yearModelNew");
 		},
+
 		onChange_ModelYear: function () {
 
 			var brandCB = CreateWhatsNewDialogController.getView().byId("idNew_brandCB");
@@ -195,13 +270,7 @@ sap.ui.define([
 			CreateWhatsNewDialogController.close();
 
 		},
-		onInit: function () {
 
-			CreateWhatsNewDialogController._oDialog = CreateWhatsNewDialogController.getControl();
-			CreateWhatsNewDialogController.listOfBrand();
-			CreateWhatsNewDialogController.listOfModelYear();
-
-		},
 		onExit: function () {
 			CreateWhatsNewDialogController._oDialog.destroy();
 

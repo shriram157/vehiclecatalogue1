@@ -82,9 +82,9 @@
 								<items>
 									<ColumnListItem type="Active">
 										<cells>
-											<Text text="{whatsNewTblModel>FileName}"/>
-											<Text text="{whatsNewTblModel>Comment}"/>
-											<Text text="{whatsNewTblModel>Lastupdate}"/>
+											<Text text="{whatsNewTblModel>FileName}"/> 
+											<Text text="{whatsNewTblModel>Comment}"/> 
+											<Text text="{parts: [{path:'whatsNewTblModel>Lastupdate'},{path:'whatsNewTblModel>Lastupdate'}] , formatter: 'formatter.formatManagePageDate'}"  />
 											<Text text="{whatsNewTblModel>Language}"/>
 										</cells>
 									</ColumnListItem>
@@ -149,7 +149,7 @@
 										<cells>
 											<Text text="{walkUpTblModel>FileName}"/>
 											<Text text="{walkUpTblModel>Comment}"/>
-											<Text text="{walkUpTblModel>Lastupdate}"/>
+											<Text text="{parts: [{path:'walkUpTblModel>Lastupdate'},{path:'walkUpTblModel>Lastupdate'}] , formatter: 'formatter.formatManagePageDate'}"/>
 											<Text text="{walkUpTblModel>Language}"/>
 										</cells>
 									</ColumnListItem>
@@ -174,7 +174,7 @@
 													<OverflowToolbarLayoutData moveToOverflow="true"/>
 												</layoutData>
 											</Button>
-											<Button text="Delete" icon="sap-icon://edit" iconFirst="false" type="Transparent" press="_deleteFileSupp">
+											<Button text="Delete" icon="sap-icon://delete" iconFirst="false" type="Transparent" press="_deleteFileSupp">
 												<layoutData>
 													<OverflowToolbarLayoutData moveToOverflow="true"/>
 												</layoutData>
@@ -214,7 +214,7 @@
 										<cells>
 											<Text text="{suppTblModel>FileName}"/>
 											<Text text="{suppTblModel>Comment}"/>
-											<Text text="{suppTblModel>Lastupdate}"/>
+											<Text text="{parts: [{path:'suppTblModel>Lastupdate'},{path:'suppTblModel>Lastupdate'}] , formatter: 'formatter.formatManagePageDate'}" />
 											<Text text="{suppTblModel>Language}"/>
 										</cells>
 									</ColumnListItem>

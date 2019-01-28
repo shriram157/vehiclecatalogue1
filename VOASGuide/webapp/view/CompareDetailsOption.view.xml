@@ -141,7 +141,7 @@
 											</Column>
 											<Column minScreenWidth="Phone">
 												<header>
-													<VBox >
+													<VBox class="vbox_textAlign1">
 														<items>
 															<Title text="{compareModel>/2/ENModelDesc} - ({compareModel>/2/Model}) - SFX {compareModel>/2/Suffix}" wrapping="true"/>
 															<Text text="Model: {compareModel>/2/ENModelDesc}" wrapping="true"></Text>

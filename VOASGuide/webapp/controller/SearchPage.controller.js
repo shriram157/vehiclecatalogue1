@@ -19,6 +19,11 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			searchController.oBusyDialog = new sap.m.BusyDialog({
 				showCancelButton: false
 			});
+			sap.ushell.components.brandCB = searchController.getView().byId("id_brandCB");
+			sap.ushell.components.modelYearCB = searchController.getView().byId("id_modelYearCB");
+			sap.ushell.components.seriesCB = searchController.getView().byId("id_seriesCB");
+
+			
 		},
 	
 		refreshTableData: function () {
@@ -109,7 +114,9 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 						var tblModel = new sap.ui.model.json.JSONModel(data.d.results);
 						tblModel.setSizeLimit(data.d.results.length);
 						searchController.getView().setModel(tblModel, "searchTblModel");
+						var oSorter = new sap.ui.model.Sorter("MSRP", false);  // sort on based of MSRP
 						searchController.getView().byId("idTbl_Search").setModel("searchTblModel");
+						searchController.byId("idTbl_Search").getBinding("items").sort(oSorter); 
 						searchController.oBusyDialog.close();
 					},
 					error: function (jqXHR, textStatus, errorThrown) {
@@ -411,15 +418,15 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			searchController.mDialogs = searchController.mDialogs || {};
 			var oDialog = searchController.mDialogs[sDialogName];
 
-			if (!oDialog) {
+		//	if (!oDialog) {
 				oDialog = new CreateWhatsNewDialog(searchController.getView());
 				searchController.mDialogs[sDialogName] = oDialog;
 
 				// For navigation.
 				oDialog.setRouter(searchController.oRouter);
-			}
+		//	}
 			oDialog.open();
-
+		
 		},
 		_onCreateWalkUp: function () {
 
@@ -427,13 +434,13 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			searchController.mDialogs = searchController.mDialogs || {};
 			var oDialog = searchController.mDialogs[sDialogName];
 
-			if (!oDialog) {
+		//	if (!oDialog) {
 				oDialog = new CreateWalkUpGuide(searchController.getView());
 				searchController.mDialogs[sDialogName] = oDialog;
 
 				// For navigation.
 				oDialog.setRouter(searchController.oRouter);
-			}
+		//	}
 			oDialog.open();
 
 		},
@@ -443,13 +450,13 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			searchController.mDialogs = searchController.mDialogs || {};
 			var oDialog = searchController.mDialogs[sDialogName];
 
-			if (!oDialog) {
+		//	if (!oDialog) {
 				oDialog = new CreateSupplementalGuide(searchController.getView());
 				searchController.mDialogs[sDialogName] = oDialog;
 
 				// For navigation.
 				oDialog.setRouter(searchController.oRouter);
-			}
+		//	}
 			oDialog.open();
 
 		},
@@ -459,13 +466,13 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			searchController.mDialogs = searchController.mDialogs || {};
 			var oDialog = searchController.mDialogs[sDialogName];
 
-			if (!oDialog) {
+		//	if (!oDialog) {
 				oDialog = new CreateVehicleGuideDialog(searchController.getView());
 				searchController.mDialogs[sDialogName] = oDialog;
 
 				// For navigation.
 				oDialog.setRouter(searchController.oRouter);
-			}
+		//	}
 			oDialog.open();
 
 		},
@@ -473,11 +480,11 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			var sDialogName = "CreatePocketSummaryDialog";
 			searchController.mDialogs = searchController.mDialogs || {};
 			var oDialog = searchController.mDialogs[sDialogName];
-			if (!oDialog) {
+		//	if (!oDialog) {
 				oDialog = new CreatePocketSummaryDialog(searchController.getView());
 				searchController.mDialogs[sDialogName] = oDialog;
 				oDialog.setRouter(searchController.oRouter);
-			}
+		//	}
 			oDialog.open();
 		},
 

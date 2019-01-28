@@ -2,87 +2,125 @@ jQuery.sap.declare("com.sap.build.toyota-canada.vehiclesGuideV3.Formatter.format
 
 var formatter = {
 
-	formatFeatures: function (str,str2) {
-		var feat="";
-		var feature="";
+	formatFeatures: function (str, str2) {
+		var feat = "";
+		var feature = "";
 		if (str) {
-		var res = str.replace(/;/g, "#- ");
-		feat= res.split('#').join('\n');
-		feature="- "+ feat;
+			var res = str.replace(/;/g, "#- ");
+			feat = res.split('#').join('\n');
+			feature = "- " + feat;
+			///////////
+			var res5 = str.replace(/;/g, "#! ");;
+			var extra = res5.split('#');
+			var len = extra.length;
+		//	console.log(len);
+			var lendiv = Math.floor(len / 2);
+			var arr = [];
+			for (var i = 0; i < lendiv; i++) {
+				arr.push(extra[i]);
+			}
+			var string = arr.toString();
+		//	console.log(string);
+
+			var arr2 = [];
+			for (var q = lendiv; q < len; q++) {
+				arr2.push(extra[q]);
+			}
+			var string2 = arr2.toString();
+		//	console.log(string2);
+			var res2 = string2.replace(/!/g, "#- ");
+			var rturnRes = res2.split('#').join('\n');
+
+		//	console.log(rturnRes);
+			///////////
 		}
 		return feature;
 	},
-	formatVehicle: function (modelYear,modelCode,modelName,suff,suffDesc) {
-		var vehicle="";	
-		vehicle =  modelYear + "-" + modelCode + "\n" + modelName+"\n" +"SFX-"+suff+"\n" +suffDesc;
+	formatVehicle: function (modelYear, modelCode, modelName, suff, suffDesc) {
+		var vehicle = "";
+		vehicle = modelYear + "-" + modelCode + "\n" + modelName + "\n" + "SFX-" + suff + "\n" + suffDesc;
 		return vehicle;
 	},
-	formatSuffix: function (str,str2) {
-		var sufStr="";
+	formatManagePageDate: function (str, str2) {
+		var date = "";
+
+		var year = str.slice(0, 4);
+		var month = str.slice(4, 6);
+		var day = str.slice(6, 8);
+		date = year + "-" + month + "-" + day;
+		return date;
+	},
+	formatSuffix: function (str, str2) {
+		var sufStr = "";
 		if (str) {
-			var res=" ";
+			var res = " ";
 			res = str.substring(0, 1);
-			sufStr="SFX- "+ res;
+			sufStr = "SFX- " + res;
 		}
 		return sufStr;
 	},
-	formatSuffixInList: function (str,str2) {
-		var sufStr="";
+	formatSuffixInList: function (str, str2) {
+		var sufStr = "";
 		if (str) {
-			var res=" ";
+			var res = " ";
 			res = str.substring(0, 1);
-			sufStr= res;
+			sufStr = res;
 		}
 		return sufStr;
 	},
 	fnFormatIcon: function (val) {
 		var sTrimval = "";
-		if (val=="yes") {
+		if (val == "yes") {
 			return "sap-icon://accept";
 		} else {
 			return sTrimval;
 		}
 	},
-	decimalFormatter: function (oDecVal,oDecVal2) {
-            if (oDecVal != undefined && oDecVal != null && !isNaN(oDecVal)&& oDecVal!="") {
-                var returnVal = parseInt(oDecVal);
-                var returnString="MSRP: $"+returnVal;
-                if (returnVal == 0.00) {
-                    return "MSRP: $0";
-                } else {
-                    return returnString;
-                }
-            } else {
-                return "MSRP: $";
-            }
-        },
-        	decimalFormatterDealer: function (oDecVal,oDecVal2) {
-            if (oDecVal != undefined && oDecVal != null && !isNaN(oDecVal)&& oDecVal!="") {
-                var returnVal = parseInt(oDecVal);
-                var returnString="Dealer Net: $"+returnVal;
-                if (returnVal == 0.00) {
-                    return "Dealer Net: $0";
-                } else {
-                    return returnString;
-                }
-            } else {
-                return "Dealer Net: $";
-            }
-        },
-        decimalFormatterDealerMSRP: function (oDecVal,msrp) {
-            if (oDecVal != undefined && oDecVal != null && !isNaN(oDecVal)&& oDecVal!="") {
-                var returnVal = parseInt(oDecVal);
-                var returnVal2 = parseInt(msrp);
-                var returnString="Dealer Net: $"+returnVal + "MSRP: $"+returnVal2;
-                if (returnVal == 0.00&&returnVal2==0) {
-                    return "Dealer Net: $0 MSRP: $0";
-                } else {
-                    return returnString;
-                }
-            } else {
-                return "Dealer Net: $  MSRP: $";
-            }
-        }
-
+	decimalFormatter: function (oDecVal, oDecVal2) {
+		//	oDecVal="67894320.89";
+		if (oDecVal != undefined && oDecVal != null && !isNaN(oDecVal) && oDecVal != "") {
+			var returnVal = parseInt(oDecVal);
+			var commaVal = returnVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			// console.log(commaVal);
+			var returnString = "MSRP: $" + commaVal;
+			if (returnVal == 0.00) {
+				return "MSRP: $0";
+			} else {
+				return returnString;
+			}
+		} else {
+			return "MSRP: $";
+		}
+	},
+	decimalFormatterDealer: function (oDecVal, oDecVal2) {
+		if (oDecVal != undefined && oDecVal != null && !isNaN(oDecVal) && oDecVal != "") {
+			var returnVal = parseInt(oDecVal);
+			var commaVal = returnVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			var returnString = "Dealer Net: $" + commaVal;
+			if (returnVal == 0.00) {
+				return "Dealer Net: $0";
+			} else {
+				return returnString;
+			}
+		} else {
+			return "Dealer Net: $";
+		}
+	},
+	decimalFormatterDealerMSRP: function (oDecVal, msrp) {
+		if (oDecVal != undefined && oDecVal != null && !isNaN(oDecVal) && oDecVal != "") {
+			var returnVal = parseInt(oDecVal);
+			var returnVal2 = parseInt(msrp);
+			var commaVal = returnVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			var commaVal2 = returnVal2.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			var returnString = "Dealer Net: $" + commaVal + "MSRP: $" + commaVal2;
+			if (returnVal == 0.00 && returnVal2 == 0) {
+				return "Dealer Net: $0 MSRP: $0";
+			} else {
+				return returnString;
+			}
+		} else {
+			return "Dealer Net: $  MSRP: $";
+		}
+	}
 
 };

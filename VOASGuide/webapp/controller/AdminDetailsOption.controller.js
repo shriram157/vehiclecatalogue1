@@ -2,11 +2,12 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 	"sap/m/MessageBox",
 	"./util/SuplementalDialog", "./util/WhatsNewDialog", "./util/WalkupDialog",
 	"./util/utilities",
-	"sap/ui/core/routing/History"
-], function (BaseController, MessageBox, SuplementalDialog, WhatsNewDialog, WalkupDialog, utilities, History) {
+	"sap/ui/core/routing/History", "com/sap/build/toyota-canada/vehiclesGuideV3/Formatter/formatter"
+], function (BaseController, MessageBox, SuplementalDialog, WhatsNewDialog, WalkupDialog, utilities, History,formatter) {
 	"use strict";
 	var AdminDetailCntroller;
 	return BaseController.extend("com.sap.build.toyota-canada.vehiclesGuideV3.controller.AdminDetailsOption", {
+		formatter: formatter,
 			onInit: function () {
 			AdminDetailCntroller = this;
 			AdminDetailCntroller.oRouter = sap.ui.core.UIComponent.getRouterFor(AdminDetailCntroller);
@@ -21,7 +22,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 		},
 		handleRouteMatched: function (oEvent) {
 			var parseArg = JSON.parse(oEvent.getParameters().data.num3);
-			console.log(parseArg[0]);
+			//console.log(parseArg[0]);
 			var modelDetail = new sap.ui.model.json.JSONModel(parseArg[0]);
 			AdminDetailCntroller.getView().setModel(modelDetail, "modelDetail");
 			sap.ui.getCore().setModel(modelDetail, "modelAdmin");
@@ -89,7 +90,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				async: false,
 				dataType: "json",
 				success: function (data, textStatus, jqXHR) {
-					console.log(data.d.results);
+				//	console.log(data.d.results);
 					var tblModel = new sap.ui.model.json.JSONModel(data.d.results);
 					sap.ui.getCore().setModel(tblModel, "whatsNewTblModel");
 					tbl.setModel(tblModel, "whatsNewTblModel");

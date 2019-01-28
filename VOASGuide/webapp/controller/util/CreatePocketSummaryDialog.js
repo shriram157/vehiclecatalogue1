@@ -19,7 +19,25 @@ sap.ui.define([
 			CreatePocketSumController._oDialog = CreatePocketSumController.getControl();
 			CreatePocketSumController.listOfBrand();
 			CreatePocketSumController.listOfModelYear();
+			var brandCB = sap.ushell.components.brandCB;
+			var moYearCB = sap.ushell.components.modelYearCB;
+		//	var seriesCB = sap.ushell.components.seriesCB;
+			var brandVal = brandCB.getValue();
 
+			if (brandVal != " " && brandVal != "" && brandVal != null && brandVal != undefined) {
+				CreatePocketSumController.getView().byId("idPoc_brandCB").setValue(brandVal);
+				CreatePocketSumController.getView().byId("idPoc_brandCB").setEnabled(false);
+			} else {
+				CreatePocketSumController.getView().byId("idPoc_brandCB").setEnabled(true);
+			}
+			var moYearVal = moYearCB.getValue();
+			if (moYearVal != " " && moYearVal != "" && moYearVal != null && moYearVal != undefined) {
+				CreatePocketSumController.getView().byId("idPoc_modelYearCB").setValue(moYearVal);
+				CreatePocketSumController.getView().byId("idPoc_modelYearCB").setEnabled(false);
+			} else {
+				CreatePocketSumController.getView().byId("idPoc_modelYearCB").setEnabled(true);
+			}
+			
 		},
 		listOfBrand: function () {
 			var data = {
@@ -160,6 +178,7 @@ sap.ui.define([
 
 		close: function () {
 			CreatePocketSumController._oControl.close();
+			CreatePocketSumController._oDialog.destroy();
 		},
 
 		setRouter: function (oRouter) {

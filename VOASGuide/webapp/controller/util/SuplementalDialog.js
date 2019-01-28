@@ -95,7 +95,7 @@ sap.ui.define([
 					var date3 = date2.format(date);
 					var langSwitchState = this._oView.byId("__component0---AdminDetailsOption--Supp_Switch_Lang").mProperties.state;
 					var lang = "";
-					if (langSwitchState == true) {
+					if (langSwitchState == false) {
 						lang = "FR";
 					} else {
 						lang = "EN";

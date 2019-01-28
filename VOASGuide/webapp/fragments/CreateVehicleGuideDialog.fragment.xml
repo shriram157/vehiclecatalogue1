@@ -26,7 +26,7 @@
 									<Label text="Language" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
 								</form:label>
 								<form:fields>
-									<Switch state="true" customTextOff="En" customTextOn="Fr" type="Default" enabled="true" visible="true" class="sapUiTinyMargin"/>
+									<Switch state="true" customTextOff="Fr" customTextOn="En" type="Default" enabled="true" visible="true" class="sapUiTinyMargin"/>
 								</form:fields>
 							</form:FormElement>
 							<form:FormElement visible="true">

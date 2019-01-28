@@ -9,10 +9,11 @@
 			</Bar>
 		</customHeader>
 		<App id="idAppControl"/>
-		<!--	<footer >
+		<footer >
 			<OverflowToolbar>
+				<Text text="Disclaimer:" class="sapUiMediumMarginBegin"></Text>
 				<ToolbarSpacer/>
 			</OverflowToolbar>
-		</footer>-->
+		</footer>
 	</Page>
 </mvc:View>
