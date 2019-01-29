@@ -3,15 +3,27 @@
 
 module.exports = function () {
 
-	var async = require('async');
 	var express = require('express');
 	var request = require('request');
 	var xsenv = require("@sap/xsenv");
 
 	var auth64;
 
-var winston = require('winston');
- 
+	var winston = require('winston');
+	
+	var uaaService = xsenv.getServices({
+		uaa: {
+			tag: "xsuaa"
+		}
+	});
+	var uaa = uaaService.uaa;
+	if (!uaa) {
+		logger.error('uaa service not found');
+		res.status(401).json({
+			message: "uaa service not found"
+		});
+		return;
+	}
 
 //var express = require('express');
 // const correlator = require('correlation-id');
@@ -266,8 +278,41 @@ app.use(log.logNetwork);
 
     // call with multiple requests. 
     
-    
+    app.get("/currentScopesForUser", (req, res) => {
 
+		var xsAppName = uaa.xsappname
+		var userAttributes = JSON.parse(JSON.stringify(req.authInfo.userAttributes));
+		var scopeData = req.authInfo.scopes;
 
+		var viewVOASGuides = false;
+
+		var sendUserData = {
+			"loggedUserType": []
+		};
+
+		for (var i = 0; i < scopeData.length; i++) {
+			if (scopeData[i] == xsAppName + ".Manage_VOAS_Guides") {
+				// Only TCI_Admin role has Manage_VOAS_Guides scope
+				sendUserData.loggedUserType.push("TCI_Admin");
+				return res.type("text/plain").status(200).send(JSON.stringify(sendUserData));
+			}
+			if (scopeData[i] == xsAppName + ".View_VOAS_Guides") {
+				viewVOASGuides = true;
+			}
+		};
+		console.log("viewVOASGuides: " + viewVOASGuides);
+
+		if (viewVOASGuides) {
+			var dealerCode = userAttributes.DealerCode
+			if (dealerCode != null) {
+				sendUserData.loggedUserType.push("Dealer_User");
+			} else {
+				sendUserData.loggedUserType.push("TCI_User");
+			}
+			return res.type("text/plain").status(200).send(JSON.stringify(sendUserData));
+		}
+		sendUserData.loggedUserType.push("Unknown");
+		return res.type("text/plain").status(200).send(JSON.stringify(sendUserData));
+	});
 	return app;
 };
