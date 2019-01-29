@@ -259,9 +259,9 @@ sap.ui.define([
 					CreateWalkUpDialogController.nodeJsUrl = CreateWalkUpDialogController.sPrefix + "/node";
 					var host = CreateWalkUpDialogController.nodeJsUrl;
 					var url = host +
-						"/Z_VEHICLE_CATALOGUE_SRV/FileSet(Language='" + lang + "',Tab='WalkUp',Model_year='" + moYear + "',Tciseries='" + serVal +
+						"/Z_VEHICLE_CATALOGUE_SRV/FileDownloadSet(Language='" + lang + "',Tab='WalkUp',Model_year='" + moYear + "',Tciseries='" + serVal +
 						"',Brand='" + brandVal + "')/$value";
-					$.ajax({
+					/*$.ajax({
 						url: url,
 						method: 'GET',
 						async: false,
@@ -274,8 +274,8 @@ sap.ui.define([
 								sap
 								.m.MessageBox.Action.OK, null, null);
 						}
-					});
-					window.open(url);
+					});*/
+					window.open(url,'_blank');
 					//	alert("CreateWalkUpDialogController should Generate and display Active (Based on Today's Date) What's New Pdf in new window");
 
 				}.bind(CreateWalkUpDialogController))

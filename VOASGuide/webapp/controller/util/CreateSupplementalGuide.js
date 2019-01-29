@@ -264,23 +264,54 @@ sap.ui.define([
 					CreateSuppGuideController.nodeJsUrl = CreateSuppGuideController.sPrefix + "/node";
 					var host = CreateSuppGuideController.nodeJsUrl;
 					var url = host +
-						"/Z_VEHICLE_CATALOGUE_SRV/FileSet(Language='" + lang + "',Tab='supplement',Model_year='" + moYear + "',Tciseries='" + serVal +
+						"/Z_VEHICLE_CATALOGUE_SRV/FileDownloadSet(Language='" + lang + "',Tab='suppliment',Model_year='" + moYear + "',Tciseries='" +
+						serVal +
 						"',Brand='" + brandVal + "')/$value";
 					$.ajax({
 						url: url,
 						method: 'GET',
 						async: false,
-						dataType: 'json',
+						dataType: 'text',
 						success: function (data, textStatus, jqXHR) {
-							console.log(data);
+							//console.log(data);
+							console.log(jqXHR);
+							if (jqXHR.readyState === 4 && jqXHR.status === 200) {
+								//	var blob = new Blob([jqXHR.responseText]);
+								var json = JSON.stringify(data);
+								var blob = new Blob([json], {
+									type: "octet/stream"
+								});
+							var url2=window.URL.createObjectURL(blob, {
+									type: "application/pdf"
+								})
+								console.log(blob);
+								console.log(url2)
+							//	var str=url2.splice(0,5);
+							//	console.log(str);
+								window.open(url2,'_blank');
+							//	var decode = atob(jqXHR.responseText);
+							//	console.log(decode);
+								/*var blob = jqXHR.response;
+								ajax.onload = function (e) {
+									download(e.target.response, "fileName", '_blank');
+								};*/
+								/*var link = document.createElement('a');
+								link.href = window.URL.createObjectURL(blob);
+								link.download = "PdfName-" + new Date().getTime() + ".pdf";
+								link.click();*/
+							}
 						},
 						error: function (jqXHR, textStatus, errorThrown) {
+							console.log(jqXHR);
+							console.log(textStatus);
+							console.log(errorThrown);
+
 							sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
 								sap
 								.m.MessageBox.Action.OK, null, null);
 						}
 					});
-
+				//	window.open(url, '_blank');
 					//	alert("CreateSuppGuideController should Generate and display Active (Based on Today's Date) What's New Pdf in new window");
 
 				}.bind(CreateSuppGuideController))

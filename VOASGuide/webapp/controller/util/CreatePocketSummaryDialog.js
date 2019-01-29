@@ -225,9 +225,9 @@ sap.ui.define([
 					CreatePocketSumController.nodeJsUrl = CreatePocketSumController.sPrefix + "/node";
 					var host = CreatePocketSumController.nodeJsUrl;
 					var url = host +
-						"/Z_VEHICLE_CATALOGUE_SRV/FileSet(Language='" + lang + "',Tab='createPocSumm',Model_year='" + moYear + "',Brand='" + brandVal +
+						"/Z_VEHICLE_CATALOGUE_SRV/FileDownloadSet(Language='" + lang + "',Tab='WhatsNew',Model_year='" + moYear + "',Brand='" + brandVal +
 						"',DealerNet='" + dealer + "')/$value";
-					$.ajax({
+				/*	$.ajax({
 						url: url,
 						method: 'GET',
 						async: false,
@@ -240,7 +240,8 @@ sap.ui.define([
 								sap
 								.m.MessageBox.Action.OK, null, null);
 						}
-					});
+					});*/
+					window.open(url,'_blank');
 
 					//	alert("CreatePocketSumController should Generate and display Active (Based on Today's Date) What's New Pdf in new window");
 
