@@ -2,6 +2,14 @@ jQuery.sap.declare("com.sap.build.toyota-canada.vehiclesGuideV3.Formatter.format
 
 var formatter = {
 
+	formatOptPack: function (str, str2) {
+		var feature = "";
+		if (str) {
+			var res = str.replace(/;/g, "#- ");
+			feature = res.split('#').join('\n');
+		}
+		return feature;
+	},
 	formatFeatures: function (str, str2) {
 		var feat = "";
 		var feature = "";
@@ -9,8 +17,10 @@ var formatter = {
 			var res = str.replace(/;/g, "#- ");
 			feat = res.split('#').join('\n');
 			feature = "- " + feat;
-			///////////
-			var res5 = str.replace(/;/g, "#! ");;
+		}
+		return feature;
+		///////////
+		/*	var res5 = str.replace(/;/g, "#! ");;
 			var extra = res5.split('#');
 			var len = extra.length;
 		//	console.log(len);
@@ -30,11 +40,10 @@ var formatter = {
 		//	console.log(string2);
 			var res2 = string2.replace(/!/g, "#- ");
 			var rturnRes = res2.split('#').join('\n');
-
+*/
 		//	console.log(rturnRes);
-			///////////
-		}
-		return feature;
+		///////////
+
 	},
 	formatVehicle: function (modelYear, modelCode, modelName, suff, suffDesc) {
 		var vehicle = "";
@@ -43,11 +52,12 @@ var formatter = {
 	},
 	formatManagePageDate: function (str, str2) {
 		var date = "";
-
-		var year = str.slice(0, 4);
-		var month = str.slice(4, 6);
-		var day = str.slice(6, 8);
-		date = year + "-" + month + "-" + day;
+		if (str != "" && str != " " && str != null && str != undefined) {
+			var year = str.slice(0, 4);
+			var month = str.slice(4, 6);
+			var day = str.slice(6, 8);
+			date = year + "-" + month + "-" + day;
+		}
 		return date;
 	},
 	formatSuffix: function (str, str2) {

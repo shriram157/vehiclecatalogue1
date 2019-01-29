@@ -15,7 +15,7 @@
 										class="sapUiTinyMargin"/>
 								</form:label>
 								<form:fields>
-									<Switch state="true" customTextOff="Off" customTextOn="On" type="Default" enabled="true" visible="true" class="sapUiTinyMargin"/>
+									<Switch state="true" id="id_poc_DealerSwitch" customTextOff="Off" customTextOn="On" type="Default" enabled="true" visible="true" class="sapUiTinyMargin"/>
 								</form:fields>
 							</form:FormElement>	
 							<form:FormElement visible="true" class="sapUiResponsiveMargin">
@@ -23,7 +23,7 @@
 									<Label text="Language" design="Bold" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
 								</form:label>
 								<form:fields>
-									<Switch state="true" customTextOff="Fr" customTextOn="En" type="Default" enabled="true" visible="true" class="sapUiTinyMargin"/>
+									<Switch state="true" id="id_poc_LangSwitch" customTextOff="Fr" customTextOn="En" type="Default" enabled="true" visible="true" class="sapUiTinyMargin"/>
 								</form:fields>
 							</form:FormElement>
 							<!--	<Switch state="true" customTextOff="On" customTextOn="Off" type="Default" enabled="true" visible="true" class="sapUiTinyMargin"/>-->
@@ -50,7 +50,7 @@
 												<core:Item key="{brandModelNew>key}" text="{brandModelNew>text}"/>
 										</items>
 									</ComboBox>
-									<ComboBox change="onChange_ModelYear" id="idPoc_modelYearCB" placeholder="Select Year" editable="true" enabled="true" visible="true" width="398px" valueState="None" maxWidth="100%"
+									<ComboBox id="idPoc_modelYearCB" placeholder="Select Year" editable="true" enabled="true" visible="true" width="398px" valueState="None" maxWidth="100%"
 										class="sapUiResponsiveMargin" items="{path:'yearModelNew>/modelYear', templateShareable:true}">
 										<items>
 											<core:Item key="{yearModelNew>key}" enabled="true" text="{yearModelNew>text}"/>

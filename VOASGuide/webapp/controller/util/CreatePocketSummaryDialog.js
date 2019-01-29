@@ -21,23 +21,24 @@ sap.ui.define([
 			CreatePocketSumController.listOfModelYear();
 			var brandCB = sap.ushell.components.brandCB;
 			var moYearCB = sap.ushell.components.modelYearCB;
-		//	var seriesCB = sap.ushell.components.seriesCB;
-			var brandVal = brandCB.getValue();
+			if (brandCB != undefined && moYearCB != undefined) {
+				//	var seriesCB = sap.ushell.components.seriesCB;
+				var brandVal = brandCB.getValue();
 
-			if (brandVal != " " && brandVal != "" && brandVal != null && brandVal != undefined) {
-				CreatePocketSumController.getView().byId("idPoc_brandCB").setValue(brandVal);
-				CreatePocketSumController.getView().byId("idPoc_brandCB").setEnabled(false);
-			} else {
-				CreatePocketSumController.getView().byId("idPoc_brandCB").setEnabled(true);
+				if (brandVal != " " && brandVal != "" && brandVal != null && brandVal != undefined) {
+					CreatePocketSumController.getView().byId("idPoc_brandCB").setValue(brandVal);
+					CreatePocketSumController.getView().byId("idPoc_brandCB").setEnabled(false);
+				} else {
+					CreatePocketSumController.getView().byId("idPoc_brandCB").setEnabled(true);
+				}
+				var moYearVal = moYearCB.getValue();
+				if (moYearVal != " " && moYearVal != "" && moYearVal != null && moYearVal != undefined) {
+					CreatePocketSumController.getView().byId("idPoc_modelYearCB").setValue(moYearVal);
+					CreatePocketSumController.getView().byId("idPoc_modelYearCB").setEnabled(false);
+				} else {
+					CreatePocketSumController.getView().byId("idPoc_modelYearCB").setEnabled(true);
+				}
 			}
-			var moYearVal = moYearCB.getValue();
-			if (moYearVal != " " && moYearVal != "" && moYearVal != null && moYearVal != undefined) {
-				CreatePocketSumController.getView().byId("idPoc_modelYearCB").setValue(moYearVal);
-				CreatePocketSumController.getView().byId("idPoc_modelYearCB").setEnabled(false);
-			} else {
-				CreatePocketSumController.getView().byId("idPoc_modelYearCB").setEnabled(true);
-			}
-			
 		},
 		listOfBrand: function () {
 			var data = {
@@ -196,7 +197,52 @@ sap.ui.define([
 					fnResolve(true);
 				})
 				.then(function (result) {
-					alert("CreatePocketSumController should Generate and display Pocket Summary Pdf in new window");
+					var brandCB = CreatePocketSumController.getView().byId("idPoc_brandCB");
+					var modelYearCB = CreatePocketSumController.getView().byId("idPoc_modelYearCB");
+					var brandVal = brandCB.getValue();
+					var moYear = modelYearCB.getValue();
+					var dealerSwitch = CreatePocketSumController.getView().byId("id_poc_DealerSwitch").mProperties.state;
+					var dealer = "";
+					if (dealerSwitch == true) {
+						dealer = "ON";
+					} else {
+						dealer = "OFF";
+					}
+					var langSwitchState = CreatePocketSumController.getView().byId("id_poc_LangSwitch").mProperties.state;
+					var lang = "";
+					if (langSwitchState == false) {
+						lang = "FR";
+					} else {
+						lang = "EN";
+					}
+					var sLocation = window.location.host;
+					var sLocation_conf = sLocation.search("webide");
+					if (sLocation_conf == 0) {
+						CreatePocketSumController.sPrefix = "/voasguide_node";
+					} else {
+						CreatePocketSumController.sPrefix = "";
+					}
+					CreatePocketSumController.nodeJsUrl = CreatePocketSumController.sPrefix + "/node";
+					var host = CreatePocketSumController.nodeJsUrl;
+					var url = host +
+						"/Z_VEHICLE_CATALOGUE_SRV/FileSet(Language='" + lang + "',Tab='createPocSumm',Model_year='" + moYear + "',Brand='" + brandVal +
+						"',DealerNet='" + dealer + "')/$value";
+					$.ajax({
+						url: url,
+						method: 'GET',
+						async: false,
+						dataType: 'json',
+						success: function (data, textStatus, jqXHR) {
+							console.log(data);
+						},
+						error: function (jqXHR, textStatus, errorThrown) {
+							sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
+								sap
+								.m.MessageBox.Action.OK, null, null);
+						}
+					});
+
+					//	alert("CreatePocketSumController should Generate and display Active (Based on Today's Date) What's New Pdf in new window");
 
 				}.bind(CreatePocketSumController))
 				.then(function (result) {

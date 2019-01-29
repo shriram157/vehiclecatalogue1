@@ -15,15 +15,16 @@ sap.ui.define([
 			CreateVehicleGuideDialogController._bInit = false;
 		},
 		onInit: function () {
-			
+
 			CreateVehicleGuideDialogController._oDialog = CreateVehicleGuideDialogController.getControl();
 			CreateVehicleGuideDialogController.listOfBrand();
 			CreateVehicleGuideDialogController.listOfModelYear();
 			var brandCB = sap.ushell.components.brandCB;
 			var moYearCB = sap.ushell.components.modelYearCB;
 			var seriesCB = sap.ushell.components.seriesCB;
+				if (brandCB != undefined && moYearCB != undefined && seriesCB != undefined) {
 			var brandVal = brandCB.getValue();
-		
+
 			if (brandVal != " " && brandVal != "" && brandVal != null && brandVal != undefined) {
 				CreateVehicleGuideDialogController.getView().byId("idVeh_brandCB").setValue(brandVal);
 				CreateVehicleGuideDialogController.getView().byId("idVeh_brandCB").setEnabled(false);
@@ -82,6 +83,7 @@ sap.ui.define([
 					}
 				});
 			}
+				}
 		},
 		listOfBrand: function () {
 			var data = {
@@ -229,20 +231,65 @@ sap.ui.define([
 		},
 		setRouter: function (oRouter) {
 			CreateVehicleGuideDialogController.oRouter = oRouter;
-
 		},
 		getBindingParameters: function () {
 			return {};
 
 		},
 		_onButtonPress: function (oEvent) {
-
 			oEvent = jQuery.extend(true, {}, oEvent);
 			return new Promise(function (fnResolve) {
 					fnResolve(true);
 				})
 				.then(function (result) {
-					alert("CreateVehicleGuideDialogController should Generate and display VOAS Pdf in new window");
+					var brandCB = CreateVehicleGuideDialogController.getView().byId("idVeh_brandCB");
+					var modelYearCB = CreateVehicleGuideDialogController.getView().byId("idVeh_modelYearCB");
+					var seriesCB = CreateVehicleGuideDialogController.getView().byId("idVeh_seriesCB");
+					var brandVal = brandCB.getValue();
+					var moYear = modelYearCB.getValue();
+					var serVal = seriesCB.getValue();
+					var dealerSwitch = CreatePocketSumController.getView().byId("id_Veh_DealerSwitch").mProperties.state;
+					var dealer = "";
+					if (dealerSwitch == true) {
+						dealer = "ON";
+					} else {
+						dealer = "OFF";
+					}
+					var langSwitchState = CreateVehicleGuideDialogController.getView().byId("idVehCreate_Lang").mProperties.state;
+					var lang = "";
+					if (langSwitchState == false) {
+						lang = "FR";
+					} else {
+						lang = "EN";
+					}
+					var sLocation = window.location.host;
+					var sLocation_conf = sLocation.search("webide");
+					if (sLocation_conf == 0) {
+						CreateVehicleGuideDialogController.sPrefix = "/voasguide_node";
+					} else {
+						CreateVehicleGuideDialogController.sPrefix = "";
+					}
+					CreateVehicleGuideDialogController.nodeJsUrl = CreateVehicleGuideDialogController.sPrefix + "/node";
+					var host = CreateVehicleGuideDialogController.nodeJsUrl;
+					var url = host +
+						"/Z_VEHICLE_CATALOGUE_SRV/FileSet(Language='" + lang + "',Tab='WhatsNew',Model_year='" + moYear + "',Tciseries='" + serVal +
+						"',Brand='" + brandVal +"',DealerNet='" + dealer + "')/$value";
+					$.ajax({
+						url: url,
+						method: 'GET',
+						async: false,
+						dataType: 'json',
+						success: function (data, textStatus, jqXHR) {
+							console.log(data);
+						},
+						error: function (jqXHR, textStatus, errorThrown) {
+							sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
+								sap
+								.m.MessageBox.Action.OK, null, null);
+						}
+					});
+					window.open(url);
+					//	alert("CreateVehicleGuideDialogController should Generate and display Active (Based on Today's Date) What's New Pdf in new window");
 
 				}.bind(CreateVehicleGuideDialogController))
 				.then(function (result) {

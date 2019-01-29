@@ -1,6 +1,6 @@
 <mvc:View controllerName="com.sap.build.toyota-canada.vehiclesGuideV3.controller.App" xmlns:html="http://www.w3.org/1999/xhtml"
-	xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m">
-	<Page>
+	xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m" height="100%">
+	<Page >
 		<customHeader>
 			<Bar class="sapUiSmallPaddingBeginEnd clCustomHeaderBg">
 				<contentLeft>
@@ -9,11 +9,10 @@
 			</Bar>
 		</customHeader>
 		<App id="idAppControl"/>
-		<footer >
+	<!--	<footer>
 			<OverflowToolbar>
 				<Text text="Disclaimer:" class="sapUiMediumMarginBegin"></Text>
-				<ToolbarSpacer/>
 			</OverflowToolbar>
-		</footer>
+		</footer>-->
 	</Page>
 </mvc:View>

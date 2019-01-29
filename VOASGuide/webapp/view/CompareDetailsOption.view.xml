@@ -644,14 +644,19 @@
 							<Table id="tblOptionPackStat" items="{path:'tblModelOpt>/', templateShareable:true}" width="100%" growing="true" growingScrollToLoad="false"
 								growingThreshold="30" mode="None">
 								<columns>
-									<Column minScreenWidth="Phone" width="50%">
+									<Column minScreenWidth="Phone" >
 										<header>
 											<Text text=""/>
 										</header>
 									</Column>
-									<Column minScreenWidth="Phone" width="50%">
+									<Column minScreenWidth="Phone">
 										<header>
 											<Text text="Option Packages"/>
+										</header>
+									</Column>
+									<Column minScreenWidth="Phone">
+										<header>
+											<Text text=""/>
 										</header>
 									</Column>
 								</columns>
@@ -660,7 +665,8 @@
 										<cells>
 											<ObjectIdentifier title="{tblModelOpt>Vehicle1}"
 												text="{parts: [{path:'tblModelOpt>NETPRICE'},{path:'tblModelOpt>MSRP'}] , formatter: 'formatter.decimalFormatterDealerMSRP'}"/>
-											<ObjectIdentifier text="{tblModelOpt>OptionPackages}"/>
+												<ObjectIdentifier text="{parts: [{path:'tblModelOpt>OptionPackages'},{path:'tblModelOpt>OptionPackages'}] , formatter: 'formatter.formatOptPack'}"/>
+											<ObjectIdentifier text="{parts: [{path:'tblModelOpt>OptionPackages1'},{path:'tblModelOpt>OptionPackages1'}] , formatter: 'formatter.formatOptPack'}"/>
 										</cells>
 									</ColumnListItem>
 								</items>

@@ -14,13 +14,14 @@ sap.ui.define([
 			CreateWalkUpDialogController._bInit = false;
 		},
 		onInit: function () {
-			
+
 			CreateWalkUpDialogController._oDialog = CreateWalkUpDialogController.getControl();
 			CreateWalkUpDialogController.listOfBrand();
 			CreateWalkUpDialogController.listOfModelYear();
 			var brandCB = sap.ushell.components.brandCB;
 			var moYearCB = sap.ushell.components.modelYearCB;
 			var seriesCB = sap.ushell.components.seriesCB;
+				if (brandCB != undefined && moYearCB != undefined && seriesCB != undefined) {
 			var brandVal = brandCB.getValue();
 
 			if (brandVal != " " && brandVal != "" && brandVal != null && brandVal != undefined) {
@@ -81,8 +82,7 @@ sap.ui.define([
 					}
 				});
 			}
-
-
+				}
 		},
 		listOfBrand: function () {
 			var data = {
@@ -201,18 +201,13 @@ sap.ui.define([
 		open: function () {
 			var oView = CreateWalkUpDialogController._oView;
 			var oControl = CreateWalkUpDialogController._oControl;
-
 			if (!CreateWalkUpDialogController._bInit) {
-
 				// Initialize our fragment
 				CreateWalkUpDialogController.onInit();
-
 				CreateWalkUpDialogController._bInit = true;
-
 				// connect fragment to the root view of CreateWalkUpDialogController component (models, lifecycle)
 				oView.addDependent(oControl);
 			}
-
 			var args = Array.prototype.slice.call(arguments);
 			if (oControl.open) {
 				oControl.open.apply(oControl, args);
@@ -241,7 +236,47 @@ sap.ui.define([
 					fnResolve(true);
 				})
 				.then(function (result) {
-					alert("CreateWalkUpDialogController should Generate and display Active (Based on Today's Date) Walk up guide PDF in new window");
+					var brandCB = CreateWalkUpDialogController.getView().byId("idWalk_brandCB");
+					var modelYearCB = CreateWalkUpDialogController.getView().byId("idWalk_modelYearCB");
+					var seriesCB = CreateWalkUpDialogController.getView().byId("idWalk_seriesCB");
+					var brandVal = brandCB.getValue();
+					var moYear = modelYearCB.getValue();
+					var serVal = seriesCB.getValue();
+					var langSwitchState = CreateWalkUpDialogController.getView().byId("walkUpCreate_Lang").mProperties.state;
+					var lang = "";
+					if (langSwitchState == false) {
+						lang = "FR";
+					} else {
+						lang = "EN";
+					}
+					var sLocation = window.location.host;
+					var sLocation_conf = sLocation.search("webide");
+					if (sLocation_conf == 0) {
+						CreateWalkUpDialogController.sPrefix = "/voasguide_node";
+					} else {
+						CreateWalkUpDialogController.sPrefix = "";
+					}
+					CreateWalkUpDialogController.nodeJsUrl = CreateWalkUpDialogController.sPrefix + "/node";
+					var host = CreateWalkUpDialogController.nodeJsUrl;
+					var url = host +
+						"/Z_VEHICLE_CATALOGUE_SRV/FileSet(Language='" + lang + "',Tab='WalkUp',Model_year='" + moYear + "',Tciseries='" + serVal +
+						"',Brand='" + brandVal + "')/$value";
+					$.ajax({
+						url: url,
+						method: 'GET',
+						async: false,
+						dataType: 'json',
+						success: function (data, textStatus, jqXHR) {
+							console.log(data);
+						},
+						error: function (jqXHR, textStatus, errorThrown) {
+							sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
+								sap
+								.m.MessageBox.Action.OK, null, null);
+						}
+					});
+					window.open(url);
+					//	alert("CreateWalkUpDialogController should Generate and display Active (Based on Today's Date) What's New Pdf in new window");
 
 				}.bind(CreateWalkUpDialogController))
 				.then(function (result) {
