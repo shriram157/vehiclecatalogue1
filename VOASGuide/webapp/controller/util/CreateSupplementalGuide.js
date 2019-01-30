@@ -273,32 +273,20 @@ sap.ui.define([
 						async: false,
 						dataType: 'text',
 						success: function (data, textStatus, jqXHR) {
-							//console.log(data);
-							console.log(jqXHR);
 							if (jqXHR.readyState === 4 && jqXHR.status === 200) {
-								//	var blob = new Blob([jqXHR.responseText]);
-								var json = JSON.stringify(data);
-								var blob = new Blob([json], {
+								var string = JSON.stringify(data);
+								var blob = new Blob([string], {
 									type: "octet/stream"
 								});
-							var url2=window.URL.createObjectURL(blob, {
+							/*var url2=window.URL.createObjectURL(blob, {
 									type: "application/pdf"
-								})
-								console.log(blob);
-								console.log(url2)
-							//	var str=url2.splice(0,5);
-							//	console.log(str);
-								window.open(url2,'_blank');
-							//	var decode = atob(jqXHR.responseText);
-							//	console.log(decode);
-								/*var blob = jqXHR.response;
-								ajax.onload = function (e) {
-									download(e.target.response, "fileName", '_blank');
-								};*/
-								/*var link = document.createElement('a');
+								})*/
+								//window.open(url2,'_blank');
+							
+								var link = document.createElement('a');
 								link.href = window.URL.createObjectURL(blob);
-								link.download = "PdfName-" + new Date().getTime() + ".pdf";
-								link.click();*/
+								link.download = "PdfName-SupplementGuide" + new Date().getTime() + ".pdf";
+								link.click();
 							}
 						},
 						error: function (jqXHR, textStatus, errorThrown) {

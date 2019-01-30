@@ -358,18 +358,20 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					dataType: 'json',
 					success: function (data, textStatus, jqXHR) {
 						var oModel = new sap.ui.model.json.JSONModel();
-						var arr = [];
+						var arr = [], arr2=[],arr3=[];
 						var j = 0;
 						for (var c = 0; c < data.d.results.length; c++) {
 							for (var i = 0; i < data.d.results.length; i++) {
 								if ($.inArray(data.d.results[i]["Suffix"], arr) < 0) {
 									arr[j] = data.d.results[i]["Suffix"];
+									arr2[j]= data.d.results[i]["suffix_desc_en"];
+									arr3[j]=arr[j] + " -"+arr2[j];
 									j++;
 
 								}
 							}
 						}
-						oModel.setData(arr);
+						oModel.setData(arr3);
 						searchController.getView().setModel(oModel, "suffixdropDownModel");
 					},
 					error: function (jqXHR, textStatus, errorThrown) {

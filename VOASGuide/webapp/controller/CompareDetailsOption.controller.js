@@ -1,11 +1,11 @@
 sap.ui.define([
 	"com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseController",
-		 "./util/CreatePocketSummaryDialog", "./util/CreateWhatsNewDialog","./util/CreateWalkUpGuide",
-		"./util/CreateSupplementalGuide","./util/CreateVehicleGuideDialog",
-	"sap/m/MessageBox",	"./util/utilities",
+	"./util/CreatePocketSummaryDialog", "./util/CreateWhatsNewDialog", "./util/CreateWalkUpGuide",
+	"./util/CreateSupplementalGuide", "./util/CreateVehicleGuideDialog",
+	"sap/m/MessageBox", "./util/utilities",
 	"sap/ui/core/routing/History", "com/sap/build/toyota-canada/vehiclesGuideV3/Formatter/formatter"
-], function (BaseController,CreatePocketSummaryDialog,CreateWhatsNewDialog,CreateWalkUpGuide,CreateSupplementalGuide,
-		CreateVehicleGuideDialog,MessageBox,  utilities, History, formatter) {
+], function (BaseController, CreatePocketSummaryDialog, CreateWhatsNewDialog, CreateWalkUpGuide, CreateSupplementalGuide,
+	CreateVehicleGuideDialog, MessageBox, utilities, History, formatter) {
 	"use strict";
 	var CDO_controller;
 	return BaseController.extend("com.sap.build.toyota-canada.vehiclesGuideV3.controller.CompareDetailsOption", {
@@ -66,40 +66,37 @@ sap.ui.define([
 			var vehDescString = "";
 			var newVehStr = "";
 			//var stateSwitch;
-				var stateSwitch;
+			var stateSwitch;
 			var parsePathArg = JSON.parse(parseArg[0].pathVeh);
 			var len = parsePathArg.length;
-			if(len==2){
+			if (len == 2) {
 				this.getView().byId("idTbl_compare2vehicles").setVisible(true);
 				this.getView().byId("idTbl_compare3vehicles").setVisible(false);
 				this.getView().byId("idTbl_compare4vehicles").setVisible(false);
 				this.getView().byId("idTbl_compare5vehicles").setVisible(false);
 				stateSwitch = this.getView().byId("stdFeatSwitchId2");
-			//	this.getView().byId("hboxCompare").addStyleClass("paddingleft1");
-			}
-			else if(len==3){
+				//	this.getView().byId("hboxCompare").addStyleClass("paddingleft1");
+			} else if (len == 3) {
 				this.getView().byId("idTbl_compare3vehicles").setVisible(true);
 				this.getView().byId("idTbl_compare2vehicles").setVisible(false);
 				this.getView().byId("idTbl_compare4vehicles").setVisible(false);
 				this.getView().byId("idTbl_compare5vehicles").setVisible(false);
 				stateSwitch = this.getView().byId("stdFeatSwitchId3");
-			//	this.getView().byId("hboxCompare").addStyleClass("paddingleft2");
-			}
-			else if(len==4){
+				//	this.getView().byId("hboxCompare").addStyleClass("paddingleft2");
+			} else if (len == 4) {
 				this.getView().byId("idTbl_compare4vehicles").setVisible(true);
 				this.getView().byId("idTbl_compare3vehicles").setVisible(false);
 				this.getView().byId("idTbl_compare2vehicles").setVisible(false);
 				this.getView().byId("idTbl_compare5vehicles").setVisible(false);
 				stateSwitch = this.getView().byId("stdFeatSwitchId4");
-			//	this.getView().byId("hboxCompare").addStyleClass("paddingleft3");
-			}
-			else if(len==5){
+				//	this.getView().byId("hboxCompare").addStyleClass("paddingleft3");
+			} else if (len == 5) {
 				this.getView().byId("idTbl_compare5vehicles").setVisible(true);
 				this.getView().byId("idTbl_compare3vehicles").setVisible(false);
 				this.getView().byId("idTbl_compare4vehicles").setVisible(false);
 				this.getView().byId("idTbl_compare2vehicles").setVisible(false);
 				stateSwitch = this.getView().byId("stdFeatSwitchId5");
-			//	this.getView().byId("hboxCompare").addStyleClass("paddingleft4");
+				//	this.getView().byId("hboxCompare").addStyleClass("paddingleft4");
 			}
 			console.log("len: " + len);
 			if (parseArg[0].model !== "") {
@@ -263,7 +260,7 @@ sap.ui.define([
 				nModel.setData(arrNewData);
 				//		console.log(arrNewData);
 				CDO_controller.getView().setModel(nModel, "compareModel");
-			//	var stateSwitch = this.getView().byId("stdFeatSwitchId");
+				//	var stateSwitch = this.getView().byId("stdFeatSwitchId");
 				//		console.log(stateSwitch);
 				if (CDO_controller.getView().getModel("TblModel")) {
 					var dat = CDO_controller.getView().getModel("TblModel").getData();
@@ -1189,37 +1186,34 @@ sap.ui.define([
 			var stateSwitch;
 			var parsePathArg = JSON.parse(parseArg[0].pathVeh);
 			var len = parsePathArg.length;
-			if(len==2){
+			if (len == 2) {
 				this.getView().byId("idTbl_compare2vehicles").setVisible(true);
 				this.getView().byId("idTbl_compare3vehicles").setVisible(false);
 				this.getView().byId("idTbl_compare4vehicles").setVisible(false);
 				this.getView().byId("idTbl_compare5vehicles").setVisible(false);
 				stateSwitch = this.getView().byId("stdFeatSwitchId2");
-			//	this.getView().byId("hboxCompare").addStyleClass("paddingleft1");
-			}
-			else if(len==3){
+				//	this.getView().byId("hboxCompare").addStyleClass("paddingleft1");
+			} else if (len == 3) {
 				this.getView().byId("idTbl_compare3vehicles").setVisible(true);
 				this.getView().byId("idTbl_compare2vehicles").setVisible(false);
 				this.getView().byId("idTbl_compare4vehicles").setVisible(false);
 				this.getView().byId("idTbl_compare5vehicles").setVisible(false);
 				stateSwitch = this.getView().byId("stdFeatSwitchId3");
-			//	this.getView().byId("hboxCompare").addStyleClass("paddingleft2");
-			}
-			else if(len==4){
+				//	this.getView().byId("hboxCompare").addStyleClass("paddingleft2");
+			} else if (len == 4) {
 				this.getView().byId("idTbl_compare4vehicles").setVisible(true);
 				this.getView().byId("idTbl_compare3vehicles").setVisible(false);
 				this.getView().byId("idTbl_compare2vehicles").setVisible(false);
 				this.getView().byId("idTbl_compare5vehicles").setVisible(false);
 				stateSwitch = this.getView().byId("stdFeatSwitchId4");
-			//	this.getView().byId("hboxCompare").addStyleClass("paddingleft3");
-			}
-			else if(len==5){
+				//	this.getView().byId("hboxCompare").addStyleClass("paddingleft3");
+			} else if (len == 5) {
 				this.getView().byId("idTbl_compare5vehicles").setVisible(true);
 				this.getView().byId("idTbl_compare3vehicles").setVisible(false);
 				this.getView().byId("idTbl_compare4vehicles").setVisible(false);
 				this.getView().byId("idTbl_compare2vehicles").setVisible(false);
 				stateSwitch = this.getView().byId("stdFeatSwitchId5");
-			//	this.getView().byId("hboxCompare").addStyleClass("paddingleft4");
+				//	this.getView().byId("hboxCompare").addStyleClass("paddingleft4");
 			}
 			if (parseArg[0].model !== "") {
 				/*	if (parseArg[0].model !== "[]") {
@@ -1383,8 +1377,8 @@ sap.ui.define([
 				nModel.setData(arrNewData);
 				console.log(arrNewData);
 				CDO_controller.getView().setModel(nModel, "compareModel");
-			//	var stateSwitch = this.getView().byId("stdFeatSwitchId");
-			
+				//	var stateSwitch = this.getView().byId("stdFeatSwitchId");
+
 				if (CDO_controller.getView().getModel("TblModel")) {
 					var dat = CDO_controller.getView().getModel("TblModel").getData();
 					var dtExt = "",
@@ -1848,41 +1842,38 @@ sap.ui.define([
 			var vehDescString = "";
 			var newVehStr = "";
 			var suffixTextVeh = [];
-			var stateSwitch;// = this.getView().byId("stdFeatSwitchId");
+			var stateSwitch; // = this.getView().byId("stdFeatSwitchId");
 
 			var parsePathArg = JSON.parse(parseArg[0].pathVeh);
 			var len = parsePathArg.length;
-			if(len==2){
+			if (len == 2) {
 				this.getView().byId("idTbl_compare2vehicles").setVisible(true);
 				this.getView().byId("idTbl_compare3vehicles").setVisible(false);
 				this.getView().byId("idTbl_compare4vehicles").setVisible(false);
 				this.getView().byId("idTbl_compare5vehicles").setVisible(false);
 				stateSwitch = this.getView().byId("stdFeatSwitchId2");
-			//	this.getView().byId("hboxCompare").addStyleClass("paddingleft1");
-			}
-			else if(len==3){
+				//	this.getView().byId("hboxCompare").addStyleClass("paddingleft1");
+			} else if (len == 3) {
 				this.getView().byId("idTbl_compare3vehicles").setVisible(true);
 				this.getView().byId("idTbl_compare2vehicles").setVisible(false);
 				this.getView().byId("idTbl_compare4vehicles").setVisible(false);
 				this.getView().byId("idTbl_compare5vehicles").setVisible(false);
 				stateSwitch = this.getView().byId("stdFeatSwitchId3");
-			//	this.getView().byId("hboxCompare").addStyleClass("paddingleft2");
-			}
-			else if(len==4){
+				//	this.getView().byId("hboxCompare").addStyleClass("paddingleft2");
+			} else if (len == 4) {
 				this.getView().byId("idTbl_compare4vehicles").setVisible(true);
 				this.getView().byId("idTbl_compare3vehicles").setVisible(false);
 				this.getView().byId("idTbl_compare2vehicles").setVisible(false);
 				this.getView().byId("idTbl_compare5vehicles").setVisible(false);
 				stateSwitch = this.getView().byId("stdFeatSwitchId4");
-			//	this.getView().byId("hboxCompare").addStyleClass("paddingleft3");
-			}
-			else if(len==5){
+				//	this.getView().byId("hboxCompare").addStyleClass("paddingleft3");
+			} else if (len == 5) {
 				this.getView().byId("idTbl_compare5vehicles").setVisible(true);
 				this.getView().byId("idTbl_compare3vehicles").setVisible(false);
 				this.getView().byId("idTbl_compare4vehicles").setVisible(false);
 				this.getView().byId("idTbl_compare2vehicles").setVisible(false);
 				stateSwitch = this.getView().byId("stdFeatSwitchId5");
-			//	this.getView().byId("hboxCompare").addStyleClass("paddingleft4");
+				//	this.getView().byId("hboxCompare").addStyleClass("paddingleft4");
 			}
 			if (parseArg[0].model !== "") {
 				/*	if (parseArg[0].model !== "[]") {
@@ -2046,13 +2037,12 @@ sap.ui.define([
 				nModel.setData(arrNewData);
 				console.log(arrNewData);
 				CDO_controller.getView().setModel(nModel, "compareModel");
-				sap.ui.getCore().setModel(nModel,"compareModel");
+				sap.ui.getCore().setModel(nModel, "compareModel");
 				console.log(CDO_controller.getView().getModel("compareModel"));
 				console.log(sap.ui.getCore().getModel("compareModel").getData())
-				//var compData=CDO_controller.getView().getModel("compareModel").getData();
-				//sap.ui.getCore().getModel().setProperty("/compareModelData",compData)
-			
-		
+					//var compData=CDO_controller.getView().getModel("compareModel").getData();
+					//sap.ui.getCore().getModel().setProperty("/compareModelData",compData)
+
 				if (CDO_controller.getView().getModel("TblModel")) {
 					var dat = CDO_controller.getView().getModel("TblModel").getData();
 					var dtExt = "",
@@ -2098,6 +2088,7 @@ sap.ui.define([
 
 					var dataExterior = [];
 					for (var i = 0; i < dtExt.length; i++) {
+					
 						dataExterior.push({
 							"Category_en": dtExt[i].Category_en,
 							"Cust_fac_desc_en": dtExt[i].Cust_fac_desc_en,
@@ -2271,15 +2262,27 @@ sap.ui.define([
 							}),
 						});
 					});
+
 					tblExterior.bindItems("/rows", function (index, context) {
 						var obj = context.getObject();
 						var row = new sap.m.ColumnListItem();
-						for (var k in obj) {
-							row.addCell(
-								new sap.m.Text({
-									text: obj[k]
 
-								}));
+					
+						for (var k in obj) {
+							if (obj[k] == "Y") {
+								row.addCell(
+									new sap.ui.core.Icon({
+										src: "sap-icon://accept",
+										iconColor:sap.ui.core.IconColor.Positive
+									})
+								);
+							} else {
+								row.addCell(
+									new sap.m.Text({
+										text: obj[k]
+									})
+								);
+							}
 						}
 						return row;
 					});
@@ -2297,24 +2300,20 @@ sap.ui.define([
 						var obj = context.getObject();
 						var row = new sap.m.ColumnListItem(); //obj[k]
 						for (var k in obj) {
-							row.addCell(new sap.m.Text({
-								text:obj[k]
-								/*{	parts: [{path: 'obj[k]'},{path: 'obj[k]'}],
-											//	formatter: CDO_controller.formatfunc(x)
-											formatter: function (str1,obj) {
-												console.log(obj);
-												console.log(str1);
-												var returnCom = "";
-												if (str1 == "Y") {
-													returnCom="icon must be put";
-												} else {
-													returnCom=str1;
-												}
-												console.log(returnCom);
-												return returnCom;
-											}
-										}*/
-							}));
+							if (obj[k] == "Y") {
+								row.addCell(
+									new sap.ui.core.Icon({
+										src: "sap-icon://accept",
+										iconColor:sap.ui.core.IconColor.Positive
+									})
+								);
+							} else {
+								row.addCell(
+									new sap.m.Text({
+										text: obj[k]
+									})
+								);
+							}
 						}
 						return row;
 					});
@@ -2333,9 +2332,20 @@ sap.ui.define([
 						var obj = context.getObject();
 						var row = new sap.m.ColumnListItem();
 						for (var k in obj) {
-							row.addCell(new sap.m.Text({
-								text: obj[k]
-							}));
+							if (obj[k] == "Y") {
+								row.addCell(
+									new sap.ui.core.Icon({
+										src: "sap-icon://accept",
+										iconColor:sap.ui.core.IconColor.Positive
+									})
+								);
+							} else {
+								row.addCell(
+									new sap.m.Text({
+										text: obj[k]
+									})
+								);
+							}
 						}
 						return row;
 					});
@@ -2352,10 +2362,20 @@ sap.ui.define([
 						var obj = context.getObject();
 						var row = new sap.m.ColumnListItem();
 						for (var k in obj) {
-
-							row.addCell(new sap.m.Text({
-								text: obj[k]
-							}));
+							if (obj[k] == "Y") {
+								row.addCell(
+									new sap.ui.core.Icon({
+										src: "sap-icon://accept",
+										iconColor:sap.ui.core.IconColor.Positive
+									})
+								);
+							} else {
+								row.addCell(
+									new sap.m.Text({
+										text: obj[k]
+									})
+								);
+							}
 						}
 						return row;
 					});
@@ -2372,10 +2392,20 @@ sap.ui.define([
 						var obj = context.getObject();
 						var row = new sap.m.ColumnListItem();
 						for (var k in obj) {
-
-							row.addCell(new sap.m.Text({
-								text: obj[k]
-							}));
+							if (obj[k] == "Y") {
+								row.addCell(
+									new sap.ui.core.Icon({
+										src: "sap-icon://accept",
+										iconColor:sap.ui.core.IconColor.Positive
+									})
+								);
+							} else {
+								row.addCell(
+									new sap.m.Text({
+										text: obj[k]
+									})
+								);
+							}
 						}
 						return row;
 					});
@@ -2392,10 +2422,20 @@ sap.ui.define([
 						var obj = context.getObject();
 						var row = new sap.m.ColumnListItem();
 						for (var k in obj) {
-
-							row.addCell(new sap.m.Text({
-								text: obj[k]
-							}));
+							if (obj[k] == "Y") {
+								row.addCell(
+									new sap.ui.core.Icon({
+										src: "sap-icon://accept",
+										iconColor:sap.ui.core.IconColor.Positive
+									})
+								);
+							} else {
+								row.addCell(
+									new sap.m.Text({
+										text: obj[k]
+									})
+								);
+							}
 						}
 						return row;
 					});
@@ -2412,10 +2452,20 @@ sap.ui.define([
 						var obj = context.getObject();
 						var row = new sap.m.ColumnListItem();
 						for (var k in obj) {
-
-							row.addCell(new sap.m.Text({
-								text: obj[k]
-							}));
+							if (obj[k] == "Y") {
+								row.addCell(
+									new sap.ui.core.Icon({
+										src: "sap-icon://accept",
+										iconColor:sap.ui.core.IconColor.Positive
+									})
+								);
+							} else {
+								row.addCell(
+									new sap.m.Text({
+										text: obj[k]
+									})
+								);
+							}
 						}
 						return row;
 					});
@@ -2453,9 +2503,20 @@ sap.ui.define([
 						var obj = context.getObject();
 						var row = new sap.m.ColumnListItem();
 						for (var k in obj) {
-							row.addCell(new sap.m.Text({
-								text: obj[k]
-							}));
+							if (obj[k] == "Y") {
+								row.addCell(
+									new sap.ui.core.Icon({
+										src: "sap-icon://accept",
+										iconColor:sap.ui.core.IconColor.Positive
+									})
+								);
+							} else {
+								row.addCell(
+									new sap.m.Text({
+										text: obj[k]
+									})
+								);
+							}
 						}
 						return row;
 					});
@@ -2492,11 +2553,11 @@ sap.ui.define([
 			CDO_controller.mDialogs = CDO_controller.mDialogs || {};
 			var oDialog = CDO_controller.mDialogs[sDialogName];
 
-		//	if (!oDialog) {
-				oDialog = new CreateVehicleGuideDialog(CDO_controller.getView());
-				CDO_controller.mDialogs[sDialogName] = oDialog;
-				oDialog.setRouter(CDO_controller.oRouter);
-		//	}
+			//	if (!oDialog) {
+			oDialog = new CreateVehicleGuideDialog(CDO_controller.getView());
+			CDO_controller.mDialogs[sDialogName] = oDialog;
+			oDialog.setRouter(CDO_controller.oRouter);
+			//	}
 			oDialog.open();
 
 		},
@@ -2505,13 +2566,13 @@ sap.ui.define([
 			CDO_controller.mDialogs = CDO_controller.mDialogs || {};
 			var oDialog = CDO_controller.mDialogs[sDialogName];
 
-		//	if (!oDialog) {
-				oDialog = new CreateWhatsNewDialog(CDO_controller.getView());
-				CDO_controller.mDialogs[sDialogName] = oDialog;
+			//	if (!oDialog) {
+			oDialog = new CreateWhatsNewDialog(CDO_controller.getView());
+			CDO_controller.mDialogs[sDialogName] = oDialog;
 
-				// For navigation.
-				oDialog.setRouter(CDO_controller.oRouter);
-		//	}
+			// For navigation.
+			oDialog.setRouter(CDO_controller.oRouter);
+			//	}
 			oDialog.open();
 		},
 		_onCreateWalkUp: function () {
@@ -2520,13 +2581,13 @@ sap.ui.define([
 			CDO_controller.mDialogs = CDO_controller.mDialogs || {};
 			var oDialog = CDO_controller.mDialogs[sDialogName];
 
-		//	if (!oDialog) {
-				oDialog = new CreateWalkUpGuide(CDO_controller.getView());
-				CDO_controller.mDialogs[sDialogName] = oDialog;
+			//	if (!oDialog) {
+			oDialog = new CreateWalkUpGuide(CDO_controller.getView());
+			CDO_controller.mDialogs[sDialogName] = oDialog;
 
-				// For navigation.
-				oDialog.setRouter(CDO_controller.oRouter);
-		//	}
+			// For navigation.
+			oDialog.setRouter(CDO_controller.oRouter);
+			//	}
 			oDialog.open();
 		},
 		_onCreateSupplemental: function () {
@@ -2534,13 +2595,13 @@ sap.ui.define([
 			CDO_controller.mDialogs = CDO_controller.mDialogs || {};
 			var oDialog = CDO_controller.mDialogs[sDialogName];
 
-		//	if (!oDialog) {
-				oDialog = new CreateSupplementalGuide(CDO_controller.getView());
-				CDO_controller.mDialogs[sDialogName] = oDialog;
+			//	if (!oDialog) {
+			oDialog = new CreateSupplementalGuide(CDO_controller.getView());
+			CDO_controller.mDialogs[sDialogName] = oDialog;
 
-				// For navigation.
-				oDialog.setRouter(CDO_controller.oRouter);
-		//	}
+			// For navigation.
+			oDialog.setRouter(CDO_controller.oRouter);
+			//	}
 			oDialog.open();
 
 		},
@@ -2548,11 +2609,11 @@ sap.ui.define([
 			var sDialogName = "CreatePocketSummaryDialog";
 			CDO_controller.mDialogs = CDO_controller.mDialogs || {};
 			var oDialog = CDO_controller.mDialogs[sDialogName];
-		//	if (!oDialog) {
-				oDialog = new CreatePocketSummaryDialog(CDO_controller.getView());
-				CDO_controller.mDialogs[sDialogName] = oDialog;
-				oDialog.setRouter(CDO_controller.oRouter);
-		//	}
+			//	if (!oDialog) {
+			oDialog = new CreatePocketSummaryDialog(CDO_controller.getView());
+			CDO_controller.mDialogs[sDialogName] = oDialog;
+			oDialog.setRouter(CDO_controller.oRouter);
+			//	}
 			oDialog.open();
 		},
 		onExit: function () {

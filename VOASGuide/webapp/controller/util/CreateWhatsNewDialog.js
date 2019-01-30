@@ -2,8 +2,8 @@ sap.ui.define([
 	"sap/ui/base/ManagedObject",
 	"sap/m/MessageBox",
 	"./utilities",
-	"sap/ui/core/routing/History"
-], function (ManagedObject, MessageBox, utilities, History) {
+	"sap/ui/core/routing/History","com/sap/build/toyota-canada/vehiclesGuideV3/libs/jQuery.base64",
+], function (ManagedObject, MessageBox, utilities, History,base64) {
 	var CreateWhatsNewDialogController;
 	return ManagedObject.extend("com.sap.build.toyota-canada.vehiclesGuideV3.controller.util.CreateWhatsNewDialog", {
 
@@ -272,23 +272,37 @@ sap.ui.define([
 					CreateWhatsNewDialogController.nodeJsUrl = CreateWhatsNewDialogController.sPrefix + "/node";
 					var host = CreateWhatsNewDialogController.nodeJsUrl;
 					var url = host +
-						"/Z_VEHICLE_CATALOGUE_SRV/FileDownloadSet(Language='" + lang + "',Tab='WhatsNew',Model_year='" + moYear + "',Tciseries='" + serVal +
+						"/Z_VEHICLE_CATALOGUE_SRV/FileDownloadSet(Language='" + lang + "',Tab='WhatsNew',Model_year='" + moYear + "',Tciseries='" +
+						serVal +
 						"',Brand='" + brandVal + "')/$value";
-				/*	$.ajax({
+					$.ajax({
 						url: url,
 						method: 'GET',
 						async: false,
-						dataType: 'json',
+						dataType: 'text',
 						success: function (data, textStatus, jqXHR) {
-							console.log(data);
+							if (jqXHR.readyState === 4 && jqXHR.status === 200) {
+								var string = JSON.stringify(data);
+								var blob = new Blob([string], {
+									type: "octet/stream"
+								});
+							/*var url2=window.URL.createObjectURL(blob, {
+									type: "application/pdf"
+								})*/
+								//window.open(url2,'_blank');
+								var link = document.createElement('a');
+								link.href = window.URL.createObjectURL(blob,{type: "application/pdf"});
+								link.download = "PdfName-WhatsNew" + new Date().getTime() + ".pdf";
+								link.click();
+							}
 						},
 						error: function (jqXHR, textStatus, errorThrown) {
 							sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
 								sap
 								.m.MessageBox.Action.OK, null, null);
 						}
-					});*/
-					window.open(url,'_blank');
+					});
+					//window.open(url,'_blank');
 					//	alert("CreateWhatsNewDialogController should Generate and display Active (Based on Today's Date) What's New Pdf in new window");
 
 				}.bind(CreateWhatsNewDialogController))

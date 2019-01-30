@@ -1,6 +1,6 @@
-var globalData = [];
+/*var globalData = [];
 var dataEN;
-var dataFR;
+var dataFR;*/
 sap.ui.define([
 	"com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseController",
 	"com/sap/build/toyota-canada/vehiclesGuideV3/libs/jQuery.base64",
