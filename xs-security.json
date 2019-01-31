@@ -6,8 +6,14 @@
 		"name": "$XSAPPNAME.Manage_VOAS_Guides",
 		"description": "Manage VOAS guides"
 	}, {
-		"name": "$XSAPPNAME.View_VOAS_Guides",
-		"description": "View VOAS guides"
+		"name": "$XSAPPNAME.View_VOAS_Guides_Dealer_Net",
+		"description": "View VOAS guides with dealer net"
+	}, {
+		"name": "$XSAPPNAME.View_VOAS_Guides_MSRP",
+		"description": "View VOAS guides with MSRP"
+	}, {
+		"name": "$XSAPPNAME.View_VOAS_Guides_Unreleased",
+		"description": "View VOAS guides for vehicle series/model years that have not been released to dealers"
 	}],
 	"attributes": [{
 		"name": "DealerCode",
@@ -23,10 +29,22 @@
 		"valueType": "s"
 	}],
 	"role-templates": [{
+		"name": "Dealer_Admin",
+		"description": "Dealer Admin",
+		"scope-references": [
+			"$XSAPPNAME.View_VOAS_Guides_Dealer_Net",
+			"$XSAPPNAME.View_VOAS_Guides_MSRP"
+		],
+		"attribute-references": [
+			"DealerCode",
+			"Language",
+			"UserType"
+		]
+	}, {
 		"name": "Dealer_User",
 		"description": "Dealer User",
 		"scope-references": [
-			"$XSAPPNAME.View_VOAS_Guides"
+			"$XSAPPNAME.View_VOAS_Guides_MSRP"
 		],
 		"attribute-references": [
 			"DealerCode",
@@ -38,7 +56,8 @@
 		"description": "TCI Admin",
 		"scope-references": [
 			"$XSAPPNAME.Manage_VOAS_Guides",
-			"$XSAPPNAME.View_VOAS_Guides"
+			"$XSAPPNAME.View_VOAS_Guides_Dealer_Net",
+			"$XSAPPNAME.View_VOAS_Guides_MSRP"
 		],
 		"attribute-references": [
 			"Language",
@@ -48,7 +67,18 @@
 		"name": "TCI_User",
 		"description": "TCI User",
 		"scope-references": [
-			"$XSAPPNAME.View_VOAS_Guides"
+			"$XSAPPNAME.View_VOAS_Guides_MSRP"
+		],
+		"attribute-references": [
+			"Language",
+			"UserType"
+		]
+	}, {
+		"name": "TCI_User_Preliminary",
+		"description": "TCI User - Preliminary",
+		"scope-references": [
+			"$XSAPPNAME.View_VOAS_Guides_MSRP",
+			"$XSAPPNAME.View_VOAS_Guides_Unreleased"
 		],
 		"attribute-references": [
 			"Language",
