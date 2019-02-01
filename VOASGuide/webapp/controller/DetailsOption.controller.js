@@ -14,8 +14,21 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			DetailController.oRouter = sap.ui.core.UIComponent.getRouterFor(DetailController);
 			DetailController.oRouter.getTarget("DetailsOption").attachDisplay(jQuery.proxy(DetailController.handleRouteMatched,
 				DetailController));
-
+				//DetailController.getView().byId("manageSeriesBtnId").setEnabled(true);
+				DetailController._readUser();
 		},
+			_readUser:function(){
+				var userModel=sap.ui.getCore().getModel("userModel");
+				if(userModel){
+				var userData=userModel.getData();
+				if(userData.loggedUserType=="TCI_Admin"){
+					DetailController.getView().byId("manageSeriesBtnId").setEnabled(true);
+				}
+				else{
+					DetailController.getView().byId("manageSeriesBtnId").setEnabled(false);
+				}
+				}
+			},
 
 		handleRouteMatched: function (oEvent) {
 			var parseArg = JSON.parse(oEvent.getParameters().data.num);

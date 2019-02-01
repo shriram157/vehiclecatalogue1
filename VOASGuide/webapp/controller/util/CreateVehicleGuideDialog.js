@@ -14,76 +14,117 @@ sap.ui.define([
 				CreateVehicleGuideDialogController);
 			CreateVehicleGuideDialogController._bInit = false;
 		},
+		_readUserBrand: function () {
+			var brandCB = sap.ushell.components.brandCB;
+			var brandVal = brandCB.getValue();
+			var userModel = sap.ui.getCore().getModel("userModel");
+			var bpDealerModel = sap.ui.getCore().getModel("BpDealerModel");
+			var userData = [];
+			var bpData = [];
+			if (userModel) {
+				if (bpDealerModel) {
+					userData = userModel.getData();
+					bpData = bpDealerModel.getData();
+					if (userData.loggedUserType == "Dealer_User" || userData.loggedUserType == "Dealer_Admin") {
+						if (bpData[0].Division == "10") {
+							CreateVehicleGuideDialogController.getView().byId("idVeh_brandCB").setEnabled(false);
+							CreateVehicleGuideDialogController.getView().byId("idVeh_brandCB").setSelectedKey("1");
+						} else if (bpData[0].Division == "20") {
+							CreateVehicleGuideDialogController.getView().byId("idVeh_brandCB").setEnabled(false);
+							CreateVehicleGuideDialogController.getView().byId("idVeh_brandCB").setSelectedKey("2");
+						}
+					} else if (userData.loggedUserType == "TCI_User" || userData.loggedUserType == "TCI_User_Preliminary") {
+					
+							CreateVehicleGuideDialogController.getView().byId("idVeh_brandCB").setEnabled(true);
+							CreateVehicleGuideDialogController.getView().byId("idVeh_brandCB").setValue(brandVal);
+					
+					} else {
+						CreateVehicleGuideDialogController.getView().byId("idVeh_brandCB").setEnabled(true);
+					}
+				}
+			}
+		},
+		
 		onInit: function () {
-
 			CreateVehicleGuideDialogController._oDialog = CreateVehicleGuideDialogController.getControl();
 			CreateVehicleGuideDialogController.listOfBrand();
 			CreateVehicleGuideDialogController.listOfModelYear();
 			var brandCB = sap.ushell.components.brandCB;
 			var moYearCB = sap.ushell.components.modelYearCB;
 			var seriesCB = sap.ushell.components.seriesCB;
-				if (brandCB != undefined && moYearCB != undefined && seriesCB != undefined) {
-			var brandVal = brandCB.getValue();
-
-			if (brandVal != " " && brandVal != "" && brandVal != null && brandVal != undefined) {
-				CreateVehicleGuideDialogController.getView().byId("idVeh_brandCB").setValue(brandVal);
-				CreateVehicleGuideDialogController.getView().byId("idVeh_brandCB").setEnabled(false);
-			} else {
-				CreateVehicleGuideDialogController.getView().byId("idVeh_brandCB").setEnabled(true);
-			}
-			var moYearVal = moYearCB.getValue();
-			if (moYearVal != " " && moYearVal != "" && moYearVal != null && moYearVal != undefined) {
-				CreateVehicleGuideDialogController.getView().byId("idVeh_modelYearCB").setValue(moYearVal);
-				CreateVehicleGuideDialogController.getView().byId("idVeh_modelYearCB").setEnabled(false);
-			} else {
-				CreateVehicleGuideDialogController.getView().byId("idVeh_modelYearCB").setEnabled(true);
-			}
-			var seriesVal = seriesCB.getValue();
-			if (seriesVal != " " && seriesVal != "" && seriesVal != null && seriesVal != undefined) {
-				CreateVehicleGuideDialogController.getView().byId("idVeh_seriesCB").setValue(seriesVal);
-				CreateVehicleGuideDialogController.getView().byId("idVeh_seriesCB").setEnabled(false);
-			} else {
-				CreateVehicleGuideDialogController.getView().byId("idVeh_seriesCB").setEnabled(true);
-				var sLocation = window.location.host;
-				var sLocation_conf = sLocation.search("webide");
-				if (sLocation_conf == 0) {
-					CreateVehicleGuideDialogController.sPrefix = "/voasguide_node";
+			var userAttributesModel = sap.ui.getCore().getModel("userAttributesModel");
+			var langData, Language, LanguageState;
+			if (userAttributesModel) {
+				langData = userAttributesModel.getData();
+				Language = langData[0].Language[0];
+				if (Language == "English") {
+					LanguageState = true;
 				} else {
-					CreateVehicleGuideDialogController.sPrefix = "";
+					LanguageState = false;
 				}
-				CreateVehicleGuideDialogController.nodeJsUrl = CreateVehicleGuideDialogController.sPrefix + "/node";
-				var host = CreateVehicleGuideDialogController.nodeJsUrl;
-				var url = host +
-					"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(Brand eq '" + brandVal + "' and Modelyear eq '" + moYearVal +
-					"')";
-				$.ajax({
-					url: url,
-					method: 'GET',
-					async: false,
-					dataType: 'json',
-					success: function (data, textStatus, jqXHR) {
-						var oModel = new sap.ui.model.json.JSONModel();
-						var arr = [];
-						var j = 0;
-						for (var c = 0; c < data.d.results.length; c++) {
-							for (var i = 0; i < data.d.results.length; i++) {
-								if ($.inArray(data.d.results[i]["TCISeries"], arr) < 0) {
-									arr[j] = data.d.results[i]["TCISeries"];
-									j++;
+			}
+			CreateVehicleGuideDialogController.getView().byId("idVehCreate_Lang").setState(LanguageState);
+			if (brandCB != undefined && moYearCB != undefined && seriesCB != undefined) {
+				var brandVal = brandCB.getValue();
+
+				if (brandVal != " " && brandVal != "" && brandVal != null && brandVal != undefined) {
+					CreateVehicleGuideDialogController._readUserBrand();
+				} else {
+					CreateVehicleGuideDialogController.getView().byId("idVeh_brandCB").setEnabled(true);
+				}
+				var moYearVal = moYearCB.getValue();
+				if (moYearVal != " " && moYearVal != "" && moYearVal != null && moYearVal != undefined) {
+					CreateVehicleGuideDialogController.getView().byId("idVeh_modelYearCB").setValue(moYearVal);
+					//	CreateVehicleGuideDialogController.getView().byId("idVeh_modelYearCB").setEnabled(false);
+				} else {
+					CreateVehicleGuideDialogController.getView().byId("idVeh_modelYearCB").setEnabled(true);
+				}
+				var seriesVal = seriesCB.getValue();
+				if (seriesVal != " " && seriesVal != "" && seriesVal != null && seriesVal != undefined) {
+					CreateVehicleGuideDialogController.getView().byId("idVeh_seriesCB").setValue(seriesVal);
+					//	CreateVehicleGuideDialogController.getView().byId("idVeh_seriesCB").setEnabled(false);
+				} else {
+					CreateVehicleGuideDialogController.getView().byId("idVeh_seriesCB").setEnabled(true);
+					var sLocation = window.location.host;
+					var sLocation_conf = sLocation.search("webide");
+					if (sLocation_conf == 0) {
+						CreateVehicleGuideDialogController.sPrefix = "/voasguide_node";
+					} else {
+						CreateVehicleGuideDialogController.sPrefix = "";
+					}
+					CreateVehicleGuideDialogController.nodeJsUrl = CreateVehicleGuideDialogController.sPrefix + "/node";
+					var host = CreateVehicleGuideDialogController.nodeJsUrl;
+					var url = host +
+						"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(Brand eq '" + brandVal + "' and Modelyear eq '" + moYearVal +
+						"')";
+					$.ajax({
+						url: url,
+						method: 'GET',
+						async: false,
+						dataType: 'json',
+						success: function (data, textStatus, jqXHR) {
+							var oModel = new sap.ui.model.json.JSONModel();
+							var arr = [];
+							var j = 0;
+							for (var c = 0; c < data.d.results.length; c++) {
+								for (var i = 0; i < data.d.results.length; i++) {
+									if ($.inArray(data.d.results[i]["TCISeries"], arr) < 0) {
+										arr[j] = data.d.results[i]["TCISeries"];
+										j++;
+									}
 								}
 							}
+							oModel.setData(arr);
+							CreateVehicleGuideDialogController.getView().setModel(oModel, "seriesdropDownModelNew");
+						},
+						error: function (jqXHR, textStatus, errorThrown) {
+							sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
+								sap
+								.m.MessageBox.Action.OK, null, null);
 						}
-						oModel.setData(arr);
-						CreateVehicleGuideDialogController.getView().setModel(oModel, "seriesdropDownModelNew");
-					},
-					error: function (jqXHR, textStatus, errorThrown) {
-						sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
-							sap
-							.m.MessageBox.Action.OK, null, null);
-					}
-				});
-			}
+					});
 				}
+			}
 		},
 		listOfBrand: function () {
 			var data = {
@@ -272,23 +313,24 @@ sap.ui.define([
 					CreateVehicleGuideDialogController.nodeJsUrl = CreateVehicleGuideDialogController.sPrefix + "/node";
 					var host = CreateVehicleGuideDialogController.nodeJsUrl;
 					var url = host +
-						"/Z_VEHICLE_CATALOGUE_SRV/FileDownloadSet(Language='" + lang + "',Tab='WhatsNew',Model_year='" + moYear + "',Tciseries='" + serVal +
-						"',Brand='" + brandVal +"',DealerNet='" + dealer + "')/$value";
-				/*	$.ajax({
-						url: url,
-						method: 'GET',
-						async: false,
-						dataType: 'json',
-						success: function (data, textStatus, jqXHR) {
-							console.log(data);
-						},
-						error: function (jqXHR, textStatus, errorThrown) {
-							sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
-								sap
-								.m.MessageBox.Action.OK, null, null);
-						}
-					});*/
-					window.open(url,'_blank');
+						"/Z_VEHICLE_CATALOGUE_SRV/FileDownloadSet(Language='" + lang + "',Tab='WhatsNew',Model_year='" + moYear + "',Tciseries='" +
+						serVal +
+						"',Brand='" + brandVal + "',DealerNet='" + dealer + "')/$value";
+					/*	$.ajax({
+							url: url,
+							method: 'GET',
+							async: false,
+							dataType: 'json',
+							success: function (data, textStatus, jqXHR) {
+								console.log(data);
+							},
+							error: function (jqXHR, textStatus, errorThrown) {
+								sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
+									sap
+									.m.MessageBox.Action.OK, null, null);
+							}
+						});*/
+					window.open(url, '_blank');
 					//	alert("CreateVehicleGuideDialogController should Generate and display Active (Based on Today's Date) What's New Pdf in new window");
 
 				}.bind(CreateVehicleGuideDialogController))

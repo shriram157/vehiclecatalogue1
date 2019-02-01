@@ -19,17 +19,17 @@
 					<filterbar:FilterBar id="filterBar" useToolbar="false" showGoOnFB="false" search="pressGo" searchEnabled="true"
 						showFilterConfiguration="false">
 						<filterbar:filterItems>
-							<filterbar:FilterItem label="Brand"
+							<filterbar:FilterItem label="{i18n>Brand}"
 								name="Fiori_ListReport_ListReport_0-filterBars-Fiori_ListReport_FilterBar-1-filters-Fiori_ListReport_ComboBoxFilter-1538670414396---0">
 								<filterbar:control>
-									<ComboBox id="id_brandCB" change="onChange_Brand" items="{path:'brandModel>/modelBrand', templateShareable:true}">
+									<ComboBox id="id_brandCB" enabled="true" change="onChange_Brand" items="{path:'brandModel>/modelBrand', templateShareable:true}">
 										<items>
 											<core:Item key="{brandModel>key}" text="{brandModel>text}"/>
 										</items>
 									</ComboBox>
 								</filterbar:control>
 							</filterbar:FilterItem>
-							<filterbar:FilterItem label="Model Year"
+							<filterbar:FilterItem label="{i18n>ModelYear}"
 								name="Fiori_ListReport_ListReport_0-filterBars-Fiori_ListReport_FilterBar-1-filters-Fiori_ListReport_ComboBoxFilter-1538673647772---0">
 								<filterbar:control>
 									<ComboBox id="id_modelYearCB" change="onChange_ModelYear" enabled="false" items="{path:'yearModel>/modelYear', templateShareable:true}">
@@ -39,7 +39,7 @@
 									</ComboBox>
 								</filterbar:control>
 							</filterbar:FilterItem>
-							<filterbar:FilterItem label="Series"
+							<filterbar:FilterItem label="{i18n>Series}"
 								name="Fiori_ListReport_ListReport_0-filterBars-Fiori_ListReport_FilterBar-1-filters-Fiori_ListReport_ComboBoxFilter-1538673653531---0">
 								<filterbar:control>
 									<ComboBox id="id_seriesCB" change="onChange_Series" enabled="false" items="{path:'seriesdropDownModel>/', templateShareable:true}">
@@ -49,7 +49,7 @@
 									</ComboBox>
 								</filterbar:control>
 							</filterbar:FilterItem>
-							<filterbar:FilterItem label="Model"
+							<filterbar:FilterItem label="{i18n>Model}"
 								name="Fiori_ListReport_ListReport_0-filterBars-Fiori_ListReport_FilterBar-1-filters-Fiori_ListReport_ComboBoxFilter-1538673654522---0">
 								<filterbar:control>
 									<MultiComboBox id="id_modelCB" selectionFinish="onChange_Model" enabled="false" items="{path:'dropDownModel>/', templateShareable:true}">
@@ -59,7 +59,7 @@
 									</MultiComboBox>
 								</filterbar:control>
 							</filterbar:FilterItem>
-							<filterbar:FilterItem label="Suffix"
+							<filterbar:FilterItem label="{i18n>Suffix}"
 								name="Fiori_ListReport_ListReport_0-filterBars-Fiori_ListReport_FilterBar-1-filters-Fiori_ListReport_ComboBoxFilter-1538673656505---0">
 								<filterbar:control>
 									<MultiComboBox id="id_suffixCB" enabled="false" selectionFinish="onChange_Suffix"
@@ -88,15 +88,15 @@
 					<OverflowToolbar height="46px" design="Solid" visible="true" enabled="true">
 						<content>
 							<ToolbarSpacer width=""/>
-							<Button text="What's New" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true" enabled="true" visible="true"
+							<Button text="{i18n>WhatsNew}" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true" enabled="true" visible="true"
 								iconDensityAware="false" press="_onCreateWhatsNew"/>
-							<Button text="Walk-up" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true" enabled="true" visible="true"
+							<Button text="{i18n>WalkUp}" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true" enabled="true" visible="true"
 								iconDensityAware="false" press="_onCreateWalkUp"/>
-							<Button text="Supplemental" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true" enabled="true" visible="true"
+							<Button text="{i18n>Supplemental}" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true" enabled="true" visible="true"
 								iconDensityAware="false" press="_onCreateSupplemental"/>
-							<Button text="Vehicle Guide" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true" enabled="true" visible="true"
+							<Button text="{i18n>VehicleGuide}" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true" enabled="true" visible="true"
 								iconDensityAware="false" press="_onCreateVehGuide"/>
-							<Button text="Pocket Summary" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true" enabled="true" visible="true"
+							<Button text="{i18n>PocketSummary}" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true" enabled="true" visible="true"
 								iconDensityAware="false" press="_onCreatePocSum"/>
 						</content>
 					</OverflowToolbar>
@@ -106,10 +106,10 @@
 						<headerToolbar>
 							<OverflowToolbar design="Transparent">
 								<content>
-									<Title textAlign="Begin" text="Vehicle Ordering Guide - Search Results"/>
+									<Title textAlign="Begin" text="{i18n>VehOrdGuideSearchText}"/>
 									<Title id="id_SP_noOfData" text="(0)"/>
 									<ToolbarSpacer/>
-									<Button text="Compare" icon="sap-icon://compare" iconFirst="true" type="Transparent" enabled="true" press="_navToCompare">
+									<Button text="{i18n>Compare}" icon="sap-icon://compare" iconFirst="true" type="Transparent" enabled="true" press="_navToCompare">
 										<layoutData>
 											<OverflowToolbarLayoutData/>
 										</layoutData>
@@ -128,7 +128,7 @@
 									<Text text="{i18n>Features}"/>
 								</header>
 							</Column>
-							<Column minScreenWidth="Phone" width="25%">
+							<Column id="priceColTblIdSearch" visible="true" minScreenWidth="Phone" width="25%">
 								<header>
 									<Text text="{i18n>Price}"/>
 								</header>
@@ -145,8 +145,8 @@
 										text="{parts: [{path:'searchTblModel>Features'},{path:'searchTblModel>Features'}] , formatter: 'formatter.formatFeatures'}"/>
 									<!--				<ObjectIdentifier text="Dealer Net: {searchTblModel>NETPRICE}" title="MSRP: {searchTblModel>MSRP}"/>-->
 									<ObjectIdentifier
-										text="{parts: [{path:'searchTblModel>NETPRICE'},{path:'searchTblModel>NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"
-										title="{parts: [{path:'searchTblModel>MSRP'},{path:'searchTblModel>MSRP'}] , formatter: 'formatter.decimalFormatter'}"/>
+										text="{i18n>DealerNet}{parts: [{path:'searchTblModel>NETPRICE'},{path:'searchTblModel>NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"
+										title="{i18n>MSRP}{parts: [{path:'searchTblModel>MSRP'},{path:'searchTblModel>MSRP'}] , formatter: 'formatter.decimalFormatter'}"/>
 								</cells>
 							</ColumnListItem>
 						</items>

@@ -13,6 +13,36 @@ sap.ui.define([
 				"com.sap.build.toyota-canada.vehiclesGuideV3.fragments.CreateSupplementalGuide", CreateSuppGuideController);
 			CreateSuppGuideController._bInit = false;
 		},
+		_readUserBrand: function () {
+			var brandCB = sap.ushell.components.brandCB;
+			var brandVal = brandCB.getValue();
+			var userModel = sap.ui.getCore().getModel("userModel");
+			var bpDealerModel = sap.ui.getCore().getModel("BpDealerModel");
+			var userData = [];
+			var bpData = [];
+			if (userModel) {
+				if (bpDealerModel) {
+					userData = userModel.getData();
+					bpData = bpDealerModel.getData();
+					if (userData.loggedUserType == "Dealer_User" || userData.loggedUserType == "Dealer_Admin") {
+						if (bpData[0].Division == "10") {
+							CreateSuppGuideController.getView().byId("idSupp_brandCB").setEnabled(false);
+							CreateSuppGuideController.getView().byId("idSupp_brandCB").setSelectedKey("1");
+						} else if (bpData[0].Division == "20") {
+							CreateSuppGuideController.getView().byId("idSupp_brandCB").setEnabled(false);
+							CreateSuppGuideController.getView().byId("idSupp_brandCB").setSelectedKey("2");
+						}
+					} else if (userData.loggedUserType == "TCI_User" || userData.loggedUserType == "TCI_User_Preliminary") {
+						
+							CreateSuppGuideController.getView().byId("idSupp_brandCB").setEnabled(true);
+							CreateSuppGuideController.getView().byId("idSupp_brandCB").setValue(brandVal);
+						
+					} else {
+						CreateSuppGuideController.getView().byId("idSupp_brandCB").setEnabled(true);
+					}
+				}
+			}
+		},
 		onInit: function () {
 
 			CreateSuppGuideController._oDialog = CreateSuppGuideController.getControl();
@@ -21,26 +51,37 @@ sap.ui.define([
 			var brandCB = sap.ushell.components.brandCB;
 			var moYearCB = sap.ushell.components.modelYearCB;
 			var seriesCB = sap.ushell.components.seriesCB;
+			var userAttributesModel = sap.ui.getCore().getModel("userAttributesModel");
+			var langData, Language, LanguageState;
+			if (userAttributesModel) {
+				langData = userAttributesModel.getData();
+				Language = langData[0].Language[0];
+				if (Language == "English") {
+					LanguageState = true;
+				} else {
+					LanguageState = false;
+				}
+			}
+			CreateSuppGuideController.getView().byId("idCreateSupp_LangSwitch").setState(LanguageState);
 			if (brandCB != undefined && moYearCB != undefined && seriesCB != undefined) {
 				var brandVal = brandCB.getValue();
 
 				if (brandVal != " " && brandVal != "" && brandVal != null && brandVal != undefined) {
-					CreateSuppGuideController.getView().byId("idSupp_brandCB").setValue(brandVal);
-					CreateSuppGuideController.getView().byId("idSupp_brandCB").setEnabled(false);
+					CreateSuppGuideController._readUserBrand();
 				} else {
 					CreateSuppGuideController.getView().byId("idSupp_brandCB").setEnabled(true);
 				}
 				var moYearVal = moYearCB.getValue();
 				if (moYearVal != " " && moYearVal != "" && moYearVal != null && moYearVal != undefined) {
 					CreateSuppGuideController.getView().byId("idSupp_modelYearCB").setValue(moYearVal);
-					CreateSuppGuideController.getView().byId("idSupp_modelYearCB").setEnabled(false);
+					//	CreateSuppGuideController.getView().byId("idSupp_modelYearCB").setEnabled(false);
 				} else {
 					CreateSuppGuideController.getView().byId("idSupp_modelYearCB").setEnabled(true);
 				}
 				var seriesVal = seriesCB.getValue();
 				if (seriesVal != " " && seriesVal != "" && seriesVal != null && seriesVal != undefined) {
 					CreateSuppGuideController.getView().byId("idSupp_seriesCB").setValue(seriesVal);
-					CreateSuppGuideController.getView().byId("idSupp_seriesCB").setEnabled(false);
+					//	CreateSuppGuideController.getView().byId("idSupp_seriesCB").setEnabled(false);
 				} else {
 					CreateSuppGuideController.getView().byId("idSupp_seriesCB").setEnabled(true);
 					var sLocation = window.location.host;
@@ -278,11 +319,11 @@ sap.ui.define([
 								var blob = new Blob([string], {
 									type: "octet/stream"
 								});
-							/*var url2=window.URL.createObjectURL(blob, {
-									type: "application/pdf"
-								})*/
+								/*var url2=window.URL.createObjectURL(blob, {
+										type: "application/pdf"
+									})*/
 								//window.open(url2,'_blank');
-							
+
 								var link = document.createElement('a');
 								link.href = window.URL.createObjectURL(blob);
 								link.download = "PdfName-SupplementGuide" + new Date().getTime() + ".pdf";
@@ -299,7 +340,7 @@ sap.ui.define([
 								.m.MessageBox.Action.OK, null, null);
 						}
 					});
-				//	window.open(url, '_blank');
+					//	window.open(url, '_blank');
 					//	alert("CreateSuppGuideController should Generate and display Active (Based on Today's Date) What's New Pdf in new window");
 
 				}.bind(CreateSuppGuideController))

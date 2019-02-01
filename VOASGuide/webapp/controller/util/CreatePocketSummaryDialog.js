@@ -14,6 +14,36 @@ sap.ui.define([
 				CreatePocketSumController);
 			CreatePocketSumController._bInit = false;
 		},
+		_readUserBrand: function () {
+			var brandCB = sap.ushell.components.brandCB;
+			var brandVal = brandCB.getValue();
+			var userModel = sap.ui.getCore().getModel("userModel");
+			var bpDealerModel = sap.ui.getCore().getModel("BpDealerModel");
+			var userData = [];
+			var bpData = [];
+			if (userModel) {
+				if (bpDealerModel) {
+					userData = userModel.getData();
+					bpData = bpDealerModel.getData();
+					if (userData.loggedUserType == "Dealer_User" || userData.loggedUserType == "Dealer_Admin") {
+						if (bpData[0].Division == "10") {
+							CreatePocketSumController.getView().byId("idPoc_brandCB").setEnabled(false);
+							CreatePocketSumController.getView().byId("idPoc_brandCB").setSelectedKey("1");
+						} else if (bpData[0].Division == "20") {
+							CreatePocketSumController.getView().byId("idPoc_brandCB").setEnabled(false);
+							CreatePocketSumController.getView().byId("idPoc_brandCB").setSelectedKey("2");
+						}
+					} else if (userData.loggedUserType == "TCI_User" || userData.loggedUserType == "TCI_User_Preliminary") {
+					
+							CreatePocketSumController.getView().byId("idPoc_brandCB").setEnabled(true);
+							CreatePocketSumController.getView().byId("idPoc_brandCB").setValue(brandVal);
+					
+					} else {
+						CreatePocketSumController.getView().byId("idPoc_brandCB").setEnabled(true);
+					}
+				}
+			}
+		},
 		onInit: function () {
 
 			CreatePocketSumController._oDialog = CreatePocketSumController.getControl();
@@ -21,22 +51,31 @@ sap.ui.define([
 			CreatePocketSumController.listOfModelYear();
 			var brandCB = sap.ushell.components.brandCB;
 			var moYearCB = sap.ushell.components.modelYearCB;
+			var userAttributesModel = sap.ui.getCore().getModel("userAttributesModel");
+			var langData, Language, LanguageState;
+			if (userAttributesModel) {
+				langData = userAttributesModel.getData();
+				Language = langData[0].Language[0];
+				if (Language == "English") {
+					LanguageState = true;
+				} else {
+					LanguageState = false;
+				}
+			}
+			CreatePocketSumController.getView().byId("id_poc_LangSwitch").setState(LanguageState);
 			if (brandCB != undefined && moYearCB != undefined) {
-				//	var seriesCB = sap.ushell.components.seriesCB;
 				var brandVal = brandCB.getValue();
-
+				var moYearVal = moYearCB.getValue();
 				if (brandVal != " " && brandVal != "" && brandVal != null && brandVal != undefined) {
-					CreatePocketSumController.getView().byId("idPoc_brandCB").setValue(brandVal);
-					CreatePocketSumController.getView().byId("idPoc_brandCB").setEnabled(false);
+					CreatePocketSumController._readUserBrand();
 				} else {
 					CreatePocketSumController.getView().byId("idPoc_brandCB").setEnabled(true);
 				}
-				var moYearVal = moYearCB.getValue();
 				if (moYearVal != " " && moYearVal != "" && moYearVal != null && moYearVal != undefined) {
 					CreatePocketSumController.getView().byId("idPoc_modelYearCB").setValue(moYearVal);
-					CreatePocketSumController.getView().byId("idPoc_modelYearCB").setEnabled(false);
+					//	CreatePocketSumController.getView().byId("idPoc_modelYearCB").setEnabled(false);
 				} else {
-					CreatePocketSumController.getView().byId("idPoc_modelYearCB").setEnabled(true);
+					//	CreatePocketSumController.getView().byId("idPoc_modelYearCB").setEnabled(true);
 				}
 			}
 		},
@@ -225,23 +264,24 @@ sap.ui.define([
 					CreatePocketSumController.nodeJsUrl = CreatePocketSumController.sPrefix + "/node";
 					var host = CreatePocketSumController.nodeJsUrl;
 					var url = host +
-						"/Z_VEHICLE_CATALOGUE_SRV/FileDownloadSet(Language='" + lang + "',Tab='WhatsNew',Model_year='" + moYear + "',Brand='" + brandVal +
+						"/Z_VEHICLE_CATALOGUE_SRV/FileDownloadSet(Language='" + lang + "',Tab='WhatsNew',Model_year='" + moYear + "',Brand='" +
+						brandVal +
 						"',DealerNet='" + dealer + "')/$value";
-				/*	$.ajax({
-						url: url,
-						method: 'GET',
-						async: false,
-						dataType: 'json',
-						success: function (data, textStatus, jqXHR) {
-							console.log(data);
-						},
-						error: function (jqXHR, textStatus, errorThrown) {
-							sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
-								sap
-								.m.MessageBox.Action.OK, null, null);
-						}
-					});*/
-					window.open(url,'_blank');
+					/*	$.ajax({
+							url: url,
+							method: 'GET',
+							async: false,
+							dataType: 'json',
+							success: function (data, textStatus, jqXHR) {
+								console.log(data);
+							},
+							error: function (jqXHR, textStatus, errorThrown) {
+								sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
+									sap
+									.m.MessageBox.Action.OK, null, null);
+							}
+						});*/
+					window.open(url, '_blank');
 
 					//	alert("CreatePocketSumController should Generate and display Active (Based on Today's Date) What's New Pdf in new window");
 

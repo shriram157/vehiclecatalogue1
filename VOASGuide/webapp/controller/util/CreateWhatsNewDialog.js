@@ -2,8 +2,9 @@ sap.ui.define([
 	"sap/ui/base/ManagedObject",
 	"sap/m/MessageBox",
 	"./utilities",
-	"sap/ui/core/routing/History","com/sap/build/toyota-canada/vehiclesGuideV3/libs/jQuery.base64",
-], function (ManagedObject, MessageBox, utilities, History,base64) {
+	"sap/ui/core/routing/History", "com/sap/build/toyota-canada/vehiclesGuideV3/libs/jQuery.base64",
+	"com/sap/build/toyota-canada/vehiclesGuideV3/libs/jspdf.min"
+], function (ManagedObject, MessageBox, utilities, History, base64, jspdfmin) {
 	var CreateWhatsNewDialogController;
 	return ManagedObject.extend("com.sap.build.toyota-canada.vehiclesGuideV3.controller.util.CreateWhatsNewDialog", {
 
@@ -15,6 +16,36 @@ sap.ui.define([
 				CreateWhatsNewDialogController);
 			CreateWhatsNewDialogController._bInit = false;
 		},
+		_readUserBrand: function () {
+			var brandCB = sap.ushell.components.brandCB;
+			var brandVal = brandCB.getValue();
+			var userModel = sap.ui.getCore().getModel("userModel");
+			var bpDealerModel = sap.ui.getCore().getModel("BpDealerModel");
+			var userData = [];
+			var bpData = [];
+			if (userModel) {
+				if (bpDealerModel) {
+					userData = userModel.getData();
+					bpData = bpDealerModel.getData();
+					if (userData.loggedUserType == "Dealer_User" || userData.loggedUserType == "Dealer_Admin") {
+						if (bpData[0].Division == "10") {
+							CreateWhatsNewDialogController.getView().byId("idNew_brandCB").setEnabled(false);
+							CreateWhatsNewDialogController.getView().byId("idNew_brandCB").setSelectedKey("1");
+						} else if (bpData[0].Division == "20") {
+							CreateWhatsNewDialogController.getView().byId("idNew_brandCB").setEnabled(false);
+							CreateWhatsNewDialogController.getView().byId("idNew_brandCB").setSelectedKey("2");
+						}
+					} else if (userData.loggedUserType == "TCI_User" || userData.loggedUserType == "TCI_User_Preliminary") {
+
+						CreateWhatsNewDialogController.getView().byId("idNew_brandCB").setEnabled(true);
+						CreateWhatsNewDialogController.getView().byId("idNew_brandCB").setValue(brandVal);
+
+					} else {
+						CreateWhatsNewDialogController.getView().byId("idNew_brandCB").setEnabled(true);
+					}
+				}
+			}
+		},
 		onInit: function () {
 
 			CreateWhatsNewDialogController._oDialog = CreateWhatsNewDialogController.getControl();
@@ -23,25 +54,36 @@ sap.ui.define([
 			var brandCB = sap.ushell.components.brandCB;
 			var moYearCB = sap.ushell.components.modelYearCB;
 			var seriesCB = sap.ushell.components.seriesCB;
+			var userAttributesModel = sap.ui.getCore().getModel("userAttributesModel");
+			var langData, Language, LanguageState;
+			if (userAttributesModel) {
+				langData = userAttributesModel.getData();
+				Language = langData[0].Language[0];
+				if (Language == "English") {
+					LanguageState = true;
+				} else {
+					LanguageState = false;
+				}
+			}
+			CreateWhatsNewDialogController.getView().byId("idNew_lanSwitch").setState(LanguageState);
 			if (brandCB != undefined && moYearCB != undefined && seriesCB != undefined) {
 				var brandVal = brandCB.getValue();
 				if (brandVal != " " && brandVal != "" && brandVal != null && brandVal != undefined) {
-					CreateWhatsNewDialogController.getView().byId("idNew_brandCB").setValue(brandVal);
-					CreateWhatsNewDialogController.getView().byId("idNew_brandCB").setEnabled(false);
+					CreateWhatsNewDialogController._readUserBrand();
 				} else {
 					CreateWhatsNewDialogController.getView().byId("idNew_brandCB").setEnabled(true);
 				}
 				var moYearVal = moYearCB.getValue();
 				if (moYearVal != " " && moYearVal != "" && moYearVal != null && moYearVal != undefined) {
 					CreateWhatsNewDialogController.getView().byId("idNew_modelYearCB").setValue(moYearVal);
-					CreateWhatsNewDialogController.getView().byId("idNew_modelYearCB").setEnabled(false);
+					//	CreateWhatsNewDialogController.getView().byId("idNew_modelYearCB").setEnabled(false);
 				} else {
 					CreateWhatsNewDialogController.getView().byId("idNew_modelYearCB").setEnabled(true);
 				}
 				var seriesVal = seriesCB.getValue();
 				if (seriesVal != " " && seriesVal != "" && seriesVal != null && seriesVal != undefined) {
 					CreateWhatsNewDialogController.getView().byId("id_seriesCBNew").setValue(seriesVal);
-					CreateWhatsNewDialogController.getView().byId("id_seriesCBNew").setEnabled(false);
+					//	CreateWhatsNewDialogController.getView().byId("id_seriesCBNew").setEnabled(false);
 				} else {
 					CreateWhatsNewDialogController.getView().byId("id_seriesCBNew").setEnabled(true);
 					var sLocation = window.location.host;
@@ -272,7 +314,7 @@ sap.ui.define([
 					CreateWhatsNewDialogController.nodeJsUrl = CreateWhatsNewDialogController.sPrefix + "/node";
 					var host = CreateWhatsNewDialogController.nodeJsUrl;
 					var url = host +
-						"/Z_VEHICLE_CATALOGUE_SRV/FileDownloadSet(Language='" + lang + "',Tab='WhatsNew',Model_year='" + moYear + "',Tciseries='" +
+						"/Z_VEHICLE_CATALOGUE_SRV/FileDownloadSet(Language='" + lang + "',Tab='suppliment',Model_year='" + moYear + "',Tciseries='" +
 						serVal +
 						"',Brand='" + brandVal + "')/$value";
 					$.ajax({
@@ -281,19 +323,122 @@ sap.ui.define([
 						async: false,
 						dataType: 'text',
 						success: function (data, textStatus, jqXHR) {
+							//	console.log(data);
+							var Base64 = {
+								_keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
+								encode: function (e) {
+									var t = "";
+									var n, r, i, s, o, u, a;
+									var f = 0;
+									e = Base64._utf8_encode(e);
+									while (f < e.length) {
+										n = e.charCodeAt(f++);
+										r = e.charCodeAt(f++);
+										i = e.charCodeAt(f++);
+										s = n >> 2;
+										o = (n & 3) << 4 | r >> 4;
+										u = (r & 15) << 2 | i >> 6;
+										a = i & 63;
+										if (isNaN(r)) {
+											u = a = 64
+										} else if (isNaN(i)) {
+											a = 64
+										}
+										t = t + this._keyStr.charAt(s) + this._keyStr.charAt(o) + this._keyStr.charAt(u) + this._keyStr.charAt(a)
+									}
+									return t
+								},
+								decode: function (e) {
+									var t = "";
+									var n, r, i;
+									var s, o, u, a;
+									var f = 0;
+									//e = e.replace(/++[++^A-Za-z0-9+/=]/g, "");
+									e = e.replace(/\\+\\+[++^A-Za-z0-9+/=]/g, "");
+									while (f < e.length) {
+										s = this._keyStr.indexOf(e.charAt(f++));
+										o = this._keyStr.indexOf(e.charAt(f++));
+										u = this._keyStr.indexOf(e.charAt(f++));
+										a = this._keyStr.indexOf(e.charAt(f++));
+										n = s << 2 | o >> 4;
+										r = (o & 15) << 4 | u >> 2;
+										i = (u & 3) << 6 | a;
+										t = t + String.fromCharCode(n);
+										if (u != 64) {
+											t = t + String.fromCharCode(r)
+										}
+										if (a != 64) {
+											t = t + String.fromCharCode(i)
+										}
+									}
+									t = Base64._utf8_decode(t);
+									return t
+								},
+								_utf8_encode: function (e) {
+									e = e.replace(/\r\n/g, "n");
+									var t = "";
+									for (var n = 0; n < e.length; n++) {
+										var r = e.charCodeAt(n);
+										if (r < 128) {
+											t += String.fromCharCode(r)
+										} else if (r > 127 && r < 2048) {
+											t += String.fromCharCode(r >> 6 | 192);
+											t += String.fromCharCode(r & 63 | 128)
+										} else {
+											t += String.fromCharCode(r >> 12 | 224);
+											t += String.fromCharCode(r >> 6 & 63 | 128);
+											t += String.fromCharCode(r & 63 | 128)
+										}
+									}
+									return t
+								},
+								_utf8_decode: function (e) {
+									var t = "";
+									var n = 0;
+									var r = 0;
+									var c1 = 0;
+									var c2 = 0;
+									//var c3=0;
+									while (n < e.length) {
+										r = e.charCodeAt(n);
+										if (r < 128) {
+											t += String.fromCharCode(r);
+											n++;
+										} else if (r > 191 && r < 224) {
+											c2 = e.charCodeAt(n + 1);
+											t += String.fromCharCode((r & 31) << 6 | c2 & 63);
+											n += 2
+										} else {
+											c2 = e.charCodeAt(n + 1);
+											c3 = e.charCodeAt(n + 2);
+											t += String.fromCharCode((r & 15) << 12 | (c2 & 63) << 6 | c3 & 63);
+											n += 3;
+										}
+									}
+									return t;
+								}
+							};
+							var decodedString = Base64.decode(data);
+
 							if (jqXHR.readyState === 4 && jqXHR.status === 200) {
 								var string = JSON.stringify(data);
+								/*var blob = new Blob([string], {
+									type: "text/plain"
+								});*/
 								var blob = new Blob([string], {
-									type: "octet/stream"
-								});
-							/*var url2=window.URL.createObjectURL(blob, {
 									type: "application/pdf"
-								})*/
-								//window.open(url2,'_blank');
-								var link = document.createElement('a');
-								link.href = window.URL.createObjectURL(blob,{type: "application/pdf"});
+								});
+								var url2 = window.URL.createObjectURL(blob, {
+									type: "application/pdf"
+								});
+								window.open(url2, '_blank');
+								/*var link = document.createElement('a');
+								link.href = window.URL.createObjectURL(blob, {
+									type: "application/pdf"
+								});
 								link.download = "PdfName-WhatsNew" + new Date().getTime() + ".pdf";
-								link.click();
+								link.click();*/
+
 							}
 						},
 						error: function (jqXHR, textStatus, errorThrown) {

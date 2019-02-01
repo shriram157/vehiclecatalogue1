@@ -13,6 +13,36 @@ sap.ui.define([
 				"com.sap.build.toyota-canada.vehiclesGuideV3.fragments.CreateWalkUpGuide", CreateWalkUpDialogController);
 			CreateWalkUpDialogController._bInit = false;
 		},
+			_readUserBrand: function () {
+				var brandCB = sap.ushell.components.brandCB;
+			var brandVal = brandCB.getValue();
+			var userModel = sap.ui.getCore().getModel("userModel");
+			var bpDealerModel = sap.ui.getCore().getModel("BpDealerModel");
+			var userData = [];
+			var bpData = [];
+			if (userModel) {
+				if (bpDealerModel) {
+					userData = userModel.getData();
+					bpData = bpDealerModel.getData();
+					if (userData.loggedUserType == "Dealer_User" || userData.loggedUserType == "Dealer_Admin") {
+						if (bpData[0].Division == "10") {
+							CreateWalkUpDialogController.getView().byId("idWalk_brandCB").setEnabled(false);
+							CreateWalkUpDialogController.getView().byId("idWalk_brandCB").setSelectedKey("1");
+						} else if (bpData[0].Division == "20") {
+							CreateWalkUpDialogController.getView().byId("idWalk_brandCB").setEnabled(false);
+							CreateWalkUpDialogController.getView().byId("idWalk_brandCB").setSelectedKey("2");
+						}
+					} else if (userData.loggedUserType == "TCI_User" || userData.loggedUserType == "TCI_User_Preliminary") {
+						
+							CreateWalkUpDialogController.getView().byId("idWalk_brandCB").setEnabled(true);
+							CreateWalkUpDialogController.getView().byId("idWalk_brandCB").setValue(brandVal);
+						
+					} else {
+						CreateWalkUpDialogController.getView().byId("idWalk_brandCB").setEnabled(true);
+					}
+				}
+			}
+		},
 		onInit: function () {
 
 			CreateWalkUpDialogController._oDialog = CreateWalkUpDialogController.getControl();
@@ -21,26 +51,37 @@ sap.ui.define([
 			var brandCB = sap.ushell.components.brandCB;
 			var moYearCB = sap.ushell.components.modelYearCB;
 			var seriesCB = sap.ushell.components.seriesCB;
+			var userAttributesModel = sap.ui.getCore().getModel("userAttributesModel");
+			var langData, Language, LanguageState;
+			if (userAttributesModel) {
+				langData = userAttributesModel.getData();
+				Language = langData[0].Language[0];
+				if (Language == "English") {
+					LanguageState = true;
+				} else {
+					LanguageState = false;
+				}
+			}
+			CreateWalkUpDialogController.getView().byId("walkUpCreate_Lang").setState(LanguageState);
 				if (brandCB != undefined && moYearCB != undefined && seriesCB != undefined) {
 			var brandVal = brandCB.getValue();
 
 			if (brandVal != " " && brandVal != "" && brandVal != null && brandVal != undefined) {
-				CreateWalkUpDialogController.getView().byId("idWalk_brandCB").setValue(brandVal);
-				CreateWalkUpDialogController.getView().byId("idWalk_brandCB").setEnabled(false);
+					CreateWalkUpDialogController._readUserBrand();
 			} else {
 				CreateWalkUpDialogController.getView().byId("idWalk_brandCB").setEnabled(true);
 			}
 			var moYearVal = moYearCB.getValue();
 			if (moYearVal != " " && moYearVal != "" && moYearVal != null && moYearVal != undefined) {
 				CreateWalkUpDialogController.getView().byId("idWalk_modelYearCB").setValue(moYearVal);
-				CreateWalkUpDialogController.getView().byId("idWalk_modelYearCB").setEnabled(false);
+			//	CreateWalkUpDialogController.getView().byId("idWalk_modelYearCB").setEnabled(false);
 			} else {
 				CreateWalkUpDialogController.getView().byId("idWalk_modelYearCB").setEnabled(true);
 			}
 			var seriesVal = seriesCB.getValue();
 			if (seriesVal != " " && seriesVal != "" && seriesVal != null && seriesVal != undefined) {
 				CreateWalkUpDialogController.getView().byId("idWalk_seriesCB").setValue(seriesVal);
-				CreateWalkUpDialogController.getView().byId("idWalk_seriesCB").setEnabled(false);
+			//	CreateWalkUpDialogController.getView().byId("idWalk_seriesCB").setEnabled(false);
 			} else {
 				CreateWalkUpDialogController.getView().byId("idWalk_seriesCB").setEnabled(true);
 				var sLocation = window.location.host;

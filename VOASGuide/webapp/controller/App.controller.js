@@ -1,139 +1,91 @@
-var AppController;
 sap.ui.define([
 	"com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseController"
 ], function (BaseController) {
 	"use strict";
-
+	var AppController;
 
 	return BaseController.extend("com.sap.build.toyota-canada.vehiclesGuideV3.controller.App", {
 		onInit: function () {
 			AppController = this;
-		},
-		
-		
-		_user: function () {
-			var user = AppController.listOfUsers;
-			var selUser = AppController.getView().byId("AppInputId").getValue();
-		
-			if (selUser === user[0].key) {
-				AppController.flagPPDUser = true;
-				AppController.flagNationalSIPUser = false;
-				AppController.flagNationalPPDUser = false;
-				AppController.flagDealerUser = false;
-				AppController.flagZoneUser = false;
-				AppController.flagTCINationalUser = false;
-				AppController.flagSIPUser = false;
-				AppController.flagNationalUser = false;
-				AppController.flagOrderingDealer = false;
+			//AppController._user();
+			AppController.userAPI();
+			var bpModel = sap.ui.getCore().getModel("BpDealerModel");
+			if (bpModel) {
+				if (bpModel.getData()[0].Division == "10") {
+					AppController.getView().byId("idLogo").setSrc("images/Toyota.jpg");
+				} else {
+					AppController.getView().byId("idLogo").setSrc("images/Lexus.png");
+				}
 			}
-			if (selUser === user[1].key) {
-				AppController.flagPPDUser = false;
-				AppController.flagNationalSIPUser = true;
-				AppController.flagNationalPPDUser = false;
-				AppController.flagDealerUser = false;
-				AppController.flagZoneUser = false;
-				AppController.flagTCINationalUser = false;
-				AppController.flagSIPUser = false;
-				AppController.flagNationalUser = false;
-				AppController.flagOrderingDealer = false;
+			else{
+					AppController.getView().byId("idLogo").setSrc("images/Toyota.jpg");
 			}
-			if (selUser === user[2].key) {
-				AppController.flagPPDUser = false;
-				AppController.flagNationalSIPUser = false;
-				AppController.flagNationalPPDUser = true;
-				AppController.flagDealerUser = false;
-				AppController.flagZoneUser = false;
-				AppController.flagTCINationalUser = false;
-				AppController.flagSIPUser = false;
-				AppController.flagNationalUser = false;
-				AppController.flagOrderingDealer = false;
-			}
-			if (selUser === user[3].key) {
-				AppController.flagPPDUser = false;
-				AppController.flagNationalSIPUser = false;
-				AppController.flagNationalPPDUser = false;
-				AppController.flagDealerUser = true;
-				AppController.flagZoneUser = false;
-				AppController.flagTCINationalUser = false;
-				AppController.flagSIPUser = false;
-				AppController.flagNationalUser = false;
-				AppController.flagOrderingDealer = false;
-			}
-			if (selUser === user[4].key) {
-				AppController.flagPPDUser = false;
-				AppController.flagNationalSIPUser = false;
-				AppController.flagNationalPPDUser = false;
-				AppController.flagDealerUser = false;
-				AppController.flagZoneUser = true;
-				AppController.flagTCINationalUser = false;
-				AppController.flagSIPUser = false;
-				AppController.flagNationalUser = false;
-				AppController.flagOrderingDealer = false;
-			}
-			if (selUser === user[5].key) {
-				AppController.flagPPDUser = false;
-				AppController.flagNationalSIPUser = false;
-				AppController.flagNationalPPDUser = false;
-				AppController.flagDealerUser = false;
-				AppController.flagZoneUser = false;
-				AppController.flagTCINationalUser = true;
-				AppController.flagSIPUser = false;
-				AppController.flagNationalUser = false;
-				AppController.flagOrderingDealer = false;
-			}
-			if (selUser === user[6].key) {
-				AppController.flagPPDUser = false;
-				AppController.flagNationalSIPUser = false;
-				AppController.flagNationalPPDUser = false;
-				AppController.flagDealerUser = false;
-				AppController.flagZoneUser = false;
-				AppController.flagTCINationalUser = false;
-				AppController.flagSIPUser = true ;
-				AppController.flagNationalUser = false;
-				AppController.flagOrderingDealer = false;
-			}
-			if (selUser === user[7].key) {
-				AppController.flagPPDUser = false;
-				AppController.flagNationalSIPUser = false;
-				AppController.flagNationalPPDUser = false;
-				AppController.flagDealerUser = false;
-				AppController.flagZoneUser = false;
-				AppController.flagTCINationalUser = false;
-				AppController.flagSIPUser = false ;
-				AppController.flagNationalUser = true;
-				AppController.flagOrderingDealer = false;
-			}
-			if (selUser === user[8].key) {
-				AppController.flagPPDUser = false;
-				AppController.flagNationalSIPUser = false;
-				AppController.flagNationalPPDUser = false;
-				AppController.flagDealerUser = false;
-				AppController.flagZoneUser = false;
-				AppController.flagTCINationalUser = false;
-				AppController.flagSIPUser = false ;
-				AppController.flagNationalUser = false;
-				AppController.flagOrderingDealer = true;
-			}
+
 		},
 
-		ResetFlag: function () {
-			AppController.flagOrderingDealer = false;
-			AppController.flagNationalUser = false;
-			AppController.flagNationalPPDUser = false;
-			AppController.flagPPDUser = false;
-			AppController.flagNationalSIPUser = false;
-			AppController.flagTCINationalUser = false;
-			AppController.flagSIPUser = false;
-			AppController.flagDealerUser = false;
-			AppController.flagZoneUser = false;
-			AppController.flgSoldOrderReqStatus = "";
-			AppController.flgPriceProtectionStatus = "";
-			AppController.flgOwnershipUploaded = "false";
+		_user: function () {
+			var userAttributesData = {
+				"attributes": [{
+					"BusinessPartnerName": "Don Valley North Toyota",
+					"BusinessPartnerKey": "2400042120",
+					"BusinessPartner": "42120",
+					"BusinessPartnerType": "Z001",
+					"SearchTerm2": "42120",
+					"Division": "10", //20 lexus
+					"Attribute": "01"
+				}],
+				"samlAttributes": [{
+					"DealerCode": ["42120"],
+					"Language": ["English"],
+					"UserType": ["Dealer"]
+				}],
+				"legacyDealer": "42120",
+				"legacyDealerName": "Don Valley North Toyota"
+			};
+			var bpModel = new sap.ui.model.json.JSONModel(userAttributesData.attributes);
+			sap.ui.getCore().setModel(bpModel, "BpDealerModel");
+			var userAttModel = new sap.ui.model.json.JSONModel(userAttributesData.samlAttributes);
+			sap.ui.getCore().setModel(userAttModel, "userAttributesModel");
+			var userLoggedData = {
+				"loggedUserType": ["Dealer_User"]
+			};
+			var userModel = new sap.ui.model.json.JSONModel(userLoggedData);
+			sap.ui.getCore().setModel(userModel, "userModel");
+		},
+
+		userAPI: function () {
+			var host = AppController.hostAPI();
+			$.ajax({
+				url: host + "/userDetails/attributes",
+				type: "GET",
+				dataType: "json",
+				success: function (oData) {
+					console.log(oData);
+					var bpModel = new sap.ui.model.json.JSONModel(oData.attributes);
+					sap.ui.getCore().setModel(bpModel, "BpDealerModel");
+
+					var userAttModel = new sap.ui.model.json.JSONModel(oData.samlAttributes);
+					sap.ui.getCore().setModel(userAttModel, "userAttributesModel");
+				},
+				error: function (response) {
+					console.log("error in user Detail Attributes API");
+				}
+			});
+			$.ajax({
+				url: host + "/userDetails/currentScopesForUser",
+				type: "GET",
+				dataType: "json",
+				success: function (Data) {
+					console.log(Data);
+					var userModel = new sap.ui.model.json.JSONModel(Data);
+					sap.ui.getCore().setModel(userModel, "userModel");
+				},
+				error: function () {
+					console.log("error in user API");
+				}
+			});
 		}
 
 	});
 
 });
-//console.log(data);
-//console.log(data[0]);
-//console.log(data[0].LoggedUserName);

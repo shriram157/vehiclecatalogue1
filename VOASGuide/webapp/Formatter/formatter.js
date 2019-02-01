@@ -86,7 +86,7 @@ var formatter = {
 			return sTrimval;
 		}
 	},
-	decimalFormatter: function (oDecVal, oDecVal2) {
+/*	decimalFormatter: function (oDecVal, oDecVal2) {
 		//	oDecVal="67894320.89";
 		if (oDecVal != undefined && oDecVal != null && !isNaN(oDecVal) && oDecVal != "") {
 			var returnVal = parseInt(oDecVal);
@@ -130,6 +130,53 @@ var formatter = {
 			}
 		} else {
 			return "Dealer Net: $  MSRP: $";
+		}
+	}
+*/
+	decimalFormatter: function (oDecVal, oDecVal2) {
+		//	oDecVal="67894320.89";
+		if (oDecVal != undefined && oDecVal != null && !isNaN(oDecVal) && oDecVal != "") {
+			var returnVal = parseInt(oDecVal);
+			var commaVal = returnVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			// console.log(commaVal);
+			var returnString =  commaVal;
+			if (returnVal == 0.00) {
+				return " 0";
+			} else {
+				return returnString;
+			}
+		} else {
+			return " ";
+		}
+	},
+	decimalFormatterDealer: function (oDecVal, oDecVal2) {
+		if (oDecVal != undefined && oDecVal != null && !isNaN(oDecVal) && oDecVal != "") {
+			var returnVal = parseInt(oDecVal);
+			var commaVal = returnVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			var returnString =  + commaVal;
+			if (returnVal == 0.00) {
+				return " 0";
+			} else {
+				return returnString;
+			}
+		} else {
+			return " ";
+		}
+	},
+	decimalFormatterDealerMSRP: function (oDecVal, msrp) {
+		if (oDecVal != undefined && oDecVal != null && !isNaN(oDecVal) && oDecVal != "") {
+			var returnVal = parseInt(oDecVal);
+			var returnVal2 = parseInt(msrp);
+			var commaVal = returnVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			var commaVal2 = returnVal2.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			var returnString = "Dealer Net: $" + commaVal + "MSRP: $" + commaVal2;
+			if (returnVal == 0.00 && returnVal2 == 0) {
+				return " $0";
+			} else {
+				return returnString;
+			}
+		} else {
+			return " ";
 		}
 	}
 

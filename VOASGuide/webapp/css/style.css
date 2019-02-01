@@ -182,6 +182,9 @@
 .padding{
 	padding-left:2rem;
 }
+.heightBar{
+	height:87px !important;
+}
 /*.paddingleft1{
 	padding-left:32rem;
 }

@@ -15,17 +15,216 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			searchController.oRouter.getTarget("SearchPage").attachDisplay(jQuery.proxy(searchController.handleRouteMatched, searchController));
 			searchController.listOfBrand();
 			searchController.listOfModelYear();
-			//	searchController._listOfBrand();
 			searchController.oBusyDialog = new sap.m.BusyDialog({
 				showCancelButton: false
 			});
 			sap.ushell.components.brandCB = searchController.getView().byId("id_brandCB");
 			sap.ushell.components.modelYearCB = searchController.getView().byId("id_modelYearCB");
 			sap.ushell.components.seriesCB = searchController.getView().byId("id_seriesCB");
-
 			
+			searchController._readUser();
 		},
-	
+
+		_readUser: function () {
+			var userModel = sap.ui.getCore().getModel("userModel");
+			var bpDealerModel = sap.ui.getCore().getModel("BpDealerModel");
+			if (userModel) {
+				if (bpDealerModel) {
+					var userData = userModel.getData();
+					var bpData = bpDealerModel.getData();
+					if (userData.loggedUserType == "Dealer_User" || userData.loggedUserType == "Dealer_Admin") {
+						if (bpData[0].Division == "10") {
+							searchController.getView().byId("id_brandCB").setEnabled(false);
+							searchController.getView().byId("id_brandCB").setSelectedKey("1");
+							searchController.brandNotChanged();
+						} else if (bpData[0].Division == "20") {
+							searchController.getView().byId("id_brandCB").setEnabled(false);
+							searchController.getView().byId("id_brandCB").setSelectedKey("2");
+							searchController.brandNotChanged();
+						}
+					} else if (userData.loggedUserType == "TCI_User" || userData.loggedUserType == "TCI_User_Preliminary") {
+						if (bpData[0].Division == "10") {
+							searchController.getView().byId("id_brandCB").setEnabled(true);
+							searchController.getView().byId("id_brandCB").setSelectedKey("1");
+							searchController.brandNotChanged();
+						} else if (bpData[0].Division == "20") {
+							searchController.getView().byId("id_brandCB").setEnabled(true);
+							searchController.getView().byId("id_brandCB").setSelectedKey("2");
+							searchController.brandNotChanged();
+						}
+					} else {
+						searchController.getView().byId("id_brandCB").setEnabled(true);
+					}
+				}
+			}
+		},
+		/*_readTheAttributes: function () {
+
+			//if the userAttributes has toyota user then we have to continue with 
+			var oModel = searchController.getView().getModel("userAttributesModel");
+			var userDetails = oModel.getData();
+			var userModel = new sap.ui.model.json.JSONModel();
+			searchController.getView().setModel(userModel, "userModel");
+			var oViewModel = searchController.getView().getModel("userModel");
+
+			var oModelBP = searchController.getView().getModel("BpDealerModel");
+			var aDataBP = oModelBP.getData();
+
+			// the user type from SAML is blank so it could be internal user
+
+			if (!userDetails[0].DealerCode) {
+				// he is a not dealer
+
+				if (!searchController.sDivision) {
+					var currentImageSource = searchController.getView().byId("idLexusLogo");
+					currentImageSource.setProperty("src", "images/toyotoLexus.png");
+				}
+				oViewModel.setProperty("/editAllowed", true);
+			} else {
+				//he is  a dealer.
+
+				//ets also set the division from the url here
+
+				var isDivisionSent = window.location.search.match(/Division=([^&]*)/i);
+				if (isDivisionSent) {
+					searchController.sDivision = window.location.search.match(/Division=([^&]*)/i)[1];
+					if (searchController.sDivision == '10') // set the toyoto logo
+					{
+						var currentImageSource = searchController.getView().byId("idLexusLogo");
+						currentImageSource.setProperty("src", "images/toyota_logo_colour.png");
+
+					} else { // set the lexus logo
+						var currentImageSource = searchController.getView().byId("idLexusLogo");
+						currentImageSource.setProperty("src", "images/i_lexus_black_full.png");
+
+					}
+				}
+
+				for (var i = 0; i < aDataBP.length; i++) {
+					if (aDataBP[i].BusinessPartner == userDetails[0].DealerCode) {
+						searchController.getView().byId("dealerID").setSelectedKey(aDataBP[i].BusinessPartnerKey);
+
+						//selectedDealerModel>/Dealer_Name
+						searchController.sSelectedDealer = aDataBP[i].BusinessPartnerKey;
+						searchController._selectedDealerModel.setProperty("/Dealer_No", aDataBP[i].BusinessPartnerKey);
+						searchController._selectedDealerModel.setProperty("/Dealer_Name", aDataBP[i].BusinessPartnerName);
+						searchController._selectedDealerModel.setProperty("/Dealer_Type", aDataBP[i].BusinessPartnerType);
+
+						oViewModel.setProperty("/editAllowed", false);
+
+						break;
+					}
+				}
+			}
+
+			// end for Userdetails usertype check
+			//  set the locale from SAML Language.       
+			if (!searchController.sCurrentLocale) {
+				if (userDetails[0].Language == "English") {
+					// english language. 
+					searchController.sCurrentLocale = 'EN';
+					var i18nModel = new sap.ui.model.resource.ResourceModel({
+						bundleUrl: "i18n/i18n.properties",
+						bundleLocale: ("en")
+					});
+					searchController.getView().setModel(i18nModel, "i18n");
+				} else {
+					// french language
+					var i18nModel = new sap.ui.model.resource.ResourceModel({
+						bundleUrl: "i18n/i18n.properties",
+						bundleLocale: ("fr")
+					});
+					searchController.getView().setModel(i18nModel, "i18n");
+
+					searchController.sCurrentLocale = 'FR';
+				}
+
+			}
+			//  check the Division -  if the URL has division  check with material division for Dealers if it matches then allow it otherwise throw an error message, 
+			//for internal usersdo not do the check
+			if (userDetails[0].UserType == 'Dealer') {
+
+				var isDivisionSent = window.location.search.match(/Division=([^&]*)/i);
+				if (isDivisionSent) {
+					searchController.sDivision = window.location.search.match(/Division=([^&]*)/i)[1];
+
+					if (searchController.sDivision == aDataBP[0].Division) {
+
+						searchController.getView().byId("messageStripError").setProperty("visible", false);
+
+						if (searchController.sDivision == '10') // set the toyoto logo
+						{
+							var currentImageSource = searchController.getView().byId("idLexusLogo");
+							currentImageSource.setProperty("src", "images/toyota_logo_colour.png");
+
+						} else { // set the lexus logo
+							var currentImageSource = searchController.getView().byId("idLexusLogo");
+							currentImageSource.setProperty("src", "images/i_lexus_black_full.png");
+
+						}
+
+					} else {
+						// throw an error message and disable the search button. 
+						if (aDataBP[0].Division !== "Dual") {
+							var errorMessage = searchController._oResourceBundle.getText("divisionsDoNotMatch"); //Divisoin does not match
+
+							searchController.getView().byId("messageStripError").setProperty("visible", true);
+							searchController.getView().byId("messageStripError").setText(errorMessage);
+							searchController.getView().byId("messageStripError").setType("Error");
+
+							// set the search button to greyout
+
+							oViewModel.setProperty("/enableMaterialEntered", false);
+							oViewModel.setProperty("/afterMaterialFound", false);
+							oViewModel.setProperty("/materialInputAllow", false);
+
+						}
+					}
+
+				} else {
+
+					searchController.sDivision = aDataBP[0].Division;
+
+					if (searchController.sDivision == '10') // set the toyoto logo
+					{
+						var currentImageSource = searchController.getView().byId("idLexusLogo");
+						currentImageSource.setProperty("src", "images/toyota_logo_colour.png");
+
+					} else { // set the lexus logo
+						var currentImageSource = searchController.getView().byId("idLexusLogo");
+						currentImageSource.setProperty("src", "images/i_lexus_black_full.png");
+
+					}
+
+				}
+
+			} else { // end for usertype == dealer check,
+				//not a dealer but a zone user or internal user
+				var isDivisionSent = window.location.search.match(/Division=([^&]*)/i);
+				if (isDivisionSent) {
+					searchController.sDivision = window.location.search.match(/Division=([^&]*)/i)[1];
+
+					if (searchController.sDivision == '10') // set the toyoto logo
+					{
+						var currentImageSource = searchController.getView().byId("idLexusLogo");
+						currentImageSource.setProperty("src", "images/toyota_logo_colour.png");
+
+					} else { // set the lexus logo
+						var currentImageSource = searchController.getView().byId("idLexusLogo");
+						currentImageSource.setProperty("src", "images/i_lexus_black_full.png");
+
+					}
+
+				} else {
+					// just set a both logo
+					var currentImageSource = searchController.getView().byId("idLexusLogo");
+					currentImageSource.setProperty("src", "images/toyotoLexus.png");
+
+				}
+
+			}
+
+		},*/
 		refreshTableData: function () {
 			var oModel = searchController.getView().getModel("searchTblModel");
 			if (oModel !== undefined) {
@@ -109,14 +308,14 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					async: false,
 					dataType: 'json',
 					success: function (data, textStatus, jqXHR) {
-						//var oBusyDialog = this.getView().byId("BusyDialog");
+						//var oBusyDialog = searchController.getView().byId("BusyDialog");
 
 						var tblModel = new sap.ui.model.json.JSONModel(data.d.results);
 						tblModel.setSizeLimit(data.d.results.length);
 						searchController.getView().setModel(tblModel, "searchTblModel");
-						var oSorter = new sap.ui.model.Sorter("MSRP", false);  // sort on based of MSRP
+						var oSorter = new sap.ui.model.Sorter("MSRP", false); // sort on based of MSRP
 						searchController.getView().byId("idTbl_Search").setModel("searchTblModel");
-						searchController.byId("idTbl_Search").getBinding("items").sort(oSorter); 
+						searchController.byId("idTbl_Search").getBinding("items").sort(oSorter);
 						searchController.oBusyDialog.close();
 					},
 					error: function (jqXHR, textStatus, errorThrown) {
@@ -175,6 +374,30 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			searchController.getView().setModel(modelBrandModel, "brandModel");
 			//	searchController.getView().byId("id_brandCB").setModel("brandModel");
 		},
+		brandNotChanged: function () {
+			searchController.getView().byId("filterBar").setShowGoOnFB(false);
+			var brandCB = searchController.getView().byId("id_brandCB");
+			var modelYearCB = searchController.getView().byId("id_modelYearCB");
+			var seriesCB = searchController.getView().byId("id_seriesCB");
+			var modelCB = searchController.getView().byId("id_modelCB");
+			var suffixCB = searchController.getView().byId("id_suffixCB");
+			searchController.refreshTableData();
+			modelYearCB.setSelectedKey(null);
+			seriesCB.setSelectedKey(null);
+			modelCB.setSelectedItems("");
+			suffixCB.setSelectedItems("");
+
+			if (brandCB.getValue() != "") {
+				modelYearCB.setEnabled(true);
+				/*if (brandCB.getSelectedKey() == "1") {
+					searchController.getView().byId("idLogo").setSrc("images/Toyota.jpg");
+				} else {
+					searchController.getView().byId("idLogo").setSrc("images/Lexus.png");
+				}*/
+
+			}
+
+		},
 
 		onChange_Brand: function () {
 			searchController.getView().byId("filterBar").setShowGoOnFB(false);
@@ -184,13 +407,18 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			var modelCB = searchController.getView().byId("id_modelCB");
 			var suffixCB = searchController.getView().byId("id_suffixCB");
 			searchController.refreshTableData();
-			modelYearCB.setValue(" ");
-			seriesCB.setValue(" ");
+			modelYearCB.setSelectedKey(null);
+			seriesCB.setSelectedKey(null);
 			modelCB.setSelectedItems("");
 			suffixCB.setSelectedItems("");
 
 			if (brandCB.getValue() != "") {
 				modelYearCB.setEnabled(true);
+				/*	if (brandCB.getSelectedKey() == "1") {
+						searchController.getView().byId("idLogo").setSrc("images/Toyota.jpg");
+					} else {
+						searchController.getView().byId("idLogo").setSrc("images/Lexus.png");
+					}*/
 			}
 
 		},
@@ -204,9 +432,9 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 
 			var brandCBVal = brandCB.getValue();
 			var modelYearCBVal = modelYearCB.getValue();
-		
+
 			if (seriesCB.getValue() !== "") {
-				seriesCB.setValue(" ");
+				//seriesCB.setValue(" ");
 				seriesCB.setSelectedKey(null);
 			}
 			modelCB.setSelectedItems("");
@@ -215,7 +443,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			if (brandCB.getValue() != "" && modelYearCB.getValue() != "") {
 				seriesCB.setEnabled(true);
 			}
-	
+
 			var host = searchController.host();
 			var url = host +
 				"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(Brand eq '" + brandCBVal + "' and Modelyear eq '" + modelYearCBVal +
@@ -228,7 +456,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				dataType: 'json',
 				success: function (data, textStatus, jqXHR) {
 					if (seriesCB.getValue() !== "") {
-						seriesCB.setValue(" ");
+						//seriesCB.setValue(" ");
 						seriesCB.setSelectedKey(null);
 					}
 					//	var oModel = new sap.ui.model.json.JSONModel(data.d.results);
@@ -358,14 +586,16 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					dataType: 'json',
 					success: function (data, textStatus, jqXHR) {
 						var oModel = new sap.ui.model.json.JSONModel();
-						var arr = [], arr2=[],arr3=[];
+						var arr = [],
+							arr2 = [],
+							arr3 = [];
 						var j = 0;
 						for (var c = 0; c < data.d.results.length; c++) {
 							for (var i = 0; i < data.d.results.length; i++) {
 								if ($.inArray(data.d.results[i]["Suffix"], arr) < 0) {
 									arr[j] = data.d.results[i]["Suffix"];
-									arr2[j]= data.d.results[i]["suffix_desc_en"];
-									arr3[j]=arr[j] + " -"+arr2[j];
+									arr2[j] = data.d.results[i]["suffix_desc_en"];
+									arr3[j] = arr[j] + " -" + arr2[j];
 									j++;
 
 								}
@@ -420,15 +650,15 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			searchController.mDialogs = searchController.mDialogs || {};
 			var oDialog = searchController.mDialogs[sDialogName];
 
-		//	if (!oDialog) {
-				oDialog = new CreateWhatsNewDialog(searchController.getView());
-				searchController.mDialogs[sDialogName] = oDialog;
+			//	if (!oDialog) {
+			oDialog = new CreateWhatsNewDialog(searchController.getView());
+			searchController.mDialogs[sDialogName] = oDialog;
 
-				// For navigation.
-				oDialog.setRouter(searchController.oRouter);
-		//	}
+			// For navigation.
+			oDialog.setRouter(searchController.oRouter);
+			//	}
 			oDialog.open();
-		
+
 		},
 		_onCreateWalkUp: function () {
 
@@ -436,13 +666,13 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			searchController.mDialogs = searchController.mDialogs || {};
 			var oDialog = searchController.mDialogs[sDialogName];
 
-		//	if (!oDialog) {
-				oDialog = new CreateWalkUpGuide(searchController.getView());
-				searchController.mDialogs[sDialogName] = oDialog;
+			//	if (!oDialog) {
+			oDialog = new CreateWalkUpGuide(searchController.getView());
+			searchController.mDialogs[sDialogName] = oDialog;
 
-				// For navigation.
-				oDialog.setRouter(searchController.oRouter);
-		//	}
+			// For navigation.
+			oDialog.setRouter(searchController.oRouter);
+			//	}
 			oDialog.open();
 
 		},
@@ -452,13 +682,13 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			searchController.mDialogs = searchController.mDialogs || {};
 			var oDialog = searchController.mDialogs[sDialogName];
 
-		//	if (!oDialog) {
-				oDialog = new CreateSupplementalGuide(searchController.getView());
-				searchController.mDialogs[sDialogName] = oDialog;
+			//	if (!oDialog) {
+			oDialog = new CreateSupplementalGuide(searchController.getView());
+			searchController.mDialogs[sDialogName] = oDialog;
 
-				// For navigation.
-				oDialog.setRouter(searchController.oRouter);
-		//	}
+			// For navigation.
+			oDialog.setRouter(searchController.oRouter);
+			//	}
 			oDialog.open();
 
 		},
@@ -468,13 +698,13 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			searchController.mDialogs = searchController.mDialogs || {};
 			var oDialog = searchController.mDialogs[sDialogName];
 
-		//	if (!oDialog) {
-				oDialog = new CreateVehicleGuideDialog(searchController.getView());
-				searchController.mDialogs[sDialogName] = oDialog;
+			//	if (!oDialog) {
+			oDialog = new CreateVehicleGuideDialog(searchController.getView());
+			searchController.mDialogs[sDialogName] = oDialog;
 
-				// For navigation.
-				oDialog.setRouter(searchController.oRouter);
-		//	}
+			// For navigation.
+			oDialog.setRouter(searchController.oRouter);
+			//	}
 			oDialog.open();
 
 		},
@@ -482,11 +712,11 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			var sDialogName = "CreatePocketSummaryDialog";
 			searchController.mDialogs = searchController.mDialogs || {};
 			var oDialog = searchController.mDialogs[sDialogName];
-		//	if (!oDialog) {
-				oDialog = new CreatePocketSummaryDialog(searchController.getView());
-				searchController.mDialogs[sDialogName] = oDialog;
-				oDialog.setRouter(searchController.oRouter);
-		//	}
+			//	if (!oDialog) {
+			oDialog = new CreatePocketSummaryDialog(searchController.getView());
+			searchController.mDialogs[sDialogName] = oDialog;
+			oDialog.setRouter(searchController.oRouter);
+			//	}
 			oDialog.open();
 		},
 
@@ -506,7 +736,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				"msrp": data.MSRP,
 				"dealerNet": data.NETPRICE,
 				"series": data.TCISeries,
-				"ENModelDesc":data.ENModelDesc
+				"ENModelDesc": data.ENModelDesc
 			}];
 			var routeData = JSON.stringify(arr);
 			searchController.oRouter.navTo("DetailsOption", {
@@ -540,11 +770,10 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			var suffixArrFromData = [];
 			var suffixDescString = "";
 			var suffixDescStringFromModelData = "";
-			var modelDescStringFromModelData=" ";
+			var modelDescStringFromModelData = " ";
 			var modelDescString = "";
 			var modelArrFromData = [];
-			var modelENModelDesc=[];
-		
+			var modelENModelDesc = [];
 
 			if (aContexts.length <= 5 && aContexts.length >= 2) {
 				for (var i = 0; i < aContexts.length; i++) {
@@ -562,7 +791,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					suffixArrFromData.push(indexDataSuffix);
 					var indexDataModel = data[index].Model;
 					modelArrFromData.push(indexDataModel);
-					var indexENModelDesc=data[index].ENModelDesc;
+					var indexENModelDesc = data[index].ENModelDesc;
 					modelENModelDesc.push(indexENModelDesc);
 				}
 
@@ -576,25 +805,24 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				} else {
 					suffixDescStringFromModelData = "";
 				}
-					if (modelArrFromData !== "[]") {
-						modelDescStringFromModelData = JSON.stringify(modelArrFromData);
-					} else {
-						modelDescStringFromModelData = "";
-					}
+				if (modelArrFromData !== "[]") {
+					modelDescStringFromModelData = JSON.stringify(modelArrFromData);
+				} else {
+					modelDescStringFromModelData = "";
+				}
 				var suffixValLen = suffixCB.getSelectedItems().length;
-				 suffixValLen = suffixArrFromData.length;
-				
+				suffixValLen = suffixArrFromData.length;
+
 				if (suffixCB.getSelectedItems() != "") {
 					for (var j = 0; j < suffixValLen; j++) {
 						suffixText = suffixCB.getSelectedItems()[j].mProperties.text;
 						suffixArr.push(suffixText);
 					}
 					suffixDescString = JSON.stringify(suffixArr);
+				} else {
+					suffixDescString = "";
 				}
-				else{
-					suffixDescString="";
-				}
-			 //suffixArr.toString();
+				//suffixArr.toString();
 				if (modelCB.getSelectedItems() != "") {
 					for (var i = 0; i < modelValLen; i++) {
 						modelText = modelCB.getSelectedItems()[i].mProperties.text;
@@ -604,31 +832,34 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				} else {
 					modelDescString = "";
 				}
-			
+
 				var arr2 = [{
 					"pathVeh": arrIndexStr,
 					"brand": brandCBVal,
 					"moYear": modelYearCBVal,
 					"model": modelDescString,
 					"suffix": suffixDescStringFromModelData,
-					"suffixDD":suffixDescString,
+					"suffixDD": suffixDescString,
 					"veh": vehData,
 					"msrp": MSRPData,
 					"dealerNet": DealerNetData,
 					"series": SeriesData,
-					"modelDesc":modelENModelDesc,
+					"modelDesc": modelENModelDesc,
 					"modelData": modelDescStringFromModelData
-
 				}];
-				console.log(arr2);
+
+				//console.log(arr2);
 				var routeData = JSON.stringify(arr2);
 				searchController.oRouter.navTo("CompareDetailsOption", {
 					num2: routeData
 				});
 				oTable.removeSelections("true");
 			} else {
-				//	var errMsg = searchController.getView().getModel("i18n").getResourceBundle().getText(errForm);
-				var errMsg = "Select atleast 2 and maximum 5 items to compare";
+
+				//	var errForm = formatter.formatErrorType("SO00002");
+				var errMsg = searchController.getView().getModel("i18n").getResourceBundle().getText("ErrorSearchScreen");
+
+				//	var errMsg = "Select atleast 2 and maximum 5 items to compare";
 				sap.m.MessageBox.show(errMsg, sap
 					.m.MessageBox.Icon.ERROR, "Error", sap
 					.m.MessageBox.Action.OK, null, null);

@@ -1,6 +1,6 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core"
 	controllerName="com.sap.build.toyota-canada.vehiclesGuideV3.controller.util.CreateWalkUpGuide" xmlns="sap.m" xmlns:form="sap.ui.layout.form">
-	<Dialog horizontalScrolling="true" showHeader="true" state="None" stretch="false" title="Create Walk Up Guide" type="Standard"
+	<Dialog horizontalScrolling="true" showHeader="true" state="None" stretch="false" title="{i18n>CreateWalkUpGuide}" type="Standard"
 		verticalScrolling="true">
 		<content>
 			<form:Form width="589.046875px" editable="true" visible="true" class="sapUiTinyMargin">
@@ -10,25 +10,25 @@
 						<form:formElements>
 							<form:FormElement visible="true">
 								<form:label>
-									<Label text="Language" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" />
+									<Label text="{i18n>Language}" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" />
 								</form:label>
 									<form:fields>
-									<Switch state="true" id="walkUpCreate_Lang" customTextOff="Fr" customTextOn="En" type="Default" enabled="true" visible="true" class="sapUiTinyMargin"/>
+									<Switch state="true" id="walkUpCreate_Lang" customTextOff="{i18n>Fr}" customTextOn="{i18n>En}" type="Default" enabled="true" visible="true" class="sapUiTinyMargin"/>
 								</form:fields>
 								<form:fields>
-									<ComboBox id="idWalk_brandCB" placeholder="Select Brand" editable="true" enabled="true" visible="true" width="400px" valueState="None" maxWidth="100%"
+									<ComboBox id="idWalk_brandCB" placeholder="{i18n>SelectBrand}" editable="true" enabled="true" visible="true" width="400px" valueState="None" maxWidth="100%"
 										class="sapUiResponsiveMargin" items="{path:'brandModelNew>/modelBrand', templateShareable:true}">
 										<items>
 												<core:Item key="{brandModelNew>key}" text="{brandModelNew>text}"/>
 										</items>
 									</ComboBox>
-									<ComboBox id="idWalk_modelYearCB" change="onChange_ModelYear" placeholder="Select Year" editable="true" enabled="true" visible="true" width="398px" valueState="None" maxWidth="100%"
+									<ComboBox id="idWalk_modelYearCB" change="onChange_ModelYear" placeholder="{i18n>SelectYear}" editable="true" enabled="true" visible="true" width="398px" valueState="None" maxWidth="100%"
 										class="sapUiResponsiveMargin" items="{path:'yearModelNew>/modelYear', templateShareable:true}">
 										<items>
 											<core:Item key="{yearModelNew>key}" enabled="true" text="{yearModelNew>text}"/>
 										</items>
 									</ComboBox>
-									<ComboBox id="idWalk_seriesCB" placeholder="Select Series" editable="true" enabled="true" visible="true" width="397px" valueState="None" maxWidth="100%"
+									<ComboBox id="idWalk_seriesCB" placeholder="{i18n>SelectSeries}" editable="true" enabled="true" visible="true" width="397px" valueState="None" maxWidth="100%"
 										class="sapUiResponsiveMargin" items="{path:'seriesdropDownModelNew>/', templateShareable:true}">
 										<items>
 											<core:Item text="{seriesdropDownModelNew>}" enabled="true" key="{seriesdropDownModelNew>}"/>
@@ -47,9 +47,9 @@
 		</content>
 		<beginButton/>
 		<buttons>
-			<Button text="Create PDF" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true" width="auto" enabled="true" visible="true"
+			<Button text="{i18n>CreatePDF}" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true" width="auto" enabled="true" visible="true"
 				iconDensityAware="false" press="_onButtonPress"/>
-			<Button text="Close" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"
+			<Button text="{i18n>Close}" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"
 				press="_onButtonPress1"/>
 		</buttons>
 		<customHeader/>
