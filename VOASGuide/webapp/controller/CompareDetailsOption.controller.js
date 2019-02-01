@@ -18,7 +18,7 @@ sap.ui.define([
 			CDO_controller.oBusyDialog = new sap.m.BusyDialog({
 				showCancelButton: false
 			});
-		}, 
+		},
 		onSwitchstateChange: function (evt_Switch) {
 			var state = evt_Switch.getSource().mProperties.state;
 			if (state == true) {
@@ -29,7 +29,7 @@ sap.ui.define([
 			}
 		},
 		handleRouteMatchedStdFeatureOff: function () {
-			
+
 			var fixedData = {
 				Vehicle: " "
 			};
@@ -213,7 +213,7 @@ sap.ui.define([
 					CDO_controller.getView().setModel(tblModel, "searchTblModel");
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
-					
+
 					sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
 						sap
 						.m.MessageBox.Action.OK, null, null);
@@ -229,19 +229,19 @@ sap.ui.define([
 					async: false,
 					dataType: 'json',
 					success: function (data, textStatus, jqXHR) {
-						
+
 						var tblModel = new sap.ui.model.json.JSONModel(data.d.results);
 						CDO_controller.getView().setModel(tblModel, "TblModel");
 					},
 					error: function (jqXHR, textStatus, errorThrown) {
-						
+
 						sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
 							sap.m.MessageBox.Action.OK, null, null);
 					}
 				});
-		
+
 			}
-	
+
 			if (CDO_controller.getView().getModel("searchTblModel")) {
 				empData = CDO_controller.getView().getModel("searchTblModel").getData();
 				var modLen = empData.length;
@@ -949,10 +949,11 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.ui.core.Icon({
+									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-									color:"green"
+										color: "green"
 									})
+									]})
 								);
 							} else {
 								row.addCell(
@@ -982,10 +983,11 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.ui.core.Icon({
+									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color:"green"
+										color: "green"
 									})
+									]})
 								);
 							} else {
 								row.addCell(
@@ -1016,10 +1018,11 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.ui.core.Icon({
+									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color:"green"
+										color: "green"
 									})
+									]})
 								);
 							} else {
 								row.addCell(
@@ -1048,10 +1051,11 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.ui.core.Icon({
+									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color:"green"
+										color: "green"
 									})
+									]})
 								);
 							} else {
 								row.addCell(
@@ -1079,10 +1083,11 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.ui.core.Icon({
+									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color:"green"
+										color: "green"
 									})
+									]})
 								);
 							} else {
 								row.addCell(
@@ -1110,10 +1115,11 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.ui.core.Icon({
+									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color:"green"
+										color: "green"
 									})
+									]})
 								);
 							} else {
 								row.addCell(
@@ -1142,10 +1148,11 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.ui.core.Icon({
+									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color:"green"
+										color: "green"
 									})
+									]})
 								);
 							} else {
 								row.addCell(
@@ -1195,10 +1202,11 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.ui.core.Icon({
+									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color:"green"
+										color: "green"
 									})
+									]})
 								);
 							} else {
 								row.addCell(
@@ -1212,7 +1220,7 @@ sap.ui.define([
 					});
 				}
 			}
-				
+
 		},
 		handleRouteMatchedStdFeatureOn: function () {
 			var fixedData = {
@@ -1674,10 +1682,11 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.ui.core.Icon({
+									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color:"green"
+										color: "green"
 									})
+									]})
 								);
 							} else {
 								row.addCell(
@@ -1705,10 +1714,11 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.ui.core.Icon({
+									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color:"green"
+										color: "green"
 									})
+									]})
 								);
 							} else {
 								row.addCell(
@@ -1737,10 +1747,11 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.ui.core.Icon({
+									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color:"green"
+										color: "green"
 									})
+									]})
 								);
 							} else {
 								row.addCell(
@@ -1767,10 +1778,11 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.ui.core.Icon({
+									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color:"green"
+										color: "green"
 									})
+									]})
 								);
 							} else {
 								row.addCell(
@@ -1797,10 +1809,11 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.ui.core.Icon({
+									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color:"green"
+										color: "green"
 									})
+									]})
 								);
 							} else {
 								row.addCell(
@@ -1827,10 +1840,11 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.ui.core.Icon({
+									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color:"green"
+										color: "green"
 									})
+									]})
 								);
 							} else {
 								row.addCell(
@@ -1857,10 +1871,11 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.ui.core.Icon({
+									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color:"green"
+										color: "green"
 									})
+									]})
 								);
 							} else {
 								row.addCell(
@@ -1908,10 +1923,11 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.ui.core.Icon({
+									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color:"green"
+										color: "green"
 									})
+									]})
 								);
 							} else {
 								row.addCell(
@@ -2404,10 +2420,11 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.ui.core.Icon({
+									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color:"green"
+										color: "green"
 									})
+									]})
 								);
 							} else {
 								row.addCell(
@@ -2435,10 +2452,11 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.ui.core.Icon({
+									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color:"green"
-									})
+												color: "green"
+											})
+										]})
 								);
 							} else {
 								row.addCell(
@@ -2467,10 +2485,11 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.ui.core.Icon({
+									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color:"green"
+										color: "green"
 									})
+									]})
 								);
 							} else {
 								row.addCell(
@@ -2497,10 +2516,11 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.ui.core.Icon({
+									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color:"green"
+										color: "green"
 									})
+									]})
 								);
 							} else {
 								row.addCell(
@@ -2527,10 +2547,11 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.ui.core.Icon({
+									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color:"green"
+										color: "green"
 									})
+									]})
 								);
 							} else {
 								row.addCell(
@@ -2557,10 +2578,11 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.ui.core.Icon({
+									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color:"green"
+										color: "green"
 									})
+									]})
 								);
 							} else {
 								row.addCell(
@@ -2587,10 +2609,11 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.ui.core.Icon({
+									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color:"green"
+										color: "green"
 									})
+									]})
 								);
 							} else {
 								row.addCell(
@@ -2638,10 +2661,11 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.ui.core.Icon({
+									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color:"green"
+										color: "green"
 									})
+									]})
 								);
 							} else {
 								row.addCell(

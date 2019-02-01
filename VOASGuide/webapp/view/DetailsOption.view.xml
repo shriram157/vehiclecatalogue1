@@ -130,7 +130,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>DimensionsSpecs}">
 						<uxap:blocks>
-							<Table id="DetailtblDimensions" width="100%" growing="true" growingScrollToLoad="false" growingThreshold="30" mode="None"></Table>
+							<Table id="DetailtblDimensions" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"></Table>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>

@@ -14,21 +14,20 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			DetailController.oRouter = sap.ui.core.UIComponent.getRouterFor(DetailController);
 			DetailController.oRouter.getTarget("DetailsOption").attachDisplay(jQuery.proxy(DetailController.handleRouteMatched,
 				DetailController));
-				//DetailController.getView().byId("manageSeriesBtnId").setEnabled(true);
-				DetailController._readUser();
+			//DetailController.getView().byId("manageSeriesBtnId").setEnabled(true);
+			DetailController._readUser();
 		},
-			_readUser:function(){
-				var userModel=sap.ui.getCore().getModel("userModel");
-				if(userModel){
-				var userData=userModel.getData();
-				if(userData.loggedUserType=="TCI_Admin"){
+		_readUser: function () {
+			var userModel = sap.ui.getCore().getModel("userModel");
+			if (userModel) {
+				var userData = userModel.getData();
+				if (userData.loggedUserType == "TCI_Admin") {
 					DetailController.getView().byId("manageSeriesBtnId").setEnabled(true);
-				}
-				else{
+				} else {
 					DetailController.getView().byId("manageSeriesBtnId").setEnabled(false);
 				}
-				}
-			},
+			}
+		},
 
 		handleRouteMatched: function (oEvent) {
 			var parseArg = JSON.parse(oEvent.getParameters().data.num);
@@ -200,23 +199,23 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					} else {
 						net[i] = "";
 					}
-				
+
 					var feature = [];
-					var str=dtOpt[i].OptionPackages;
+					var str = dtOpt[i].OptionPackages;
 					if (str) {
 						var res = str.replace(/;/g, "#- ");
 						feature[i] = res.split('#').join('\n');
 					}
 					var feature2 = [];
-					var str2=dtOpt[i].OptionPackages1;
+					var str2 = dtOpt[i].OptionPackages1;
 					if (str2) {
 						var res2 = str2.replace(/;/g, "#- ");
 						feature2[i] = res2.split('#').join('\n');
 					}
 					dataOpt.push({
 						"Category_en": dtOpt[i].Vehicle1 + "\n" + "MSRP: $ " + msrp[i] + "\nDealer Net: $" + net[i],
-						"Vehicle1": feature[i],//dtOpt[i].OptionPackages,
-						"Vehicle2": feature2[i]//dtOpt[i].OptionPackages1
+						"Vehicle1": feature[i], //dtOpt[i].OptionPackages,
+						"Vehicle2": feature2[i] //dtOpt[i].OptionPackages1
 					});
 				}
 				var fixedDataOptPackage = {
@@ -299,21 +298,25 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					var obj = context.getObject();
 					var row = new sap.m.ColumnListItem();
 					for (var k in obj) {
-							if (obj[k] == "Y") {
-								row.addCell(
-									new sap.ui.core.Icon({
+						if (obj[k] == "Y") {
+							row.addCell(
+								new sap.m.HBox({
+									items: [new sap.m.Text({
+										text: " ",
+									}).addStyleClass("padding"), new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										iconColor:sap.ui.core.IconColor.Positive
-									})
-								);
-							} else {
-								row.addCell(
-									new sap.m.Text({
-										text: obj[k]
-									})
-								);
-							}
+										iconColor: sap.ui.core.IconColor.Positive
+									})]
+								})
+							);
+						} else {
+							row.addCell(
+								new sap.m.Text({
+									text: obj[k]
+								})
+							);
 						}
+					}
 					return row;
 				});
 
@@ -330,21 +333,25 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					var obj = context.getObject();
 					var row = new sap.m.ColumnListItem();
 					for (var k in obj) {
-							if (obj[k] == "Y") {
-								row.addCell(
-									new sap.ui.core.Icon({
+						if (obj[k] == "Y") {
+							row.addCell(
+								new sap.m.HBox({
+									items: [new sap.m.Text({
+										text: " ",
+									}).addStyleClass("padding"), new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										iconColor:sap.ui.core.IconColor.Positive
-									})
-								);
-							} else {
-								row.addCell(
-									new sap.m.Text({
-										text: obj[k]
-									})
-								);
-							}
+										iconColor: sap.ui.core.IconColor.Positive
+									})]
+								})
+							);
+						} else {
+							row.addCell(
+								new sap.m.Text({
+									text: obj[k]
+								})
+							);
 						}
+					}
 					return row;
 				});
 
@@ -361,21 +368,25 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					var obj = context.getObject();
 					var row = new sap.m.ColumnListItem();
 					for (var k in obj) {
-							if (obj[k] == "Y") {
-								row.addCell(
-									new sap.ui.core.Icon({
+						if (obj[k] == "Y") {
+							row.addCell(
+								new sap.m.HBox({
+									items: [new sap.m.Text({
+										text: " ",
+									}).addStyleClass("padding"), new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										iconColor:sap.ui.core.IconColor.Positive
-									})
-								);
-							} else {
-								row.addCell(
-									new sap.m.Text({
-										text: obj[k]
-									})
-								);
-							}
+										iconColor: sap.ui.core.IconColor.Positive
+									})]
+								})
+							);
+						} else {
+							row.addCell(
+								new sap.m.Text({
+									text: obj[k]
+								})
+							);
 						}
+					}
 					return row;
 				});
 				var tblSafety = DetailController.getView().byId("DetailtblSafety");
@@ -391,21 +402,25 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					var obj = context.getObject();
 					var row = new sap.m.ColumnListItem();
 					for (var k in obj) {
-							if (obj[k] == "Y") {
-								row.addCell(
-									new sap.ui.core.Icon({
+						if (obj[k] == "Y") {
+							row.addCell(
+								new sap.m.HBox({
+									items: [new sap.m.Text({
+										text: " ",
+									}).addStyleClass("padding"), new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										iconColor:sap.ui.core.IconColor.Positive
-									})
-								);
-							} else {
-								row.addCell(
-									new sap.m.Text({
-										text: obj[k]
-									})
-								);
-							}
+										iconColor: sap.ui.core.IconColor.Positive
+									})]
+								})
+							);
+						} else {
+							row.addCell(
+								new sap.m.Text({
+									text: obj[k]
+								})
+							);
 						}
+					}
 					return row;
 				});
 				var tblInfotainment = DetailController.getView().byId("DetailtblInfotainment");
@@ -421,21 +436,25 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					var obj = context.getObject();
 					var row = new sap.m.ColumnListItem();
 					for (var k in obj) {
-							if (obj[k] == "Y") {
-								row.addCell(
-									new sap.ui.core.Icon({
+						if (obj[k] == "Y") {
+							row.addCell(
+								new sap.m.HBox({
+									items: [new sap.m.Text({
+										text: " ",
+									}).addStyleClass("padding"), new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										iconColor:sap.ui.core.IconColor.Positive
-									})
-								);
-							} else {
-								row.addCell(
-									new sap.m.Text({
-										text: obj[k]
-									})
-								);
-							}
+										iconColor: sap.ui.core.IconColor.Positive
+									})]
+								})
+							);
+						} else {
+							row.addCell(
+								new sap.m.Text({
+									text: obj[k]
+								})
+							);
 						}
+					}
 					return row;
 				});
 				var tblColorOptions = DetailController.getView().byId("DetailtblColorOptions");
@@ -451,21 +470,25 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					var obj = context.getObject();
 					var row = new sap.m.ColumnListItem();
 					for (var k in obj) {
-							if (obj[k] == "Y") {
-								row.addCell(
-									new sap.ui.core.Icon({
+						if (obj[k] == "Y") {
+							row.addCell(
+								new sap.m.HBox({
+									items: [new sap.m.Text({
+										text: " ",
+									}).addStyleClass("padding"), new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										iconColor:sap.ui.core.IconColor.Positive
-									})
-								);
-							} else {
-								row.addCell(
-									new sap.m.Text({
-										text: obj[k]
-									})
-								);
-							}
+										iconColor: sap.ui.core.IconColor.Positive
+									})]
+								})
+							);
+						} else {
+							row.addCell(
+								new sap.m.Text({
+									text: obj[k]
+								})
+							);
 						}
+					}
 					return row;
 				});
 				var tblDimensions = DetailController.getView().byId("DetailtblDimensions");
@@ -481,21 +504,25 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					var obj = context.getObject();
 					var row = new sap.m.ColumnListItem();
 					for (var k in obj) {
-							if (obj[k] == "Y") {
-								row.addCell(
-									new sap.ui.core.Icon({
+						if (obj[k] == "Y") {
+							row.addCell(
+								new sap.m.HBox({
+									items: [new sap.m.Text({
+										text: " ",
+									}).addStyleClass("padding"), new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										iconColor:sap.ui.core.IconColor.Positive
-									})
-								);
-							} else {
-								row.addCell(
-									new sap.m.Text({
-										text: obj[k]
-									})
-								);
-							}
+										iconColor: sap.ui.core.IconColor.Positive
+									})]
+								})
+							);
+						} else {
+							row.addCell(
+								new sap.m.Text({
+									text: obj[k]
+								})
+							);
 						}
+					}
 					return row;
 				});
 				var tblOptionPack = DetailController.getView().byId("DetailtblOptionPack");
@@ -511,21 +538,25 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					var obj = context.getObject();
 					var row = new sap.m.ColumnListItem();
 					for (var k in obj) {
-							if (obj[k] == "Y") {
-								row.addCell(
-									new sap.ui.core.Icon({
+						if (obj[k] == "Y") {
+							row.addCell(
+								new sap.m.HBox({
+									items: [new sap.m.Text({
+										text: " ",
+									}).addStyleClass("padding"), new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										iconColor:sap.ui.core.IconColor.Positive
-									})
-								);
-							} else {
-								row.addCell(
-									new sap.m.Text({
-										text: obj[k]
-									})
-								);
-							}
+										iconColor: sap.ui.core.IconColor.Positive
+									})]
+								})
+							);
+						} else {
+							row.addCell(
+								new sap.m.Text({
+									text: obj[k]
+								})
+							);
 						}
+					}
 					return row;
 				});
 				var tblAPX = DetailController.getView().byId("DetailtblAPX");
@@ -541,21 +572,25 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					var obj = context.getObject();
 					var row = new sap.m.ColumnListItem();
 					for (var k in obj) {
-							if (obj[k] == "Y") {
-								row.addCell(
-									new sap.ui.core.Icon({
+						if (obj[k] == "Y") {
+							row.addCell(
+								new sap.m.HBox({
+									items: [new sap.m.Text({
+										text: " ",
+									}).addStyleClass("padding"), new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										iconColor:sap.ui.core.IconColor.Positive
-									})
-								);
-							} else {
-								row.addCell(
-									new sap.m.Text({
-										text: obj[k]
-									})
-								);
-							}
+										iconColor: sap.ui.core.IconColor.Positive
+									})]
+								})
+							);
+						} else {
+							row.addCell(
+								new sap.m.Text({
+									text: obj[k]
+								})
+							);
 						}
+					}
 					return row;
 				});
 			}
@@ -581,7 +616,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				oQuery[aPair[0]] = decodeURIComponent(aPair[1]);
 			}
 			return oQuery;
-		//	console.log(oQuery);
+			//	console.log(oQuery);
 		},
 		_onCreateVehGuide: function () {
 
@@ -673,7 +708,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 		_onFioriObjectPageActionButtonPress4: function (oEvent) { //Manage series page
 
 			var oBindingContext = oEvent.getSource().getBindingContext();
-	//		console.log(oBindingContext);
+			//		console.log(oBindingContext);
 			return new Promise(function (fnResolve) {
 
 				DetailController.doNavigate("AdminDetailsOption", oBindingContext, fnResolve, "");
@@ -687,8 +722,8 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 		doNavigate: function (sRouteName, oBindingContext, fnPromiseResolve, sViaRelation) {
 			var sPath = (oBindingContext) ? oBindingContext.getPath() : null;
 			var oModel = (oBindingContext) ? oBindingContext.getModel() : null;
-		//	console.log(sPath);
-		//	console.log(oModel);
+			//	console.log(sPath);
+			//	console.log(oModel);
 			var sEntityNameSet;
 			if (sPath !== null && sPath !== "") {
 				if (sPath.substring(0, 1) === "/") {
@@ -704,7 +739,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					sEntityNameSet,
 					sRouteName);
 			}
-		//	console.log(sNavigationPropertyName);
+			//	console.log(sNavigationPropertyName);
 			if (sNavigationPropertyName !== null && sNavigationPropertyName !== undefined) {
 				if (sNavigationPropertyName === "") {
 					DetailController.oRouter.navTo(sRouteName, {
@@ -740,7 +775,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			if (typeof fnPromiseResolve === "function") {
 				fnPromiseResolve();
 			}
-	//		console.log(sPath);
+			//		console.log(sPath);
 		},
 
 		onExit: function () {
