@@ -389,11 +389,11 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 
 			if (brandCB.getValue() != "") {
 				modelYearCB.setEnabled(true);
-				/*if (brandCB.getSelectedKey() == "1") {
-					searchController.getView().byId("idLogo").setSrc("images/Toyota.jpg");
-				} else {
-					searchController.getView().byId("idLogo").setSrc("images/Lexus.png");
-				}*/
+					if (brandCB.getSelectedKey() == "1") {
+						sap.ui.getCore().byId("__xmlview0--idLogo").setSrc("images/Toyota.jpg");
+					} else {
+						sap.ui.getCore().byId("__xmlview0--idLogo").setSrc("images/Lexus.png");
+					}
 
 			}
 
@@ -414,11 +414,11 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 
 			if (brandCB.getValue() != "") {
 				modelYearCB.setEnabled(true);
-				/*	if (brandCB.getSelectedKey() == "1") {
-						searchController.getView().byId("idLogo").setSrc("images/Toyota.jpg");
+					if (brandCB.getSelectedKey() == "1") {
+						sap.ui.getCore().byId("__xmlview0--idLogo").setSrc("images/Toyota.jpg");
 					} else {
-						searchController.getView().byId("idLogo").setSrc("images/Lexus.png");
-					}*/
+						sap.ui.getCore().byId("__xmlview0--idLogo").setSrc("images/Lexus.png");
+					}
 			}
 
 		},

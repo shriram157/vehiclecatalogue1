@@ -47,7 +47,7 @@ sap.ui.define([
 			var userAttModel = new sap.ui.model.json.JSONModel(userAttributesData.samlAttributes);
 			sap.ui.getCore().setModel(userAttModel, "userAttributesModel");
 			var userLoggedData = {
-				"loggedUserType": ["Dealer_User"]
+				"loggedUserType": ["TCI_User"]//["Dealer_User"]
 			};
 			var userModel = new sap.ui.model.json.JSONModel(userLoggedData);
 			sap.ui.getCore().setModel(userModel, "userModel");

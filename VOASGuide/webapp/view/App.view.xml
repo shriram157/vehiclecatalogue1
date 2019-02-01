@@ -1,6 +1,6 @@
-<mvc:View controllerName="com.sap.build.toyota-canada.vehiclesGuideV3.controller.App" xmlns:html="http://www.w3.org/1999/xhtml"
-	xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m" height="100%">
-	<Page >
+<mvc:View id="AppView" controllerName="com.sap.build.toyota-canada.vehiclesGuideV3.controller.App" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m" height="100%" >
+	<Page id="appPage">
 		<customHeader height="87px">
 			<Bar class="sapUiSmallPaddingBeginEnd clCustomHeaderBg heightBar" >
 				<contentLeft>
