@@ -284,7 +284,8 @@ app.use(log.logNetwork);
 		var userAttributes = JSON.parse(JSON.stringify(req.authInfo.userAttributes));
 		var scopeData = req.authInfo.scopes;
 
-		var viewVOASGuides = false;
+		var viewVOASGuidesDealerNet = false;
+		var viewVOASGuidesMSRP = false;
 
 		var sendUserData = {
 			"loggedUserType": []
@@ -296,13 +297,26 @@ app.use(log.logNetwork);
 				sendUserData.loggedUserType.push("TCI_Admin");
 				return res.type("text/plain").status(200).send(JSON.stringify(sendUserData));
 			}
-			if (scopeData[i] == xsAppName + ".View_VOAS_Guides") {
-				viewVOASGuides = true;
+			if (scopeData[i] == xsAppName + ".View_VOAS_Guides_Unreleased") {
+				// Only TCI_User_Preliminary role has View_VOAS_Guides_Unreleased scope
+				sendUserData.loggedUserType.push("TCI_User_Preliminary");
+				return res.type("text/plain").status(200).send(JSON.stringify(sendUserData));
+			}
+			if (scopeData[i] == xsAppName + ".View_VOAS_Guides_Dealer_Net") {
+				viewVOASGuidesDealerNet = true;
+			}
+			if (scopeData[i] == xsAppName + ".View_VOAS_Guides_MSRP") {
+				viewVOASGuidesMSRP = true;
 			}
 		};
-		console.log("viewVOASGuides: " + viewVOASGuides);
+		console.log("viewVOASGuidesDealerNet: " + viewVOASGuidesDealerNet);
+		console.log("viewVOASGuidesMSRP: " + viewVOASGuidesMSRP);
 
-		if (viewVOASGuides) {
+		if (viewVOASGuidesDealerNet && viewVOASGuidesMSRP) {
+			sendUserData.loggedUserType.push("Dealer_Admin");
+			return res.type("text/plain").status(200).send(JSON.stringify(sendUserData));
+		}
+		if (!viewVOASGuidesDealerNet && viewVOASGuidesMSRP) {
 			var dealerCode = userAttributes.DealerCode
 			if (dealerCode != null) {
 				sendUserData.loggedUserType.push("Dealer_User");
