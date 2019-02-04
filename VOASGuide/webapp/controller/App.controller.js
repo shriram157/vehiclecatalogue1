@@ -5,6 +5,12 @@ sap.ui.define([
 	var AppController;
 
 	return BaseController.extend("com.sap.build.toyota-canada.vehiclesGuideV3.controller.App", {
+		
+	/*	"{=${SeriesData>SPRAS}==='English' ? ${SeriesData>TCISeriesDescriptionEN}:${SeriesData>TCISeriesDescriptionFR} }"
+
+		"{= ${products>UnitPrice}  > ${/priceThreshold} ? 'Error' : 'Success' }"*/
+		
+		
 		onInit: function () {
 			AppController = this;
 			//AppController._user();
@@ -12,13 +18,13 @@ sap.ui.define([
 			var bpModel = sap.ui.getCore().getModel("BpDealerModel");
 			if (bpModel) {
 				if (bpModel.getData()[0].Division == "10") {
-					AppController.getView().byId("idLogo").setSrc("images/Toyota.jpg");
+					AppController.getView().byId("idLogo").setSrc("images/Toyota.png");
 				} else {
 					AppController.getView().byId("idLogo").setSrc("images/Lexus.png");
 				}
 			}
 			else{
-					AppController.getView().byId("idLogo").setSrc("images/Toyota.jpg");
+					AppController.getView().byId("idLogo").setSrc("images/Toyota.png");
 			}
 
 		},
@@ -51,6 +57,9 @@ sap.ui.define([
 			};
 			var userModel = new sap.ui.model.json.JSONModel(userLoggedData);
 			sap.ui.getCore().setModel(userModel, "userModel");
+		},
+		onAfterRendering:function(){
+		this.getUserLanguage();	
 		},
 
 		userAPI: function () {

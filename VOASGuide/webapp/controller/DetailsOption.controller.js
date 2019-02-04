@@ -11,6 +11,8 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 		formatter: formatter,
 		onInit: function () {
 			DetailController = this;
+			this.getUserLanguage();	
+			this.getBrowserLanguage();
 			DetailController.oRouter = sap.ui.core.UIComponent.getRouterFor(DetailController);
 			DetailController.oRouter.getTarget("DetailsOption").attachDisplay(jQuery.proxy(DetailController.handleRouteMatched,
 				DetailController));

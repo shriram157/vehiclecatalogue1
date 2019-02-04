@@ -12,6 +12,8 @@ sap.ui.define([
 		formatter: formatter,
 		onInit: function () {
 			CDO_controller = this;
+			this.getUserLanguage();	
+			this.getBrowserLanguage();
 			CDO_controller.oRouter = sap.ui.core.UIComponent.getRouterFor(CDO_controller);
 			CDO_controller.oRouter.getTarget("CompareDetailsOption").attachDisplay(jQuery.proxy(CDO_controller.handleRouteMatched,
 				CDO_controller));
@@ -951,7 +953,7 @@ sap.ui.define([
 								row.addCell(
 									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color: "green"
+										color: "black"
 									})
 									]})
 								);
@@ -985,7 +987,7 @@ sap.ui.define([
 								row.addCell(
 									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color: "green"
+										color: "black"
 									})
 									]})
 								);
@@ -1020,7 +1022,7 @@ sap.ui.define([
 								row.addCell(
 									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color: "green"
+										color: "black"
 									})
 									]})
 								);
@@ -1053,7 +1055,7 @@ sap.ui.define([
 								row.addCell(
 									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color: "green"
+										color: "black"
 									})
 									]})
 								);
@@ -1085,7 +1087,7 @@ sap.ui.define([
 								row.addCell(
 									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color: "green"
+										color: "black"
 									})
 									]})
 								);
@@ -1117,7 +1119,7 @@ sap.ui.define([
 								row.addCell(
 									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color: "green"
+										color: "black"
 									})
 									]})
 								);
@@ -1150,7 +1152,7 @@ sap.ui.define([
 								row.addCell(
 									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color: "green"
+										color: "black"
 									})
 									]})
 								);
@@ -1204,7 +1206,7 @@ sap.ui.define([
 								row.addCell(
 									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color: "green"
+										color: "black"
 									})
 									]})
 								);
@@ -1684,7 +1686,7 @@ sap.ui.define([
 								row.addCell(
 									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color: "green"
+										color: "black"
 									})
 									]})
 								);
@@ -1716,7 +1718,7 @@ sap.ui.define([
 								row.addCell(
 									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color: "green"
+										color: "black"
 									})
 									]})
 								);
@@ -1749,7 +1751,7 @@ sap.ui.define([
 								row.addCell(
 									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color: "green"
+										color: "black"
 									})
 									]})
 								);
@@ -1780,7 +1782,7 @@ sap.ui.define([
 								row.addCell(
 									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color: "green"
+										color: "black"
 									})
 									]})
 								);
@@ -1811,7 +1813,7 @@ sap.ui.define([
 								row.addCell(
 									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color: "green"
+										color: "black"
 									})
 									]})
 								);
@@ -1842,7 +1844,7 @@ sap.ui.define([
 								row.addCell(
 									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color: "green"
+										color: "black"
 									})
 									]})
 								);
@@ -1873,7 +1875,7 @@ sap.ui.define([
 								row.addCell(
 									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color: "green"
+										color: "black"
 									})
 									]})
 								);
@@ -1925,7 +1927,7 @@ sap.ui.define([
 								row.addCell(
 									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color: "green"
+										color: "black"
 									})
 									]})
 								);
@@ -2422,7 +2424,7 @@ sap.ui.define([
 								row.addCell(
 									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color: "green"
+										color: "black"
 									})
 									]})
 								);
@@ -2454,7 +2456,7 @@ sap.ui.define([
 								row.addCell(
 									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-												color: "green"
+												color: "black"
 											})
 										]})
 								);
@@ -2487,7 +2489,7 @@ sap.ui.define([
 								row.addCell(
 									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color: "green"
+										color: "black"
 									})
 									]})
 								);
@@ -2518,7 +2520,7 @@ sap.ui.define([
 								row.addCell(
 									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color: "green"
+										color: "black"
 									})
 									]})
 								);
@@ -2549,7 +2551,7 @@ sap.ui.define([
 								row.addCell(
 									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color: "green"
+										color: "black"
 									})
 									]})
 								);
@@ -2580,7 +2582,7 @@ sap.ui.define([
 								row.addCell(
 									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color: "green"
+										color: "black"
 									})
 									]})
 								);
@@ -2611,7 +2613,7 @@ sap.ui.define([
 								row.addCell(
 									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color: "green"
+										color: "black"
 									})
 									]})
 								);
@@ -2663,7 +2665,7 @@ sap.ui.define([
 								row.addCell(
 									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										color: "green"
+										color: "black"
 									})
 									]})
 								);

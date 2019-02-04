@@ -11,6 +11,8 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 		formatter: formatter,
 		onInit: function () {
 			searchController = this;
+			this.getUserLanguage();	
+			this.getBrowserLanguage();
 			searchController.oRouter = sap.ui.core.UIComponent.getRouterFor(searchController);
 			searchController.oRouter.getTarget("SearchPage").attachDisplay(jQuery.proxy(searchController.handleRouteMatched, searchController));
 			searchController.listOfBrand();
@@ -21,7 +23,6 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			sap.ushell.components.brandCB = searchController.getView().byId("id_brandCB");
 			sap.ushell.components.modelYearCB = searchController.getView().byId("id_modelYearCB");
 			sap.ushell.components.seriesCB = searchController.getView().byId("id_seriesCB");
-			
 			searchController._readUser();
 		},
 
@@ -390,7 +391,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			if (brandCB.getValue() != "") {
 				modelYearCB.setEnabled(true);
 					if (brandCB.getSelectedKey() == "1") {
-						sap.ui.getCore().byId("__xmlview0--idLogo").setSrc("images/Toyota.jpg");
+						sap.ui.getCore().byId("__xmlview0--idLogo").setSrc("images/Toyota.png");
 					} else {
 						sap.ui.getCore().byId("__xmlview0--idLogo").setSrc("images/Lexus.png");
 					}
@@ -415,7 +416,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			if (brandCB.getValue() != "") {
 				modelYearCB.setEnabled(true);
 					if (brandCB.getSelectedKey() == "1") {
-						sap.ui.getCore().byId("__xmlview0--idLogo").setSrc("images/Toyota.jpg");
+						sap.ui.getCore().byId("__xmlview0--idLogo").setSrc("images/Toyota.png");
 					} else {
 						sap.ui.getCore().byId("__xmlview0--idLogo").setSrc("images/Lexus.png");
 					}

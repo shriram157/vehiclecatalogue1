@@ -72,7 +72,7 @@
 													<VBox class="vbox_textAlign1">
 														<items>
 															<Title text="{compareModel>/0/ENModelDesc} - ({compareModel>/0/Model}) - SFX {compareModel>/0/Suffix}" wrapping="true"/>
-															<Text text="Model: {compareModel>/0/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{i18n>Model}: {compareModel>/0/ENModelDesc}" wrapping="true"></Text>
 															<Text text="{i18n>MSRP}{parts: [{path:'compareModel>/0/MSRP'},{path:'compareModel>/0/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
 															<Text text="{i18n>DealerNet}{parts: [{path:'compareModel>/0/NETPRICE'},{path:'compareModel>/0/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
 														</items>
@@ -84,7 +84,7 @@
 													<VBox class="vbox_textAlign1">
 														<items>
 															<Title text="{compareModel>/1/ENModelDesc} - ({compareModel>/1/Model}) - SFX {compareModel>/1/Suffix}" wrapping="true"/>
-															<Text text="Model: {compareModel>/1/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{i18n>Model}: {compareModel>/1/ENModelDesc}" wrapping="true"></Text>
 															<Text text="{i18n>MSRP}{parts: [{path:'compareModel>/1/MSRP'},{path:'compareModel>/1/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
 															<Text text="{i18n>DealerNet}{parts: [{path:'compareModel>/1/NETPRICE'},{path:'compareModel>/1/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
 														</items>
@@ -120,7 +120,7 @@
 													<VBox class="vbox_textAlign1">
 														<items>
 															<Title text="{compareModel>/0/ENModelDesc} - ({compareModel>/0/Model}) - SFX {compareModel>/0/Suffix}" wrapping="true"/>
-															<Text text="Model: {compareModel>/0/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{i18n>Model}: {compareModel>/0/ENModelDesc}" wrapping="true"></Text>
 															<Text text="{i18n>MSRP}{parts: [{path:'compareModel>/0/MSRP'},{path:'compareModel>/0/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
 															<Text text="{i18n>DealerNet}{parts: [{path:'compareModel>/0/NETPRICE'},{path:'compareModel>/0/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
 														</items>
@@ -132,7 +132,7 @@
 													<VBox class="vbox_textAlign1">
 														<items>
 															<Title text="{compareModel>/1/ENModelDesc} - ({compareModel>/1/Model}) - SFX {compareModel>/1/Suffix}" wrapping="true"/>
-															<Text text="Model: {compareModel>/1/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{i18n>Model}: {compareModel>/1/ENModelDesc}" wrapping="true"></Text>
 															<Text text="{i18n>MSRP}{parts: [{path:'compareModel>/1/MSRP'},{path:'compareModel>/1/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
 															<Text text="{i18n>DealerNet}{parts: [{path:'compareModel>/1/NETPRICE'},{path:'compareModel>/1/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
 														</items>
@@ -144,7 +144,7 @@
 													<VBox class="vbox_textAlign1">
 														<items>
 															<Title text="{compareModel>/2/ENModelDesc} - ({compareModel>/2/Model}) - SFX {compareModel>/2/Suffix}" wrapping="true"/>
-															<Text text="Model: {compareModel>/2/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{i18n>Model}: {compareModel>/2/ENModelDesc}" wrapping="true"></Text>
 															<Text text="{i18n>MSRP}{parts: [{path:'compareModel>/2/MSRP'},{path:'compareModel>/2/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
 															<Text text="{i18n>DealerNet}{parts: [{path:'compareModel>/2/NETPRICE'},{path:'compareModel>/2/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
 														</items>
@@ -180,7 +180,7 @@
 													<VBox class="vbox_textAlign1">
 														<items>
 															<Title text="{compareModel>/0/ENModelDesc} - ({compareModel>/0/Model}) - SFX {compareModel>/0/Suffix}" wrapping="true"/>
-															<Text text="Model: {compareModel>/0/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{i18n>Model}: {compareModel>/0/ENModelDesc}" wrapping="true"></Text>
 															<Text text="{i18n>MSRP}{parts: [{path:'compareModel>/0/MSRP'},{path:'compareModel>/0/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
 															<Text text="{i18n>DealerNet}{parts: [{path:'compareModel>/0/NETPRICE'},{path:'compareModel>/0/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
 														</items>
@@ -192,7 +192,7 @@
 													<VBox class="vbox_textAlign1">
 														<items>
 															<Title text="{compareModel>/1/ENModelDesc} - ({compareModel>/1/Model}) - SFX {compareModel>/1/Suffix}" wrapping="true"/>
-															<Text text="Model: {compareModel>/1/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{i18n>Model}: {compareModel>/1/ENModelDesc}" wrapping="true"></Text>
 															<Text text="{i18n>MSRP}{parts: [{path:'compareModel>/1/MSRP'},{path:'compareModel>/1/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
 															<Text text="{i18n>DealerNet}{parts: [{path:'compareModel>/1/NETPRICE'},{path:'compareModel>/1/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
 														</items>
@@ -204,7 +204,7 @@
 													<VBox class="vbox_textAlign1">
 														<items>
 															<Title text="{compareModel>/2/ENModelDesc} - ({compareModel>/2/Model}) - SFX {compareModel>/2/Suffix}" wrapping="true"/>
-															<Text text="Model: {compareModel>/2/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{i18n>Model}: {compareModel>/2/ENModelDesc}" wrapping="true"></Text>
 															<Text text="{i18n>MSRP}{parts: [{path:'compareModel>/2/MSRP'},{path:'compareModel>/2/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
 															<Text text="{i18n>DealerNet}{parts: [{path:'compareModel>/2/NETPRICE'},{path:'compareModel>/2/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
 														</items>
@@ -216,7 +216,7 @@
 													<VBox class="vbox_textAlign1">
 														<items>
 															<Title text="{compareModel>/3/ENModelDesc} - ({compareModel>/3/Model}) - SFX {compareModel>/3/Suffix}" wrapping="true"/>
-															<Text text="Model: {compareModel>/3/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{i18n>Model}: {compareModel>/3/ENModelDesc}" wrapping="true"></Text>
 															<Text text="{i18n>MSRP}{parts: [{path:'compareModel>/3/MSRP'},{path:'compareModel>/3/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
 															<Text text="{i18n>DealerNet}{parts: [{path:'compareModel>/3/NETPRICE'},{path:'compareModel>/3/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
 														</items>
@@ -252,7 +252,7 @@
 													<VBox class="vbox_textAlign1">
 														<items>
 															<Title text="{compareModel>/0/ENModelDesc} - ({compareModel>/0/Model}) - SFX {compareModel>/0/Suffix}" wrapping="true"/>
-															<Text text="Model: {compareModel>/0/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{i18n>Model}: {compareModel>/0/ENModelDesc}" wrapping="true"></Text>
 															<Text text="{parts: [{path:'compareModel>/0/MSRP'},{path:'compareModel>/0/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
 															<Text text="{parts: [{path:'compareModel>/0/NETPRICE'},{path:'compareModel>/0/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
 														</items>
@@ -264,7 +264,7 @@
 													<VBox class="vbox_textAlign1">
 														<items>
 															<Title text="{compareModel>/1/ENModelDesc} - ({compareModel>/1/Model}) - SFX {compareModel>/1/Suffix}" wrapping="true"/>
-															<Text text="Model: {compareModel>/1/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{i18n>Model}: {compareModel>/1/ENModelDesc}" wrapping="true"></Text>
 															<Text text="{i18n>MSRP}{parts: [{path:'compareModel>/1/MSRP'},{path:'compareModel>/1/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
 															<Text text="{i18n>DealerNet}{parts: [{path:'compareModel>/1/NETPRICE'},{path:'compareModel>/1/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
 														</items>
@@ -276,7 +276,7 @@
 													<VBox class="vbox_textAlign1">
 														<items>
 															<Title text="{compareModel>/2/ENModelDesc} - ({compareModel>/2/Model}) - SFX {compareModel>/2/Suffix}" wrapping="true"/>
-															<Text text="Model: {compareModel>/2/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{i18n>Model}: {compareModel>/2/ENModelDesc}" wrapping="true"></Text>
 															<Text text="{i18n>MSRP}{parts: [{path:'compareModel>/2/MSRP'},{path:'compareModel>/2/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
 															<Text text="{i18n>DealerNet}{parts: [{path:'compareModel>/2/NETPRICE'},{path:'compareModel>/2/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
 														</items>
@@ -288,7 +288,7 @@
 													<VBox class="vbox_textAlign1">
 														<items>
 															<Title text="{compareModel>/3/ENModelDesc} - ({compareModel>/3/Model}) - SFX {compareModel>/3/Suffix}" wrapping="true"/>
-															<Text text="Model: {compareModel>/3/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{i18n>Model}: {compareModel>/3/ENModelDesc}" wrapping="true"></Text>
 															<Text text="{i18n>MSRP}{parts: [{path:'compareModel>/3/MSRP'},{path:'compareModel>/3/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
 															<Text text="{i18n>DealerNet}{parts: [{path:'compareModel>/3/NETPRICE'},{path:'compareModel>/3/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
 														</items>
@@ -300,7 +300,7 @@
 													<VBox class="vbox_textAlign1">
 														<items>
 															<Title text="{compareModel>/4/ENModelDesc} - ({compareModel>/4/Model}) - SFX {compareModel>/4/Suffix}" wrapping="true"/>
-															<Text text="Model: {compareModel>/4/ENModelDesc}" wrapping="true"></Text>
+															<Text text="{i18n>Model}: {compareModel>/4/ENModelDesc}" wrapping="true"></Text>
 															<Text text="{i18n>MSRP}{parts: [{path:'compareModel>/4/MSRP'},{path:'compareModel>/4/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
 															<Text text="{i18n>DealerNet}{parts: [{path:'compareModel>/4/NETPRICE'},{path:'compareModel>/4/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
 														</items>
@@ -338,7 +338,7 @@
 				<uxap:subSections>
 						<uxap:ObjectPageSubSection title="{i18n>Interior}">
 						<uxap:blocks>
-						<Table id="tblInterior" width="100%" growing="true" growingScrollToLoad="false" growingThreshold="30" mode="None" class="tableCol1"></Table>
+						<Table id="tblInterior" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None" class="tableCol1"></Table>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -347,7 +347,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>Exterior}">
 						<uxap:blocks>
-							<Table id="tblExterior" width="100%" growing="true" growingScrollToLoad="false" growingThreshold="30" mode="None" class="tableCol1"></Table>
+							<Table id="tblExterior" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None" class="tableCol1"></Table>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -356,7 +356,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{18n>Powertrain}">
 						<uxap:blocks>
-							<Table id="pwrTrn" width="100%" growing="true" growingScrollToLoad="false" growingThreshold="30" mode="None"></Table>
+							<Table id="pwrTrn" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"></Table>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -365,7 +365,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>Safety}">
 						<uxap:blocks>
-							<Table id="tblSafety" width="100%" growing="true" growingScrollToLoad="false" growingThreshold="30" mode="None"></Table>
+							<Table id="tblSafety" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"></Table>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -374,7 +374,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>Infotainment}">
 						<uxap:blocks>
-							<Table id="tblInfotainment" width="100%" growing="true" growingScrollToLoad="false" growingThreshold="30" mode="None"></Table>
+							<Table id="tblInfotainment" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"></Table>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -383,7 +383,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>ColorOptions}">
 						<uxap:blocks>
-							<Table id="tblColorOptions" width="100%" growing="true" growingScrollToLoad="false" growingThreshold="30" mode="None"></Table>
+							<Table id="tblColorOptions" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"></Table>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -439,7 +439,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>APX}">
 						<uxap:blocks>
-							<Table id="tblAPX" width="100%" growing="true" growingScrollToLoad="false" growingThreshold="30" mode="None"></Table>
+							<Table id="tblAPX" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"></Table>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>

@@ -24,8 +24,8 @@ sap.ui.define([
 		getRouter: function () {
 			return sap.ui.core.UIComponent.getRouterFor(baseController);
 		},
-		
-		host:function(){	
+
+		host: function () {
 			var sLocation = window.location.host;
 			var sLocation_conf = sLocation.search("webide");
 			if (sLocation_conf == 0) {
@@ -34,10 +34,10 @@ sap.ui.define([
 				this.sPrefix = "";
 			}
 			this.nodeJsUrl = this.sPrefix + "/node";
-	
-		return this.nodeJsUrl;
-	},
-		hostAPI:function(){	
+
+			return this.nodeJsUrl;
+		},
+		hostAPI: function () {
 			var sLocation = window.location.host;
 			var sLocation_conf = sLocation.search("webide");
 			if (sLocation_conf == 0) {
@@ -45,10 +45,9 @@ sap.ui.define([
 			} else {
 				this.sPrefix = "";
 			}
-		//	this.nodeJsUrl = this.sPrefix + "/node";
-	
-		return 	this.sPrefix;
-	},
+			//	this.nodeJsUrl = this.sPrefix + "/node";
+			return this.sPrefix;
+		},
 		onNavBack: function (oEvent) {
 			var oHistory = History.getInstance();
 			var sPreviousHash = oHistory.getPreviousHash();
@@ -67,7 +66,34 @@ sap.ui.define([
 				fromTarget: "RetailSoldOrderA" //go to view 1 from not found 
 			});
 		},
+		getUserLanguage: function () {
+			var oI18nModel = new sap.ui.model.resource.ResourceModel({
+				bundleUrl: "i18n/i18n.properties"
+			});
+			this.getView().setModel(oI18nModel, "i18n");
+			var userAttributesModel = sap.ui.getCore().getModel("userAttributesModel");
+			var langData, Language;
+			if (userAttributesModel) {
+				langData = userAttributesModel.getData();
+				Language = langData[0].Language[0];
+				if (Language == "English") {
+					var i18nModel = new sap.ui.model.resource.ResourceModel({
+						bundleUrl: "i18n/i18n.properties",
+						bundleLocale: ("en")
+					});
+					this.getView().setModel(i18nModel, "i18n");
+					this.sCurrentLocale = 'EN';
+				} else {
+					var i18nModel = new sap.ui.model.resource.ResourceModel({
+						bundleUrl: "i18n/i18n.properties",
+						bundleLocale: ("fr")
+					});
+					this.getView().setModel(i18nModel, "i18n");
+					this.sCurrentLocale = 'FR';
+				}
+			}
 
+		},
 		getBrowserLanguage: function () {
 			var oI18nModel = new sap.ui.model.resource.ResourceModel({
 				bundleUrl: "i18n/i18n.properties"

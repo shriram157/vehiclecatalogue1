@@ -19,6 +19,8 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			/*AdminDetailCntroller.suppTableOnPageLoad();
 			AdminDetailCntroller.walkUpTableOnPageLoad();
 			AdminDetailCntroller.whatsNewTableOnPageLoad();*/
+			this.getUserLanguage();	
+			this.getBrowserLanguage();
 		},
 		handleRouteMatched: function (oEvent) {
 			var parseArg = JSON.parse(oEvent.getParameters().data.num3);
