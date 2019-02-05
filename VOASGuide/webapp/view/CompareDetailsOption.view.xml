@@ -354,7 +354,7 @@
 			</uxap:ObjectPageSection>
 			<uxap:ObjectPageSection title="Powertrain &amp; Mechanical">
 				<uxap:subSections>
-					<uxap:ObjectPageSubSection title="{18n>Powertrain}">
+					<uxap:ObjectPageSubSection title="{i18n>Powertrain}">
 						<uxap:blocks>
 							<Table id="pwrTrn" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"></Table>
 						</uxap:blocks>
