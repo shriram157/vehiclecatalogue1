@@ -11,13 +11,17 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 		formatter: formatter,
 		onInit: function () {
 			DetailController = this;
-			this.getUserLanguage();	
+			this.getUserLanguage();
 			this.getBrowserLanguage();
 			DetailController.oRouter = sap.ui.core.UIComponent.getRouterFor(DetailController);
 			DetailController.oRouter.getTarget("DetailsOption").attachDisplay(jQuery.proxy(DetailController.handleRouteMatched,
 				DetailController));
 			//DetailController.getView().byId("manageSeriesBtnId").setEnabled(true);
-			DetailController._readUser();
+			//DetailController._readUser();
+			DetailController.language = DetailController.returnBrowserLanguage();
+		},
+		onAfterRendering:function(){
+				DetailController._readUser();
 		},
 		_readUser: function () {
 			var userModel = sap.ui.getCore().getModel("userModel");
@@ -36,11 +40,17 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			var modelDetail = new sap.ui.model.json.JSONModel(parseArg[0]);
 			var veh = parseArg[0].veh;
 			var suffix = parseArg[0].suffix;
+			var brandCB = parseArg[0].brand;
 			var vehSuffix = veh + suffix;
 			DetailController.getView().setModel(modelDetail, "modelDetail");
+			if (brandCB == "TOYOTA") {
+				sap.ui.getCore().byId("__xmlview0--idLogo").setSrc("images/Toyota.png");
+			} else {
+				sap.ui.getCore().byId("__xmlview0--idLogo").setSrc("images/Lexus.png");
+			}
 			var host = DetailController.host();
 			var urlTable = host + "/Z_VEHICLE_CATALOGUE_SRV/ZC_VOAS_COMP_HEADERSet?$filter=(IN_Vehicle1 eq '" + vehSuffix +
-				"')&$expand=ZCVOASDEEP";
+				"' and Language eq '" + DetailController.language + "') &$expand=ZCVOASDEEP";
 			$.ajax({
 				url: urlTable,
 				method: 'GET',
@@ -307,7 +317,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 										text: " ",
 									}).addStyleClass("padding"), new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										iconColor: sap.ui.core.IconColor.Positive
+
 									})]
 								})
 							);
@@ -342,7 +352,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 										text: " ",
 									}).addStyleClass("padding"), new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										iconColor: sap.ui.core.IconColor.Positive
+
 									})]
 								})
 							);
@@ -377,7 +387,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 										text: " ",
 									}).addStyleClass("padding"), new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										iconColor: sap.ui.core.IconColor.Positive
+
 									})]
 								})
 							);
@@ -411,7 +421,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 										text: " ",
 									}).addStyleClass("padding"), new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										iconColor: sap.ui.core.IconColor.Positive
+
 									})]
 								})
 							);
@@ -445,7 +455,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 										text: " ",
 									}).addStyleClass("padding"), new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										iconColor: sap.ui.core.IconColor.Positive
+
 									})]
 								})
 							);
@@ -479,7 +489,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 										text: " ",
 									}).addStyleClass("padding"), new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										iconColor: sap.ui.core.IconColor.Positive
+
 									})]
 								})
 							);
@@ -513,7 +523,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 										text: " ",
 									}).addStyleClass("padding"), new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										iconColor: sap.ui.core.IconColor.Positive
+
 									})]
 								})
 							);
@@ -547,7 +557,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 										text: " ",
 									}).addStyleClass("padding"), new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										iconColor: sap.ui.core.IconColor.Positive
+
 									})]
 								})
 							);
@@ -581,7 +591,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 										text: " ",
 									}).addStyleClass("padding"), new sap.ui.core.Icon({
 										src: "sap-icon://accept",
-										iconColor: sap.ui.core.IconColor.Positive
+
 									})]
 								})
 							);

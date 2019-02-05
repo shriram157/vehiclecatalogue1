@@ -20,6 +20,7 @@ sap.ui.define([
 			CDO_controller.oBusyDialog = new sap.m.BusyDialog({
 				showCancelButton: false
 			});
+			CDO_controller.language = CDO_controller.returnBrowserLanguage();
 		},
 		onSwitchstateChange: function (evt_Switch) {
 			var state = evt_Switch.getSource().mProperties.state;
@@ -223,7 +224,7 @@ sap.ui.define([
 			});
 			if (newVehStr !== "") {
 				var urlTable = host +
-					"/Z_VEHICLE_CATALOGUE_SRV/ZC_VOAS_COMP_HEADERSet?$filter= (" + newVehStr + ")&$expand=ZCVOASDEEP";
+					"/Z_VEHICLE_CATALOGUE_SRV/ZC_VOAS_COMP_HEADERSet?$filter= (" + newVehStr + " and Language eq '" + CDO_controller.language + "') &$expand=ZCVOASDEEP";
 				//IN_Vehicle1 eq '2019Camry SEAM' and IN_Vehicle2 eq '2019Camry LEAM' )&$expand=ZCVOASDEEP";
 				$.ajax({
 					url: urlTable,
@@ -1413,7 +1414,7 @@ sap.ui.define([
 			});
 			if (newVehStr !== "") {
 				var urlTable = host +
-					"/Z_VEHICLE_CATALOGUE_SRV/ZC_VOAS_COMP_HEADERSet?$filter= (" + newVehStr + ")&$expand=ZCVOASDEEP";
+					"/Z_VEHICLE_CATALOGUE_SRV/ZC_VOAS_COMP_HEADERSet?$filter= (" + newVehStr + " and Language eq '" + CDO_controller.language + "') &$expand=ZCVOASDEEP";
 				//IN_Vehicle1 eq '2019Camry SEAM' and IN_Vehicle2 eq '2019Camry LEAM' )&$expand=ZCVOASDEEP";
 				//	"/Z_VEHICLE_CATALOGUE_SRV/ZC_VOAS_COMP_HEADERSet?$filter=(IN_Vehicle1 eq '2018Camry SEA' and IN_Vehicle2 eq '2018Camry LEA' )&$expand=ZCVOASDEEP";
 
@@ -2110,22 +2111,22 @@ sap.ui.define([
 				console.log("1");
 				url2 = host +
 					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
-					"' and (" + newSuffixStr + ") and Modelyear eq  '" + modelYearCBVal + " ')";
+					"' and (" + newSuffixStr + ") and Modelyear eq  '" + modelYearCBVal + " 'and Language eq '" + CDO_controller.language + "')";
 			} else if (suffixDescString == "" && modelDescString !== "") {
 				console.log("2");
 				url2 = host +
 					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
-					" ' and Modelyear eq  '" + modelYearCBVal + " 'and (" + newModelStr + ") )";
+					" ' and Modelyear eq  '" + modelYearCBVal + " 'and (" + newModelStr + ") and Language eq '" + CDO_controller.language + "')";
 			} else if (suffixDescString == "" && modelDescString == "") {
 				console.log("3");
 				url2 = host +
 					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
-					" ' and Modelyear eq  '" + modelYearCBVal + " ')";
+					" ' and Modelyear eq  '" + modelYearCBVal + " 'and Language eq '" + CDO_controller.language + "')";
 			} else {
 				console.log("4");
 				url2 = host +
 					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
-					" ' and Modelyear eq  '" + modelYearCBVal + " ' and (" + newModelStr + ") and (" + newSuffixStr + ") )";
+					" ' and Modelyear eq  '" + modelYearCBVal + " ' and (" + newModelStr + ") and (" + newSuffixStr + ") and Language eq '" + CDO_controller.language + "')";
 			}
 			$.ajax({
 				url: url2,
@@ -2144,7 +2145,7 @@ sap.ui.define([
 			});
 			if (newVehStr !== "") {
 				var urlTable = host +
-					"/Z_VEHICLE_CATALOGUE_SRV/ZC_VOAS_COMP_HEADERSet?$filter= (" + newVehStr + ")&$expand=ZCVOASDEEP";
+					"/Z_VEHICLE_CATALOGUE_SRV/ZC_VOAS_COMP_HEADERSet?$filter= (" + newVehStr + " and Language eq '" + CDO_controller.language + "') &$expand=ZCVOASDEEP";
 				//IN_Vehicle1 eq '2019Camry SEAM' and IN_Vehicle2 eq '2019Camry LEAM' )&$expand=ZCVOASDEEP";
 				//	"/Z_VEHICLE_CATALOGUE_SRV/ZC_VOAS_COMP_HEADERSet?$filter=(IN_Vehicle1 eq '2018Camry SEA' and IN_Vehicle2 eq '2018Camry LEA' )&$expand=ZCVOASDEEP";
 

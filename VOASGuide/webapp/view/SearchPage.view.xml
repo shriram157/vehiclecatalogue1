@@ -9,7 +9,8 @@
 				<f:actions>
 					<ToolbarSpacer/>
 					<!--	<variants:VariantManagement/>-->
-					<!--<Button icon="sap-icon://action" type="Transparent"/>-->
+					<!--<Button icon="sap-icon://action" type="Transparent"/>
+					{=${SeriesData>SPRAS}=='EN' ? ${SeriesData>TCISeriesDescriptionEN}:${SeriesData>TCISeriesDescriptionFR}-->
 				</f:actions>
 			</f:DynamicPageTitle>
 		</f:title>
@@ -138,7 +139,12 @@
 							<ColumnListItem type="Navigation">
 								<cells>
 									<ObjectIdentifier
-										text="{parts: [{path:'searchTblModel>Modelyear'},{path:'searchTblModel>Model'},{path:'searchTblModel>ENModelDesc'},{path:'searchTblModel>Suffix'},{path:'searchTblModel>suffix_desc_en'}] , formatter: 'formatter.formatVehicle'}"/>
+										text="{parts: [{path:'searchTblModel>Modelyear'},
+										{path:'searchTblModel>Model'},
+										{path:'searchTblModel>ENModelDesc'},{path:'searchTblModel>FRModelDesc'},
+										{path:'searchTblModel>Suffix'},
+										{path:'searchTblModel>suffix_desc_en'},{path:'searchTblModel>suffix_desc_fr'},{path:'searchTblModel>Language'}] ,
+										formatter: 'formatter.formatVehicle'}"/>
 									<!--title="{searchTblModel>Vehicle}" text="{parts: [{path:'searchTblModel>Suffix'},{path:'searchTblModel>Suffix'}] , formatter: 'formatter.formatSuffix'}"/>-->
 									<!-- text="SFX- {searchTblModel>Suffix}"/>-->
 									<ObjectIdentifier

@@ -40,6 +40,7 @@
 					<VBox>
 						<items>
 							<Title text="{modelDetail>/ENModelDesc} - ({modelDetail>/model}) - SFX {modelDetail>/suffix}"/>
+						<!--	<Title text="{{=${modelDetail>lang}=='EN' ? ${modelDetail>ENModelDesc}:${modelDetail>FRModelDesc}} - ({modelDetail>/model}) - SFX {modelDetail>/suffix}"/>-->
 							<HBox>
 								<items>
 									<Label text="{i18n>Model}"/>
