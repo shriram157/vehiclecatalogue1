@@ -53,9 +53,31 @@
 		]
 	}, {
 		"name": "TCI_Admin",
-		"description": "TCI Admin",
+		"description": "PPD (TCI Admin)",
 		"scope-references": [
 			"$XSAPPNAME.Manage_VOAS_Guides",
+			"$XSAPPNAME.View_VOAS_Guides_Dealer_Net",
+			"$XSAPPNAME.View_VOAS_Guides_MSRP",
+			"$XSAPPNAME.View_VOAS_Guides_Unreleased"
+		],
+		"attribute-references": [
+			"Language",
+			"UserType"
+		]
+	}, {
+		"name": "TCI_User",
+		"description": "Internal TCI User",
+		"scope-references": [
+			"$XSAPPNAME.View_VOAS_Guides_MSRP"
+		],
+		"attribute-references": [
+			"Language",
+			"UserType"
+		]
+	}, {
+		"name": "TCI_User_Dealer_Net",
+		"description": "Internal TCI User - w/ Dealer Net",
+		"scope-references": [
 			"$XSAPPNAME.View_VOAS_Guides_Dealer_Net",
 			"$XSAPPNAME.View_VOAS_Guides_MSRP"
 		],
@@ -64,19 +86,21 @@
 			"UserType"
 		]
 	}, {
-		"name": "TCI_User",
-		"description": "TCI User",
+		"name": "TCI_User_Preliminary",
+		"description": "Internal TCI User - Preliminary",
 		"scope-references": [
-			"$XSAPPNAME.View_VOAS_Guides_MSRP"
+			"$XSAPPNAME.View_VOAS_Guides_MSRP",
+			"$XSAPPNAME.View_VOAS_Guides_Unreleased"
 		],
 		"attribute-references": [
 			"Language",
 			"UserType"
 		]
 	}, {
-		"name": "TCI_User_Preliminary",
-		"description": "TCI User - Preliminary",
+		"name": "TCI_User_Preliminary_Dealer_Net",
+		"description": "Internal TCI User - Preliminary - w/ Dealer Net",
 		"scope-references": [
+			"$XSAPPNAME.View_VOAS_Guides_Dealer_Net",
 			"$XSAPPNAME.View_VOAS_Guides_MSRP",
 			"$XSAPPNAME.View_VOAS_Guides_Unreleased"
 		],
