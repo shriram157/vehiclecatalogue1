@@ -24,7 +24,7 @@ sap.ui.define([
 				if (bpDealerModel) {
 					userData = userModel.getData();
 					bpData = bpDealerModel.getData();
-					if (userData.loggedUserType == "Dealer_User" || userData.loggedUserType == "Dealer_Admin") {
+					if (userData.loggedUserType[0] == "Dealer_User" || userData.loggedUserType[0] == "Dealer_Admin") {
 						if (bpData[0].Division == "10") {
 							CreateSuppGuideController.getView().byId("idSupp_brandCB").setEnabled(false);
 							CreateSuppGuideController.getView().byId("idSupp_brandCB").setSelectedKey("1");
@@ -32,11 +32,11 @@ sap.ui.define([
 							CreateSuppGuideController.getView().byId("idSupp_brandCB").setEnabled(false);
 							CreateSuppGuideController.getView().byId("idSupp_brandCB").setSelectedKey("2");
 						}
-					} else if (userData.loggedUserType == "TCI_User" || userData.loggedUserType == "TCI_User_Preliminary") {
-						
-							CreateSuppGuideController.getView().byId("idSupp_brandCB").setEnabled(true);
-							CreateSuppGuideController.getView().byId("idSupp_brandCB").setValue(brandVal);
-						
+					} else if (userData.loggedUserType[0] == "TCI_User" || userData.loggedUserType[0] == "TCI_User_Preliminary") {
+
+						CreateSuppGuideController.getView().byId("idSupp_brandCB").setEnabled(true);
+						CreateSuppGuideController.getView().byId("idSupp_brandCB").setValue(brandVal);
+
 					} else {
 						CreateSuppGuideController.getView().byId("idSupp_brandCB").setEnabled(true);
 					}
@@ -51,23 +51,29 @@ sap.ui.define([
 			var brandCB = sap.ushell.components.brandCB;
 			var moYearCB = sap.ushell.components.modelYearCB;
 			var seriesCB = sap.ushell.components.seriesCB;
-			var userAttributesModel = sap.ui.getCore().getModel("userAttributesModel");
-			var langData, Language, LanguageState;
-			if (userAttributesModel) {
-				langData = userAttributesModel.getData();
-				/*Language = langData[0].Language[0];
-				if (Language == "English") {
-					LanguageState = true;
-				} else {
-					LanguageState = false;
-				}*/
+			//var userAttributesModel = sap.ui.getCore().getModel("userAttributesModel");
+			//var langData;
+			//	if (userAttributesModel) {
+			/*langData = userAttributesModel.getData();
+			Language = langData[0].Language[0];
+			if (Language == "English") {
+				LanguageState = true;
+			} else {
+				LanguageState = false;
+			}*/
+			var Language, LanguageState;
+			var isLocaleSent = window.location.search.match(/language=([^&]*)/i);
+			if (isLocaleSent) {
 				Language = window.location.search.match(/language=([^&]*)/i)[1];
-				if (Language == "FR") {
-					LanguageState = false;
-				} else {
-					LanguageState = true;
-				}
+			} else {
+				Language = "EN";
 			}
+			if (Language == "FR") {
+				LanguageState = false;
+			} else {
+				LanguageState = true;
+			}
+			//	}
 			CreateSuppGuideController.getView().byId("idCreateSupp_LangSwitch").setState(LanguageState);
 			if (brandCB != undefined && moYearCB != undefined && seriesCB != undefined) {
 				var brandVal = brandCB.getValue();
