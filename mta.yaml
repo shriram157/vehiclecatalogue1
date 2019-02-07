@@ -44,6 +44,7 @@ modules:
          name: voasGuide_Node_backend
          url: '~{url}'
          forwardAuthToken: true
+         timeout: 60000
 
 resources:
 - name: dest_VOASGuide

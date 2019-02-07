@@ -279,54 +279,53 @@ app.use(log.logNetwork);
     // call with multiple requests. 
     
     app.get("/currentScopesForUser", (req, res) => {
-
 		var xsAppName = uaa.xsappname
-		var userAttributes = JSON.parse(JSON.stringify(req.authInfo.userAttributes));
-		var scopeData = req.authInfo.scopes;
+		var scopes = req.authInfo.scopes;
+		var userAttributes = req.authInfo.userAttributes;
 
+		var role = "Unknown";
+		var manageVOASGuide = false;
 		var viewVOASGuidesDealerNet = false;
 		var viewVOASGuidesMSRP = false;
+		var viewVOASGuidesUnreleased = false;
 
-		var sendUserData = {
-			"loggedUserType": []
-		};
-
-		for (var i = 0; i < scopeData.length; i++) {
-			if (scopeData[i] == xsAppName + ".Manage_VOAS_Guides") {
-				// Only TCI_Admin role has Manage_VOAS_Guides scope
-				sendUserData.loggedUserType.push("TCI_Admin");
-				return res.type("text/plain").status(200).send(JSON.stringify(sendUserData));
-			}
-			if (scopeData[i] == xsAppName + ".View_VOAS_Guides_Unreleased") {
-				// Only TCI_User_Preliminary role has View_VOAS_Guides_Unreleased scope
-				sendUserData.loggedUserType.push("TCI_User_Preliminary");
-				return res.type("text/plain").status(200).send(JSON.stringify(sendUserData));
-			}
-			if (scopeData[i] == xsAppName + ".View_VOAS_Guides_Dealer_Net") {
+		for (var i = 0; i < scopes.length; i++) {
+			if (scopes[i] === xsAppName + ".Manage_VOAS_Guides") {
+				manageVOASGuide = true;
+			} else if (scopes[i] === xsAppName + ".View_VOAS_Guides_Dealer_Net") {
 				viewVOASGuidesDealerNet = true;
-			}
-			if (scopeData[i] == xsAppName + ".View_VOAS_Guides_MSRP") {
+			} else if (scopes[i] === xsAppName + ".View_VOAS_Guides_MSRP") {
 				viewVOASGuidesMSRP = true;
+			} else if (scopes[i] === xsAppName + ".View_VOAS_Guides_Unreleased") {
+				viewVOASGuidesUnreleased = true;
+			} else {
+				console.warn("Unrecognized scope: " + scopes[i]);
 			}
 		};
+
+		console.log("manageVOASGuide: " + manageVOASGuide);
 		console.log("viewVOASGuidesDealerNet: " + viewVOASGuidesDealerNet);
 		console.log("viewVOASGuidesMSRP: " + viewVOASGuidesMSRP);
+		console.log("viewVOASGuidesUnreleased: " + viewVOASGuidesUnreleased);
 
-		if (viewVOASGuidesDealerNet && viewVOASGuidesMSRP) {
-			sendUserData.loggedUserType.push("Dealer_Admin");
-			return res.type("text/plain").status(200).send(JSON.stringify(sendUserData));
+		if (!manageVOASGuide && viewVOASGuidesDealerNet && viewVOASGuidesMSRP && !viewVOASGuidesUnreleased) {
+			role = (userAttributes.UserType[0] === "Dealer") ? "Dealer_Admin" : "TCI_User_Dealer_Net";
+		} else if (!manageVOASGuide && !viewVOASGuidesDealerNet && viewVOASGuidesMSRP && !viewVOASGuidesUnreleased) {
+			role = (userAttributes.UserType[0] === "Dealer") ? "Dealer_User" : "TCI_User";
+		} else if (manageVOASGuide && viewVOASGuidesDealerNet && viewVOASGuidesMSRP && viewVOASGuidesUnreleased) {
+			role = "TCI_Admin";
+		} else if (!manageVOASGuide && !viewVOASGuidesDealerNet && viewVOASGuidesMSRP && viewVOASGuidesUnreleased) {
+			role = "TCI_User_Preliminary";
+		} else if (!manageVOASGuide && viewVOASGuidesDealerNet && viewVOASGuidesMSRP && viewVOASGuidesUnreleased) {
+			role = "TCI_User_Preliminary_Dealer_Net";
 		}
-		if (!viewVOASGuidesDealerNet && viewVOASGuidesMSRP) {
-			var dealerCode = userAttributes.DealerCode
-			if (dealerCode != null) {
-				sendUserData.loggedUserType.push("Dealer_User");
-			} else {
-				sendUserData.loggedUserType.push("TCI_User");
-			}
-			return res.type("text/plain").status(200).send(JSON.stringify(sendUserData));
-		}
-		sendUserData.loggedUserType.push("Unknown");
-		return res.type("text/plain").status(200).send(JSON.stringify(sendUserData));
+		console.log("role: " + role);
+
+		return res.type("text/plain").status(200).send(JSON.stringify({
+			loggedUserType: [
+				role
+			]
+		}));
 	});
 	return app;
 };
