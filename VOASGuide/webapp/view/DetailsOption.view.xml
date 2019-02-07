@@ -54,7 +54,7 @@
 									<!--<Label text="MSRP"/>
 							<Label text=":" class="sapUiTinyMarginEnd"/>
 							<ObjectStatus text="{modelDetail>/msrp} "/>-->
-									<Label text="{i18n>MSRP}"></Label>
+									<Label text="{i18n>MSRPWithoutDoll}"></Label>
 									<ObjectStatus text="{parts: [{path:'modelDetail>/msrp'},{path:'modelDetail>/msrp'}] , formatter: 'formatter.decimalFormatter'}"/>
 								</items>
 							</HBox>
@@ -63,7 +63,7 @@
 									<!--<Label text="Dealer Net"/>
 									<Label text=":" class="sapUiTinyMarginEnd"/>
 									<ObjectStatus text="{modelDetail>/dealerNet}"/>-->
-										<Label text="{i18n>DealerNet}"></Label>
+										<Label text="{i18n>DealerNetWithoutDoll}"></Label>
 									<ObjectStatus text="{parts: [{path:'modelDetail>/dealerNet'},{path:'modelDetail>/dealerNet'}] , formatter: 'formatter.decimalFormatterDealer'}"/>
 								</items>
 							</HBox>

@@ -11,7 +11,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 		formatter: formatter,
 		onInit: function () {
 			DetailController = this;
-			this.getUserLanguage();
+		//	this.getUserLanguage();
 			this.getBrowserLanguage();
 			DetailController.oRouter = sap.ui.core.UIComponent.getRouterFor(DetailController);
 			DetailController.oRouter.getTarget("DetailsOption").attachDisplay(jQuery.proxy(DetailController.handleRouteMatched,
@@ -20,14 +20,15 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			//DetailController._readUser();
 			DetailController.language = DetailController.returnBrowserLanguage();
 		},
-		onAfterRendering:function(){
-				DetailController._readUser();
+		onAfterRendering: function () {
+			DetailController._readUser();
 		},
+		
 		_readUser: function () {
 			var userModel = sap.ui.getCore().getModel("userModel");
 			if (userModel) {
 				var userData = userModel.getData();
-				if (userData.loggedUserType == "TCI_Admin") {
+				if (userData.loggedUserType[0] == "TCI_Admin") {
 					DetailController.getView().byId("manageSeriesBtnId").setEnabled(true);
 				} else {
 					DetailController.getView().byId("manageSeriesBtnId").setEnabled(false);
@@ -48,8 +49,11 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			} else {
 				sap.ui.getCore().byId("__xmlview0--idLogo").setSrc("images/Lexus.png");
 			}
+			DetailController.user = parseArg[0].user; //DetailController.getLoggedUser();
+			
 			var host = DetailController.host();
-			var urlTable = host + "/Z_VEHICLE_CATALOGUE_SRV/ZC_VOAS_COMP_HEADERSet?$filter=(IN_Vehicle1 eq '" + vehSuffix +
+			var urlTable = host + "/Z_VEHICLE_CATALOGUE_SRV/ZC_VOAS_COMP_HEADERSet?$filter=(User eq  '" + DetailController.user +
+				"' and IN_Vehicle1 eq '" + vehSuffix +
 				"' and Language eq '" + DetailController.language + "') &$expand=ZCVOASDEEP";
 			$.ajax({
 				url: urlTable,
@@ -61,7 +65,8 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					DetailController.getView().setModel(tblModel, "TblModel");
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
-					sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
+					var errMsg = DetailController.getView().getModel("i18n").getResourceBundle().getText("Error1");
+					sap.m.MessageBox.show(errMsg, sap.m.MessageBox.Icon.ERROR, "Error",
 						sap.m.MessageBox.Action.OK, null, null);
 				}
 			});
@@ -128,43 +133,88 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 
 				var dataExterior = [];
 				for (var i = 0; i < dtExt.length; i++) {
+					/*if (DetailController.language == "FR") {
+						dataExterior.push({
+							"Category_en": dtExt[i].Category_en,
+							"Cust_fac_desc_en": dtExt[i].Cust_fac_desc_fr,
+							"Vehicle1": dtExt[i].Vehicle1
+						});
+					} else {*/
 					dataExterior.push({
 						"Category_en": dtExt[i].Category_en,
 						"Cust_fac_desc_en": dtExt[i].Cust_fac_desc_en,
 						"Vehicle1": dtExt[i].Vehicle1
 					});
+					//	}
+
 				}
 				var dataInterior = [];
 				for (var i = 0; i < dtInt.length; i++) {
+					/*if (DetailController.language == "FR") {
+						dataInterior.push({
+							"Category_en": dtInt[i].Category_en,
+							"Cust_fac_desc_en": dtInt[i].Cust_fac_desc_fr,
+							"Vehicle1": dtInt[i].Vehicle1
+						});
+					} else {*/
 					dataInterior.push({
 						"Category_en": dtInt[i].Category_en,
 						"Cust_fac_desc_en": dtInt[i].Cust_fac_desc_en,
 						"Vehicle1": dtInt[i].Vehicle1
 					});
+					//}
+
 				}
 				var dataInfo = [];
 				for (var i = 0; i < dtInfo.length; i++) {
+					/*	if (DetailController.language == "FR") {
+							dataInfo.push({
+								"Category_en": dtInfo[i].Category_en,
+								"Cust_fac_desc_en": dtInfo[i].Cust_fac_desc_fr,
+								"Vehicle1": dtInfo[i].Vehicle1
+							});
+						} else {*/
 					dataInfo.push({
 						"Category_en": dtInfo[i].Category_en,
 						"Cust_fac_desc_en": dtInfo[i].Cust_fac_desc_en,
 						"Vehicle1": dtInfo[i].Vehicle1
 					});
+					//	}
+
 				}
 				var dataPwr = [];
 				for (var i = 0; i < dtPwr.length; i++) {
+					/*if (DetailController.language == "FR") {
+						dataPwr.push({
+							"Category_en": dtPwr[i].Category_en,
+							"Cust_fac_desc_en": dtPwr[i].Cust_fac_desc_fr,
+							"Vehicle1": dtPwr[i].Vehicle1
+						});
+					} else {*/
 					dataPwr.push({
 						"Category_en": dtPwr[i].Category_en,
 						"Cust_fac_desc_en": dtPwr[i].Cust_fac_desc_en,
 						"Vehicle1": dtPwr[i].Vehicle1
 					});
+					//	}
+
 				}
 				var dataSafety = [];
 				for (var i = 0; i < dtSaf.length; i++) {
+					/*	if (DetailController.language == "FR") {
+							dataSafety.push({
+								"Category_en": dtSaf[i].Category_en,
+								"Cust_fac_desc_en": dtSaf[i].Cust_fac_desc_fr,
+								"Vehicle1": dtSaf[i].Vehicle1
+							});
+						} else {*/
 					dataSafety.push({
 						"Category_en": dtSaf[i].Category_en,
 						"Cust_fac_desc_en": dtSaf[i].Cust_fac_desc_en,
 						"Vehicle1": dtSaf[i].Vehicle1
 					});
+					//	}
+
 				}
 
 				var dataColour = [];
@@ -173,28 +223,42 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					var msrp = [],
 						net = [];
 					if (dtCol[i].MSRP != undefined && dtCol[i].MSRP != null && !isNaN(dtCol[i].MSRP) && dtCol[i].MSRP != "") {
-						msrp[i] = parseInt(dtCol[i].MSRP);
+						msrp[i] = " $"+parseInt(dtCol[i].MSRP);
 					} else {
 						msrp[i] = "";
 					}
 					if (dtCol[i].NETPRICE != undefined && dtCol[i].NETPRICE != null && !isNaN(dtCol[i].NETPRICE) && dtCol[i].NETPRICE != "") {
-						net[i] = parseInt(dtCol[i].NETPRICE);
+						net[i] = " $"+parseInt(dtCol[i].NETPRICE);
 					} else {
-						net[i] = "";
+						net[i] = "NA";
 					}
+					var msrpF = DetailController.getView().getModel("i18n").getResourceBundle().getText("MSRPWithoutDoll");
+					var netPriceF = DetailController.getView().getModel("i18n").getResourceBundle().getText("DealerNetWithoutDoll");
+						
 					dataColour.push({
 						"Category_en": dtCol[i].EXT + "-" + dtCol[i].EXT_DESC + "\n" + dtCol[i].INT_DESC,
-						"Cust_fac_desc_en": "MSRP: $ " + msrp[i] + "\nDealer Net: $" + net[i],
+						//"Cust_fac_desc_en": "MSRP: $ " + msrp[i] + "\nDealer Net: $" + net[i],
+						"Cust_fac_desc_en": msrpF + msrp[i] + "\n"+ netPriceF + net[i],
 						"Vehicle1": dtCol[i].Vehicle1
 					});
 				}
 				var dataDim = [];
 				for (var i = 0; i < dtDim.length; i++) {
+					/*	if (DetailController.language == "FR") {
+							dataDim.push({
+								"Category_en": dtDim[i].Dimensions,
+								"Cust_fac_desc_en": dtDim[i].Cust_fac_desc_fr,
+								"Vehicle1": dtDim[i].Vehicle1
+							});
+
+						} else {*/
 					dataDim.push({
 						"Category_en": dtDim[i].Dimensions,
 						"Cust_fac_desc_en": dtDim[i].Cust_fac_desc_en,
 						"Vehicle1": dtDim[i].Vehicle1
 					});
+					//	}
+
 				}
 				var dataOpt = [];
 				for (var i = 0; i < dtOpt.length; i++) {
@@ -202,12 +266,12 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					var msrp = [],
 						net = [];
 					if (dtOpt[i].MSRP != undefined && dtOpt[i].MSRP != null && !isNaN(dtOpt[i].MSRP) && dtOpt[i].MSRP != "") {
-						msrp[i] = parseInt(dtOpt[i].MSRP);
+						msrp[i] = " $"+parseInt(dtOpt[i].MSRP);
 					} else {
 						msrp[i] = "";
 					}
 					if (dtOpt[i].NETPRICE != undefined && dtOpt[i].NETPRICE != null && !isNaN(dtOpt[i].NETPRICE) && dtOpt[i].NETPRICE != "") {
-						net[i] = parseInt(dtOpt[i].NETPRICE);
+						net[i] = " $"+parseInt(dtOpt[i].NETPRICE);
 					} else {
 						net[i] = "";
 					}
@@ -224,8 +288,12 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 						var res2 = str2.replace(/;/g, "#- ");
 						feature2[i] = res2.split('#').join('\n');
 					}
+						var msrpF = DetailController.getView().getModel("i18n").getResourceBundle().getText("MSRPWithoutDoll");
+					var netPriceF = DetailController.getView().getModel("i18n").getResourceBundle().getText("DealerNetWithoutDoll");
+					
 					dataOpt.push({
-						"Category_en": dtOpt[i].Vehicle1 + "\n" + "MSRP: $ " + msrp[i] + "\nDealer Net: $" + net[i],
+					//	"Category_en": dtOpt[i].Vehicle1 + "\n" + "MSRP: $ " + msrp[i] + "\nDealer Net: $" + net[i],
+						"Category_en": dtOpt[i].Vehicle1 + "\n" + msrpF + msrp[i] + "\n"+netPriceF + net[i],
 						"Vehicle1": feature[i], //dtOpt[i].OptionPackages,
 						"Vehicle2": feature2[i] //dtOpt[i].OptionPackages1
 					});
@@ -242,6 +310,11 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				aColumnDataOpt.push(fixedDataOptPackage2);
 				var dataApx = [];
 				for (var i = 0; i < dtApx.length; i++) {
+					/*if(DetailController.language=="FR"){
+					}
+					else{
+						
+					}*/
 					dataApx.push({
 						"Category_en": dtApx[i].APX,
 						"Cust_fac_desc_en": dtApx[i].INT_DESC,

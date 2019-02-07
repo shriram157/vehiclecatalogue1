@@ -11,7 +11,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 		formatter: formatter,
 		onInit: function () {
 			searchController = this;
-			searchController.getUserLanguage();
+		//	searchController.getUserLanguage();
 			searchController.getBrowserLanguage();
 			searchController.oRouter = sap.ui.core.UIComponent.getRouterFor(searchController);
 			searchController.oRouter.getTarget("SearchPage").attachDisplay(jQuery.proxy(searchController.handleRouteMatched, searchController));
@@ -23,12 +23,16 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			sap.ushell.components.brandCB = searchController.getView().byId("id_brandCB");
 			sap.ushell.components.modelYearCB = searchController.getView().byId("id_modelYearCB");
 			sap.ushell.components.seriesCB = searchController.getView().byId("id_seriesCB");
-			var language = searchController.returnBrowserLanguage();
-			console.log(language);
+			searchController.language = searchController.returnBrowserLanguage();
+			console.log(searchController.language);
 			//searchController._readUser();
 		},
-		onAfterRendering:function(){
+		onAfterRendering: function () {
 			searchController._readUser();
+			var userModel = sap.ui.getCore().getModel("userModel");
+			var userData=userModel.getData();
+			searchController.user=userData.loggedUserType[0];
+		
 		},
 
 		_readUser: function () {
@@ -38,7 +42,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				if (bpDealerModel) {
 					var userData = userModel.getData();
 					var bpData = bpDealerModel.getData();
-					if (userData.loggedUserType == "Dealer_User" || userData.loggedUserType == "Dealer_Admin") {
+					if (userData.loggedUserType[0] == "Dealer_User" || userData.loggedUserType[0] == "Dealer_Admin") {
 						if (bpData[0].Division == "10") {
 							searchController.getView().byId("id_brandCB").setEnabled(false);
 							searchController.getView().byId("id_brandCB").setSelectedKey("1");
@@ -48,7 +52,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 							searchController.getView().byId("id_brandCB").setSelectedKey("2");
 							searchController.brandNotChanged();
 						}
-					} else if (userData.loggedUserType == "TCI_User" || userData.loggedUserType == "TCI_User_Preliminary") {
+					} else if (userData.loggedUserType[0] == "TCI_User" || userData.loggedUserType[0] == "TCI_User_Preliminary") {
 						if (bpData[0].Division == "10") {
 							searchController.getView().byId("id_brandCB").setEnabled(true);
 							searchController.getView().byId("id_brandCB").setSelectedKey("1");
@@ -240,6 +244,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			}
 		},
 		pressGo: function () {
+			//searchController.user = searchController.getLoggedUser();
 			searchController.oBusyDialog.open();
 			setTimeout(function () {
 				var brandCB = searchController.getView().byId("id_brandCB");
@@ -288,25 +293,25 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				}
 				var host = searchController.host();
 				var url2 = "";
-				var language = searchController.returnBrowserLanguage(); //"EN";
+				var language =searchController.language;// searchController.returnBrowserLanguage(); //"EN";
 				if (modelDescString == "" && suffixDescString !== "") {
 					console.log("1");
 					url2 = host +
-						"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
+						"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq '"+ searchController.user + "' and Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
 						"' and (" + newSuffixStr + ") and Modelyear eq  '" + modelYearCBVal + " 'and Language eq '" + language + "')";
 				} else if (suffixDescString == "" && modelDescString !== "") {
 					console.log("2");
 					url2 = host +
-						"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
+						"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + searchController.user + "' and Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
 						" ' and Modelyear eq  '" + modelYearCBVal + " 'and (" + newModelStr + ") and Language eq '" + language + "')";
 				} else if (suffixDescString == "" && modelDescString == "") {
 					console.log("3");
 					url2 = host +
-						"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
+						"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + searchController.user + "' and Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
 						" ' and Modelyear eq  '" + modelYearCBVal + "' and Language eq '" + language + "')";
 				} else {
 					url2 = host +
-						"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
+						"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + searchController.user + "' and Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
 						" ' and Modelyear eq  '" + modelYearCBVal + " ' and (" + newModelStr + ") and (" + newSuffixStr + ") and Language eq '" +
 						language + "')";
 				}
@@ -328,7 +333,8 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					},
 					error: function (jqXHR, textStatus, errorThrown) {
 						searchController.oBusyDialog.close();
-						sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR,
+						var errMsg = searchController.getView().getModel("i18n").getResourceBundle().getText("Error1");
+						sap.m.MessageBox.show(errMsg, sap.m.MessageBox.Icon.ERROR,
 							"Error", sap
 							.m.MessageBox.Action.OK, null, null);
 					}
@@ -431,6 +437,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 
 		},
 		onChange_ModelYear: function () {
+			
 			searchController.getView().byId("filterBar").setShowGoOnFB(false);
 			var brandCB = searchController.getView().byId("id_brandCB");
 			var modelYearCB = searchController.getView().byId("id_modelYearCB");
@@ -451,10 +458,10 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			if (brandCB.getValue() != "" && modelYearCB.getValue() != "") {
 				seriesCB.setEnabled(true);
 			}
-			var language = searchController.returnBrowserLanguage(); //"EN";
+			var language = searchController.language;///searchController.returnBrowserLanguage(); //"EN";
 			var host = searchController.host();
 			var url = host +
-				"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(Brand eq '" + brandCBVal + "' and Modelyear eq '" + modelYearCBVal +
+				"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(User eq  '" + searchController.user + "' and Brand eq '" + brandCBVal + "' and Modelyear eq '" + modelYearCBVal +
 				" 'and Language eq '" + language + "')";
 			//	"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter= (Brand eq 'TOYOTA' and Modelyear eq '2018')";
 			$.ajax({
@@ -498,7 +505,8 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					searchController.getView().setModel(oModel, "seriesdropDownModel");
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
-					sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error", sap
+					var errMsg = searchController.getView().getModel("i18n").getResourceBundle().getText("Error1");
+					sap.m.MessageBox.show(errMsg, sap.m.MessageBox.Icon.ERROR, "Error", sap
 						.m.MessageBox.Action.OK, null, null);
 				}
 			});
@@ -525,10 +533,10 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				modelCB.setEnabled(true);
 			}
 			var host = searchController.host();
-			var language = searchController.returnBrowserLanguage();
+			var language = searchController.language; //searchController.returnBrowserLanguage();
 			searchController.getView().byId("filterBar").setShowGoOnFB(true);
 			var url = host +
-				"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(Brand eq '" + brandCBVal + "' and Modelyear eq '" + modelYearCBVal +
+				"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(User eq  '" + searchController.user + "' and Brand eq '" + brandCBVal + "' and Modelyear eq '" + modelYearCBVal +
 				"'and TCISeries eq '" + seriesCBVal + "'and Language eq '" + language + "')";
 			$.ajax({
 				url: url,
@@ -564,7 +572,8 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					searchController.getView().setModel(oModel, "dropDownModel");
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
-					sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error", sap
+					var errMsg = searchController.getView().getModel("i18n").getResourceBundle().getText("Error1");
+					sap.m.MessageBox.show(errMsg, sap.m.MessageBox.Icon.ERROR, "Error", sap
 						.m.MessageBox.Action.OK, null, null);
 				}
 			});
@@ -608,9 +617,9 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			}
 			if (newModelStr !== "") {
 				var host = searchController.host();
-				var language = searchController.returnBrowserLanguage();
+				var language = searchController.language; //searchController.returnBrowserLanguage();
 				var url = host +
-					"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
+					"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(User eq  '" + searchController.user + "' and Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
 					" ' and Modelyear eq  '" + modelYearCBVal + " ' and (" + newModelStr + ") and Language eq '" + language + "')";
 				$.ajax({
 					url: url,
@@ -652,7 +661,8 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 						searchController.getView().setModel(oModel, "suffixdropDownModel");
 					},
 					error: function (jqXHR, textStatus, errorThrown) {
-						sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
+						var errMsg = searchController.getView().getModel("i18n").getResourceBundle().getText("Error1");
+						sap.m.MessageBox.show(errMsg, sap.m.MessageBox.Icon.ERROR, "Error",
 							sap
 							.m.MessageBox.Action.OK, null, null);
 					}
@@ -773,8 +783,9 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			var sEntityNameSet2 = sPath.split("/")[1];
 			var searchTableData = searchController.getView().getModel("searchTblModel").getData();
 			var data = searchTableData[sEntityNameSet2];
-			var language = searchController.returnBrowserLanguage();
+			var language = searchController.language; //searchController.returnBrowserLanguage();
 			var arr = [];
+			console.log(searchController.user);
 			if (language == "FR") {
 				arr = [{
 					"path": sEntityNameSet2,
@@ -786,7 +797,8 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					"msrp": data.MSRP,
 					"dealerNet": data.NETPRICE,
 					"series": data.TCISeries,
-					"ENModelDesc": data.FRModelDesc
+					"ENModelDesc": data.FRModelDesc,
+					"user":searchController.user
 				}];
 			} else {
 				arr = [{
@@ -799,7 +811,8 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					"msrp": data.MSRP,
 					"dealerNet": data.NETPRICE,
 					"series": data.TCISeries,
-					"ENModelDesc": data.ENModelDesc
+					"ENModelDesc": data.ENModelDesc,
+					"user":searchController.user
 				}];
 			}
 
@@ -839,7 +852,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			var modelDescString = "";
 			var modelArrFromData = [];
 			var modelENModelDesc = [];
-			var language = searchController.returnBrowserLanguage();
+			var language = searchController.language; //searchController.returnBrowserLanguage();
 			if (aContexts.length <= 5 && aContexts.length >= 2) {
 				for (var i = 0; i < aContexts.length; i++) {
 					var index = aContexts[i].split("/")[1];
@@ -919,7 +932,8 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					"dealerNet": DealerNetData,
 					"series": SeriesData,
 					"modelDesc": modelENModelDesc,
-					"modelData": modelDescStringFromModelData
+					"modelData": modelDescStringFromModelData,
+					"user":searchController.user
 				}];
 
 				//console.log(arr2);
@@ -932,7 +946,6 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 
 				//	var errForm = formatter.formatErrorType("SO00002");
 				var errMsg = searchController.getView().getModel("i18n").getResourceBundle().getText("ErrorSearchScreen");
-
 				//	var errMsg = "Select atleast 2 and maximum 5 items to compare";
 				sap.m.MessageBox.show(errMsg, sap
 					.m.MessageBox.Icon.ERROR, "Error", sap

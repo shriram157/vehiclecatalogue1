@@ -13,8 +13,8 @@ sap.ui.define([
 		
 		onInit: function () {
 			AppController = this;
-			//AppController._user();
-			AppController.userAPI();
+			AppController._user();
+			//AppController.userAPI();
 			var bpModel = sap.ui.getCore().getModel("BpDealerModel");
 			if (bpModel) {
 				if (bpModel.getData()[0].Division == "10") {
@@ -53,7 +53,7 @@ sap.ui.define([
 			var userAttModel = new sap.ui.model.json.JSONModel(userAttributesData.samlAttributes);
 			sap.ui.getCore().setModel(userAttModel, "userAttributesModel");
 			var userLoggedData = {
-				"loggedUserType": ["TCI_User"]//["Dealer_User"]
+				"loggedUserType":["TCI_Admin"] //["TCI_User"]//["Dealer_User"]
 			};
 			var userModel = new sap.ui.model.json.JSONModel(userLoggedData);
 			sap.ui.getCore().setModel(userModel, "userModel");

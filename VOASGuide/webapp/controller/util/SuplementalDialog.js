@@ -59,7 +59,14 @@ sap.ui.define([
 		},
 
 		close: function () {
+			var comment = this._oView.byId("__component0---AdminDetailsOption--Supp_TA_Comment");//.getValue(); // "ok"; 
+			var filename = this._oView.byId("__component0---AdminDetailsOption--suppFileUploadId");//.mProperties.value; //"abc.pdf";
+			var langSwitch = this._oView.byId("__component0---AdminDetailsOption--Supp_Switch_Lang");
+			comment.setValue("");
+			filename.setValue("");
+			langSwitch.setState(true);
 			this._oControl.close();
+
 		},
 
 		setRouter: function (oRouter) {
@@ -71,8 +78,8 @@ sap.ui.define([
 
 		},
 		_uploadPDFFile: function (oEvent) {
-			var modelAdm=sap.ui.getCore().getModel("modelAdmin");
-			var modelAdmData=modelAdm.getData();
+			var modelAdm = sap.ui.getCore().getModel("modelAdmin");
+			var modelAdmData = modelAdm.getData();
 			oEvent = jQuery.extend(true, {}, oEvent);
 			return new Promise(function (fnResolve) {
 					fnResolve(true);
@@ -102,71 +109,77 @@ sap.ui.define([
 					}
 
 					//var oURL = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileSet('" + filename + "')/$value";
-						var oFileUploader = this._oView.byId("__component0---AdminDetailsOption--suppFileUploadId");
+					var oFileUploader = this._oView.byId("__component0---AdminDetailsOption--suppFileUploadId");
 					var oURL4 = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileSet(Comment='" + comment + "',FileName='" + filename + "',Language='" +
 						lang + "',Lastupdate='" + date3 + "',Tab='suppliment')/$value";
-						//Model='Camry',Model_year='2018',Tciseries ='Cam',Brand='Toyota'
-					var oUrl5= this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'suppliment')";
-					 //and Model eq 'CamryLE' and Model_year eq '2018' and Tciseries eq 'CAMRY' and Brand eq 'TOYOTA'
-					var oUrl3= this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'suppliment' and Model eq '"+modelAdmData.modelDesc+"' and Model_year eq '"+modelAdmData.moYear+"' and Tciseries eq '"+modelAdmData.series+"' and Brand eq '"+modelAdmData.brand+"')";
+					//Model='Camry',Model_year='2018',Tciseries ='Cam',Brand='Toyota'
+					var oUrl5 = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'suppliment')";
+					//and Model eq 'CamryLE' and Model_year eq '2018' and Tciseries eq 'CAMRY' and Brand eq 'TOYOTA'
+					var oUrl3 = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'suppliment' and Model eq '" + modelAdmData.modelDesc +
+						"' and Model_year eq '" + modelAdmData.moYear + "' and Tciseries eq '" + modelAdmData.series + "' and Brand eq '" +
+						modelAdmData.brand + "')";
 					var oURL2 = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileSet(Comment='" + comment + "',FileName='" + filename + "',Language='" +
-						lang + "',Lastupdate='" + date3 + "',Tab='suppliment',Model='"+modelAdmData.modelDesc+"',Model_year='"+modelAdmData.moYear+"',Tciseries='"+modelAdmData.series+"',Brand='"+modelAdmData.brand+"')/$value";
+						lang + "',Lastupdate='" + date3 + "',Tab='suppliment',Model='" + modelAdmData.modelDesc + "',Model_year='" + modelAdmData.moYear +
+						"',Tciseries='" + modelAdmData.series + "',Brand='" + modelAdmData.brand + "')/$value";
 					var token;
 					var tbl = sap.ushell.components.suppTbl;
-						var file = jQuery.sap.domById(oFileUploader.getId() + "-fu").files[0];
-				var base64_marker = 'data:' + file.type + ';base64,';
-				var reader = new FileReader();
-				reader.onload = function readSuccess(evt) {
-					var base64Index = evt.target.result.indexOf(base64_marker) + base64_marker.length;
-					var _base64 = evt.target.result.substring(base64Index);
-					$.ajax({
-						url: oURL2,
-						type: 'GET',
-						beforeSend: function (xhr) {
-							xhr.setRequestHeader("X-CSRF-Token", "Fetch");
-						},
-						complete: function (xhr) {
-							token = xhr.getResponseHeader("X-CSRF-Token");
-							$.ajax({
-								type: 'PUT',
-								url: oURL2,
-								data:_base64,
-								dataType: "application/pdf",
-								beforeSend: function (xhr) {
-									xhr.setRequestHeader('X-CSRF-Token', token);
-								},
-								success: function (data) {
-									console.log("PUT success: "+data);
-									$.ajax({
-										url: oUrl3,
-										method: 'GET',
-										async: false,
-										dataType: "json",
-										success: function (data, textStatus, jqXHR) {
-											console.log("GET success: ");
-											console.log(data.d.results);
-											var tblModel = new sap.ui.model.json.JSONModel(data.d.results);
-											sap.ui.getCore().setModel(tblModel,"suppTblModel");
-											tbl.setModel(tblModel,"suppTblModel");
-										},
-										error: function (jqXHR, textStatus, errorThrown) {
-										sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR,
-												"Error",sap.m.MessageBox.Action.OK, null, null);
-										}
-									});
-								},
-								error: function (data) {
-									sap.m.MessageBox.show("Error occurred while sending data. Please try again later.", sap.m.MessageBox.Icon.ERROR,
-										"Error", sap
-										.m.MessageBox.Action.OK, null, null);
-								}
+					var file = jQuery.sap.domById(oFileUploader.getId() + "-fu").files[0];
+					var base64_marker = 'data:' + file.type + ';base64,';
+					var reader = new FileReader();
+					reader.onload = function readSuccess(evt) {
+						var base64Index = evt.target.result.indexOf(base64_marker) + base64_marker.length;
+						var _base64 = evt.target.result.substring(base64Index);
+						$.ajax({
+							url: oURL2,
+							type: 'GET',
+							beforeSend: function (xhr) {
+								xhr.setRequestHeader("X-CSRF-Token", "Fetch");
+							},
+							complete: function (xhr) {
+								token = xhr.getResponseHeader("X-CSRF-Token");
+								$.ajax({
+									type: 'PUT',
+									url: oURL2,
+									data: _base64,
+									dataType: "application/pdf",
+									beforeSend: function (xhr) {
+										xhr.setRequestHeader('X-CSRF-Token', token);
+									},
+									success: function (data) {
+										console.log("PUT success");
+										//	var errMsg = this._oView.getModel("i18n").getResourceBundle().getText("Error1");
+										//	console.log(errMsg);
+										$.ajax({
+											url: oUrl3,
+											method: 'GET',
+											async: false,
+											dataType: "json",
+											success: function (data, textStatus, jqXHR) {
+												console.log("GET success: ");
+												console.log(data.d.results);
+												var tblModel = new sap.ui.model.json.JSONModel(data.d.results);
+												sap.ui.getCore().setModel(tblModel, "suppTblModel");
+												tbl.setModel(tblModel, "suppTblModel");
+											},
+											error: function (jqXHR, textStatus, errorThrown) {
+												//var errMsg = this._oView.getModel("i18n").getResourceBundle().getText("Error1");
+												sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR,
+													"Error", sap.m.MessageBox.Action.OK, null, null);
+											}
+										});
+									},
+									error: function (data) {
+										sap.m.MessageBox.show("Error occurred while sending data. Please try again later.", sap.m.MessageBox.Icon.ERROR,
+											"Error", sap
+											.m.MessageBox.Action.OK, null, null);
+									}
 
-							});
-						}
-					});
-				};
-				reader.readAsText(file);
-		
+								});
+							}
+						});
+					};
+					reader.readAsText(file);
+
 				}.bind(this))
 				.then(function (result) {
 					if (result === false) {

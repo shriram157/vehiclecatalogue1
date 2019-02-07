@@ -1,10 +1,10 @@
-sap.ui.define([
+sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseController",
 	"sap/ui/base/ManagedObject",
 	"sap/m/MessageBox",
 	"./utilities",
 	"sap/ui/core/routing/History", "com/sap/build/toyota-canada/vehiclesGuideV3/libs/jQuery.base64",
 	"com/sap/build/toyota-canada/vehiclesGuideV3/libs/jspdf.min"
-], function (ManagedObject, MessageBox, utilities, History, base64, jspdfmin) {
+], function (BaseController, ManagedObject, MessageBox, utilities, History, base64, jspdfmin) {
 	var CreateWhatsNewDialogController;
 	return ManagedObject.extend("com.sap.build.toyota-canada.vehiclesGuideV3.controller.util.CreateWhatsNewDialog", {
 
@@ -58,13 +58,20 @@ sap.ui.define([
 			var langData, Language, LanguageState;
 			if (userAttributesModel) {
 				langData = userAttributesModel.getData();
-				Language = langData[0].Language[0];
-				if (Language == "English") {
-					LanguageState = true;
-				} else {
+				/*Language = langData[0].Language[0];
+						if (Language == "English") {
+						LanguageState = true;
+					} else {
+						LanguageState = false;
+					}*/
+				Language = window.location.search.match(/language=([^&]*)/i)[1];
+				if (Language == "FR") {
 					LanguageState = false;
+				} else {
+					LanguageState = true;
 				}
 			}
+
 			CreateWhatsNewDialogController.getView().byId("idNew_lanSwitch").setState(LanguageState);
 			if (brandCB != undefined && moYearCB != undefined && seriesCB != undefined) {
 				var brandVal = brandCB.getValue();

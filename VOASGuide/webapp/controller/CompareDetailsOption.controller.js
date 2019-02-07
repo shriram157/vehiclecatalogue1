@@ -12,7 +12,7 @@ sap.ui.define([
 		formatter: formatter,
 		onInit: function () {
 			CDO_controller = this;
-			this.getUserLanguage();	
+			this.getUserLanguage();
 			this.getBrowserLanguage();
 			CDO_controller.oRouter = sap.ui.core.UIComponent.getRouterFor(CDO_controller);
 			CDO_controller.oRouter.getTarget("CompareDetailsOption").attachDisplay(jQuery.proxy(CDO_controller.handleRouteMatched,
@@ -32,7 +32,7 @@ sap.ui.define([
 			}
 		},
 		handleRouteMatchedStdFeatureOff: function () {
-
+		//CDO_controller.user = CDO_controller.getLoggedUser();
 			var fixedData = {
 				Vehicle: " "
 			};
@@ -50,6 +50,7 @@ sap.ui.define([
 			var modelArg = new sap.ui.model.json.JSONModel(parseArg[0]);
 			CDO_controller.getView().setModel(modelArg, "modelArg");
 			var dataModelArg = CDO_controller.getView().getModel('modelArg').getData();
+			CDO_controller.user = dataModelArg.user;
 			var brandCBVal = dataModelArg.brand;
 			var modelYearCBVal = dataModelArg.moYear;
 			var seriesCBVal = dataModelArg.series;
@@ -188,22 +189,22 @@ sap.ui.define([
 			if (modelDescString == "" && suffixDescString !== "") {
 				console.log("1");
 				url2 = host +
-					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
+					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + CDO_controller.user + "' and Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
 					"' and (" + newSuffixStr + ") and Modelyear eq  '" + modelYearCBVal + " ')";
 			} else if (suffixDescString == "" && modelDescString !== "") {
 				console.log("2");
 				url2 = host +
-					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
+					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + CDO_controller.user + "' and Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
 					" ' and Modelyear eq  '" + modelYearCBVal + " 'and (" + newModelStr + ") )";
 			} else if (suffixDescString == "" && modelDescString == "") {
 				console.log("3");
 				url2 = host +
-					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
+					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + CDO_controller.user + "' and Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
 					" ' and Modelyear eq  '" + modelYearCBVal + " ')";
 			} else {
 				console.log("4");
 				url2 = host +
-					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
+					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + CDO_controller.user + "' and Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
 					" ' and Modelyear eq  '" + modelYearCBVal + " ' and (" + newModelStr + ") and (" + newSuffixStr + ") )";
 			}
 			$.ajax({
@@ -216,15 +217,16 @@ sap.ui.define([
 					CDO_controller.getView().setModel(tblModel, "searchTblModel");
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
-
-					sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
+					var errMsg = CDO_controller.getView().getModel("i18n").getResourceBundle().getText("Error1");
+					sap.m.MessageBox.show(errMsg, sap.m.MessageBox.Icon.ERROR, "Error",
 						sap
 						.m.MessageBox.Action.OK, null, null);
 				}
 			});
 			if (newVehStr !== "") {
 				var urlTable = host +
-					"/Z_VEHICLE_CATALOGUE_SRV/ZC_VOAS_COMP_HEADERSet?$filter= (" + newVehStr + " and Language eq '" + CDO_controller.language + "') &$expand=ZCVOASDEEP";
+					"/Z_VEHICLE_CATALOGUE_SRV/ZC_VOAS_COMP_HEADERSet?$filter= (User eq  '" + CDO_controller.user + "' and " + newVehStr + " and Language eq '" + CDO_controller.language +
+					"') &$expand=ZCVOASDEEP";
 				//IN_Vehicle1 eq '2019Camry SEAM' and IN_Vehicle2 eq '2019Camry LEAM' )&$expand=ZCVOASDEEP";
 				$.ajax({
 					url: urlTable,
@@ -237,8 +239,8 @@ sap.ui.define([
 						CDO_controller.getView().setModel(tblModel, "TblModel");
 					},
 					error: function (jqXHR, textStatus, errorThrown) {
-
-						sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
+						var errMsg = CDO_controller.getView().getModel("i18n").getResourceBundle().getText("Error1");
+						sap.m.MessageBox.show(errMsg, sap.m.MessageBox.Icon.ERROR, "Error",
 							sap.m.MessageBox.Action.OK, null, null);
 					}
 				});
@@ -672,15 +674,18 @@ sap.ui.define([
 						var msrp = [],
 							net = [];
 						if (dtCol[i].MSRP != undefined && dtCol[i].MSRP != null && !isNaN(dtCol[i].MSRP) && dtCol[i].MSRP != "") {
-							msrp[i] = parseInt(dtCol[i].MSRP);
+							msrp[i] =  " $"+parseInt(dtCol[i].MSRP);
 						} else {
-							msrp[i] = "";
+							msrp[i] = "NA";
 						}
 						if (dtCol[i].NETPRICE != undefined && dtCol[i].NETPRICE != null && !isNaN(dtCol[i].NETPRICE) && dtCol[i].NETPRICE != "") {
-							net[i] = parseInt(dtCol[i].NETPRICE);
+							net[i] =  " $"+parseInt(dtCol[i].NETPRICE);
 						} else {
 							net[i] = "";
 						}
+						var msrpF = CDO_controller.getView().getModel("i18n").getResourceBundle().getText("MSRPWithoutDoll");
+						var netPriceF = CDO_controller.getView().getModel("i18n").getResourceBundle().getText("DealerNetWithoutDoll");
+						
 						switch (len) {
 						case 2:
 							if (dtCol[i].Vehicle1 == dtCol[i].Vehicle2) {
@@ -688,7 +693,8 @@ sap.ui.define([
 							} else {
 								dataColour.push({
 									"Category_en": dtCol[i].EXT + "-" + dtCol[i].EXT_DESC + "\n" + dtCol[i].INT_DESC,
-									"Cust_fac_desc_en": "MSRP: $ " + msrp[i] + "\nDealer Net: $" + net[i],
+									//"Cust_fac_desc_en": "MSRP: $ " + msrp[i] + "\nDealer Net: $" + net[i],
+									"Cust_fac_desc_en": msrpF + msrp[i] + "\n"+ netPriceF + net[i],
 									"Vehicle1": dtCol[i].Vehicle1,
 									"Vehicle2": dtCol[i].Vehicle2,
 									"Vehicle3": dtCol[i].Vehicle3,
@@ -704,7 +710,8 @@ sap.ui.define([
 							} else {
 								dataColour.push({
 									"Category_en": dtCol[i].EXT + "-" + dtCol[i].EXT_DESC + "\n" + dtCol[i].INT_DESC,
-									"Cust_fac_desc_en": "MSRP: $ " + msrp[i] + "\nDealer Net: $" + net[i],
+									//"Cust_fac_desc_en": "MSRP: $ " + msrp[i] + "\nDealer Net: $" + net[i],
+									"Cust_fac_desc_en": msrpF + msrp[i] + "\n"+ netPriceF + net[i],
 									"Vehicle1": dtCol[i].Vehicle1,
 									"Vehicle2": dtCol[i].Vehicle2,
 									"Vehicle3": dtCol[i].Vehicle3,
@@ -719,7 +726,8 @@ sap.ui.define([
 							} else {
 								dataColour.push({
 									"Category_en": dtCol[i].EXT + "-" + dtCol[i].EXT_DESC + "\n" + dtCol[i].INT_DESC,
-									"Cust_fac_desc_en": "MSRP: $ " + msrp[i] + "\nDealer Net: $" + net[i],
+									//"Cust_fac_desc_en": "MSRP: $ " + msrp[i] + "\nDealer Net: $" + net[i],
+									"Cust_fac_desc_en": msrpF + msrp[i] + "\n"+ netPriceF + net[i],
 									"Vehicle1": dtCol[i].Vehicle1,
 									"Vehicle2": dtCol[i].Vehicle2,
 									"Vehicle3": dtCol[i].Vehicle3,
@@ -735,7 +743,8 @@ sap.ui.define([
 							} else {
 								dataColour.push({
 									"Category_en": dtCol[i].EXT + "-" + dtCol[i].EXT_DESC + "\n" + dtCol[i].INT_DESC,
-									"Cust_fac_desc_en": "MSRP: $ " + msrp[i] + "\nDealer Net: $" + net[i],
+									//"Cust_fac_desc_en": "MSRP: $ " + msrp[i] + "\nDealer Net: $" + net[i],
+									"Cust_fac_desc_en": msrpF + msrp[i] + "\n"+ netPriceF + net[i],
 									"Vehicle1": dtCol[i].Vehicle1,
 									"Vehicle2": dtCol[i].Vehicle2,
 									"Vehicle3": dtCol[i].Vehicle3,
@@ -952,11 +961,14 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
-										src: "sap-icon://accept",
-										color: "black"
+									new sap.m.HBox({
+										items: [new sap.m.Text({
+											text: " ",
+										}).addStyleClass("padding"), new sap.ui.core.Icon({
+											src: "sap-icon://accept",
+											color: "black"
+										})]
 									})
-									]})
 								);
 							} else {
 								row.addCell(
@@ -986,11 +998,14 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
-										src: "sap-icon://accept",
-										color: "black"
+									new sap.m.HBox({
+										items: [new sap.m.Text({
+											text: " ",
+										}).addStyleClass("padding"), new sap.ui.core.Icon({
+											src: "sap-icon://accept",
+											color: "black"
+										})]
 									})
-									]})
 								);
 							} else {
 								row.addCell(
@@ -1021,11 +1036,14 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
-										src: "sap-icon://accept",
-										color: "black"
+									new sap.m.HBox({
+										items: [new sap.m.Text({
+											text: " ",
+										}).addStyleClass("padding"), new sap.ui.core.Icon({
+											src: "sap-icon://accept",
+											color: "black"
+										})]
 									})
-									]})
 								);
 							} else {
 								row.addCell(
@@ -1054,11 +1072,14 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
-										src: "sap-icon://accept",
-										color: "black"
+									new sap.m.HBox({
+										items: [new sap.m.Text({
+											text: " ",
+										}).addStyleClass("padding"), new sap.ui.core.Icon({
+											src: "sap-icon://accept",
+											color: "black"
+										})]
 									})
-									]})
 								);
 							} else {
 								row.addCell(
@@ -1086,11 +1107,14 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
-										src: "sap-icon://accept",
-										color: "black"
+									new sap.m.HBox({
+										items: [new sap.m.Text({
+											text: " ",
+										}).addStyleClass("padding"), new sap.ui.core.Icon({
+											src: "sap-icon://accept",
+											color: "black"
+										})]
 									})
-									]})
 								);
 							} else {
 								row.addCell(
@@ -1118,11 +1142,14 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
-										src: "sap-icon://accept",
-										color: "black"
+									new sap.m.HBox({
+										items: [new sap.m.Text({
+											text: " ",
+										}).addStyleClass("padding"), new sap.ui.core.Icon({
+											src: "sap-icon://accept",
+											color: "black"
+										})]
 									})
-									]})
 								);
 							} else {
 								row.addCell(
@@ -1151,11 +1178,14 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
-										src: "sap-icon://accept",
-										color: "black"
+									new sap.m.HBox({
+										items: [new sap.m.Text({
+											text: " ",
+										}).addStyleClass("padding"), new sap.ui.core.Icon({
+											src: "sap-icon://accept",
+											color: "black"
+										})]
 									})
-									]})
 								);
 							} else {
 								row.addCell(
@@ -1205,11 +1235,14 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
-										src: "sap-icon://accept",
-										color: "black"
+									new sap.m.HBox({
+										items: [new sap.m.Text({
+											text: " ",
+										}).addStyleClass("padding"), new sap.ui.core.Icon({
+											src: "sap-icon://accept",
+											color: "black"
+										})]
 									})
-									]})
 								);
 							} else {
 								row.addCell(
@@ -1226,6 +1259,7 @@ sap.ui.define([
 
 		},
 		handleRouteMatchedStdFeatureOn: function () {
+		//	CDO_controller.user = CDO_controller.getLoggedUser();
 			var fixedData = {
 				Vehicle: " "
 			};
@@ -1246,6 +1280,7 @@ sap.ui.define([
 			var brandCBVal = dataModelArg.brand;
 			var modelYearCBVal = dataModelArg.moYear;
 			var seriesCBVal = dataModelArg.series;
+			CDO_controller.user = dataModelArg.user;
 
 			var empData;
 			var arrNewData = [];
@@ -1379,22 +1414,22 @@ sap.ui.define([
 			if (modelDescString == "" && suffixDescString !== "") {
 				console.log("1");
 				url2 = host +
-					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
+					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + CDO_controller.user + "' and Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
 					"' and (" + newSuffixStr + ") and Modelyear eq  '" + modelYearCBVal + " ')";
 			} else if (suffixDescString == "" && modelDescString !== "") {
 				console.log("2");
 				url2 = host +
-					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
+					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + CDO_controller.user + "' and Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
 					" ' and Modelyear eq  '" + modelYearCBVal + " 'and (" + newModelStr + ") )";
 			} else if (suffixDescString == "" && modelDescString == "") {
 				console.log("3");
 				url2 = host +
-					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
+					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + CDO_controller.user + "' and Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
 					" ' and Modelyear eq  '" + modelYearCBVal + " ')";
 			} else {
 				console.log("4");
 				url2 = host +
-					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
+					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + CDO_controller.user + "' and Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
 					" ' and Modelyear eq  '" + modelYearCBVal + " ' and (" + newModelStr + ") and (" + newSuffixStr + ") )";
 			}
 			$.ajax({
@@ -1407,14 +1442,16 @@ sap.ui.define([
 					CDO_controller.getView().setModel(tblModel, "searchTblModel");
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
-					sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
+					var errMsg = CDO_controller.getView().getModel("i18n").getResourceBundle().getText("Error1");
+					sap.m.MessageBox.show(errMsg, sap.m.MessageBox.Icon.ERROR, "Error",
 						sap
 						.m.MessageBox.Action.OK, null, null);
 				}
 			});
 			if (newVehStr !== "") {
 				var urlTable = host +
-					"/Z_VEHICLE_CATALOGUE_SRV/ZC_VOAS_COMP_HEADERSet?$filter= (" + newVehStr + " and Language eq '" + CDO_controller.language + "') &$expand=ZCVOASDEEP";
+					"/Z_VEHICLE_CATALOGUE_SRV/ZC_VOAS_COMP_HEADERSet?$filter= (User eq  '" + CDO_controller.user + "' and " + newVehStr + " and Language eq '" + CDO_controller.language +
+					"') &$expand=ZCVOASDEEP";
 				//IN_Vehicle1 eq '2019Camry SEAM' and IN_Vehicle2 eq '2019Camry LEAM' )&$expand=ZCVOASDEEP";
 				//	"/Z_VEHICLE_CATALOGUE_SRV/ZC_VOAS_COMP_HEADERSet?$filter=(IN_Vehicle1 eq '2018Camry SEA' and IN_Vehicle2 eq '2018Camry LEA' )&$expand=ZCVOASDEEP";
 
@@ -1428,7 +1465,8 @@ sap.ui.define([
 						CDO_controller.getView().setModel(tblModel, "TblModel");
 					},
 					error: function (jqXHR, textStatus, errorThrown) {
-						sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
+						var errMsg = CDO_controller.getView().getModel("i18n").getResourceBundle().getText("Error1");
+						sap.m.MessageBox.show(errMsg, sap.m.MessageBox.Icon.ERROR, "Error",
 							sap.m.MessageBox.Action.OK, null, null);
 					}
 				});
@@ -1571,18 +1609,22 @@ sap.ui.define([
 						var msrp = [],
 							net = [];
 						if (dtCol[i].MSRP != undefined && dtCol[i].MSRP != null && !isNaN(dtCol[i].MSRP) && dtCol[i].MSRP != "") {
-							msrp[i] = parseInt(dtCol[i].MSRP);
+							msrp[i] = " $"+parseInt(dtCol[i].MSRP);
 						} else {
 							msrp[i] = "";
 						}
 						if (dtCol[i].NETPRICE != undefined && dtCol[i].NETPRICE != null && !isNaN(dtCol[i].NETPRICE) && dtCol[i].NETPRICE != "") {
-							net[i] = parseInt(dtCol[i].NETPRICE);
+							net[i] = " $"+parseInt(dtCol[i].NETPRICE);
 						} else {
 							net[i] = "";
 						}
+						var msrpF = CDO_controller.getView().getModel("i18n").getResourceBundle().getText("MSRPWithoutDoll");
+						var netPriceF = CDO_controller.getView().getModel("i18n").getResourceBundle().getText("DealerNetWithoutDoll");
+						
 						dataColour.push({
 							"Category_en": dtCol[i].EXT + "-" + dtCol[i].EXT_DESC + "\n" + dtCol[i].INT_DESC,
-							"Cust_fac_desc_en": "MSRP: $ " + msrp[i] + "\nDealer Net: $" + net[i],
+							//"Cust_fac_desc_en": "MSRP: $ " + msrp[i] + "\nDealer Net: $" + net[i],
+							"Cust_fac_desc_en": msrpF + msrp[i] + "\n"+ netPriceF + net[i],
 							"Vehicle1": dtCol[i].Vehicle1,
 							"Vehicle2": dtCol[i].Vehicle2,
 							"Vehicle3": dtCol[i].Vehicle3,
@@ -1685,11 +1727,14 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
-										src: "sap-icon://accept",
-										color: "black"
+									new sap.m.HBox({
+										items: [new sap.m.Text({
+											text: " ",
+										}).addStyleClass("padding"), new sap.ui.core.Icon({
+											src: "sap-icon://accept",
+											color: "black"
+										})]
 									})
-									]})
 								);
 							} else {
 								row.addCell(
@@ -1717,11 +1762,14 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
-										src: "sap-icon://accept",
-										color: "black"
+									new sap.m.HBox({
+										items: [new sap.m.Text({
+											text: " ",
+										}).addStyleClass("padding"), new sap.ui.core.Icon({
+											src: "sap-icon://accept",
+											color: "black"
+										})]
 									})
-									]})
 								);
 							} else {
 								row.addCell(
@@ -1750,11 +1798,14 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
-										src: "sap-icon://accept",
-										color: "black"
+									new sap.m.HBox({
+										items: [new sap.m.Text({
+											text: " ",
+										}).addStyleClass("padding"), new sap.ui.core.Icon({
+											src: "sap-icon://accept",
+											color: "black"
+										})]
 									})
-									]})
 								);
 							} else {
 								row.addCell(
@@ -1781,11 +1832,14 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
-										src: "sap-icon://accept",
-										color: "black"
+									new sap.m.HBox({
+										items: [new sap.m.Text({
+											text: " ",
+										}).addStyleClass("padding"), new sap.ui.core.Icon({
+											src: "sap-icon://accept",
+											color: "black"
+										})]
 									})
-									]})
 								);
 							} else {
 								row.addCell(
@@ -1812,11 +1866,14 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
-										src: "sap-icon://accept",
-										color: "black"
+									new sap.m.HBox({
+										items: [new sap.m.Text({
+											text: " ",
+										}).addStyleClass("padding"), new sap.ui.core.Icon({
+											src: "sap-icon://accept",
+											color: "black"
+										})]
 									})
-									]})
 								);
 							} else {
 								row.addCell(
@@ -1843,11 +1900,14 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
-										src: "sap-icon://accept",
-										color: "black"
+									new sap.m.HBox({
+										items: [new sap.m.Text({
+											text: " ",
+										}).addStyleClass("padding"), new sap.ui.core.Icon({
+											src: "sap-icon://accept",
+											color: "black"
+										})]
 									})
-									]})
 								);
 							} else {
 								row.addCell(
@@ -1874,11 +1934,14 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
-										src: "sap-icon://accept",
-										color: "black"
+									new sap.m.HBox({
+										items: [new sap.m.Text({
+											text: " ",
+										}).addStyleClass("padding"), new sap.ui.core.Icon({
+											src: "sap-icon://accept",
+											color: "black"
+										})]
 									})
-									]})
 								);
 							} else {
 								row.addCell(
@@ -1926,11 +1989,14 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
-										src: "sap-icon://accept",
-										color: "black"
+									new sap.m.HBox({
+										items: [new sap.m.Text({
+											text: " ",
+										}).addStyleClass("padding"), new sap.ui.core.Icon({
+											src: "sap-icon://accept",
+											color: "black"
+										})]
 									})
-									]})
 								);
 							} else {
 								row.addCell(
@@ -1946,6 +2012,7 @@ sap.ui.define([
 			}
 		},
 		handleRouteMatched: function (oEvent) {
+		//	CDO_controller.user = CDO_controller.getLoggedUser();
 			var fixedData = {
 				Vehicle: " "
 			};
@@ -1976,7 +2043,7 @@ sap.ui.define([
 			var brandCBVal = dataModelArg.brand;
 			var modelYearCBVal = dataModelArg.moYear;
 			var seriesCBVal = dataModelArg.series;
-
+			CDO_controller.user = dataModelArg.user;
 			var empData;
 			var arrNewData = [];
 
@@ -2110,23 +2177,24 @@ sap.ui.define([
 			if (modelDescString == "" && suffixDescString !== "") {
 				console.log("1");
 				url2 = host +
-					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
+					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + CDO_controller.user + "' and Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
 					"' and (" + newSuffixStr + ") and Modelyear eq  '" + modelYearCBVal + " 'and Language eq '" + CDO_controller.language + "')";
 			} else if (suffixDescString == "" && modelDescString !== "") {
 				console.log("2");
 				url2 = host +
-					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
+					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + CDO_controller.user + "' and Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
 					" ' and Modelyear eq  '" + modelYearCBVal + " 'and (" + newModelStr + ") and Language eq '" + CDO_controller.language + "')";
 			} else if (suffixDescString == "" && modelDescString == "") {
 				console.log("3");
 				url2 = host +
-					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
+					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + CDO_controller.user + "' and Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
 					" ' and Modelyear eq  '" + modelYearCBVal + " 'and Language eq '" + CDO_controller.language + "')";
 			} else {
 				console.log("4");
 				url2 = host +
-					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
-					" ' and Modelyear eq  '" + modelYearCBVal + " ' and (" + newModelStr + ") and (" + newSuffixStr + ") and Language eq '" + CDO_controller.language + "')";
+					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + CDO_controller.user + "' and Brand eq  '" + brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
+					" ' and Modelyear eq  '" + modelYearCBVal + " ' and (" + newModelStr + ") and (" + newSuffixStr + ") and Language eq '" +
+					CDO_controller.language + "')";
 			}
 			$.ajax({
 				url: url2,
@@ -2138,14 +2206,16 @@ sap.ui.define([
 					CDO_controller.getView().setModel(tblModel, "searchTblModel");
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
-					sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
+					var errMsg = CDO_controller.getView().getModel("i18n").getResourceBundle().getText("Error1");
+					sap.m.MessageBox.show(errMsg, sap.m.MessageBox.Icon.ERROR, "Error",
 						sap
 						.m.MessageBox.Action.OK, null, null);
 				}
 			});
 			if (newVehStr !== "") {
 				var urlTable = host +
-					"/Z_VEHICLE_CATALOGUE_SRV/ZC_VOAS_COMP_HEADERSet?$filter= (" + newVehStr + " and Language eq '" + CDO_controller.language + "') &$expand=ZCVOASDEEP";
+					"/Z_VEHICLE_CATALOGUE_SRV/ZC_VOAS_COMP_HEADERSet?$filter= (User eq  '" + CDO_controller.user + "' and " + newVehStr + " and Language eq '" + CDO_controller.language +
+					"') &$expand=ZCVOASDEEP";
 				//IN_Vehicle1 eq '2019Camry SEAM' and IN_Vehicle2 eq '2019Camry LEAM' )&$expand=ZCVOASDEEP";
 				//	"/Z_VEHICLE_CATALOGUE_SRV/ZC_VOAS_COMP_HEADERSet?$filter=(IN_Vehicle1 eq '2018Camry SEA' and IN_Vehicle2 eq '2018Camry LEA' )&$expand=ZCVOASDEEP";
 
@@ -2159,7 +2229,8 @@ sap.ui.define([
 						CDO_controller.getView().setModel(tblModel, "TblModel");
 					},
 					error: function (jqXHR, textStatus, errorThrown) {
-						sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
+						var errMsg = CDO_controller.getView().getModel("i18n").getResourceBundle().getText("Error1");
+						sap.m.MessageBox.show(errMsg, sap.m.MessageBox.Icon.ERROR, "Error",
 							sap.m.MessageBox.Action.OK, null, null);
 					}
 				});
@@ -2307,18 +2378,20 @@ sap.ui.define([
 						var msrp = [],
 							net = [];
 						if (dtCol[i].MSRP != undefined && dtCol[i].MSRP != null && !isNaN(dtCol[i].MSRP) && dtCol[i].MSRP != "") {
-							msrp[i] = parseInt(dtCol[i].MSRP);
+							msrp[i] = "$"+parseInt(dtCol[i].MSRP);
 						} else {
 							msrp[i] = "";
 						}
 						if (dtCol[i].NETPRICE != undefined && dtCol[i].NETPRICE != null && !isNaN(dtCol[i].NETPRICE) && dtCol[i].NETPRICE != "") {
-							net[i] = parseInt(dtCol[i].NETPRICE);
+							net[i] =  "$"+parseInt(dtCol[i].NETPRICE);
 						} else {
 							net[i] = "";
 						}
+						var msrpF = CDO_controller.getView().getModel("i18n").getResourceBundle().getText("MSRPWithoutDoll");
+						var netPriceF = CDO_controller.getView().getModel("i18n").getResourceBundle().getText("DealerNetWithoutDoll");
 						dataColour.push({
 							"Category_en": dtCol[i].EXT + "-" + dtCol[i].EXT_DESC + "\n" + dtCol[i].INT_DESC,
-							"Cust_fac_desc_en": "MSRP: $ " + msrp[i] + "\nDealer Net: $" + net[i],
+							"Cust_fac_desc_en": msrpF + msrp[i] + "\n"+ netPriceF+ net[i],
 							"Vehicle1": dtCol[i].Vehicle1,
 							"Vehicle2": dtCol[i].Vehicle2,
 							"Vehicle3": dtCol[i].Vehicle3,
@@ -2423,11 +2496,14 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
-										src: "sap-icon://accept",
-										color: "black"
+									new sap.m.HBox({
+										items: [new sap.m.Text({
+											text: " ",
+										}).addStyleClass("padding"), new sap.ui.core.Icon({
+											src: "sap-icon://accept",
+											color: "black"
+										})]
 									})
-									]})
 								);
 							} else {
 								row.addCell(
@@ -2455,11 +2531,14 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
-										src: "sap-icon://accept",
-												color: "black"
-											})
-										]})
+									new sap.m.HBox({
+										items: [new sap.m.Text({
+											text: " ",
+										}).addStyleClass("padding"), new sap.ui.core.Icon({
+											src: "sap-icon://accept",
+											color: "black"
+										})]
+									})
 								);
 							} else {
 								row.addCell(
@@ -2488,11 +2567,14 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
-										src: "sap-icon://accept",
-										color: "black"
+									new sap.m.HBox({
+										items: [new sap.m.Text({
+											text: " ",
+										}).addStyleClass("padding"), new sap.ui.core.Icon({
+											src: "sap-icon://accept",
+											color: "black"
+										})]
 									})
-									]})
 								);
 							} else {
 								row.addCell(
@@ -2519,11 +2601,14 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
-										src: "sap-icon://accept",
-										color: "black"
+									new sap.m.HBox({
+										items: [new sap.m.Text({
+											text: " ",
+										}).addStyleClass("padding"), new sap.ui.core.Icon({
+											src: "sap-icon://accept",
+											color: "black"
+										})]
 									})
-									]})
 								);
 							} else {
 								row.addCell(
@@ -2550,11 +2635,14 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
-										src: "sap-icon://accept",
-										color: "black"
+									new sap.m.HBox({
+										items: [new sap.m.Text({
+											text: " ",
+										}).addStyleClass("padding"), new sap.ui.core.Icon({
+											src: "sap-icon://accept",
+											color: "black"
+										})]
 									})
-									]})
 								);
 							} else {
 								row.addCell(
@@ -2581,11 +2669,14 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
-										src: "sap-icon://accept",
-										color: "black"
+									new sap.m.HBox({
+										items: [new sap.m.Text({
+											text: " ",
+										}).addStyleClass("padding"), new sap.ui.core.Icon({
+											src: "sap-icon://accept",
+											color: "black"
+										})]
 									})
-									]})
 								);
 							} else {
 								row.addCell(
@@ -2612,11 +2703,14 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
-										src: "sap-icon://accept",
-										color: "black"
+									new sap.m.HBox({
+										items: [new sap.m.Text({
+											text: " ",
+										}).addStyleClass("padding"), new sap.ui.core.Icon({
+											src: "sap-icon://accept",
+											color: "black"
+										})]
 									})
-									]})
 								);
 							} else {
 								row.addCell(
@@ -2664,11 +2758,14 @@ sap.ui.define([
 						for (var k in obj) {
 							if (obj[k] == "Y") {
 								row.addCell(
-									new sap.m.HBox({items: [new sap.m.Text({text: " ",}).addStyleClass("padding"),new sap.ui.core.Icon({
-										src: "sap-icon://accept",
-										color: "black"
+									new sap.m.HBox({
+										items: [new sap.m.Text({
+											text: " ",
+										}).addStyleClass("padding"), new sap.ui.core.Icon({
+											src: "sap-icon://accept",
+											color: "black"
+										})]
 									})
-									]})
 								);
 							} else {
 								row.addCell(

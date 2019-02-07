@@ -55,11 +55,17 @@ sap.ui.define([
 			var langData, Language, LanguageState;
 			if (userAttributesModel) {
 				langData = userAttributesModel.getData();
-				Language = langData[0].Language[0];
+				/*Language = langData[0].Language[0];
 				if (Language == "English") {
 					LanguageState = true;
 				} else {
 					LanguageState = false;
+				}*/
+				Language = window.location.search.match(/language=([^&]*)/i)[1];
+				if (Language == "FR") {
+					LanguageState = false;
+				} else {
+					LanguageState = true;
 				}
 			}
 			CreateSuppGuideController.getView().byId("idCreateSupp_LangSwitch").setState(LanguageState);

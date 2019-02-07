@@ -2,25 +2,25 @@ jQuery.sap.declare("com.sap.build.toyota-canada.vehiclesGuideV3.Formatter.format
 
 var formatter = {
 
-		formatOptPack: function (str, str2) {
-			var feature = "";
-			if (str) {
-				var res = str.replace(/;/g, "#- ");
-				feature = res.split('#').join('\n');
-			}
-			return feature;
-		},
-		formatFeatures: function (str, str2) {
-			var feat = "";
-			var feature = "";
-			if (str) {
-				var res = str.replace(/;/g, "#- ");
-				feat = res.split('#').join('\n');
-				feature = "- " + feat;
-			}
-			return feature;
-			///////////
-			/*	var res5 = str.replace(/;/g, "#! ");;
+	formatOptPack: function (str, str2) {
+		var feature = "";
+		if (str) {
+			var res = str.replace(/;/g, "#- ");
+			feature = res.split('#').join('\n');
+		}
+		return feature;
+	},
+	formatFeatures: function (str, str2) {
+		var feat = "";
+		var feature = "";
+		if (str) {
+			var res = str.replace(/;/g, "#- ");
+			feat = res.split('#').join('\n');
+			feature = "- " + feat;
+		}
+		return feature;
+		///////////
+		/*	var res5 = str.replace(/;/g, "#! ");;
 			var extra = res5.split('#');
 			var len = extra.length;
 		//	console.log(len);
@@ -41,18 +41,18 @@ var formatter = {
 			var res2 = string2.replace(/!/g, "#- ");
 			var rturnRes = res2.split('#').join('\n');
 */
-			//	console.log(rturnRes);
-			///////////
+		//	console.log(rturnRes);
+		///////////
 
-		},
-		formatVehicle: function (modelYear, modelCode, ENmodelName, FRmodelName, suff, ENsuffDesc, FRsuffDesc, lang) {
-			var vehicle = "";
-			if (lang === "FR") {
-				vehicle = modelYear + "-" + modelCode + "\n" + FRmodelName + "\n" + "SFX-" + suff + "\n" + FRsuffDesc;
-			} else {
-				vehicle = modelYear + "-" + modelCode + "\n" + ENmodelName + "\n" + "SFX-" + suff + "\n" + ENsuffDesc;
-			}
-		
+	},
+	formatVehicle: function (modelYear, modelCode, ENmodelName, FRmodelName, suff, ENsuffDesc, FRsuffDesc, lang) {
+		var vehicle = "";
+		if (lang === "FR") {
+			vehicle = modelYear + "-" + modelCode + "\n" + FRmodelName + "\n" + "SFX-" + suff + "\n" + FRsuffDesc;
+		} else {
+			vehicle = modelYear + "-" + modelCode + "\n" + ENmodelName + "\n" + "SFX-" + suff + "\n" + ENsuffDesc;
+		}
+
 		return vehicle;
 	},
 	formatManagePageDate: function (str, str2) {
@@ -91,7 +91,78 @@ var formatter = {
 			return sTrimval;
 		}
 	},
-	/*	decimalFormatter: function (oDecVal, oDecVal2) {
+	decimalFormatter: function (oDecVal, oDecVal2) {
+
+		if (oDecVal != undefined && oDecVal != null && !isNaN(oDecVal) && oDecVal != "") {
+			var returnString="";
+			var returnVal="";
+			returnVal = parseInt(oDecVal);
+			var commaVal = returnVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			returnString = "$"+commaVal;
+			if (returnVal == 0.00) {
+				return "";
+			} else {
+				return returnString;
+			}
+		} else {
+			return "";
+		}
+	},
+	decimalFormatterDealer: function (oDecVal, oDecVal2) {
+
+		if (oDecVal != undefined && oDecVal != null && !isNaN(oDecVal) && oDecVal != "") {
+			var returnString="";
+			var returnVal="";
+			returnVal = parseInt(oDecVal);
+			var commaVal = returnVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			returnString = "$"+commaVal;
+			if (returnVal == 0.00) {
+				return "";
+			} else {
+				return returnString;
+			}
+		} else {
+			return "";
+		}
+	},
+	decimalFormatterDealerMSRP: function (oDecVal, msrp, lang) {
+		console.log("language is: "+lang);
+		var returnVal = "";
+		var returnVal2 = " ";
+		var commaVal2 = "";
+		var commaVal = "";
+		var returnString = "";
+		if (oDecVal != undefined && oDecVal != null && !isNaN(oDecVal) && oDecVal != "") {
+			returnVal = parseInt(oDecVal);
+			commaVal = returnVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		}
+		if (msrp != undefined && msrp != null && !isNaN(msrp) && msrp != "") {
+			returnVal2 = parseInt(msrp);
+			commaVal2 = returnVal2.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		}
+		
+		if (lang === "FR") {
+			returnString = "Prix net conc.: $" + commaVal + "PDSF: $" + commaVal2;
+			if (returnVal == 0.00 && returnVal2 == 0) {
+				return "Prix net conc.:  PDSF:";
+			} else {
+				return returnString;
+			}
+		} else {
+			returnString = "Dealer Net: $" + commaVal + "MSRP: $" + commaVal2;
+			if (returnVal == 0.00 && returnVal2 == 0) {
+				return "DealerNet:  MSRP:";
+			} else {
+			return "DealerNet:  MSRP:";
+			}
+		}
+	//	return returnString;
+	
+}
+
+};
+
+/*	decimalFormatter: function (oDecVal, oDecVal2) {
 			//	oDecVal="67894320.89";
 			if (oDecVal != undefined && oDecVal != null && !isNaN(oDecVal) && oDecVal != "") {
 				var returnVal = parseInt(oDecVal);
@@ -138,51 +209,3 @@ var formatter = {
 			}
 		}
 	*/
-	decimalFormatter: function (oDecVal, oDecVal2) {
-		//	oDecVal="67894320.89";
-		if (oDecVal != undefined && oDecVal != null && !isNaN(oDecVal) && oDecVal != "") {
-			var returnVal = parseInt(oDecVal);
-			var commaVal = returnVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-			// console.log(commaVal);
-			var returnString = commaVal;
-			if (returnVal == 0.00) {
-				return " 0";
-			} else {
-				return returnString;
-			}
-		} else {
-			return " ";
-		}
-	},
-	decimalFormatterDealer: function (oDecVal, oDecVal2) {
-		if (oDecVal != undefined && oDecVal != null && !isNaN(oDecVal) && oDecVal != "") {
-			var returnVal = parseInt(oDecVal);
-			var commaVal = returnVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-			var returnString = +commaVal;
-			if (returnVal == 0.00) {
-				return " 0";
-			} else {
-				return returnString;
-			}
-		} else {
-			return " ";
-		}
-	},
-	decimalFormatterDealerMSRP: function (oDecVal, msrp) {
-		if (oDecVal != undefined && oDecVal != null && !isNaN(oDecVal) && oDecVal != "") {
-			var returnVal = parseInt(oDecVal);
-			var returnVal2 = parseInt(msrp);
-			var commaVal = returnVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-			var commaVal2 = returnVal2.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-			var returnString = "Dealer Net: $" + commaVal + "MSRP: $" + commaVal2;
-			if (returnVal == 0.00 && returnVal2 == 0) {
-				return " $0";
-			} else {
-				return returnString;
-			}
-		} else {
-			return " ";
-		}
-	}
-
-};

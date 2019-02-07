@@ -149,10 +149,9 @@
 									<!-- text="SFX- {searchTblModel>Suffix}"/>-->
 									<ObjectIdentifier
 										text="{parts: [{path:'searchTblModel>Features'},{path:'searchTblModel>Features'}] , formatter: 'formatter.formatFeatures'}"/>
-									<!--				<ObjectIdentifier text="Dealer Net: {searchTblModel>NETPRICE}" title="MSRP: {searchTblModel>MSRP}"/>-->
 									<ObjectIdentifier
-										text="{i18n>DealerNet}{parts: [{path:'searchTblModel>NETPRICE'},{path:'searchTblModel>NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"
-										title="{i18n>MSRP}{parts: [{path:'searchTblModel>MSRP'},{path:'searchTblModel>MSRP'}] , formatter: 'formatter.decimalFormatter'}"/>
+										text="{i18n>DealerNetWithoutDoll}{parts: [{path:'searchTblModel>NETPRICE'},{path:'searchTblModel>NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"
+										title="{i18n>MSRPWithoutDoll}{parts: [{path:'searchTblModel>MSRP'},{path:'searchTblModel>MSRP'}] , formatter: 'formatter.decimalFormatter'}"/>
 								</cells>
 							</ColumnListItem>
 						</items>

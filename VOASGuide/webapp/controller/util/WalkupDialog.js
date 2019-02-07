@@ -52,6 +52,12 @@ sap.ui.define([
 		},
 
 		close: function () {
+			var comment = this._oView.byId("__component0---AdminDetailsOption--walkUp_TA_Comment"); //.getValue(); // "ok"; 
+			var filename = this._oView.byId("__component0---AdminDetailsOption--walkUpFileUploadId"); //.mProperties.value; //"abc.pdf";
+			var langSwitch = this._oView.byId("__component0---AdminDetailsOption--walkUp_Switch_Lang");
+			comment.setValue("");
+			filename.setValue("");
+			langSwitch.setState(true);
 			this._oControl.close();
 		},
 
@@ -102,7 +108,9 @@ sap.ui.define([
 						lang + "',Lastupdate='" + date3 + "',Tab='Walkup',Model='" + modelAdmData.modelDesc + "',Model_year='" + modelAdmData.moYear +
 						"',Tciseries='" + modelAdmData.series + "',Brand='" + modelAdmData.brand + "')/$value";
 					var oUrl5 = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'Walkup')";
-					var oUrl3= this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'Walkup' and Model eq '"+modelAdmData.modelDesc+"' and Model_year eq '"+modelAdmData.moYear+"' and Tciseries eq '"+modelAdmData.series+"' and Brand eq '"+modelAdmData.brand+"')";
+					var oUrl3 = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'Walkup' and Model eq '" + modelAdmData.modelDesc +
+						"' and Model_year eq '" + modelAdmData.moYear + "' and Tciseries eq '" + modelAdmData.series + "' and Brand eq '" +
+						modelAdmData.brand + "')";
 					var token;
 					var tbl = sap.ushell.components.walkUpTbl;
 					var file = jQuery.sap.domById(oFileUploader.getId() + "-fu").files[0];

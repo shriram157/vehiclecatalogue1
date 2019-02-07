@@ -52,6 +52,12 @@ sap.ui.define([
 		},
 
 		close: function () {
+			var comment = this._oView.byId("__component0---AdminDetailsOption--whatsNew_TA_Comment"); //.getValue(); // "ok"; 
+			var filename = this._oView.byId("__component0---AdminDetailsOption--whatsNewFileUploadId"); //.mProperties.value; //"abc.pdf";
+			var langSwitch = this._oView.byId("__component0---AdminDetailsOption--whatsNew_Switch_Lang");
+			comment.setValue("");
+			filename.setValue("");
+			langSwitch.setState(true);
 			this._oControl.close();
 		},
 
@@ -126,7 +132,9 @@ sap.ui.define([
 						lang + "',Lastupdate='" + date3 + "',Tab='WhatsNew',Model='" + modelAdmData.modelDesc + "',Model_year='" + modelAdmData.moYear +
 						"',Tciseries='" + modelAdmData.series + "',Brand='" + modelAdmData.brand + "')/$value";
 					var oUrl5 = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'WhatsNew')";
-				var oUrl3= this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'WhatsNew' and Model eq '"+modelAdmData.modelDesc+"' and Model_year eq '"+modelAdmData.moYear+"' and Tciseries eq '"+modelAdmData.series+"' and Brand eq '"+modelAdmData.brand+"')";
+					var oUrl3 = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'WhatsNew' and Model eq '" + modelAdmData.modelDesc +
+						"' and Model_year eq '" + modelAdmData.moYear + "' and Tciseries eq '" + modelAdmData.series + "' and Brand eq '" +
+						modelAdmData.brand + "')";
 					var token;
 					var tbl = sap.ushell.components.whatsNewTbl;
 					var file = jQuery.sap.domById(oFileUploader.getId() + "-fu").files[0];

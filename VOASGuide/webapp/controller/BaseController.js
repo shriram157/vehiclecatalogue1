@@ -20,6 +20,25 @@ sap.ui.define([
 				jQuery.sap.log.info("Route name is : " + name);
 			});
 		},
+		getLoggedUser:function(){
+			var host=this.hostAPI();
+			var user="";
+	/*	$.ajax({
+				url: host + "/userDetails/currentScopesForUser",
+				type: "GET",
+				dataType: "json",
+				success: function (Data) {
+					console.log(Data);
+					var userModel = new sap.ui.model.json.JSONModel(Data);
+					var userData=userModel.getData();
+					user=userData.loggedUserType;
+				},
+				error: function () {
+					console.log("error in user API");
+				}
+			});	*/
+			return user;
+		},
 
 		getRouter: function () {
 			return sap.ui.core.UIComponent.getRouterFor(baseController);
@@ -63,7 +82,7 @@ sap.ui.define([
 
 		notfound: function () {
 			baseController.getRouter().getTargets().display("notFound", { //go to not found
-				fromTarget: "RetailSoldOrderA" //go to view 1 from not found 
+				fromTarget: "SearchPage" //go to view 1 from not found 
 			});
 		},
 		getUserLanguage: function () {
