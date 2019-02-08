@@ -2016,7 +2016,14 @@ sap.ui.define([
 			var fixedData = {
 				Vehicle: " "
 			};
-
+			var emptydata=[];
+			emptydata.push(fixedData);
+			emptydata.push(fixedData);
+			emptydata.push(fixedData);
+			emptydata.push(fixedData);
+			/*emptydata.push(fixedData);
+			emptydata.push(fixedData);
+			emptydata.push(fixedData);*/
 			var aColumnData = [];
 			aColumnData.push(fixedData);
 			aColumnData.push(fixedData);
@@ -2314,8 +2321,8 @@ sap.ui.define([
 					for (var i = 0; i < dtExt.length; i++) {
 
 						dataExterior.push({
-							"Category_en": dtExt[i].Category_en,
-							"Cust_fac_desc_en": dtExt[i].Cust_fac_desc_en,
+							"Category_en": dtExt[i].Cust_fac_desc_en,//dtExt[i].Category_en,
+							"Cust_fac_desc_en": "",//dtExt[i].Cust_fac_desc_en,
 							"Vehicle1": dtExt[i].Vehicle1,
 							"Vehicle2": dtExt[i].Vehicle2,
 							"Vehicle3": dtExt[i].Vehicle3,
@@ -2326,8 +2333,8 @@ sap.ui.define([
 					var dataInterior = [];
 					for (var i = 0; i < dtInt.length; i++) {
 						dataInterior.push({
-							"Category_en": dtInt[i].Category_en,
-							"Cust_fac_desc_en": dtInt[i].Cust_fac_desc_en,
+							"Category_en": dtInt[i].Cust_fac_desc_en, //dtInt[i].Category_en,
+							"Cust_fac_desc_en": "", //dtInt[i].Cust_fac_desc_en,
 							"Vehicle1": dtInt[i].Vehicle1,
 							"Vehicle2": dtInt[i].Vehicle2,
 							"Vehicle3": dtInt[i].Vehicle3,
@@ -2338,8 +2345,8 @@ sap.ui.define([
 					var dataInfo = [];
 					for (var i = 0; i < dtInfo.length; i++) {
 						dataInfo.push({
-							"Category_en": dtInfo[i].Category_en,
-							"Cust_fac_desc_en": dtInfo[i].Cust_fac_desc_en,
+							"Category_en": dtInfo[i].Cust_fac_desc_en, //dtInfo[i].Category_en,
+							"Cust_fac_desc_en": "" ,//dtInfo[i].Cust_fac_desc_en,
 							"Vehicle1": dtInfo[i].Vehicle1,
 							"Vehicle2": dtInfo[i].Vehicle2,
 							"Vehicle3": dtInfo[i].Vehicle3,
@@ -2350,8 +2357,8 @@ sap.ui.define([
 					var dataPwr = [];
 					for (var i = 0; i < dtPwr.length; i++) {
 						dataPwr.push({
-							"Category_en": dtPwr[i].Category_en,
-							"Cust_fac_desc_en": dtPwr[i].Cust_fac_desc_en,
+							"Category_en": dtPwr[i].Cust_fac_desc_en, //dtPwr[i].Category_en, 
+							"Cust_fac_desc_en": "",//dtPwr[i].Cust_fac_desc_en,
 							"Vehicle1": dtPwr[i].Vehicle1,
 							"Vehicle2": dtPwr[i].Vehicle2,
 							"Vehicle3": dtPwr[i].Vehicle3,
@@ -2362,8 +2369,8 @@ sap.ui.define([
 					var dataSafety = [];
 					for (var i = 0; i < dtSaf.length; i++) {
 						dataSafety.push({
-							"Category_en": dtSaf[i].Category_en,
-							"Cust_fac_desc_en": dtSaf[i].Cust_fac_desc_en,
+							"Category_en": dtSaf[i].Cust_fac_desc_en,//dtSaf[i].Category_en,
+							"Cust_fac_desc_en": "",//dtSaf[i].Cust_fac_desc_en,
 							"Vehicle1": dtSaf[i].Vehicle1,
 							"Vehicle2": dtSaf[i].Vehicle2,
 							"Vehicle3": dtSaf[i].Vehicle3,
@@ -2420,14 +2427,54 @@ sap.ui.define([
 						}*/
 					var dataApx = [];
 					for (var i = 0; i < dtApx.length; i++) {
+						var msrp = [],
+							net = [];
+						if (dtApx[i].MSRP != undefined && dtApx[i].MSRP != null && !isNaN(dtApx[i].MSRP) && dtApx[i].MSRP != "") {
+							msrp[i] = "$"+parseInt(dtApx[i].MSRP);
+						} else {
+							msrp[i] = "";
+						}
+						if (dtApx[i].NETPRICE != undefined && dtApx[i].NETPRICE != null && !isNaN(dtApx[i].NETPRICE) && dtApx[i].NETPRICE != "") {
+							net[i] =  "$"+parseInt(dtApx[i].NETPRICE);
+						} else {
+							net[i] = "";
+						}
+						var msrpF = CDO_controller.getView().getModel("i18n").getResourceBundle().getText("MSRPWithoutDoll");
+						var netPriceF = CDO_controller.getView().getModel("i18n").getResourceBundle().getText("DealerNetWithoutDoll");
 						dataApx.push({
-							"Category_en": dtApx[i].APX,
-							"Cust_fac_desc_en": dtApx[i].INT_DESC,
+							"Category_en": dtApx[i].APX+ "\n"+dtApx[i].INT_DESC,//+ "\n"+msrpF + msrp[i] + "\n"+ netPriceF+ net[i],
+							"Cust_fac_desc_en": "",//dtApx[i].INT_DESC,
 							"Vehicle1": dtApx[i].Vehicle1,
 							"Vehicle2": dtApx[i].Vehicle2,
 							"Vehicle3": dtApx[i].Vehicle3,
 							"Vehicle4": dtApx[i].Vehicle4,
 							"Vehicle5": dtApx[i].Vehicle5
+						});
+					}
+					var dataApx1 = [];
+					for (var i = 0; i < dtApx.length; i++) {
+						var msrp = [],
+							net = [];
+						if (dtApx[i].MSRP != undefined && dtApx[i].MSRP != null && !isNaN(dtApx[i].MSRP) && dtApx[i].MSRP != "") {
+							msrp[i] = "$"+parseInt(dtApx[i].MSRP);
+						} else {
+							msrp[i] = "";
+						}
+						if (dtApx[i].NETPRICE != undefined && dtApx[i].NETPRICE != null && !isNaN(dtApx[i].NETPRICE) && dtApx[i].NETPRICE != "") {
+							net[i] =  "$"+parseInt(dtApx[i].NETPRICE);
+						} else {
+							net[i] = "";
+						}
+						var msrpF = CDO_controller.getView().getModel("i18n").getResourceBundle().getText("MSRPWithoutDoll");
+						var netPriceF = CDO_controller.getView().getModel("i18n").getResourceBundle().getText("DealerNetWithoutDoll");
+						dataApx1.push({
+							"Category_en": dtApx[i].APX+ "\n"+dtApx[i].INT_DESC+ "\n"+msrpF + msrp[i] + "\n"+ netPriceF+ net[i],
+							"Cust_fac_desc_en": "",//dtApx[i].INT_DESC,
+							"Vehicle1": dtApx[i].INT_DESC, //dtApx[i].Vehicle1,
+							"Vehicle2": dtApx[i].INT_DESC,//dtApx[i].Vehicle2
+							/*"Vehicle3": dtApx[i].Vehicle3,
+							"Vehicle4": dtApx[i].Vehicle4,
+							"Vehicle5": dtApx[i].Vehicle5*/
 						});
 					}
 
@@ -2477,6 +2524,11 @@ sap.ui.define([
 					tblModelApx.setData({
 						columns: aColumnData,
 						rows: dataApx
+					});
+					var tblModelApx1 = new sap.ui.model.json.JSONModel();
+					tblModelApx1.setData({
+						columns: emptydata,
+						rows: dataApx1
 					});
 
 					var tblExterior = CDO_controller.getView().byId("tblExterior");
@@ -2743,6 +2795,41 @@ sap.ui.define([
 						}
 						return row;
 					});*/
+					var tblAPX1 = CDO_controller.getView().byId("tblAPX1");
+					tblAPX1.setModel(tblModelApx1);
+					tblAPX1.bindAggregation("columns", "/columns", function (index, context) {
+						return new sap.m.Column({
+							header: new sap.m.Label({
+								text: context.getObject().Vehicle
+							}),
+						});
+					});
+					tblAPX1.bindItems("/rows", function (index, context) {
+						var obj = context.getObject();
+						var row = new sap.m.ColumnListItem();
+						for (var k in obj) {
+							if (obj[k] == "Y") {
+								row.addCell(
+									new sap.m.HBox({
+										items: [new sap.m.Text({
+											text: " ",
+										}).addStyleClass("padding"), new sap.ui.core.Icon({
+											src: "sap-icon://accept",
+											color: "black"
+										})]
+									})
+								);
+							} else {
+								row.addCell(
+									new sap.m.Text({
+										text: obj[k]
+									})
+								);
+							}
+						}
+						return row;
+					});
+					
 					var tblAPX = CDO_controller.getView().byId("tblAPX");
 					tblAPX.setModel(tblModelApx);
 					tblAPX.bindAggregation("columns", "/columns", function (index, context) {

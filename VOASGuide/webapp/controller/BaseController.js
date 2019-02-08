@@ -179,37 +179,9 @@ sap.ui.define([
 				this.sCurrentLocale = 'EN';
 			}
 			return this.sCurrentLocale;
-		},
+		}
 
-		handleBaseLinkPress: function (oEvent) {
-				this.oBundle = this.getView().getModel("i18n").getResourceBundle();
-				var oGetText = oEvent.getSource().getText();
-				if (oGetText === this.oBundle.getText("menu1")) {
-					this.getOwnerComponent().getRouter().navTo("RetailSoldOrderA"); //page 1
-				} else if (oGetText === this.oBundle.getText("menu2")) {
-					this.getOwnerComponent().getRouter().navTo("RetailSoldOrderSummary"); //page 10
-				} else if (oGetText === this.oBundle.getText("menu3")) {
-					this.getOwnerComponent().getRouter().navTo("CreateFleetSoldOrder"); //page 11
-				} else if (oGetText === this.oBundle.getText("menu4")) { //dicey sol, check it again 
-					//this.getOwnerComponent().getRouter().navTo("FleetSoldOrderSummary");
-					if (this.requestStatus == "Pending Fulfilment") {
-						this.getOwnerComponent().getRouter().navTo("FleetSoldOrder_ZoneApproval"); //page 13
-					} else if (this.requestStatus == "Approved") { //processed
-						this.getOwnerComponent().getRouter().navTo("FleetSoldOrder_ProcessedView"); // page 14
-					} else {
-						this.getOwnerComponent().getRouter().navTo("FleetSoldOrderSummary"); //page 15 
-					}
-				} else if (oGetText === this.oBundle.getText("menu5")) {
-					this.getOwnerComponent().getRouter().navTo("FleetSoldOrderDetails"); //page 16
-				} else if (oGetText === this.oBundle.getText("menu6")) {
-					this.getOwnerComponent().getRouter().navTo("FleetSoldOrderDetails"); //page 16
-				} else if (oGetText === this.oBundle.getText("menu7")) {
-					this.getOwnerComponent().getRouter().navTo("RetailSoldOrderB"); //page 2
-				} else if (oGetText === this.oBundle.getText("menu8")) {
-					this.getOwnerComponent().getRouter().navTo("NationalFleetSoldOrderView"); //page 19
-				}
-
-			}
+	
 			/*var i18nModel;
 			var sLocale;
 			var oI18nModel = new sap.ui.model.resource.ResourceModel({

@@ -182,7 +182,10 @@
 .padding{
 	padding-left:4rem;
 }
-
+.textDecor{
+	    text-decoration: underline;
+    padding-bottom: 1rem;
+}
 /*.paddingleft1{
 	padding-left:32rem;
 }
