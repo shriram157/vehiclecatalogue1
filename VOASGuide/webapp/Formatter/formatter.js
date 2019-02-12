@@ -57,13 +57,22 @@ var formatter = {
 	},
 	formatManagePageDate: function (str, str2) {
 		var date = "";
+		var time="";
+		var timeStamp="";
 		if (str != "" && str != " " && str != null && str != undefined) {
 			var year = str.slice(0, 4);
 			var month = str.slice(4, 6);
 			var day = str.slice(6, 8);
 			date = year + "-" + month + "-" + day;
 		}
-		return date;
+		if (str2 != "" && str2 != " " && str2 != null && str2 != undefined) {
+			var hour = str.slice(0, 2);
+			var min = str.slice(2, 4);
+			var sec = str.slice(4, 6);
+			time = hour + ":" + min + ":" + sec;
+		}
+		timeStamp=date+ " "+time;
+		return timeStamp;
 	},
 	formatSuffix: function (str, str2) {
 		var sufStr = "";
@@ -94,11 +103,11 @@ var formatter = {
 	decimalFormatter: function (oDecVal, oDecVal2) {
 
 		if (oDecVal != undefined && oDecVal != null && !isNaN(oDecVal) && oDecVal != "") {
-			var returnString="";
-			var returnVal="";
+			var returnString = "";
+			var returnVal = "";
 			returnVal = parseInt(oDecVal);
 			var commaVal = returnVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-			returnString = "$"+commaVal;
+			returnString = "$" + commaVal;
 			if (returnVal == 0.00) {
 				return "";
 			} else {
@@ -111,11 +120,11 @@ var formatter = {
 	decimalFormatterDealer: function (oDecVal, oDecVal2) {
 
 		if (oDecVal != undefined && oDecVal != null && !isNaN(oDecVal) && oDecVal != "") {
-			var returnString="";
-			var returnVal="";
+			var returnString = "";
+			var returnVal = "";
 			returnVal = parseInt(oDecVal);
 			var commaVal = returnVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-			returnString = "$"+commaVal;
+			returnString = "$" + commaVal;
 			if (returnVal == 0.00) {
 				return "";
 			} else {
@@ -126,7 +135,7 @@ var formatter = {
 		}
 	},
 	decimalFormatterDealerMSRP: function (oDecVal, msrp, lang) {
-		console.log("language is: "+lang);
+		console.log("language is: " + lang);
 		var returnVal = "";
 		var returnVal2 = " ";
 		var commaVal2 = "";
@@ -140,7 +149,7 @@ var formatter = {
 			returnVal2 = parseInt(msrp);
 			commaVal2 = returnVal2.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 		}
-		
+
 		if (lang === "FR") {
 			returnString = "Prix net conc.: $" + commaVal + "PDSF: $" + commaVal2;
 			if (returnVal == 0.00 && returnVal2 == 0) {
@@ -153,12 +162,12 @@ var formatter = {
 			if (returnVal == 0.00 && returnVal2 == 0) {
 				return "DealerNet:  MSRP:";
 			} else {
-			return "DealerNet:  MSRP:";
+				return "DealerNet:  MSRP:";
 			}
 		}
-	//	return returnString;
-	
-}
+		//	return returnString;
+
+	}
 
 };
 

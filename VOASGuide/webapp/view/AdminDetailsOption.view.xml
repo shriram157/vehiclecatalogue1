@@ -79,7 +79,7 @@
 										<cells>
 											<Text text="{whatsNewTblModel>FileName}"/> 
 											<Text text="{whatsNewTblModel>Comment}"/> 
-											<Text text="{parts: [{path:'whatsNewTblModel>Lastupdate'},{path:'whatsNewTblModel>Lastupdate'}] , formatter: 'formatter.formatManagePageDate'}"  />
+											<Text text="{parts: [{path:'whatsNewTblModel>Lastupdate'},{path:'whatsNewTblModel>Sytime'}] , formatter: 'formatter.formatManagePageDate'}"  />
 											<Text text="{whatsNewTblModel>Language}"/>
 										</cells>
 									</ColumnListItem>
@@ -139,7 +139,7 @@
 										<cells>
 											<Text text="{walkUpTblModel>FileName}"/>
 											<Text text="{walkUpTblModel>Comment}"/>
-											<Text text="{parts: [{path:'walkUpTblModel>Lastupdate'},{path:'walkUpTblModel>Lastupdate'}] , formatter: 'formatter.formatManagePageDate'}"/>
+											<Text text="{parts: [{path:'walkUpTblModel>Lastupdate'},{path:'walkUpTblModel>Sytime'}] , formatter: 'formatter.formatManagePageDate'}"/>
 											<Text text="{walkUpTblModel>Language}"/>
 										</cells>
 									</ColumnListItem>
@@ -199,7 +199,7 @@
 										<cells>
 											<Text text="{suppTblModel>FileName}"/>
 											<Text text="{suppTblModel>Comment}"/>
-											<Text text="{parts: [{path:'suppTblModel>Lastupdate'},{path:'suppTblModel>Lastupdate'}] , formatter: 'formatter.formatManagePageDate'}" />
+											<Text text="{parts: [{path:'suppTblModel>Lastupdate'},{path:'suppTblModel>Sytime'}] , formatter: 'formatter.formatManagePageDate'}" />
 											<Text text="{suppTblModel>Language}"/>
 										</cells>
 									</ColumnListItem>
