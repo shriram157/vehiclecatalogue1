@@ -2026,11 +2026,73 @@ sap.ui.define([
 			var feat = "";
 			var feature = "";
 			if (str) {
-				var res = str.replace(/;/g, "#- ");
+			/*	var res = str.replace(/;/g, "#- ");
 				feat = res.split('#').join('\n');
-				feature = "- " + feat;
+				feature = feat;*/
+				////
+			var res5 = str.replace(/;/g, "#! ");
+			var extra = res5.split('#');
+		//	console.log(extra);
+			var len = extra.length;
+		//	console.log(len);
+			var lendiv = Math.floor(len / 2);
+			var arr = [];
+			for (var i = 0; i < lendiv; i++) {
+				arr.push(extra[i]);
 			}
-			return feature;
+			var string = arr.toString();
+		//	console.log(string);
+				var res9 = string.replace(/!/g, "#- ");
+			var rturnRes1 = res9.split('#').join('\n');
+		//		console.log(rturnRes1);
+				
+			var arr2 = [];
+			for (var q = lendiv; q < len; q++) {
+				arr2.push(extra[q]);
+			}
+			var string2 = arr2.toString();
+		//	console.log(string2);
+			var res2 = string2.replace(/!/g, "#- ");
+			var rturnRes = res2.split('#').join('\n');
+		//		console.log(rturnRes);
+			}
+			return rturnRes1;
+		},
+			formatFeatures1: function (str) {
+			var feat = "";
+			var feature = "";
+			if (str) {
+			/*	var res = str.replace(/;/g, "#- ");
+				feat = res.split('#').join('\n');
+				feature = feat;*/
+				////
+			var res5 = str.replace(/;/g, "#! ");
+			var extra = res5.split('#');
+		//	console.log(extra);
+			var len = extra.length;
+			console.log(len);
+			var lendiv = Math.floor(len / 2);
+			var arr = [];
+			for (var i = 0; i < lendiv; i++) {
+				arr.push(extra[i]);
+			}
+			var string = arr.toString();
+		//	console.log(string);
+				var res9 = string.replace(/!/g, "#- ");
+			var rturnRes1 = res9.split('#').join('\n');
+		//		console.log(rturnRes1);
+				
+			var arr2 = [];
+			for (var q = lendiv; q < len; q++) {
+				arr2.push(extra[q]);
+			}
+			var string2 = arr2.toString();
+		//	console.log(string2);
+			var res2 = string2.replace(/!/g, "#- ");
+			var rturnRes = res2.split('#').join('\n');
+		//		console.log(rturnRes);
+			}
+			return rturnRes;
 		},
 		handleRouteMatched: function (oEvent) {
 			//	CDO_controller.user = CDO_controller.getLoggedUser();
@@ -2470,7 +2532,7 @@ sap.ui.define([
 							var dtApxDesc = [];
 						dtApxDesc[i] = CDO_controller.formatFeatures(dtApx[i].INT_DESC);
 						dataApx.push({
-							"Category_en": dtApx[i].APX + "\n" + dtApxDesc[i], //+ "\n"+msrpF + msrp[i] + "\n"+ netPriceF+ net[i],
+							"Category_en": dtApx[i].APX ,//+ "\n" + dtApxDesc[i], //+ "\n"+msrpF + msrp[i] + "\n"+ netPriceF+ net[i],
 							"Cust_fac_desc_en": "", //dtApx[i].INT_DESC,
 							"Vehicle1": dtApx[i].Vehicle1,
 							"Vehicle2": dtApx[i].Vehicle2,
@@ -2497,13 +2559,15 @@ sap.ui.define([
 						var msrpF = CDO_controller.getView().getModel("i18n").getResourceBundle().getText("MSRPWithoutDoll");
 						var netPriceF = CDO_controller.getView().getModel("i18n").getResourceBundle().getText("DealerNetWithoutDoll");
 						var dtApxDesc = [];
+						var dtApxDesc2=[];
 						dtApxDesc[i] = CDO_controller.formatFeatures(dtApx[i].INT_DESC);
-						
+						dtApxDesc2[i] = CDO_controller.formatFeatures1(dtApx[i].INT_DESC);
 						dataApx1.push({
-							"Category_en": dtApx[i].APX + "\n" + dtApxDesc + "\n" + msrpF + msrp[i] + "\n" + netPriceF + net[i],
+							"Category_en": dtApx[i].APX + "\n" + msrpF + msrp[i] + "\n" + netPriceF + net[i],
+							//dtApx[i].APX + "\n" + dtApxDesc + "\n" + msrpF + msrp[i] + "\n" + netPriceF + net[i],
 							"Cust_fac_desc_en": "", //dtApx[i].INT_DESC,
 							"Vehicle1": dtApxDesc[i], //dtApx[i].INT_DESC, //dtApx[i].Vehicle1,
-							"Vehicle2": dtApxDesc[i], //dtApx[i].INT_DESC,//dtApx[i].Vehicle2
+							"Vehicle2": dtApxDesc2[i], //dtApx[i].INT_DESC,//dtApx[i].Vehicle2
 						});
 					}
 

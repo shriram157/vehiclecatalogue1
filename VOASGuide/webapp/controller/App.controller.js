@@ -72,7 +72,6 @@ sap.ui.define([
 					console.log(oData);
 					var bpModel = new sap.ui.model.json.JSONModel(oData.attributes);
 					sap.ui.getCore().setModel(bpModel, "BpDealerModel");
-
 					var userAttModel = new sap.ui.model.json.JSONModel(oData.samlAttributes);
 					sap.ui.getCore().setModel(userAttModel, "userAttributesModel");
 				},
