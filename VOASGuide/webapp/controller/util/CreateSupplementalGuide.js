@@ -21,8 +21,9 @@ sap.ui.define([
 			var userData = [];
 			var bpData = [];
 			if (userModel) {
-				if (bpDealerModel) {
 					userData = userModel.getData();
+				if (bpDealerModel) {
+				
 					bpData = bpDealerModel.getData();
 					if (userData.loggedUserType[0] == "Dealer_User" || userData.loggedUserType[0] == "Dealer_Admin") {
 						if (bpData[0].Division == "10") {
@@ -33,6 +34,17 @@ sap.ui.define([
 							CreateSuppGuideController.getView().byId("idSupp_brandCB").setSelectedKey("2");
 						}
 					} else if (userData.loggedUserType[0] == "TCI_User" || userData.loggedUserType[0] == "TCI_User_Preliminary") {
+
+						CreateSuppGuideController.getView().byId("idSupp_brandCB").setEnabled(true);
+						CreateSuppGuideController.getView().byId("idSupp_brandCB").setValue(brandVal);
+
+					} else {
+						CreateSuppGuideController.getView().byId("idSupp_brandCB").setEnabled(true);
+						CreateSuppGuideController.getView().byId("idSupp_brandCB").setValue(brandVal);
+					}
+				}
+				else{
+					 if (userData.loggedUserType[0] == "TCI_User" || userData.loggedUserType[0] == "TCI_User_Preliminary") {
 
 						CreateSuppGuideController.getView().byId("idSupp_brandCB").setEnabled(true);
 						CreateSuppGuideController.getView().byId("idSupp_brandCB").setValue(brandVal);
@@ -289,12 +301,7 @@ sap.ui.define([
 
 		},
 		_onButtonPress: function (oEvent) {
-
-			oEvent = jQuery.extend(true, {}, oEvent);
-			return new Promise(function (fnResolve) {
-					fnResolve(true);
-				})
-				.then(function (result) {
+			
 					var brandCB = CreateSuppGuideController.getView().byId("idSupp_brandCB");
 					var modelYearCB = CreateSuppGuideController.getView().byId("idSupp_modelYearCB");
 					var seriesCB = CreateSuppGuideController.getView().byId("idSupp_seriesCB");
@@ -321,55 +328,12 @@ sap.ui.define([
 						"/Z_VEHICLE_CATALOGUE_SRV/FileDownloadSet(Language='" + lang + "',Tab='suppliment',Model_year='" + moYear + "',Tciseries='" +
 						serVal +
 						"',Brand='" + brandVal + "')/$value";
-					$.ajax({
-						url: url,
-						method: 'GET',
-						async: false,
-						dataType: 'text',
-						success: function (data, textStatus, jqXHR) {
-							if (jqXHR.readyState === 4 && jqXHR.status === 200) {
-								var string = JSON.stringify(data);
-								var blob = new Blob([string], {
-									type: "octet/stream"
-								});
-								/*var url2=window.URL.createObjectURL(blob, {
-										type: "application/pdf"
-									})*/
-								//window.open(url2,'_blank');
-
-								var link = document.createElement('a');
-								link.href = window.URL.createObjectURL(blob);
-								link.download = "PdfName-SupplementGuide" ;//+ new Date().getTime() + ".pdf";
-								link.click();
-							}
-						},
-						error: function (jqXHR, textStatus, errorThrown) {
-							console.log(jqXHR);
-							console.log(textStatus);
-							console.log(errorThrown);
-
-							sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
-								sap
-								.m.MessageBox.Action.OK, null, null);
-						}
-					});
-					//	window.open(url, '_blank');
-					//	alert("CreateSuppGuideController should Generate and display Active (Based on Today's Date) What's New Pdf in new window");
-
-				}.bind(CreateSuppGuideController))
-				.then(function (result) {
-					if (result === false) {
-						return false;
-					} else {
-
+					
+						window.open(url);
 						CreateSuppGuideController.close();
 
-					}
-				}.bind(CreateSuppGuideController)).catch(function (err) {
-					if (err !== undefined) {
-						MessageBox.error(err.message);
-					}
-				});
+
+				
 		},
 		_onButtonPress1: function () {
 

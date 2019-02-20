@@ -24,8 +24,9 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			var userData = [];
 			var bpData = [];
 			if (userModel) {
+				userData = userModel.getData();
 				if (bpDealerModel) {
-					userData = userModel.getData();
+					
 					bpData = bpDealerModel.getData();
 					if (userData.loggedUserType[0] == "Dealer_User" || userData.loggedUserType[0] == "Dealer_Admin") {
 						if (bpData[0].Division == "10") {
@@ -36,6 +37,17 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 							CreateWhatsNewDialogController.getView().byId("idNew_brandCB").setSelectedKey("2");
 						}
 					} else if (userData.loggedUserType[0] == "TCI_User" || userData.loggedUserType[0] == "TCI_User_Preliminary") {
+
+						CreateWhatsNewDialogController.getView().byId("idNew_brandCB").setEnabled(true);
+						CreateWhatsNewDialogController.getView().byId("idNew_brandCB").setValue(brandVal);
+
+					} else {
+						CreateWhatsNewDialogController.getView().byId("idNew_brandCB").setEnabled(true);
+						CreateWhatsNewDialogController.getView().byId("idNew_brandCB").setValue(brandVal);
+					}
+				}
+				else{
+					if (userData.loggedUserType[0] == "TCI_User" || userData.loggedUserType[0] == "TCI_User_Preliminary") {
 
 						CreateWhatsNewDialogController.getView().byId("idNew_brandCB").setEnabled(true);
 						CreateWhatsNewDialogController.getView().byId("idNew_brandCB").setValue(brandVal);
@@ -298,13 +310,8 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				}
 			});
 		},
-		_onButtonPress: function (oEvent) {
-
-			oEvent = jQuery.extend(true, {}, oEvent);
-			return new Promise(function (fnResolve) {
-					fnResolve(true);
-				})
-				.then(function (result) {
+			_onButtonPress: function (oEvent) {
+			
 					var brandCB = CreateWhatsNewDialogController.getView().byId("idNew_brandCB");
 					var modelYearCB = CreateWhatsNewDialogController.getView().byId("idNew_modelYearCB");
 					var seriesCB = CreateWhatsNewDialogController.getView().byId("id_seriesCBNew");
@@ -329,153 +336,11 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					var host = CreateWhatsNewDialogController.nodeJsUrl;
 					var url = host +
 						"/Z_VEHICLE_CATALOGUE_SRV/FileDownloadSet(Language='" + lang + "',Tab='WhatsNew',Model_year='" + moYear + "',Tciseries='" +
-						serVal +
-						"',Brand='" + brandVal + "')/$value";
-					//	window.open(url);
-						/*	var Base64 = {
-								_keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
-								encode: function (e) {
-									var t = "";
-									var n, r, i, s, o, u, a;
-									var f = 0;
-									e = Base64._utf8_encode(e);
-									while (f < e.length) {
-										n = e.charCodeAt(f++);
-										r = e.charCodeAt(f++);
-										i = e.charCodeAt(f++);
-										s = n >> 2;
-										o = (n & 3) << 4 | r >> 4;
-										u = (r & 15) << 2 | i >> 6;
-										a = i & 63;
-										if (isNaN(r)) {
-											u = a = 64
-										} else if (isNaN(i)) {
-											a = 64
-										}
-										t = t + this._keyStr.charAt(s) + this._keyStr.charAt(o) + this._keyStr.charAt(u) + this._keyStr.charAt(a)
-									}
-									return t
-								},
-								decode: function (e) {
-									var t = "";
-									var n, r, i;
-									var s, o, u, a;
-									var f = 0;
-									//e = e.replace(/++[++^A-Za-z0-9+/=]/g, "");
-									e = e.replace(/\\+\\+[++^A-Za-z0-9+/=]/g, "");
-									while (f < e.length) {
-										s = this._keyStr.indexOf(e.charAt(f++));
-										o = this._keyStr.indexOf(e.charAt(f++));
-										u = this._keyStr.indexOf(e.charAt(f++));
-										a = this._keyStr.indexOf(e.charAt(f++));
-										n = s << 2 | o >> 4;
-										r = (o & 15) << 4 | u >> 2;
-										i = (u & 3) << 6 | a;
-										t = t + String.fromCharCode(n);
-										if (u != 64) {
-											t = t + String.fromCharCode(r)
-										}
-										if (a != 64) {
-											t = t + String.fromCharCode(i)
-										}
-									}
-									t = Base64._utf8_decode(t);
-									return t
-								},
-								_utf8_encode: function (e) {
-									e = e.replace(/\r\n/g, "n");
-									var t = "";
-									for (var n = 0; n < e.length; n++) {
-										var r = e.charCodeAt(n);
-										if (r < 128) {
-											t += String.fromCharCode(r)
-										} else if (r > 127 && r < 2048) {
-											t += String.fromCharCode(r >> 6 | 192);
-											t += String.fromCharCode(r & 63 | 128)
-										} else {
-											t += String.fromCharCode(r >> 12 | 224);
-											t += String.fromCharCode(r >> 6 & 63 | 128);
-											t += String.fromCharCode(r & 63 | 128)
-										}
-									}
-									return t
-								},
-								_utf8_decode: function (e) {
-									var t = "";
-									var n = 0;
-									var r = 0;
-									var c1 = 0;
-									var c2 = 0;
-									//var c3=0;
-									while (n < e.length) {
-										r = e.charCodeAt(n);
-										if (r < 128) {
-											t += String.fromCharCode(r);
-											n++;
-										} else if (r > 191 && r < 224) {
-											c2 = e.charCodeAt(n + 1);
-											t += String.fromCharCode((r & 31) << 6 | c2 & 63);
-											n += 2
-										} else {
-											c2 = e.charCodeAt(n + 1);
-											c3 = e.charCodeAt(n + 2);
-											t += String.fromCharCode((r & 15) << 12 | (c2 & 63) << 6 | c3 & 63);
-											n += 3;
-										}
-									}
-									return t;
-								}
-							};
-							var decodedString = Base64.decode(data);*/
-				/*	$.ajax({
-						url: url,
-						method: 'GET',
-						async: false,
-						dataType: 'text',
-						success: function (data, textStatus, jqXHR) {
-							if (jqXHR.readyState === 4 && jqXHR.status === 200) {
-								//var string = JSON.stringify(data);
-								//var blob = new Blob([string], {
-								//	type: "text/plain"
-								//});
-								var blob = new Blob([data], {
-									type: "application/pdf"
-								});
-								var url2 = window.URL.createObjectURL(blob, {
-									type: "application/pdf"
-								});
-								window.open(url2, '_blank');
-								//var link = document.createElement('a');
-								//link.href = window.URL.createObjectURL(blob, {
-								//	type: "application/pdf"
-								//});
-								//link.download = "PdfName-WhatsNew" + new Date().getTime() + ".pdf";
-								//link.click();
-							}
-						},
-						error: function (jqXHR, textStatus, errorThrown) {
-							sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
-								sap.m.MessageBox.Action.OK, null, null);
-						}
-					});*/
-					window.open(url,'_blank');
-					//	alert("CreateWhatsNewDialogController should Generate and display Active (Based on Today's Date) What's New Pdf in new window");
-
-				}.bind(CreateWhatsNewDialogController))
-				.then(function (result) {
-					if (result === false) {
-						return false;
-					} else {
-
-						CreateWhatsNewDialogController.close();
-
-					}
-				}.bind(CreateWhatsNewDialogController)).catch(function (err) {
-					if (err !== undefined) {
-						MessageBox.error(err.message);
-					}
-				});
+						serVal +"',Brand='" + brandVal + "')/$value";
+					window.open(url);
+					CreateWhatsNewDialogController.close();
 		},
+	
 		_onButtonPress1: function () {
 
 			CreateWhatsNewDialogController.close();
