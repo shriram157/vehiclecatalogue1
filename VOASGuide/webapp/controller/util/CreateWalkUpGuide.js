@@ -39,6 +39,7 @@ sap.ui.define([
 						
 					} else {
 						CreateWalkUpDialogController.getView().byId("idWalk_brandCB").setEnabled(true);
+						CreateWalkUpDialogController.getView().byId("idWalk_brandCB").setValue(brandVal);
 					}
 				}
 			}
@@ -333,7 +334,7 @@ sap.ui.define([
 							
 								var link = document.createElement('a');
 								link.href = window.URL.createObjectURL(blob);
-								link.download = "Pdf-WalkUp" + new Date().getTime() + ".pdf";
+								link.download = "Pdf-WalkUp";// + new Date().getTime() + ".pdf";
 								link.click();
 							}
 						},

@@ -42,6 +42,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 
 					} else {
 						CreateWhatsNewDialogController.getView().byId("idNew_brandCB").setEnabled(true);
+						CreateWhatsNewDialogController.getView().byId("idNew_brandCB").setValue(brandVal);
 					}
 				}
 			}
@@ -327,17 +328,11 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					CreateWhatsNewDialogController.nodeJsUrl = CreateWhatsNewDialogController.sPrefix + "/node";
 					var host = CreateWhatsNewDialogController.nodeJsUrl;
 					var url = host +
-						"/Z_VEHICLE_CATALOGUE_SRV/FileDownloadSet(Language='" + lang + "',Tab='suppliment',Model_year='" + moYear + "',Tciseries='" +
+						"/Z_VEHICLE_CATALOGUE_SRV/FileDownloadSet(Language='" + lang + "',Tab='WhatsNew',Model_year='" + moYear + "',Tciseries='" +
 						serVal +
 						"',Brand='" + brandVal + "')/$value";
-					$.ajax({
-						url: url,
-						method: 'GET',
-						async: false,
-						dataType: 'text',
-						success: function (data, textStatus, jqXHR) {
-							//	console.log(data);
-							var Base64 = {
+					//	window.open(url);
+						/*	var Base64 = {
 								_keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
 								encode: function (e) {
 									var t = "";
@@ -431,36 +426,39 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 									return t;
 								}
 							};
-							var decodedString = Base64.decode(data);
-
+							var decodedString = Base64.decode(data);*/
+				/*	$.ajax({
+						url: url,
+						method: 'GET',
+						async: false,
+						dataType: 'text',
+						success: function (data, textStatus, jqXHR) {
 							if (jqXHR.readyState === 4 && jqXHR.status === 200) {
-								var string = JSON.stringify(data);
-								/*var blob = new Blob([string], {
-									type: "text/plain"
-								});*/
-								var blob = new Blob([string], {
+								//var string = JSON.stringify(data);
+								//var blob = new Blob([string], {
+								//	type: "text/plain"
+								//});
+								var blob = new Blob([data], {
 									type: "application/pdf"
 								});
 								var url2 = window.URL.createObjectURL(blob, {
 									type: "application/pdf"
 								});
 								window.open(url2, '_blank');
-								/*var link = document.createElement('a');
-								link.href = window.URL.createObjectURL(blob, {
-									type: "application/pdf"
-								});
-								link.download = "PdfName-WhatsNew" + new Date().getTime() + ".pdf";
-								link.click();*/
-
+								//var link = document.createElement('a');
+								//link.href = window.URL.createObjectURL(blob, {
+								//	type: "application/pdf"
+								//});
+								//link.download = "PdfName-WhatsNew" + new Date().getTime() + ".pdf";
+								//link.click();
 							}
 						},
 						error: function (jqXHR, textStatus, errorThrown) {
 							sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
-								sap
-								.m.MessageBox.Action.OK, null, null);
+								sap.m.MessageBox.Action.OK, null, null);
 						}
-					});
-					//window.open(url,'_blank');
+					});*/
+					window.open(url,'_blank');
 					//	alert("CreateWhatsNewDialogController should Generate and display Active (Based on Today's Date) What's New Pdf in new window");
 
 				}.bind(CreateWhatsNewDialogController))

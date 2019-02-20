@@ -40,6 +40,7 @@ sap.ui.define([
 
 					} else {
 						CreateVehicleGuideDialogController.getView().byId("idVeh_brandCB").setEnabled(true);
+						CreateVehicleGuideDialogController.getView().byId("idVeh_brandCB").setValue(brandVal);
 					}
 				}
 			}

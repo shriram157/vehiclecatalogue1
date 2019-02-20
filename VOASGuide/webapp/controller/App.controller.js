@@ -13,7 +13,7 @@ sap.ui.define([
 		
 		onInit: function () {
 			AppController = this;
-			//AppController._user();
+		//	AppController._user();
 			AppController.userAPI();
 			var bpModel = sap.ui.getCore().getModel("BpDealerModel");
 			if (bpModel) {

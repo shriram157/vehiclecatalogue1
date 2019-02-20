@@ -331,8 +331,8 @@ sap.ui.define([
 
 							} else {
 								dataExterior.push({
-									"Category_en": dtExt[i].Category_en,
-									"Cust_fac_desc_en": dtExt[i].Cust_fac_desc_en,
+									"Category_en": dtExt[i].Cust_fac_desc_en, //dtExt[i].Category_en,
+									"Cust_fac_desc_en": "", //dtExt[i].Cust_fac_desc_en,
 									"Vehicle1": dtExt[i].Vehicle1,
 									"Vehicle2": dtExt[i].Vehicle2,
 									"Vehicle3": dtExt[i].Vehicle3,
@@ -347,8 +347,8 @@ sap.ui.define([
 								//console.log("For"+i+" YES present in all")
 							} else {
 								dataExterior.push({
-									"Category_en": dtExt[i].Category_en,
-									"Cust_fac_desc_en": dtExt[i].Cust_fac_desc_en,
+									"Category_en": dtExt[i].Cust_fac_desc_en, //dtExt[i].Category_en,
+									"Cust_fac_desc_en": "",
 									"Vehicle1": dtExt[i].Vehicle1,
 									"Vehicle2": dtExt[i].Vehicle2,
 									"Vehicle3": dtExt[i].Vehicle3,
@@ -363,8 +363,8 @@ sap.ui.define([
 							} else {
 								//	console.log(" For"+i+"YES is not present in all")
 								dataExterior.push({
-									"Category_en": dtExt[i].Category_en,
-									"Cust_fac_desc_en": dtExt[i].Cust_fac_desc_en,
+									"Category_en": dtExt[i].Cust_fac_desc_en, //dtExt[i].Category_en,
+									"Cust_fac_desc_en": "",
 									"Vehicle1": dtExt[i].Vehicle1,
 									"Vehicle2": dtExt[i].Vehicle2,
 									"Vehicle3": dtExt[i].Vehicle3,
@@ -379,8 +379,8 @@ sap.ui.define([
 								//	console.log("For"+i+" YES present in all")
 							} else {
 								dataExterior.push({
-									"Category_en": dtExt[i].Category_en,
-									"Cust_fac_desc_en": dtExt[i].Cust_fac_desc_en,
+									"Category_en": dtExt[i].Cust_fac_desc_en, //dtExt[i].Category_en,
+									"Cust_fac_desc_en": "",
 									"Vehicle1": dtExt[i].Vehicle1,
 									"Vehicle2": dtExt[i].Vehicle2,
 									"Vehicle3": dtExt[i].Vehicle3,
@@ -400,8 +400,8 @@ sap.ui.define([
 
 							} else {
 								dataInterior.push({
-									"Category_en": dtInt[i].Category_en,
-									"Cust_fac_desc_en": dtInt[i].Cust_fac_desc_en,
+									"Category_en": dtInt[i].Cust_fac_desc_en, // dtInt[i].Category_en,
+									"Cust_fac_desc_en": "", //dtInt[i].Cust_fac_desc_en,
 									"Vehicle1": dtInt[i].Vehicle1,
 									"Vehicle2": dtInt[i].Vehicle2,
 									"Vehicle3": dtInt[i].Vehicle3,
@@ -416,8 +416,8 @@ sap.ui.define([
 								//console.log("For"+i+" YES present in all")
 							} else {
 								dataInterior.push({
-									"Category_en": dtInt[i].Category_en,
-									"Cust_fac_desc_en": dtInt[i].Cust_fac_desc_en,
+									"Category_en": dtInt[i].Cust_fac_desc_en, // dtInt[i].Category_en,
+									"Cust_fac_desc_en": "", //dtInt[i].Cust_fac_desc_en,
 									"Vehicle1": dtInt[i].Vehicle1,
 									"Vehicle2": dtInt[i].Vehicle2,
 									"Vehicle3": dtInt[i].Vehicle3,
@@ -433,8 +433,8 @@ sap.ui.define([
 							} else {
 								//	console.log(" For"+i+"YES is not present in all")
 								dataInterior.push({
-									"Category_en": dtInt[i].Category_en,
-									"Cust_fac_desc_en": dtInt[i].Cust_fac_desc_en,
+									"Category_en": dtInt[i].Cust_fac_desc_en, // dtInt[i].Category_en,
+									"Cust_fac_desc_en": "", //dtInt[i].Cust_fac_desc_en,
 									"Vehicle1": dtInt[i].Vehicle1,
 									"Vehicle2": dtInt[i].Vehicle2,
 									"Vehicle3": dtInt[i].Vehicle3,
@@ -449,8 +449,8 @@ sap.ui.define([
 								//	console.log("For"+i+" YES present in all")
 							} else {
 								dataInterior.push({
-									"Category_en": dtInt[i].Category_en,
-									"Cust_fac_desc_en": dtInt[i].Cust_fac_desc_en,
+									"Category_en": dtInt[i].Cust_fac_desc_en, // dtInt[i].Category_en,
+									"Cust_fac_desc_en": "", //dtInt[i].Cust_fac_desc_en,
 									"Vehicle1": dtInt[i].Vehicle1,
 									"Vehicle2": dtInt[i].Vehicle2,
 									"Vehicle3": dtInt[i].Vehicle3,
@@ -471,8 +471,8 @@ sap.ui.define([
 
 							} else {
 								dataInfo.push({
-									"Category_en": dtInfo[i].Category_en,
-									"Cust_fac_desc_en": dtInfo[i].Cust_fac_desc_en,
+									"Category_en": dtInfo[i].Cust_fac_desc_en, //dtInfo[i].Category_en,
+									"Cust_fac_desc_en": "", //dtInfo[i].Cust_fac_desc_en,
 									"Vehicle1": dtInfo[i].Vehicle1,
 									"Vehicle2": dtInfo[i].Vehicle2,
 									"Vehicle3": dtInfo[i].Vehicle3,
@@ -488,8 +488,8 @@ sap.ui.define([
 							} else {
 								//console.log(" For"+i+"YES is not present in all")
 								dataInfo.push({
-									"Category_en": dtInfo[i].Category_en,
-									"Cust_fac_desc_en": dtInfo[i].Cust_fac_desc_en,
+									"Category_en": dtInfo[i].Cust_fac_desc_en, //dtInfo[i].Category_en,
+									"Cust_fac_desc_en": "", //dtInfo[i].Cust_fac_desc_en,
 									"Vehicle1": dtInfo[i].Vehicle1,
 									"Vehicle2": dtInfo[i].Vehicle2,
 									"Vehicle3": dtInfo[i].Vehicle3,
@@ -504,8 +504,8 @@ sap.ui.define([
 							} else {
 								//	console.log(" For"+i+"YES is not present in all")
 								dataInfo.push({
-									"Category_en": dtInfo[i].Category_en,
-									"Cust_fac_desc_en": dtInfo[i].Cust_fac_desc_en,
+									"Category_en": dtInfo[i].Cust_fac_desc_en, //dtInfo[i].Category_en,
+									"Cust_fac_desc_en": "", //dtInfo[i].Cust_fac_desc_en,
 									"Vehicle1": dtInfo[i].Vehicle1,
 									"Vehicle2": dtInfo[i].Vehicle2,
 									"Vehicle3": dtInfo[i].Vehicle3,
@@ -521,8 +521,8 @@ sap.ui.define([
 							} else {
 								//	console.log(" For"+i+"YES is not present in all")
 								dataInfo.push({
-									"Category_en": dtInfo[i].Category_en,
-									"Cust_fac_desc_en": dtInfo[i].Cust_fac_desc_en,
+									"Category_en": dtInfo[i].Cust_fac_desc_en, //dtInfo[i].Category_en,
+									"Cust_fac_desc_en": "", //dtInfo[i].Cust_fac_desc_en,
 									"Vehicle1": dtInfo[i].Vehicle1,
 									"Vehicle2": dtInfo[i].Vehicle2,
 									"Vehicle3": dtInfo[i].Vehicle3,
@@ -543,8 +543,8 @@ sap.ui.define([
 
 							} else {
 								dataPwr.push({
-									"Category_en": dtPwr[i].Category_en,
-									"Cust_fac_desc_en": dtPwr[i].Cust_fac_desc_en,
+									"Category_en": dtPwr[i].Cust_fac_desc_en, // dtPwr[i].Category_en,
+									"Cust_fac_desc_en": "", //dtPwr[i].Cust_fac_desc_en,
 									"Vehicle1": dtPwr[i].Vehicle1,
 									"Vehicle2": dtPwr[i].Vehicle2,
 									"Vehicle3": dtPwr[i].Vehicle3,
@@ -559,8 +559,8 @@ sap.ui.define([
 								//console.log("For"+i+" YES present in all")
 							} else {
 								dataPwr.push({
-									"Category_en": dtPwr[i].Category_en,
-									"Cust_fac_desc_en": dtPwr[i].Cust_fac_desc_en,
+									"Category_en": dtPwr[i].Cust_fac_desc_en, // dtPwr[i].Category_en,
+									"Cust_fac_desc_en": "", //dtPwr[i].Cust_fac_desc_en,
 									"Vehicle1": dtPwr[i].Vehicle1,
 									"Vehicle2": dtPwr[i].Vehicle2,
 									"Vehicle3": dtPwr[i].Vehicle3,
@@ -574,8 +574,8 @@ sap.ui.define([
 								//	console.log("For"+i+" YES present in all")
 							} else {
 								dataPwr.push({
-									"Category_en": dtPwr[i].Category_en,
-									"Cust_fac_desc_en": dtPwr[i].Cust_fac_desc_en,
+									"Category_en": dtPwr[i].Cust_fac_desc_en, // dtPwr[i].Category_en,
+									"Cust_fac_desc_en": "", //dtPwr[i].Cust_fac_desc_en,
 									"Vehicle1": dtPwr[i].Vehicle1,
 									"Vehicle2": dtPwr[i].Vehicle2,
 									"Vehicle3": dtPwr[i].Vehicle3,
@@ -590,8 +590,8 @@ sap.ui.define([
 								//	console.log("For"+i+" YES present in all")
 							} else {
 								dataPwr.push({
-									"Category_en": dtPwr[i].Category_en,
-									"Cust_fac_desc_en": dtPwr[i].Cust_fac_desc_en,
+									"Category_en": dtPwr[i].Cust_fac_desc_en, // dtPwr[i].Category_en,
+									"Cust_fac_desc_en": "", //dtPwr[i].Cust_fac_desc_en,
 									"Vehicle1": dtPwr[i].Vehicle1,
 									"Vehicle2": dtPwr[i].Vehicle2,
 									"Vehicle3": dtPwr[i].Vehicle3,
@@ -612,8 +612,8 @@ sap.ui.define([
 
 							} else {
 								dataSafety.push({
-									"Category_en": dtSaf[i].Category_en,
-									"Cust_fac_desc_en": dtSaf[i].Cust_fac_desc_en,
+									"Category_en": dtSaf[i].Cust_fac_desc_en, // dtSaf[i].Category_en,
+									"Cust_fac_desc_en": "", // dtSaf[i].Cust_fac_desc_en,
 									"Vehicle1": dtSaf[i].Vehicle1,
 									"Vehicle2": dtSaf[i].Vehicle2,
 									"Vehicle3": dtSaf[i].Vehicle3,
@@ -628,8 +628,8 @@ sap.ui.define([
 								//console.log("For"+i+" YES present in all")
 							} else {
 								dataSafety.push({
-									"Category_en": dtSaf[i].Category_en,
-									"Cust_fac_desc_en": dtSaf[i].Cust_fac_desc_en,
+									"Category_en": dtSaf[i].Cust_fac_desc_en, // dtSaf[i].Category_en,
+									"Cust_fac_desc_en": "", //dtSaf[i].Cust_fac_desc_en,
 									"Vehicle1": dtSaf[i].Vehicle1,
 									"Vehicle2": dtSaf[i].Vehicle2,
 									"Vehicle3": dtSaf[i].Vehicle3,
@@ -643,8 +643,8 @@ sap.ui.define([
 								//	console.log("For"+i+" YES present in all")
 							} else {
 								dataSafety.push({
-									"Category_en": dtSaf[i].Category_en,
-									"Cust_fac_desc_en": dtSaf[i].Cust_fac_desc_en,
+									"Category_en": dtSaf[i].Cust_fac_desc_en, // dtSaf[i].Category_en,
+									"Cust_fac_desc_en": "", //dtSaf[i].Cust_fac_desc_en,
 									"Vehicle1": dtSaf[i].Vehicle1,
 									"Vehicle2": dtSaf[i].Vehicle2,
 									"Vehicle3": dtSaf[i].Vehicle3,
@@ -659,8 +659,8 @@ sap.ui.define([
 								//	console.log("For"+i+" YES present in all")
 							} else {
 								dataSafety.push({
-									"Category_en": dtSaf[i].Category_en,
-									"Cust_fac_desc_en": dtSaf[i].Cust_fac_desc_en,
+									"Category_en": dtSaf[i].Cust_fac_desc_en, // dtSaf[i].Category_en,
+									"Cust_fac_desc_en": "", //dtSaf[i].Cust_fac_desc_en,
 									"Vehicle1": dtSaf[i].Vehicle1,
 									"Vehicle2": dtSaf[i].Vehicle2,
 									"Vehicle3": dtSaf[i].Vehicle3,
@@ -842,7 +842,7 @@ sap.ui.define([
 							} else {
 								dataApx.push({
 									"Category_en": dtApx[i].APX,
-									"Cust_fac_desc_en": dtApx[i].INT_DESC,
+									"Cust_fac_desc_en": "",//dtApx[i].INT_DESC,
 									"Vehicle1": dtApx[i].Vehicle1,
 									"Vehicle2": dtApx[i].Vehicle2,
 									"Vehicle3": dtApx[i].Vehicle3,
@@ -858,7 +858,7 @@ sap.ui.define([
 							} else {
 								dataApx.push({
 									"Category_en": dtApx[i].APX,
-									"Cust_fac_desc_en": dtApx[i].INT_DESC,
+									"Cust_fac_desc_en": "",//dtApx[i].INT_DESC,
 									"Vehicle1": dtApx[i].Vehicle1,
 									"Vehicle2": dtApx[i].Vehicle2,
 									"Vehicle3": dtApx[i].Vehicle3,
@@ -873,7 +873,7 @@ sap.ui.define([
 							} else {
 								dataApx.push({
 									"Category_en": dtApx[i].APX,
-									"Cust_fac_desc_en": dtApx[i].INT_DESC,
+									"Cust_fac_desc_en": "",//dtApx[i].INT_DESC,
 									"Vehicle1": dtApx[i].Vehicle1,
 									"Vehicle2": dtApx[i].Vehicle2,
 									"Vehicle3": dtApx[i].Vehicle3,
@@ -889,7 +889,7 @@ sap.ui.define([
 							} else {
 								dataApx.push({
 									"Category_en": dtApx[i].APX,
-									"Cust_fac_desc_en": dtApx[i].INT_DESC,
+									"Cust_fac_desc_en": "",//dtApx[i].INT_DESC,
 									"Vehicle1": dtApx[i].Vehicle1,
 									"Vehicle2": dtApx[i].Vehicle2,
 									"Vehicle3": dtApx[i].Vehicle3,
@@ -1556,8 +1556,8 @@ sap.ui.define([
 					var dataExterior = [];
 					for (var i = 0; i < dtExt.length; i++) {
 						dataExterior.push({
-							"Category_en": dtExt[i].Category_en,
-							"Cust_fac_desc_en": dtExt[i].Cust_fac_desc_en,
+							"Category_en": dtExt[i].Cust_fac_desc_en, //dtExt[i].Category_en,
+							"Cust_fac_desc_en": "",
 							"Vehicle1": dtExt[i].Vehicle1,
 							"Vehicle2": dtExt[i].Vehicle2,
 							"Vehicle3": dtExt[i].Vehicle3,
@@ -1568,8 +1568,8 @@ sap.ui.define([
 					var dataInterior = [];
 					for (var i = 0; i < dtInt.length; i++) {
 						dataInterior.push({
-							"Category_en": dtInt[i].Category_en,
-							"Cust_fac_desc_en": dtInt[i].Cust_fac_desc_en,
+							"Category_en": dtInt[i].Cust_fac_desc_en, // dtInt[i].Category_en,
+							"Cust_fac_desc_en": "", //dtInt[i].Cust_fac_desc_en,
 							"Vehicle1": dtInt[i].Vehicle1,
 							"Vehicle2": dtInt[i].Vehicle2,
 							"Vehicle3": dtInt[i].Vehicle3,
@@ -1580,8 +1580,8 @@ sap.ui.define([
 					var dataInfo = [];
 					for (var i = 0; i < dtInfo.length; i++) {
 						dataInfo.push({
-							"Category_en": dtInfo[i].Category_en,
-							"Cust_fac_desc_en": dtInfo[i].Cust_fac_desc_en,
+							"Category_en": dtInfo[i].Cust_fac_desc_en, //dtInfo[i].Category_en,
+							"Cust_fac_desc_en": "", //dtInfo[i].Cust_fac_desc_en,
 							"Vehicle1": dtInfo[i].Vehicle1,
 							"Vehicle2": dtInfo[i].Vehicle2,
 							"Vehicle3": dtInfo[i].Vehicle3,
@@ -1592,8 +1592,8 @@ sap.ui.define([
 					var dataPwr = [];
 					for (var i = 0; i < dtPwr.length; i++) {
 						dataPwr.push({
-							"Category_en": dtPwr[i].Category_en,
-							"Cust_fac_desc_en": dtPwr[i].Cust_fac_desc_en,
+							"Category_en": dtPwr[i].Cust_fac_desc_en, // dtPwr[i].Category_en,
+							"Cust_fac_desc_en": "", //dtPwr[i].Cust_fac_desc_en,
 							"Vehicle1": dtPwr[i].Vehicle1,
 							"Vehicle2": dtPwr[i].Vehicle2,
 							"Vehicle3": dtPwr[i].Vehicle3,
@@ -1604,8 +1604,8 @@ sap.ui.define([
 					var dataSafety = [];
 					for (var i = 0; i < dtSaf.length; i++) {
 						dataSafety.push({
-							"Category_en": dtSaf[i].Category_en,
-							"Cust_fac_desc_en": dtSaf[i].Cust_fac_desc_en,
+							"Category_en": dtSaf[i].Cust_fac_desc_en, // dtSaf[i].Category_en,
+							"Cust_fac_desc_en": "", //dtSaf[i].Cust_fac_desc_en,
 							"Vehicle1": dtSaf[i].Vehicle1,
 							"Vehicle2": dtSaf[i].Vehicle2,
 							"Vehicle3": dtSaf[i].Vehicle3,
@@ -1666,7 +1666,7 @@ sap.ui.define([
 					for (var i = 0; i < dtApx.length; i++) {
 						dataApx.push({
 							"Category_en": dtApx[i].APX,
-							"Cust_fac_desc_en": dtApx[i].INT_DESC,
+							"Cust_fac_desc_en": "",//dtApx[i].INT_DESC,
 							"Vehicle1": dtApx[i].Vehicle1,
 							"Vehicle2": dtApx[i].Vehicle2,
 							"Vehicle3": dtApx[i].Vehicle3,
@@ -2026,73 +2026,78 @@ sap.ui.define([
 			var feat = "";
 			var feature = "";
 			if (str) {
-			/*	var res = str.replace(/;/g, "#- ");
-				feat = res.split('#').join('\n');
-				feature = feat;*/
-				////
-			var res5 = str.replace(/;/g, "#! ");
-			var extra = res5.split('#');
-		//	console.log(extra);
-			var len = extra.length;
-		//	console.log(len);
-			var lendiv = Math.floor(len / 2);
-			var arr = [];
-			for (var i = 0; i < lendiv; i++) {
-				arr.push(extra[i]);
-			}
-			var string = arr.toString();
-		//	console.log(string);
+				var slicestr = str.slice(1);
+				console.log(slicestr);
+				var res5 = slicestr.replace(/;/g, "#! ");
+				var extra = res5.split('#');
+				console.log(extra);
+				var len = extra.length;
+				//	console.log(len);
+				var lendiv = Math.floor(len / 2);
+				var arr = [];
+				for (var i = 0; i < lendiv; i++) {
+					arr.push(extra[i]);
+				}
+				console.log(arr);
+				var string = arr.toString();
+				console.log(string);
 				var res9 = string.replace(/!/g, "#- ");
-			var rturnRes1 = res9.split('#').join('\n');
-		//		console.log(rturnRes1);
+				console.log(res9);
+				var rturnRes1 = res9.split('#').join('\n');
+				console.log(rturnRes1);
+
+				/*var arr2 = [];
+				for (var q = lendiv; q < len; q++) {
+					arr2.push(extra[q]);
+				}
+				var string2 = arr2.toString();
 				
-			var arr2 = [];
-			for (var q = lendiv; q < len; q++) {
-				arr2.push(extra[q]);
+				var res2 = string2.replace(/!/g, "#- ");
+				var rturnRes = res2.split('#').join('\n');
+				*/
 			}
-			var string2 = arr2.toString();
-		//	console.log(string2);
-			var res2 = string2.replace(/!/g, "#- ");
-			var rturnRes = res2.split('#').join('\n');
-		//		console.log(rturnRes);
-			}
-			return rturnRes1;
+			return "- " + rturnRes1;
 		},
-			formatFeatures1: function (str) {
+		formatFeatures1: function (str) {
 			var feat = "";
 			var feature = "";
 			if (str) {
-			/*	var res = str.replace(/;/g, "#- ");
-				feat = res.split('#').join('\n');
-				feature = feat;*/
+				/*	var res = str.replace(/;/g, "#- ");
+					feat = res.split('#').join('\n');
+					feature = feat;*/
 				////
-			var res5 = str.replace(/;/g, "#! ");
-			var extra = res5.split('#');
-		//	console.log(extra);
-			var len = extra.length;
-			console.log(len);
-			var lendiv = Math.floor(len / 2);
-			var arr = [];
-			for (var i = 0; i < lendiv; i++) {
-				arr.push(extra[i]);
-			}
-			var string = arr.toString();
-		//	console.log(string);
-				var res9 = string.replace(/!/g, "#- ");
-			var rturnRes1 = res9.split('#').join('\n');
-		//		console.log(rturnRes1);
+				var slicestring = str.slice(1);
+				var res5 = slicestring.replace(/;/g, "#! ");
+				var extra = res5.split('#');
+				//	console.log(extra);
+				var len = extra.length;
+				console.log(len);
+				var lendiv = Math.floor(len / 2);
+				/*var arr = [];
+				for (var i = 0; i < lendiv; i++) {
+					arr.push(extra[i]);
+				}
+				var string = arr.toString();
 				
-			var arr2 = [];
-			for (var q = lendiv; q < len; q++) {
-				arr2.push(extra[q]);
+				var res9 = string.replace(/!/g, "#- ");
+				var rturnRes1 = res9.split('#').join('\n');
+				*/
+
+				var arr2 = [];
+				for (var q = lendiv; q < len; q++) {
+					arr2.push(extra[q]);
+				}
+				console.log(arr2);
+				var string2 = arr2.toString();
+					console.log(string2);
+					var slicedStr2=string2.slice(2);
+					console.log(slicedStr2);
+				var res2 = slicedStr2.replace(/!/g, "#- ");
+				console.log(res2);
+				var rturnRes = res2.split('#').join('\n');
+						console.log(rturnRes);
 			}
-			var string2 = arr2.toString();
-		//	console.log(string2);
-			var res2 = string2.replace(/!/g, "#- ");
-			var rturnRes = res2.split('#').join('\n');
-		//		console.log(rturnRes);
-			}
-			return rturnRes;
+			return "- "+rturnRes;
 		},
 		handleRouteMatched: function (oEvent) {
 			//	CDO_controller.user = CDO_controller.getLoggedUser();
@@ -2103,10 +2108,6 @@ sap.ui.define([
 			emptydata.push(fixedData);
 			emptydata.push(fixedData);
 			emptydata.push(fixedData);
-			emptydata.push(fixedData);
-			/*emptydata.push(fixedData);
-			emptydata.push(fixedData);
-			emptydata.push(fixedData);*/
 			var aColumnData = [];
 			aColumnData.push(fixedData);
 			aColumnData.push(fixedData);
@@ -2529,10 +2530,10 @@ sap.ui.define([
 						}
 						var msrpF = CDO_controller.getView().getModel("i18n").getResourceBundle().getText("MSRPWithoutDoll");
 						var netPriceF = CDO_controller.getView().getModel("i18n").getResourceBundle().getText("DealerNetWithoutDoll");
-							var dtApxDesc = [];
+						var dtApxDesc = [];
 						dtApxDesc[i] = CDO_controller.formatFeatures(dtApx[i].INT_DESC);
 						dataApx.push({
-							"Category_en": dtApx[i].APX ,//+ "\n" + dtApxDesc[i], //+ "\n"+msrpF + msrp[i] + "\n"+ netPriceF+ net[i],
+							"Category_en": dtApx[i].APX, //+ "\n" + dtApxDesc[i], //+ "\n"+msrpF + msrp[i] + "\n"+ netPriceF+ net[i],
 							"Cust_fac_desc_en": "", //dtApx[i].INT_DESC,
 							"Vehicle1": dtApx[i].Vehicle1,
 							"Vehicle2": dtApx[i].Vehicle2,
@@ -2559,15 +2560,18 @@ sap.ui.define([
 						var msrpF = CDO_controller.getView().getModel("i18n").getResourceBundle().getText("MSRPWithoutDoll");
 						var netPriceF = CDO_controller.getView().getModel("i18n").getResourceBundle().getText("DealerNetWithoutDoll");
 						var dtApxDesc = [];
-						var dtApxDesc2=[];
+						var dtApxDesc2 = [];
 						dtApxDesc[i] = CDO_controller.formatFeatures(dtApx[i].INT_DESC);
 						dtApxDesc2[i] = CDO_controller.formatFeatures1(dtApx[i].INT_DESC);
 						dataApx1.push({
 							"Category_en": dtApx[i].APX + "\n" + msrpF + msrp[i] + "\n" + netPriceF + net[i],
 							//dtApx[i].APX + "\n" + dtApxDesc + "\n" + msrpF + msrp[i] + "\n" + netPriceF + net[i],
-							"Cust_fac_desc_en": "", //dtApx[i].INT_DESC,
-							"Vehicle1": dtApxDesc[i], //dtApx[i].INT_DESC, //dtApx[i].Vehicle1,
-							"Vehicle2": dtApxDesc2[i], //dtApx[i].INT_DESC,//dtApx[i].Vehicle2
+							"Cust_fac_desc_en": dtApxDesc[i],//"", //dtApx[i].INT_DESC,
+							"Vehicle1": dtApxDesc2[i], //dtApx[i].INT_DESC, //dtApx[i].Vehicle1,
+							"Vehicle2": "",//dtApxDesc2[i], //dtApx[i].INT_DESC,//dtApx[i].Vehicle2
+							"Vehicle3": dtApx[i].Vehicle3,
+							"Vehicle4": dtApx[i].Vehicle4,
+							"Vehicle5": dtApx[i].Vehicle5
 						});
 					}
 

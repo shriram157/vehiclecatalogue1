@@ -11,7 +11,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 		formatter: formatter,
 		onInit: function () {
 			DetailController = this;
-		//	this.getUserLanguage();
+			//	this.getUserLanguage();
 			this.getBrowserLanguage();
 			DetailController.oRouter = sap.ui.core.UIComponent.getRouterFor(DetailController);
 			DetailController.oRouter.getTarget("DetailsOption").attachDisplay(jQuery.proxy(DetailController.handleRouteMatched,
@@ -23,7 +23,83 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 		onAfterRendering: function () {
 			DetailController._readUser();
 		},
-		
+		formatFeatures: function (str) {
+			var feat = "";
+			var feature = "";
+			if (str) {
+				var slicestr = str.slice(1);
+				console.log(slicestr);
+				var res5 = slicestr.replace(/;/g, "#! ");
+				var extra = res5.split('#');
+				console.log(extra);
+				var len = extra.length;
+				//	console.log(len);
+				var lendiv = Math.floor(len / 2);
+				var arr = [];
+				for (var i = 0; i < lendiv; i++) {
+					arr.push(extra[i]);
+				}
+				console.log(arr);
+				var string = arr.toString();
+				console.log(string);
+				var res9 = string.replace(/!/g, "#- ");
+				console.log(res9);
+				var rturnRes1 = res9.split('#').join('\n');
+				console.log(rturnRes1);
+
+				/*var arr2 = [];
+				for (var q = lendiv; q < len; q++) {
+					arr2.push(extra[q]);
+				}
+				var string2 = arr2.toString();
+				
+				var res2 = string2.replace(/!/g, "#- ");
+				var rturnRes = res2.split('#').join('\n');
+				*/
+			}
+			return "- " + rturnRes1;
+		},
+		formatFeatures1: function (str) {
+			var feat = "";
+			var feature = "";
+			if (str) {
+				/*	var res = str.replace(/;/g, "#- ");
+					feat = res.split('#').join('\n');
+					feature = feat;*/
+				////
+				var slicestring = str.slice(1);
+				var res5 = slicestring.replace(/;/g, "#! ");
+				var extra = res5.split('#');
+				//	console.log(extra);
+				var len = extra.length;
+				console.log(len);
+				var lendiv = Math.floor(len / 2);
+				/*var arr = [];
+				for (var i = 0; i < lendiv; i++) {
+					arr.push(extra[i]);
+				}
+				var string = arr.toString();
+				
+				var res9 = string.replace(/!/g, "#- ");
+				var rturnRes1 = res9.split('#').join('\n');
+				*/
+
+				var arr2 = [];
+				for (var q = lendiv; q < len; q++) {
+					arr2.push(extra[q]);
+				}
+				console.log(arr2);
+				var string2 = arr2.toString();
+				console.log(string2);
+				var slicedStr2 = string2.slice(2);
+				console.log(slicedStr2);
+				var res2 = slicedStr2.replace(/!/g, "#- ");
+				console.log(res2);
+				var rturnRes = res2.split('#').join('\n');
+				console.log(rturnRes);
+			}
+			return "- " + rturnRes;
+		},
 		_readUser: function () {
 			var userModel = sap.ui.getCore().getModel("userModel");
 			if (userModel) {
@@ -37,6 +113,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 		},
 
 		handleRouteMatched: function (oEvent) {
+
 			var parseArg = JSON.parse(oEvent.getParameters().data.num);
 			var modelDetail = new sap.ui.model.json.JSONModel(parseArg[0]);
 			var veh = parseArg[0].veh;
@@ -50,7 +127,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				sap.ui.getCore().byId("__xmlview0--idLogo").setSrc("images/Lexus.png");
 			}
 			DetailController.user = parseArg[0].user; //DetailController.getLoggedUser();
-			
+
 			var host = DetailController.host();
 			var urlTable = host + "/Z_VEHICLE_CATALOGUE_SRV/ZC_VOAS_COMP_HEADERSet?$filter=(User eq  '" + DetailController.user +
 				"' and IN_Vehicle1 eq '" + vehSuffix +
@@ -87,6 +164,13 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			aColumnDataCol.push(fixedData);
 			aColumnDataCol.push(fixedData);
 			aColumnDataCol.push(fixedDataCol);
+
+			var emptydata = [];
+
+			emptydata.push(fixedData);
+			emptydata.push(fixedData);
+			emptydata.push(fixedData);
+		
 
 			if (DetailController.getView().getModel("TblModel")) {
 				var dat = DetailController.getView().getModel("TblModel").getData();
@@ -141,8 +225,8 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 						});
 					} else {*/
 					dataExterior.push({
-						"Category_en": dtExt[i].Category_en,
-						"Cust_fac_desc_en": dtExt[i].Cust_fac_desc_en,
+						"Category_en": dtExt[i].Cust_fac_desc_en,
+						"Cust_fac_desc_en": "", //dtExt[i].Cust_fac_desc_en,
 						"Vehicle1": dtExt[i].Vehicle1
 					});
 					//	}
@@ -158,8 +242,8 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 						});
 					} else {*/
 					dataInterior.push({
-						"Category_en": dtInt[i].Category_en,
-						"Cust_fac_desc_en": dtInt[i].Cust_fac_desc_en,
+						"Category_en": dtInt[i].Cust_fac_desc_en,
+						"Cust_fac_desc_en": "", //dtInt[i].Cust_fac_desc_en,
 						"Vehicle1": dtInt[i].Vehicle1
 					});
 					//}
@@ -175,8 +259,8 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 							});
 						} else {*/
 					dataInfo.push({
-						"Category_en": dtInfo[i].Category_en,
-						"Cust_fac_desc_en": dtInfo[i].Cust_fac_desc_en,
+						"Category_en": dtInfo[i].Cust_fac_desc_en,
+						"Cust_fac_desc_en": "", // dtInfo[i].Cust_fac_desc_en,
 						"Vehicle1": dtInfo[i].Vehicle1
 					});
 					//	}
@@ -192,8 +276,8 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 						});
 					} else {*/
 					dataPwr.push({
-						"Category_en": dtPwr[i].Category_en,
-						"Cust_fac_desc_en": dtPwr[i].Cust_fac_desc_en,
+						"Category_en": dtPwr[i].Cust_fac_desc_en,
+						"Cust_fac_desc_en": "", //dtPwr[i].Cust_fac_desc_en,
 						"Vehicle1": dtPwr[i].Vehicle1
 					});
 					//	}
@@ -209,8 +293,8 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 							});
 						} else {*/
 					dataSafety.push({
-						"Category_en": dtSaf[i].Category_en,
-						"Cust_fac_desc_en": dtSaf[i].Cust_fac_desc_en,
+						"Category_en": dtSaf[i].Cust_fac_desc_en,
+						"Cust_fac_desc_en": "", //dtSaf[i].Cust_fac_desc_en,
 						"Vehicle1": dtSaf[i].Vehicle1
 					});
 					//	}
@@ -223,22 +307,22 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					var msrp = [],
 						net = [];
 					if (dtCol[i].MSRP != undefined && dtCol[i].MSRP != null && !isNaN(dtCol[i].MSRP) && dtCol[i].MSRP != "") {
-						msrp[i] = " $"+parseInt(dtCol[i].MSRP);
+						msrp[i] = " $" + parseInt(dtCol[i].MSRP);
 					} else {
 						msrp[i] = "";
 					}
 					if (dtCol[i].NETPRICE != undefined && dtCol[i].NETPRICE != null && !isNaN(dtCol[i].NETPRICE) && dtCol[i].NETPRICE != "") {
-						net[i] = " $"+parseInt(dtCol[i].NETPRICE);
+						net[i] = " $" + parseInt(dtCol[i].NETPRICE);
 					} else {
-						net[i] = "NA";
+						net[i] = "";
 					}
 					var msrpF = DetailController.getView().getModel("i18n").getResourceBundle().getText("MSRPWithoutDoll");
 					var netPriceF = DetailController.getView().getModel("i18n").getResourceBundle().getText("DealerNetWithoutDoll");
-						
+
 					dataColour.push({
 						"Category_en": dtCol[i].EXT + "-" + dtCol[i].EXT_DESC + "\n" + dtCol[i].INT_DESC,
 						//"Cust_fac_desc_en": "MSRP: $ " + msrp[i] + "\nDealer Net: $" + net[i],
-						"Cust_fac_desc_en": msrpF + msrp[i] + "\n"+ netPriceF + net[i],
+						"Cust_fac_desc_en": msrpF + msrp[i] + "\n" + netPriceF + net[i],
 						"Vehicle1": dtCol[i].Vehicle1
 					});
 				}
@@ -254,7 +338,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 						} else {*/
 					dataDim.push({
 						"Category_en": dtDim[i].Dimensions,
-						"Cust_fac_desc_en": dtDim[i].Cust_fac_desc_en,
+						"Cust_fac_desc_en": "", // dtDim[i].Cust_fac_desc_en,
 						"Vehicle1": dtDim[i].Vehicle1
 					});
 					//	}
@@ -266,12 +350,12 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					var msrp = [],
 						net = [];
 					if (dtOpt[i].MSRP != undefined && dtOpt[i].MSRP != null && !isNaN(dtOpt[i].MSRP) && dtOpt[i].MSRP != "") {
-						msrp[i] = " $"+parseInt(dtOpt[i].MSRP);
+						msrp[i] = " $" + parseInt(dtOpt[i].MSRP);
 					} else {
 						msrp[i] = "";
 					}
 					if (dtOpt[i].NETPRICE != undefined && dtOpt[i].NETPRICE != null && !isNaN(dtOpt[i].NETPRICE) && dtOpt[i].NETPRICE != "") {
-						net[i] = " $"+parseInt(dtOpt[i].NETPRICE);
+						net[i] = " $" + parseInt(dtOpt[i].NETPRICE);
 					} else {
 						net[i] = "";
 					}
@@ -288,12 +372,12 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 						var res2 = str2.replace(/;/g, "#- ");
 						feature2[i] = res2.split('#').join('\n');
 					}
-						var msrpF = DetailController.getView().getModel("i18n").getResourceBundle().getText("MSRPWithoutDoll");
+					var msrpF = DetailController.getView().getModel("i18n").getResourceBundle().getText("MSRPWithoutDoll");
 					var netPriceF = DetailController.getView().getModel("i18n").getResourceBundle().getText("DealerNetWithoutDoll");
-					
+
 					dataOpt.push({
-					//	"Category_en": dtOpt[i].Vehicle1 + "\n" + "MSRP: $ " + msrp[i] + "\nDealer Net: $" + net[i],
-						"Category_en": dtOpt[i].Vehicle1 + "\n" + msrpF + msrp[i] + "\n"+netPriceF + net[i],
+						//	"Category_en": dtOpt[i].Vehicle1 + "\n" + "MSRP: $ " + msrp[i] + "\nDealer Net: $" + net[i],
+						"Category_en": dtOpt[i].Vehicle1 + "\n" + msrpF + msrp[i] + "\n" + netPriceF + net[i],
 						"Vehicle1": feature[i], //dtOpt[i].OptionPackages,
 						"Vehicle2": feature2[i] //dtOpt[i].OptionPackages1
 					});
@@ -317,11 +401,47 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					}*/
 					dataApx.push({
 						"Category_en": dtApx[i].APX,
-						"Cust_fac_desc_en": dtApx[i].INT_DESC,
+						"Cust_fac_desc_en": "", //dtApx[i].INT_DESC,
 						"Vehicle1": dtApx[i].Vehicle1
 					});
 				}
+				var dataApx1 = [];
+				for (var i = 0; i < dtApx.length; i++) {
+					var msrp = [],
+						net = [];
+					if (dtApx[i].MSRP != undefined && dtApx[i].MSRP != null && !isNaN(dtApx[i].MSRP) && dtApx[i].MSRP != "") {
+						msrp[i] = "$" + parseInt(dtApx[i].MSRP);
+					} else {
+						msrp[i] = "";
+					}
+					if (dtApx[i].NETPRICE != undefined && dtApx[i].NETPRICE != null && !isNaN(dtApx[i].NETPRICE) && dtApx[i].NETPRICE != "") {
+						net[i] = "$" + parseInt(dtApx[i].NETPRICE);
+					} else {
+						net[i] = "";
+					}
+					var msrpF = DetailController.getView().getModel("i18n").getResourceBundle().getText("MSRPWithoutDoll");
+					var netPriceF = DetailController.getView().getModel("i18n").getResourceBundle().getText("DealerNetWithoutDoll");
+					var dtApxDesc = [];
+					var dtApxDesc2 = [];
+					dtApxDesc[i] = DetailController.formatFeatures(dtApx[i].INT_DESC);
+					dtApxDesc2[i] = DetailController.formatFeatures1(dtApx[i].INT_DESC);
+					dataApx1.push({
+						/*	"Category_en": dtApx[i].APX + "\n" + msrpF + msrp[i] + "\n" + netPriceF + net[i],
+							//dtApx[i].APX + "\n" + dtApxDesc + "\n" + msrpF + msrp[i] + "\n" + netPriceF + net[i],
+							"Cust_fac_desc_en":dtApxDesc[i],// "", //dtApx[i].INT_DESC,
+							"Vehicle1": dtApxDesc2[i], //dtApx[i].INT_DESC, //dtApx[i].Vehicle1,
+						//	"Vehicle2": dtApxDesc2[i], //dtApx[i].INT_DESC,//dtApx[i].Vehicle2*/
+						"Category_en": dtApx[i].APX + "\n" + msrpF + msrp[i] + "\n" + netPriceF + net[i],
+						//dtApx[i].APX + "\n" + dtApxDesc + "\n" + msrpF + msrp[i] + "\n" + netPriceF + net[i],
+						"Cust_fac_desc_en": dtApxDesc[i], //"", //dtApx[i].INT_DESC,
+						"Vehicle1": dtApxDesc2[i], //dtApx[i].INT_DESC, //dtApx[i].Vehicle1,
+						"Vehicle2": "", //dtApxDesc2[i], //dtApx[i].INT_DESC,//dtApx[i].Vehicle2
+						"Vehicle3": dtApx[i].Vehicle3,
+						"Vehicle4": dtApx[i].Vehicle4,
+						"Vehicle5": dtApx[i].Vehicle5
 
+					});
+				}
 				var tblModelExt = new sap.ui.model.json.JSONModel();
 				tblModelExt.setData({
 					columns: aColumnData,
@@ -369,7 +489,11 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					columns: aColumnData,
 					rows: dataApx
 				});
-
+				var tblModelApx1 = new sap.ui.model.json.JSONModel();
+				tblModelApx1.setData({
+					columns: emptydata,
+					rows: dataApx1
+				});
 				var tblExterior = DetailController.getView().byId("DetailtblExterior");
 				tblExterior.setModel(tblModelExt);
 				tblExterior.bindAggregation("columns", "/columns", function (index, context) {
@@ -644,6 +768,41 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					}
 					return row;
 				});
+				var tblAPX1 = DetailController.getView().byId("DetailtblAPX1");
+				tblAPX1.setModel(tblModelApx1);
+				tblAPX1.bindAggregation("columns", "/columns", function (index, context) {
+					return new sap.m.Column({
+						header: new sap.m.Label({
+							text: context.getObject().Vehicle
+						}),
+					});
+				});
+				tblAPX1.bindItems("/rows", function (index, context) {
+					var obj = context.getObject();
+					var row = new sap.m.ColumnListItem();
+					for (var k in obj) {
+						if (obj[k] == "Y") {
+							row.addCell(
+								new sap.m.HBox({
+									items: [new sap.m.Text({
+										text: " ",
+									}).addStyleClass("padding"), new sap.ui.core.Icon({
+										src: "sap-icon://accept",
+										color: "black"
+									})]
+								})
+							);
+						} else {
+							row.addCell(
+								new sap.m.Text({
+									text: obj[k]
+								})
+							);
+						}
+					}
+					return row;
+				});
+
 				var tblAPX = DetailController.getView().byId("DetailtblAPX");
 				tblAPX.setModel(tblModelApx);
 				tblAPX.bindAggregation("columns", "/columns", function (index, context) {

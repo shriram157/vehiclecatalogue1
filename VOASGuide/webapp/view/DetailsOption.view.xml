@@ -73,29 +73,11 @@
 			</VBox>
 		</uxap:headerContent>
 		<uxap:sections>
-			<uxap:ObjectPageSection title="Interior">
-				<uxap:subSections>
-					<uxap:ObjectPageSubSection title="{i18n>Interior}">
-						<uxap:blocks>
-							<Table id="DetailtblInterior" width="100%" growing="true" growingScrollToLoad="false" growingThreshold="30" mode="None"></Table>
-						</uxap:blocks>
-					</uxap:ObjectPageSubSection>
-				</uxap:subSections>
-			</uxap:ObjectPageSection>
-			<uxap:ObjectPageSection title="Exterior">
-				<uxap:subSections>
-					<uxap:ObjectPageSubSection title="{i18n>Exterior}">
-						<uxap:blocks>
-							<Table id="DetailtblExterior" width="100%" growing="true" growingScrollToLoad="false" growingThreshold="30" mode="None"></Table>
-						</uxap:blocks>
-					</uxap:ObjectPageSubSection>
-				</uxap:subSections>
-			</uxap:ObjectPageSection>
 			<uxap:ObjectPageSection title="Powertrain &amp; Mechanical">
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>Powertrain}">
 						<uxap:blocks>
-							<Table id="DetailtblpwrTrn" width="100%" growing="true" growingScrollToLoad="false" growingThreshold="30" mode="None"></Table>
+							<Table id="DetailtblpwrTrn" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"></Table>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -104,25 +86,37 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>Safety}">
 						<uxap:blocks>
-							<Table id="DetailtblSafety" width="100%" growing="true" growingScrollToLoad="false" growingThreshold="30" mode="None"></Table>
+							<Table id="DetailtblSafety" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"></Table>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
 			</uxap:ObjectPageSection>
+			<uxap:ObjectPageSection title="Exterior">
+				<uxap:subSections>
+					<uxap:ObjectPageSubSection title="{i18n>Exterior}">
+						<uxap:blocks>
+							<Table id="DetailtblExterior" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"></Table>
+						</uxap:blocks>
+					</uxap:ObjectPageSubSection>
+				</uxap:subSections>
+			</uxap:ObjectPageSection>
+			<uxap:ObjectPageSection title="Interior">
+				<uxap:subSections>
+					<uxap:ObjectPageSubSection title="{i18n>Interior}">
+						<uxap:blocks>
+							<Table id="DetailtblInterior" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"></Table>
+						</uxap:blocks>
+					</uxap:ObjectPageSubSection>
+				</uxap:subSections>
+			</uxap:ObjectPageSection>
+		
+			
+			
 			<uxap:ObjectPageSection title="Infotainment">
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>Infotainment}">
 						<uxap:blocks>
-							<Table id="DetailtblInfotainment" width="100%" growing="true" growingScrollToLoad="false" growingThreshold="30" mode="None"></Table>
-						</uxap:blocks>
-					</uxap:ObjectPageSubSection>
-				</uxap:subSections>
-			</uxap:ObjectPageSection>
-			<uxap:ObjectPageSection title="Color Options">
-				<uxap:subSections>
-					<uxap:ObjectPageSubSection title="{i18n>ColorOptions}">
-						<uxap:blocks>
-							<Table id="DetailtblColorOptions" width="100%" growing="true" growingScrollToLoad="false" growingThreshold="30" mode="None"></Table>
+							<Table id="DetailtblInfotainment" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"></Table>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -136,11 +130,21 @@
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
 			</uxap:ObjectPageSection>
+			<uxap:ObjectPageSection title="Color Options">
+				<uxap:subSections>
+					<uxap:ObjectPageSubSection title="{i18n>ColorOptions}">
+						<uxap:blocks>
+							<Table id="DetailtblColorOptions" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"></Table>
+						</uxap:blocks>
+					</uxap:ObjectPageSubSection>
+				</uxap:subSections>
+			</uxap:ObjectPageSection>
+			
 			<uxap:ObjectPageSection title="Option Packages">
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>OptionPackages}">
 						<uxap:blocks>
-							<Table id="DetailtblOptionPack" width="100%" growing="true" growingScrollToLoad="false" growingThreshold="30" mode="None"></Table>
+							<Table id="DetailtblOptionPack" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"></Table>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -149,7 +153,10 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>APX}">
 						<uxap:blocks>
-							<Table id="DetailtblAPX" width="100%" growing="true" growingScrollToLoad="false" growingThreshold="30" mode="None"></Table>
+							<VBox>
+								<Table id="DetailtblAPX1" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"></Table>
+							<Table id="DetailtblAPX" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"></Table>
+							</VBox>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>

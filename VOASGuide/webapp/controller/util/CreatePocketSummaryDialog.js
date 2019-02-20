@@ -40,6 +40,7 @@ sap.ui.define([
 
 					} else {
 						CreatePocketSumController.getView().byId("idPoc_brandCB").setEnabled(true);
+						CreatePocketSumController.getView().byId("idPoc_brandCB").setValue(brandVal);
 					}
 				}
 			}

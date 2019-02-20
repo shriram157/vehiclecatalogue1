@@ -39,6 +39,7 @@ sap.ui.define([
 
 					} else {
 						CreateSuppGuideController.getView().byId("idSupp_brandCB").setEnabled(true);
+						CreateSuppGuideController.getView().byId("idSupp_brandCB").setValue(brandVal);
 					}
 				}
 			}
@@ -338,7 +339,7 @@ sap.ui.define([
 
 								var link = document.createElement('a');
 								link.href = window.URL.createObjectURL(blob);
-								link.download = "PdfName-SupplementGuide" + new Date().getTime() + ".pdf";
+								link.download = "PdfName-SupplementGuide" ;//+ new Date().getTime() + ".pdf";
 								link.click();
 							}
 						},
