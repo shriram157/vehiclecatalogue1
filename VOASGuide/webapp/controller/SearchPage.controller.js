@@ -24,23 +24,23 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			sap.ushell.components.modelYearCB = searchController.getView().byId("id_modelYearCB");
 			sap.ushell.components.seriesCB = searchController.getView().byId("id_seriesCB");
 			searchController.language = searchController.returnBrowserLanguage();
-			console.log(searchController.language);
-			//searchController._readUser();
+		
 		},
 		onAfterRendering: function () {
 			searchController._readUser();
 			var userModel = sap.ui.getCore().getModel("userModel");
+			if (userModel) {
 			var userData=userModel.getData();
 			searchController.user=userData.loggedUserType[0];
-		
+			}
 		},
 
 		_readUser: function () {
 			var userModel = sap.ui.getCore().getModel("userModel");
 			var bpDealerModel = sap.ui.getCore().getModel("BpDealerModel");
 			if (userModel) {
+				var userData = userModel.getData();
 				if (bpDealerModel) {
-					var userData = userModel.getData();
 					var bpData = bpDealerModel.getData();
 					if (userData.loggedUserType[0] == "Dealer_User" || userData.loggedUserType[0] == "Dealer_Admin") {
 						if (bpData[0].Division == "10") {
@@ -68,173 +68,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				}
 			}
 		},
-		/*_readTheAttributes: function () {
 
-			//if the userAttributes has toyota user then we have to continue with 
-			var oModel = searchController.getView().getModel("userAttributesModel");
-			var userDetails = oModel.getData();
-			var userModel = new sap.ui.model.json.JSONModel();
-			searchController.getView().setModel(userModel, "userModel");
-			var oViewModel = searchController.getView().getModel("userModel");
-
-			var oModelBP = searchController.getView().getModel("BpDealerModel");
-			var aDataBP = oModelBP.getData();
-
-			// the user type from SAML is blank so it could be internal user
-
-			if (!userDetails[0].DealerCode) {
-				// he is a not dealer
-
-				if (!searchController.sDivision) {
-					var currentImageSource = searchController.getView().byId("idLexusLogo");
-					currentImageSource.setProperty("src", "images/toyotoLexus.png");
-				}
-				oViewModel.setProperty("/editAllowed", true);
-			} else {
-				//he is  a dealer.
-
-				//ets also set the division from the url here
-
-				var isDivisionSent = window.location.search.match(/Division=([^&]*)/i);
-				if (isDivisionSent) {
-					searchController.sDivision = window.location.search.match(/Division=([^&]*)/i)[1];
-					if (searchController.sDivision == '10') // set the toyoto logo
-					{
-						var currentImageSource = searchController.getView().byId("idLexusLogo");
-						currentImageSource.setProperty("src", "images/toyota_logo_colour.png");
-
-					} else { // set the lexus logo
-						var currentImageSource = searchController.getView().byId("idLexusLogo");
-						currentImageSource.setProperty("src", "images/i_lexus_black_full.png");
-
-					}
-				}
-
-				for (var i = 0; i < aDataBP.length; i++) {
-					if (aDataBP[i].BusinessPartner == userDetails[0].DealerCode) {
-						searchController.getView().byId("dealerID").setSelectedKey(aDataBP[i].BusinessPartnerKey);
-
-						//selectedDealerModel>/Dealer_Name
-						searchController.sSelectedDealer = aDataBP[i].BusinessPartnerKey;
-						searchController._selectedDealerModel.setProperty("/Dealer_No", aDataBP[i].BusinessPartnerKey);
-						searchController._selectedDealerModel.setProperty("/Dealer_Name", aDataBP[i].BusinessPartnerName);
-						searchController._selectedDealerModel.setProperty("/Dealer_Type", aDataBP[i].BusinessPartnerType);
-
-						oViewModel.setProperty("/editAllowed", false);
-
-						break;
-					}
-				}
-			}
-
-			// end for Userdetails usertype check
-			//  set the locale from SAML Language.       
-			if (!searchController.sCurrentLocale) {
-				if (userDetails[0].Language == "English") {
-					// english language. 
-					searchController.sCurrentLocale = 'EN';
-					var i18nModel = new sap.ui.model.resource.ResourceModel({
-						bundleUrl: "i18n/i18n.properties",
-						bundleLocale: ("en")
-					});
-					searchController.getView().setModel(i18nModel, "i18n");
-				} else {
-					// french language
-					var i18nModel = new sap.ui.model.resource.ResourceModel({
-						bundleUrl: "i18n/i18n.properties",
-						bundleLocale: ("fr")
-					});
-					searchController.getView().setModel(i18nModel, "i18n");
-
-					searchController.sCurrentLocale = 'FR';
-				}
-
-			}
-			//  check the Division -  if the URL has division  check with material division for Dealers if it matches then allow it otherwise throw an error message, 
-			//for internal usersdo not do the check
-			if (userDetails[0].UserType == 'Dealer') {
-
-				var isDivisionSent = window.location.search.match(/Division=([^&]*)/i);
-				if (isDivisionSent) {
-					searchController.sDivision = window.location.search.match(/Division=([^&]*)/i)[1];
-
-					if (searchController.sDivision == aDataBP[0].Division) {
-
-						searchController.getView().byId("messageStripError").setProperty("visible", false);
-
-						if (searchController.sDivision == '10') // set the toyoto logo
-						{
-							var currentImageSource = searchController.getView().byId("idLexusLogo");
-							currentImageSource.setProperty("src", "images/toyota_logo_colour.png");
-
-						} else { // set the lexus logo
-							var currentImageSource = searchController.getView().byId("idLexusLogo");
-							currentImageSource.setProperty("src", "images/i_lexus_black_full.png");
-
-						}
-
-					} else {
-						// throw an error message and disable the search button. 
-						if (aDataBP[0].Division !== "Dual") {
-							var errorMessage = searchController._oResourceBundle.getText("divisionsDoNotMatch"); //Divisoin does not match
-
-							searchController.getView().byId("messageStripError").setProperty("visible", true);
-							searchController.getView().byId("messageStripError").setText(errorMessage);
-							searchController.getView().byId("messageStripError").setType("Error");
-
-							// set the search button to greyout
-
-							oViewModel.setProperty("/enableMaterialEntered", false);
-							oViewModel.setProperty("/afterMaterialFound", false);
-							oViewModel.setProperty("/materialInputAllow", false);
-
-						}
-					}
-
-				} else {
-
-					searchController.sDivision = aDataBP[0].Division;
-
-					if (searchController.sDivision == '10') // set the toyoto logo
-					{
-						var currentImageSource = searchController.getView().byId("idLexusLogo");
-						currentImageSource.setProperty("src", "images/toyota_logo_colour.png");
-
-					} else { // set the lexus logo
-						var currentImageSource = searchController.getView().byId("idLexusLogo");
-						currentImageSource.setProperty("src", "images/i_lexus_black_full.png");
-
-					}
-
-				}
-
-			} else { // end for usertype == dealer check,
-				//not a dealer but a zone user or internal user
-				var isDivisionSent = window.location.search.match(/Division=([^&]*)/i);
-				if (isDivisionSent) {
-					searchController.sDivision = window.location.search.match(/Division=([^&]*)/i)[1];
-
-					if (searchController.sDivision == '10') // set the toyoto logo
-					{
-						var currentImageSource = searchController.getView().byId("idLexusLogo");
-						currentImageSource.setProperty("src", "images/toyota_logo_colour.png");
-
-					} else { // set the lexus logo
-						var currentImageSource = searchController.getView().byId("idLexusLogo");
-						currentImageSource.setProperty("src", "images/i_lexus_black_full.png");
-
-					}
-
-				} else {
-					// just set a both logo
-					var currentImageSource = searchController.getView().byId("idLexusLogo");
-					currentImageSource.setProperty("src", "images/toyotoLexus.png");
-
-				}
-
-			}
-
-		},*/
 		refreshTableData: function () {
 			var oModel = searchController.getView().getModel("searchTblModel");
 			if (oModel !== undefined) {

@@ -6,11 +6,6 @@ sap.ui.define([
 
 	return BaseController.extend("com.sap.build.toyota-canada.vehiclesGuideV3.controller.App", {
 		
-	/*	"{=${SeriesData>SPRAS}==='English' ? ${SeriesData>TCISeriesDescriptionEN}:${SeriesData>TCISeriesDescriptionFR} }"
-
-		"{= ${products>UnitPrice}  > ${/priceThreshold} ? 'Error' : 'Success' }"*/
-		
-		
 		onInit: function () {
 			AppController = this;
 		//	AppController._user();
@@ -58,8 +53,10 @@ sap.ui.define([
 			var userModel = new sap.ui.model.json.JSONModel(userLoggedData);
 			sap.ui.getCore().setModel(userModel, "userModel");
 		},
+
 		onAfterRendering:function(){
-		this.getUserLanguage();	
+		//this.getUserLanguage();	
+		this.getBrowserLanguage();
 		},
 
 		userAPI: function () {
@@ -68,6 +65,7 @@ sap.ui.define([
 				url: host + "/userDetails/attributes",
 				type: "GET",
 				dataType: "json",
+				async: false,
 				success: function (oData) {
 					console.log(oData);
 					var bpModel = new sap.ui.model.json.JSONModel(oData.attributes);
@@ -83,6 +81,7 @@ sap.ui.define([
 				url: host + "/userDetails/currentScopesForUser",
 				type: "GET",
 				dataType: "json",
+				async: false,
 				success: function (Data) {
 					console.log(Data);
 					var userModel = new sap.ui.model.json.JSONModel(Data);
