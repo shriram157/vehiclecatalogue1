@@ -1,5 +1,5 @@
 {
-	"xsappname": "VOASGuide",
+	"xsappname": "vehiclecatalogue",
 	"tenant-mode": "dedicated",
 	"description": "Security profile of called application",
 	"scopes": [{

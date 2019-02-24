@@ -1,66 +1,60 @@
-ID: VOASGuide
+ID: vehiclecatalogue
 _schema-version: '2.1'
-description: MTA Project for VOAS Guide
+description: Vehicle catalogue (VOAS guide) consolidated app
 version: 0.0.1
 
 modules:
-- name: voasGuide_Node
-  type: nodejs
-  path: voasGuide_Node
-  parameters:
-     host: voasGuide_Node
-     register-service-url: true
-     service-name: voasGuide_Node
-     service-url: '${default-url}'
-     disk-quota: 256MB
-     memory: 256MB
-  provides:
-   - name: voasGuide_Node_api
-     properties:
-        url: ${default-url}
-  requires:
-   - name: uaa_VOASGuide
-   - name: VOAS_GUIDE_APIM_CUPS
-- name: VOASGuide
-  type: html5
-  path: VOASGuide
-  parameters:
-     host: VOASGuide
-     register-service-url: true
-     service-name: VOASGuide
-     service-url: '${default-url}'
-     disk-quota: 512MB
-     memory: 256MB
-  build-parameters:
-     builder: grunt
-  provides:
-     - name: VOASGuide
-  requires:
-   - name: dest_VOASGuide
-   - name: uaa_VOASGuide
-   - name: voasGuide_Node_api
-     group: destinations
-     properties:
-         name: voasGuide_Node_backend
-         url: '~{url}'
+ - name: vehiclecatalogue-node
+   type: nodejs
+   path: voasGuide_Node
+   parameters:
+      host: tci-dev-${app-name}
+      disk-quota: 256M
+      memory: 256M
+   provides:
+    - name: vehiclecatalogue-node_api
+      properties:
+         url: ${default-url}
+   requires:
+    - name: application-logs_vehiclecatalogue
+    - name: uaa_vehiclecatalogue
+    - name: VEHICLE_CATALOGUE_APIM_CUPS
+
+ - name: vehiclecatalogue
+   type: html5
+   path: VOASGuide
+   parameters:
+      host: tci-dev-${app-name}
+      disk-quota: 256M
+      memory: 512M
+   build-parameters:
+      builder: grunt
+   requires:
+    - name: application-logs_vehiclecatalogue
+    - name: uaa_vehiclecatalogue
+    - name: vehiclecatalogue-node_api
+      group: destinations
+      properties:
+         name: vehiclecatalogue-node
          forwardAuthToken: true
          timeout: 60000
+         url: '~{url}'
 
 resources:
-- name: dest_VOASGuide
-  type: org.cloudfoundry.managed-service
-  parameters:
-     service: destination
-     service-plan: lite
-- name: uaa_VOASGuide
-  type: org.cloudfoundry.managed-service
-  parameters:
-     service: xsuaa
-     service-plan: application
-     path: ./xs-security.json
-- name: VOAS_GUIDE_APIM_CUPS
-  type: org.cloudfoundry.existing-service
-  parameters:
-     service-name: VOAS_GUIDE_APIM_CUPS
-  properties:
-     odata-call-service-name: '${service-name}'
+ - name: application-logs_vehiclecatalogue
+   parameters:
+      service: application-logs
+      service-plan: lite
+   type: org.cloudfoundry.managed-service
+
+ - name: uaa_vehiclecatalogue
+   parameters:
+      path: ./xs-security.json
+      service-plan: application
+      service: xsuaa
+   type: org.cloudfoundry.managed-service
+
+ - name: VEHICLE_CATALOGUE_APIM_CUPS
+   parameters:
+      service-name: VEHICLE_CATALOGUE_APIM_CUPS
+   type: org.cloudfoundry.existing-service

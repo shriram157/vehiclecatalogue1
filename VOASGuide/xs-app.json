@@ -1,20 +1,20 @@
 {
-	"welcomeFile": "/VOASGuide/index.html",
+	"welcomeFile": "/vehiclecatalogue/index.html",
 	"authenticationMethod": "route",
 	"logout": {
 		"logoutEndpoint": "/do/logout"
 	},
 	"routes": [{
-		"source": "^/VOASGuide/(.*)$",
+		"source": "^/vehiclecatalogue/(.*)$",
 		"target": "$1",
 		"localDir": "webapp"
 	}, {
 		"source": "/node(.*)",
-		"destination": "voasGuide_Node_backend",
+		"destination": "vehiclecatalogue-node",
 		"csrfProtection": false
 	}, {
 		"source": "/userDetails(.*)",
-		"destination": "voasGuide_Node_backend",
+		"destination": "vehiclecatalogue-node",
 		"csrfProtection": false
 	}]
 }

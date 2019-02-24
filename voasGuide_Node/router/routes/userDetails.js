@@ -43,7 +43,7 @@ app.use(log.logNetwork);
 	 
 	options = Object.assign(options, xsenv.getServices({
 		api: {
-			name: "VOAS_GUIDE_APIM_CUPS"
+			name: "VEHICLE_CATALOGUE_APIM_CUPS"
 		}
 	}));
 
