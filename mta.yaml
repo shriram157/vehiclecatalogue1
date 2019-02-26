@@ -8,7 +8,7 @@ modules:
    type: nodejs
    path: voasGuide_Node
    parameters:
-      host: tci-dev-${app-name}
+      host: tci-dev-vehiclecatalogue-node
       disk-quota: 256M
       memory: 256M
    provides:
@@ -24,7 +24,7 @@ modules:
    type: html5
    path: VOASGuide
    parameters:
-      host: tci-dev-${app-name}
+      host: tci-dev-vehiclecatalogue
       disk-quota: 256M
       memory: 512M
    build-parameters:
