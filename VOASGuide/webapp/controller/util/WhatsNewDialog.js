@@ -154,10 +154,12 @@ sap.ui.define([
 								$.ajax({
 									type: 'PUT',
 									url: oURL2,
-									data: _base64,
-									dataType: "application/pdf",
+									data: encodeURIComponent(_base64),
+									dataType: 'json',
 									beforeSend: function (xhr) {
 										xhr.setRequestHeader('X-CSRF-Token', token);
+										xhr.setRequestHeader('Content-Type',"application/pdf");
+										
 									},
 									success: function (data) {
 										console.log("PUT success: " + data);
@@ -165,7 +167,7 @@ sap.ui.define([
 											url: oUrl3,
 											method: 'GET',
 											async: false,
-											dataType: "json",
+											dataType: 'json',
 											success: function (data, textStatus, jqXHR) {
 												console.log("GET success: ");
 												console.log(data.d.results);
@@ -192,7 +194,7 @@ sap.ui.define([
 							}
 						});
 					};
-					reader.readAsText(file);
+					reader.readAsDataURL(file);
 
 				}.bind(this))
 				.then(function (result) {

@@ -2,59 +2,54 @@ ID: vehiclecatalogue
 _schema-version: '2.1'
 description: Vehicle catalogue (VOAS guide) consolidated app
 version: 0.0.1
-
 modules:
- - name: vehiclecatalogue-node
-   type: nodejs
-   path: voasGuide_Node
-   parameters:
+  - name: vehiclecatalogue-node
+    type: nodejs
+    path: voasGuide_Node
+    parameters:
       host: tci-dev-vehiclecatalogue-node
       disk-quota: 256M
       memory: 256M
-   provides:
-    - name: vehiclecatalogue-node_api
-      properties:
-         url: ${default-url}
-   requires:
-    - name: application-logs_vehiclecatalogue
-    - name: uaa_vehiclecatalogue
-    - name: VEHICLE_CATALOGUE_APIM_CUPS
-
- - name: vehiclecatalogue
-   type: html5
-   path: VOASGuide
-   parameters:
+    provides:
+      - name: vehiclecatalogue-node_api
+        properties:
+          url: '${default-url}'
+    requires:
+      - name: application-logs_vehiclecatalogue
+      - name: uaa_vehiclecatalogue
+      - name: VEHICLE_CATALOGUE_APIM_CUPS
+  - name: vehiclecatalogue
+    type: html5
+    path: VOASGuide
+    parameters:
       host: tci-dev-vehiclecatalogue
-      disk-quota: 256M
+      disk-quota: 512M
       memory: 512M
-   build-parameters:
+    build-parameters:
       builder: grunt
-   requires:
-    - name: application-logs_vehiclecatalogue
-    - name: uaa_vehiclecatalogue
-    - name: vehiclecatalogue-node_api
-      group: destinations
-      properties:
-         name: vehiclecatalogue-node
-         forwardAuthToken: true
-         timeout: 60000
-         url: '~{url}'
-
+    requires:
+      - name: application-logs_vehiclecatalogue
+      - name: uaa_vehiclecatalogue
+      - name: vehiclecatalogue-node_api
+        group: destinations
+        properties:
+          name: vehiclecatalogue-node
+          forwardAuthToken: true
+          timeout: 60000
+          url: '~{url}'
 resources:
- - name: application-logs_vehiclecatalogue
-   parameters:
+  - name: application-logs_vehiclecatalogue
+    parameters:
       service: application-logs
       service-plan: lite
-   type: org.cloudfoundry.managed-service
-
- - name: uaa_vehiclecatalogue
-   parameters:
+    type: org.cloudfoundry.managed-service
+  - name: uaa_vehiclecatalogue
+    parameters:
       path: ./xs-security.json
       service-plan: application
       service: xsuaa
-   type: org.cloudfoundry.managed-service
-
- - name: VEHICLE_CATALOGUE_APIM_CUPS
-   parameters:
+    type: org.cloudfoundry.managed-service
+  - name: VEHICLE_CATALOGUE_APIM_CUPS
+    parameters:
       service-name: VEHICLE_CATALOGUE_APIM_CUPS
-   type: org.cloudfoundry.existing-service
+    type: org.cloudfoundry.existing-service

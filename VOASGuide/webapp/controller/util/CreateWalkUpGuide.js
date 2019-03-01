@@ -323,8 +323,27 @@ sap.ui.define([
 						"/Z_VEHICLE_CATALOGUE_SRV/FileDownloadSet(Language='" + lang + "',Tab='WalkUp',Model_year='" + moYear + "',Tciseries='" + serVal +
 						"',Brand='" + brandVal + "')/$value";
 						
-					window.open(url);
-						CreateWalkUpDialogController.close();
+	$.ajax({
+				url: url,
+				type: 'GET',
+				async: false,
+				dataType: 'text',
+				success: function (data, textStatus, jqXHR) {
+					console.log("GET success: ");
+					// console.log(data.d.results);
+
+					var pdfAsDataUri = "data:application/pdf;base64," + data;
+					var link1 = document.createElement('a');
+
+					link1.download = "export.pdf";
+					link1.href = pdfAsDataUri;
+					link1.click();
+				},
+				error: function (jqXHR, textStatus, errorThrown) {
+					sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR,"Error",sap.m.MessageBox.Action.OK, null, null);
+				}
+			});					
+			CreateWalkUpDialogController.close();
 
 				},
 		_onButtonPress1: function () {

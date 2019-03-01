@@ -26,7 +26,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			if (userModel) {
 				userData = userModel.getData();
 				if (bpDealerModel) {
-					
+
 					bpData = bpDealerModel.getData();
 					if (userData.loggedUserType[0] == "Dealer_User" || userData.loggedUserType[0] == "Dealer_Admin") {
 						if (bpData[0].Division == "10") {
@@ -45,8 +45,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 						CreateWhatsNewDialogController.getView().byId("idNew_brandCB").setEnabled(true);
 						CreateWhatsNewDialogController.getView().byId("idNew_brandCB").setValue(brandVal);
 					}
-				}
-				else{
+				} else {
 					if (userData.loggedUserType[0] == "TCI_User" || userData.loggedUserType[0] == "TCI_User_Preliminary") {
 
 						CreateWhatsNewDialogController.getView().byId("idNew_brandCB").setEnabled(true);
@@ -90,7 +89,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				LanguageState = true;
 			}
 			//	}
-			
+
 			CreateWhatsNewDialogController.getView().byId("idNew_lanSwitch").setState(LanguageState);
 			if (brandCB != undefined && moYearCB != undefined && seriesCB != undefined) {
 				var brandVal = brandCB.getValue();
@@ -310,37 +309,56 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				}
 			});
 		},
-			_onButtonPress: function (oEvent) {
-			
-					var brandCB = CreateWhatsNewDialogController.getView().byId("idNew_brandCB");
-					var modelYearCB = CreateWhatsNewDialogController.getView().byId("idNew_modelYearCB");
-					var seriesCB = CreateWhatsNewDialogController.getView().byId("id_seriesCBNew");
-					var brandVal = brandCB.getValue();
-					var moYear = modelYearCB.getValue();
-					var serVal = seriesCB.getValue();
-					var langSwitchState = CreateWhatsNewDialogController.getView().byId("idNew_lanSwitch").mProperties.state;
-					var lang = "";
-					if (langSwitchState == false) {
-						lang = "FR";
-					} else {
-						lang = "EN";
-					}
-					var sLocation = window.location.host;
-					var sLocation_conf = sLocation.search("webide");
-					if (sLocation_conf == 0) {
-						CreateWhatsNewDialogController.sPrefix = "/voasguide_node";
-					} else {
-						CreateWhatsNewDialogController.sPrefix = "";
-					}
-					CreateWhatsNewDialogController.nodeJsUrl = CreateWhatsNewDialogController.sPrefix + "/node";
-					var host = CreateWhatsNewDialogController.nodeJsUrl;
-					var url = host +
-						"/Z_VEHICLE_CATALOGUE_SRV/FileDownloadSet(Language='" + lang + "',Tab='WhatsNew',Model_year='" + moYear + "',Tciseries='" +
-						serVal +"',Brand='" + brandVal + "')/$value";
-					window.open(url);
-					CreateWhatsNewDialogController.close();
+		_onButtonPress: function (oEvent) {
+
+			var brandCB = CreateWhatsNewDialogController.getView().byId("idNew_brandCB");
+			var modelYearCB = CreateWhatsNewDialogController.getView().byId("idNew_modelYearCB");
+			var seriesCB = CreateWhatsNewDialogController.getView().byId("id_seriesCBNew");
+			var brandVal = brandCB.getValue();
+			var moYear = modelYearCB.getValue();
+			var serVal = seriesCB.getValue();
+			var langSwitchState = CreateWhatsNewDialogController.getView().byId("idNew_lanSwitch").mProperties.state;
+			var lang = "";
+			if (langSwitchState == false) {
+				lang = "FR";
+			} else {
+				lang = "EN";
+			}
+			var sLocation = window.location.host;
+			var sLocation_conf = sLocation.search("webide");
+			if (sLocation_conf == 0) {
+				CreateWhatsNewDialogController.sPrefix = "/voasguide_node";
+			} else {
+				CreateWhatsNewDialogController.sPrefix = "";
+			}
+			CreateWhatsNewDialogController.nodeJsUrl = CreateWhatsNewDialogController.sPrefix + "/node";
+			var host = CreateWhatsNewDialogController.nodeJsUrl;
+			var url = host +
+				"/Z_VEHICLE_CATALOGUE_SRV/FileDownloadSet(Language='" + lang + "',Tab='WhatsNew',Model_year='" + moYear + "',Tciseries='" +
+				serVal + "',Brand='" + brandVal + "')/$value";
+			$.ajax({
+				url: url,
+				type: 'GET',
+				async: false,
+				dataType: 'text',
+				success: function (data, textStatus, jqXHR) {
+					console.log("GET success: ");
+					// console.log(data.d.results);
+
+					var pdfAsDataUri = "data:application/pdf;base64," + data;
+					var link1 = document.createElement('a');
+
+					link1.download = "export.pdf";
+					link1.href = pdfAsDataUri;
+					link1.click();
+				},
+				error: function (jqXHR, textStatus, errorThrown) {
+					sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR,"Error",sap.m.MessageBox.Action.OK, null, null);
+				}
+			});
+			CreateWhatsNewDialogController.close();
 		},
-	
+
 		_onButtonPress1: function () {
 
 			CreateWhatsNewDialogController.close();
