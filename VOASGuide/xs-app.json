@@ -7,14 +7,32 @@
 	"routes": [{
 		"source": "^/vehiclecatalogue/(.*)$",
 		"target": "$1",
-		"localDir": "webapp"
+		"localDir": "webapp",
+		"scope": [
+			"$XSAPPNAME.Manage_VOAS_Guides",
+			"$XSAPPNAME.View_VOAS_Guides_Dealer_Net",
+			"$XSAPPNAME.View_VOAS_Guides_MSRP",
+			"$XSAPPNAME.View_VOAS_Guides_Unreleased"
+		]
 	}, {
 		"source": "/node(.*)",
 		"destination": "vehiclecatalogue-node",
-		"csrfProtection": false
+		"csrfProtection": false,
+		"scope": [
+			"$XSAPPNAME.Manage_VOAS_Guides",
+			"$XSAPPNAME.View_VOAS_Guides_Dealer_Net",
+			"$XSAPPNAME.View_VOAS_Guides_MSRP",
+			"$XSAPPNAME.View_VOAS_Guides_Unreleased"
+		]
 	}, {
 		"source": "/userDetails(.*)",
 		"destination": "vehiclecatalogue-node",
-		"csrfProtection": false
+		"csrfProtection": false,
+		"scope": [
+			"$XSAPPNAME.Manage_VOAS_Guides",
+			"$XSAPPNAME.View_VOAS_Guides_Dealer_Net",
+			"$XSAPPNAME.View_VOAS_Guides_MSRP",
+			"$XSAPPNAME.View_VOAS_Guides_Unreleased"
+		]
 	}]
 }
