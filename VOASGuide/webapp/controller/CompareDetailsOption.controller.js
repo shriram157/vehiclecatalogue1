@@ -2157,6 +2157,19 @@ sap.ui.define([
 
 			var parsePathArg = JSON.parse(parseArg[0].pathVeh);
 			var len = parsePathArg.length;
+				if (brandCBVal == "TOYOTA") {
+				
+				var disclaimerT= CDO_controller.getView().getModel("i18n").getResourceBundle().getText("Toyota_Disclaimer");
+			CDO_controller.getView().byId("tACompareDisclaimer").setValue(disclaimerT);
+				
+				
+				
+
+			} else {
+				
+			var disclaimerL= CDO_controller.getView().getModel("i18n").getResourceBundle().getText("Lexus_Disclaimer");
+			CDO_controller.getView().byId("tACompareDisclaimer").setValue(disclaimerL);
+			}
 			if (len == 2) {
 				this.getView().byId("idTbl_compare2vehicles").setVisible(true);
 				this.getView().byId("idTbl_compare3vehicles").setVisible(false);

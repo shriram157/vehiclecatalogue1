@@ -1,10 +1,7 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="com.sap.build.toyota-canada.vehiclesGuideV3.controller.CompareDetailsOption"
-	xmlns:uxap="sap.uxap" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:t="sap.ui.table">
-	<uxap:ObjectPageLayout showTitleInHeaderContent="false" showHeaderContent="true" showEditHeaderButton="false" showFooter="false"
-		class="sapUiSizeCompact">
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:uxap="sap.uxap" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:t="sap.ui.table" controllerName="com.sap.build.toyota-canada.vehiclesGuideV3.controller.CompareDetailsOption">
+	<uxap:ObjectPageLayout showTitleInHeaderContent="false" showHeaderContent="true" showEditHeaderButton="false" showFooter="true" class="sapUiSizeCompact">
 		<uxap:headerTitle>
-			<uxap:ObjectPageHeader objectTitle="{modelArg>/moYear} {modelArg>/brand} {modelArg>/series} - {i18n>Compare}" objectSubtitle=""
-				isObjectIconAlwaysVisible="false" isObjectTitleAlwaysVisible="true" isObjectSubtitleAlwaysVisible="true" showPlaceholder="true">
+			<uxap:ObjectPageHeader objectTitle="{modelArg>/moYear} {modelArg&gt;/brand} {modelArg>/series} - {i18n>Compare}" objectSubtitle="" isObjectIconAlwaysVisible="false" isObjectTitleAlwaysVisible="true" isObjectSubtitleAlwaysVisible="true" showPlaceholder="true">
 				<!--objectImageURI="/build/uilibraries/content/static/image-canvas.svg"-->
 				<uxap:navigationBar>
 					<Bar>
@@ -19,13 +16,10 @@
 				</uxap:navigationBar>
 				<uxap:actions>
 					<Button text="{i18n>VehicleGuide}" icon="sap-icon://pdf-attachment" iconFirst="true" type="Default" enabled="true" press="_onCreateVehGuide"/>
-					<Button text="{i18n>WhatsNewGuide}" icon="sap-icon://pdf-attachment" iconFirst="true" type="Default" enabled="true"
-						press="_onCreateWhatsNew"/>
+					<Button text="{i18n>WhatsNewGuide}" icon="sap-icon://pdf-attachment" iconFirst="true" type="Default" enabled="true" press="_onCreateWhatsNew"/>
 					<Button text="{i18n>WalkUpGuide}" icon="sap-icon://pdf-attachment" iconFirst="true" type="Default" enabled="true" press="_onCreateWalkUp"/>
-					<Button text="{i18n>Supplemental}" icon="sap-icon://pdf-attachment" iconFirst="true" type="Default" enabled="true"
-						press="_onCreateSupplemental"/>
-					<Button text="{i18n>PocketSummary}" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true" enabled="true" visible="true"
-						iconDensityAware="false" press="_onCreatePocSum"/>
+					<Button text="{i18n>Supplemental}" icon="sap-icon://pdf-attachment" iconFirst="true" type="Default" enabled="true" press="_onCreateSupplemental"/>
+					<Button text="{i18n>PocketSummary}" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true" enabled="true" visible="true" iconDensityAware="false" press="_onCreatePocSum"/>
 				</uxap:actions>
 				<uxap:breadCrumbsLinks/>
 			</uxap:ObjectPageHeader>
@@ -52,10 +46,8 @@
 									<!--<Text text=""/>-->
 									<HBox>
 										<items>
-											<Label text="{i18n>IncludeCommonFeatures}" design="Standard" required="false" textAlign="Left" textDirection="Inherit" visible="true"
-												class="sapUiTinyMargin" wrapping="true"/>
-											<Switch id="stdFeatSwitchId2" change="onSwitchstateChange" state="false" customTextOff="{i18n>on}" customTextOn="{i18n>off}" type="Default"
-												enabled="true" visible="true" class="sapUiTinyMargin"/>
+											<Label text="{i18n>IncludeCommonFeatures}" design="Standard" required="false" textAlign="Left" textDirection="Inherit" visible="true" class="sapUiTinyMargin" wrapping="true"/>
+											<Switch id="stdFeatSwitchId2" change="onSwitchstateChange" state="false" customTextOff="{i18n>on}" customTextOn="{i18n>off}" type="Default" enabled="true" visible="true" class="sapUiTinyMargin"/>
 										</items>
 									</HBox>
 								</header>
@@ -70,11 +62,9 @@
 									<VBox class="vbox_textAlign1">
 										<items>
 											<Title text="{compareModel>/0/ENModelDesc} - ({compareModel>/0/Model}) - SFX {compareModel>/0/Suffix}" wrapping="true"/>
-											<Text text="{i18n>Model}: {compareModel>/0/ENModelDesc}" wrapping="true"></Text>
-											<Text
-												text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/0/MSRP'},{path:'compareModel>/0/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
-											<Text
-												text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/0/NETPRICE'},{path:'compareModel>/0/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+											<Text text="{i18n>Model}: {compareModel>/0/ENModelDesc}" wrapping="true"/>
+											<Text text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/0/MSRP'},{path:'compareModel&gt;/0/MSRP'}] , formatter: 'formatter.decimalFormatter'}"/>
+											<Text text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/0/NETPRICE'},{path:'compareModel&gt;/0/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"/>
 										</items>
 									</VBox>
 								</header>
@@ -84,18 +74,16 @@
 									<VBox class="vbox_textAlign1">
 										<items>
 											<Title text="{compareModel>/1/ENModelDesc} - ({compareModel>/1/Model}) - SFX {compareModel>/1/Suffix}" wrapping="true"/>
-											<Text text="{i18n>Model}: {compareModel>/1/ENModelDesc}" wrapping="true"></Text>
-											<Text
-												text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/1/MSRP'},{path:'compareModel>/1/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
-											<Text
-												text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/1/NETPRICE'},{path:'compareModel>/1/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+											<Text text="{i18n>Model}: {compareModel>/1/ENModelDesc}" wrapping="true"/>
+											<Text text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/1/MSRP'},{path:'compareModel&gt;/1/MSRP'}] , formatter: 'formatter.decimalFormatter'}"/>
+											<Text text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/1/NETPRICE'},{path:'compareModel&gt;/1/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"/>
 										</items>
 									</VBox>
 								</header>
 							</Column>
 						</columns>
 						<ColumnListItem visible="false">
-							<cells></cells>
+							<cells/>
 						</ColumnListItem>
 					</Table>
 					<Table id="idTbl_compare3vehicles" visible="false" width="100%">
@@ -104,10 +92,8 @@
 								<header>
 									<HBox>
 										<items>
-											<Label text="{i18n>IncludeCommonFeatures}" design="Standard" required="false" textAlign="Left" textDirection="Inherit" visible="true"
-												class="sapUiTinyMargin" wrapping="true"/>
-											<Switch id="stdFeatSwitchId3" change="onSwitchstateChange" state="false" customTextOff="{i18n>on}" customTextOn="{i18n>off}" type="Default"
-												enabled="true" visible="true" class="sapUiTinyMargin"/>
+											<Label text="{i18n>IncludeCommonFeatures}" design="Standard" required="false" textAlign="Left" textDirection="Inherit" visible="true" class="sapUiTinyMargin" wrapping="true"/>
+											<Switch id="stdFeatSwitchId3" change="onSwitchstateChange" state="false" customTextOff="{i18n>on}" customTextOn="{i18n>off}" type="Default" enabled="true" visible="true" class="sapUiTinyMargin"/>
 										</items>
 									</HBox>
 								</header>
@@ -122,11 +108,9 @@
 									<VBox class="vbox_textAlign1">
 										<items>
 											<Title text="{compareModel>/0/ENModelDesc} - ({compareModel>/0/Model}) - SFX {compareModel>/0/Suffix}" wrapping="true"/>
-											<Text text="{i18n>Model}: {compareModel>/0/ENModelDesc}" wrapping="true"></Text>
-											<Text
-												text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/0/MSRP'},{path:'compareModel>/0/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
-											<Text
-												text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/0/NETPRICE'},{path:'compareModel>/0/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+											<Text text="{i18n>Model}: {compareModel>/0/ENModelDesc}" wrapping="true"/>
+											<Text text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/0/MSRP'},{path:'compareModel&gt;/0/MSRP'}] , formatter: 'formatter.decimalFormatter'}"/>
+											<Text text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/0/NETPRICE'},{path:'compareModel&gt;/0/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"/>
 										</items>
 									</VBox>
 								</header>
@@ -136,11 +120,9 @@
 									<VBox class="vbox_textAlign1">
 										<items>
 											<Title text="{compareModel>/1/ENModelDesc} - ({compareModel>/1/Model}) - SFX {compareModel>/1/Suffix}" wrapping="true"/>
-											<Text text="{i18n>Model}: {compareModel>/1/ENModelDesc}" wrapping="true"></Text>
-											<Text
-												text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/1/MSRP'},{path:'compareModel>/1/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
-											<Text
-												text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/1/NETPRICE'},{path:'compareModel>/1/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+											<Text text="{i18n>Model}: {compareModel>/1/ENModelDesc}" wrapping="true"/>
+											<Text text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/1/MSRP'},{path:'compareModel&gt;/1/MSRP'}] , formatter: 'formatter.decimalFormatter'}"/>
+											<Text text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/1/NETPRICE'},{path:'compareModel&gt;/1/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"/>
 										</items>
 									</VBox>
 								</header>
@@ -150,18 +132,16 @@
 									<VBox class="vbox_textAlign1">
 										<items>
 											<Title text="{compareModel>/2/ENModelDesc} - ({compareModel>/2/Model}) - SFX {compareModel>/2/Suffix}" wrapping="true"/>
-											<Text text="{i18n>Model}: {compareModel>/2/ENModelDesc}" wrapping="true"></Text>
-											<Text
-												text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/2/MSRP'},{path:'compareModel>/2/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
-											<Text
-												text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/2/NETPRICE'},{path:'compareModel>/2/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+											<Text text="{i18n>Model}: {compareModel>/2/ENModelDesc}" wrapping="true"/>
+											<Text text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/2/MSRP'},{path:'compareModel&gt;/2/MSRP'}] , formatter: 'formatter.decimalFormatter'}"/>
+											<Text text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/2/NETPRICE'},{path:'compareModel&gt;/2/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"/>
 										</items>
 									</VBox>
 								</header>
 							</Column>
 						</columns>
 						<ColumnListItem type="Navigation" visible="false">
-							<cells></cells>
+							<cells/>
 						</ColumnListItem>
 					</Table>
 					<Table id="idTbl_compare4vehicles" visible="false" width="100%">
@@ -170,10 +150,8 @@
 								<header>
 									<HBox>
 										<items>
-											<Label text="{i18n>IncludeCommonFeatures}" design="Standard" required="false" textAlign="Left" textDirection="Inherit" visible="true"
-												class="sapUiTinyMargin" wrapping="true"/>
-											<Switch id="stdFeatSwitchId4" change="onSwitchstateChange" state="false" customTextOff="{i18n>on}" customTextOn="{i18n>off}" type="Default"
-												enabled="true" visible="true" class="sapUiTinyMargin"/>
+											<Label text="{i18n>IncludeCommonFeatures}" design="Standard" required="false" textAlign="Left" textDirection="Inherit" visible="true" class="sapUiTinyMargin" wrapping="true"/>
+											<Switch id="stdFeatSwitchId4" change="onSwitchstateChange" state="false" customTextOff="{i18n>on}" customTextOn="{i18n>off}" type="Default" enabled="true" visible="true" class="sapUiTinyMargin"/>
 										</items>
 									</HBox>
 								</header>
@@ -188,11 +166,9 @@
 									<VBox class="vbox_textAlign1">
 										<items>
 											<Title text="{compareModel>/0/ENModelDesc} - ({compareModel>/0/Model}) - SFX {compareModel>/0/Suffix}" wrapping="true"/>
-											<Text text="{i18n>Model}: {compareModel>/0/ENModelDesc}" wrapping="true"></Text>
-											<Text
-												text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/0/MSRP'},{path:'compareModel>/0/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
-											<Text
-												text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/0/NETPRICE'},{path:'compareModel>/0/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+											<Text text="{i18n>Model}: {compareModel>/0/ENModelDesc}" wrapping="true"/>
+											<Text text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/0/MSRP'},{path:'compareModel&gt;/0/MSRP'}] , formatter: 'formatter.decimalFormatter'}"/>
+											<Text text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/0/NETPRICE'},{path:'compareModel&gt;/0/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"/>
 										</items>
 									</VBox>
 								</header>
@@ -202,11 +178,9 @@
 									<VBox class="vbox_textAlign1">
 										<items>
 											<Title text="{compareModel>/1/ENModelDesc} - ({compareModel>/1/Model}) - SFX {compareModel>/1/Suffix}" wrapping="true"/>
-											<Text text="{i18n>Model}: {compareModel>/1/ENModelDesc}" wrapping="true"></Text>
-											<Text
-												text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/1/MSRP'},{path:'compareModel>/1/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
-											<Text
-												text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/1/NETPRICE'},{path:'compareModel>/1/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+											<Text text="{i18n>Model}: {compareModel>/1/ENModelDesc}" wrapping="true"/>
+											<Text text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/1/MSRP'},{path:'compareModel&gt;/1/MSRP'}] , formatter: 'formatter.decimalFormatter'}"/>
+											<Text text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/1/NETPRICE'},{path:'compareModel&gt;/1/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"/>
 										</items>
 									</VBox>
 								</header>
@@ -216,11 +190,9 @@
 									<VBox class="vbox_textAlign1">
 										<items>
 											<Title text="{compareModel>/2/ENModelDesc} - ({compareModel>/2/Model}) - SFX {compareModel>/2/Suffix}" wrapping="true"/>
-											<Text text="{i18n>Model}: {compareModel>/2/ENModelDesc}" wrapping="true"></Text>
-											<Text
-												text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/2/MSRP'},{path:'compareModel>/2/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
-											<Text
-												text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/2/NETPRICE'},{path:'compareModel>/2/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+											<Text text="{i18n>Model}: {compareModel>/2/ENModelDesc}" wrapping="true"/>
+											<Text text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/2/MSRP'},{path:'compareModel&gt;/2/MSRP'}] , formatter: 'formatter.decimalFormatter'}"/>
+											<Text text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/2/NETPRICE'},{path:'compareModel&gt;/2/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"/>
 										</items>
 									</VBox>
 								</header>
@@ -230,18 +202,16 @@
 									<VBox class="vbox_textAlign1">
 										<items>
 											<Title text="{compareModel>/3/ENModelDesc} - ({compareModel>/3/Model}) - SFX {compareModel>/3/Suffix}" wrapping="true"/>
-											<Text text="{i18n>Model}: {compareModel>/3/ENModelDesc}" wrapping="true"></Text>
-											<Text
-												text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/3/MSRP'},{path:'compareModel>/3/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
-											<Text
-												text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/3/NETPRICE'},{path:'compareModel>/3/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+											<Text text="{i18n>Model}: {compareModel>/3/ENModelDesc}" wrapping="true"/>
+											<Text text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/3/MSRP'},{path:'compareModel&gt;/3/MSRP'}] , formatter: 'formatter.decimalFormatter'}"/>
+											<Text text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/3/NETPRICE'},{path:'compareModel&gt;/3/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"/>
 										</items>
 									</VBox>
 								</header>
 							</Column>
 						</columns>
 						<ColumnListItem type="Navigation" visible="false">
-							<cells></cells>
+							<cells/>
 						</ColumnListItem>
 					</Table>
 					<Table id="idTbl_compare5vehicles" visible="false" width="100%">
@@ -250,10 +220,8 @@
 								<header>
 									<HBox>
 										<items>
-											<Label text="{i18n>IncludeCommonFeatures}" design="Standard" required="false" textAlign="Left" textDirection="Inherit" visible="true"
-												class="sapUiTinyMargin" wrapping="true"/>
-											<Switch id="stdFeatSwitchId5" change="onSwitchstateChange" state="false" customTextOff="{i18n>on}" customTextOn="{i18n>off}" type="Default"
-												enabled="true" visible="true" class="sapUiTinyMargin"/>
+											<Label text="{i18n>IncludeCommonFeatures}" design="Standard" required="false" textAlign="Left" textDirection="Inherit" visible="true" class="sapUiTinyMargin" wrapping="true"/>
+											<Switch id="stdFeatSwitchId5" change="onSwitchstateChange" state="false" customTextOff="{i18n>on}" customTextOn="{i18n>off}" type="Default" enabled="true" visible="true" class="sapUiTinyMargin"/>
 										</items>
 									</HBox>
 								</header>
@@ -268,11 +236,9 @@
 									<VBox class="vbox_textAlign1">
 										<items>
 											<Title text="{compareModel>/0/ENModelDesc} - ({compareModel>/0/Model}) - SFX {compareModel>/0/Suffix}" wrapping="true"/>
-											<Text text="{i18n>Model}: {compareModel>/0/ENModelDesc}" wrapping="true"></Text>
-											<Text
-												text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/0/MSRP'},{path:'compareModel>/0/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
-											<Text
-												text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/0/NETPRICE'},{path:'compareModel>/0/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+											<Text text="{i18n>Model}: {compareModel>/0/ENModelDesc}" wrapping="true"/>
+											<Text text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/0/MSRP'},{path:'compareModel&gt;/0/MSRP'}] , formatter: 'formatter.decimalFormatter'}"/>
+											<Text text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/0/NETPRICE'},{path:'compareModel&gt;/0/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"/>
 										</items>
 									</VBox>
 								</header>
@@ -282,11 +248,9 @@
 									<VBox class="vbox_textAlign1">
 										<items>
 											<Title text="{compareModel>/1/ENModelDesc} - ({compareModel>/1/Model}) - SFX {compareModel>/1/Suffix}" wrapping="true"/>
-											<Text text="{i18n>Model}: {compareModel>/1/ENModelDesc}" wrapping="true"></Text>
-											<Text
-												text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/1/MSRP'},{path:'compareModel>/1/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
-											<Text
-												text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/1/NETPRICE'},{path:'compareModel>/1/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+											<Text text="{i18n>Model}: {compareModel>/1/ENModelDesc}" wrapping="true"/>
+											<Text text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/1/MSRP'},{path:'compareModel&gt;/1/MSRP'}] , formatter: 'formatter.decimalFormatter'}"/>
+											<Text text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/1/NETPRICE'},{path:'compareModel&gt;/1/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"/>
 										</items>
 									</VBox>
 								</header>
@@ -296,11 +260,9 @@
 									<VBox class="vbox_textAlign1">
 										<items>
 											<Title text="{compareModel>/2/ENModelDesc} - ({compareModel>/2/Model}) - SFX {compareModel>/2/Suffix}" wrapping="true"/>
-											<Text text="{i18n>Model}: {compareModel>/2/ENModelDesc}" wrapping="true"></Text>
-											<Text
-												text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/2/MSRP'},{path:'compareModel>/2/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
-											<Text
-												text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/2/NETPRICE'},{path:'compareModel>/2/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+											<Text text="{i18n>Model}: {compareModel>/2/ENModelDesc}" wrapping="true"/>
+											<Text text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/2/MSRP'},{path:'compareModel&gt;/2/MSRP'}] , formatter: 'formatter.decimalFormatter'}"/>
+											<Text text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/2/NETPRICE'},{path:'compareModel&gt;/2/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"/>
 										</items>
 									</VBox>
 								</header>
@@ -310,11 +272,9 @@
 									<VBox class="vbox_textAlign1">
 										<items>
 											<Title text="{compareModel>/3/ENModelDesc} - ({compareModel>/3/Model}) - SFX {compareModel>/3/Suffix}" wrapping="true"/>
-											<Text text="{i18n>Model}: {compareModel>/3/ENModelDesc}" wrapping="true"></Text>
-											<Text
-												text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/3/MSRP'},{path:'compareModel>/3/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
-											<Text
-												text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/3/NETPRICE'},{path:'compareModel>/3/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+											<Text text="{i18n>Model}: {compareModel>/3/ENModelDesc}" wrapping="true"/>
+											<Text text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/3/MSRP'},{path:'compareModel&gt;/3/MSRP'}] , formatter: 'formatter.decimalFormatter'}"/>
+											<Text text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/3/NETPRICE'},{path:'compareModel&gt;/3/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"/>
 										</items>
 									</VBox>
 								</header>
@@ -324,18 +284,16 @@
 									<VBox class="vbox_textAlign1">
 										<items>
 											<Title text="{compareModel>/4/ENModelDesc} - ({compareModel>/4/Model}) - SFX {compareModel>/4/Suffix}" wrapping="true"/>
-											<Text text="{i18n>Model}: {compareModel>/4/ENModelDesc}" wrapping="true"></Text>
-											<Text
-												text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/4/MSRP'},{path:'compareModel>/4/MSRP'}] , formatter: 'formatter.decimalFormatter'}"></Text>
-											<Text
-												text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/4/NETPRICE'},{path:'compareModel>/4/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"></Text>
+											<Text text="{i18n>Model}: {compareModel>/4/ENModelDesc}" wrapping="true"/>
+											<Text text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/4/MSRP'},{path:'compareModel&gt;/4/MSRP'}] , formatter: 'formatter.decimalFormatter'}"/>
+											<Text text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/4/NETPRICE'},{path:'compareModel&gt;/4/NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"/>
 										</items>
 									</VBox>
 								</header>
 							</Column>
 						</columns>
 						<ColumnListItem type="Navigation" visible="false">
-							<cells></cells>
+							<cells/>
 						</ColumnListItem>
 					</Table>
 				</items>
@@ -350,7 +308,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>Powertrain}">
 						<uxap:blocks>
-							<Table id="pwrTrn" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"></Table>
+							<Table id="pwrTrn" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -359,7 +317,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>Safety}">
 						<uxap:blocks>
-							<Table id="tblSafety" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"></Table>
+							<Table id="tblSafety" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -368,7 +326,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>Exterior}">
 						<uxap:blocks>
-							<Table id="tblExterior" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None" class="tableCol1"></Table>
+							<Table id="tblExterior" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None" class="tableCol1"/>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -379,7 +337,7 @@
 						<uxap:blocks>
 							<!--<VBox>
 								<Title text="{i18n>INTERIOR}" class="textDecor"></Title>-->
-								<Table id="tblInterior" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None" class="tableCol1"></Table>
+								<Table id="tblInterior" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None" class="tableCol1"/>
 							<!--</VBox>-->
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
@@ -392,7 +350,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>Infotainment}">
 						<uxap:blocks>
-							<Table id="tblInfotainment" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"></Table>
+							<Table id="tblInfotainment" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -401,7 +359,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>DimensionsSpecs}">
 						<uxap:blocks>
-							<Table id="tblDimensions" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"></Table>
+							<Table id="tblDimensions" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -410,7 +368,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>ColorOptions}">
 						<uxap:blocks>
-							<Table id="tblColorOptions" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"></Table>
+							<Table id="tblColorOptions" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -420,8 +378,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>OptionPackages}">
 						<uxap:blocks>
-							<Table id="tblOptionPackStat" items="{path:'tblModelOpt>/', templateShareable:true}" width="100%" growing="false" growingScrollToLoad="true"
-								growingThreshold="30" mode="None">
+							<Table id="tblOptionPackStat" items="{path:'tblModelOpt>/', templateShareable:true}" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None">
 								<columns>
 									<Column minScreenWidth="Phone">
 										<header>
@@ -442,12 +399,9 @@
 								<items>
 									<ColumnListItem>
 										<cells>
-											<ObjectIdentifier title="{tblModelOpt>Vehicle1}"
-												text="{parts: [{path:'tblModelOpt>NETPRICE'},{path:'tblModelOpt>MSRP'},{path:'tblModelOpt>Language'}] , formatter: 'formatter.decimalFormatterDealerMSRP'}"/>
-											<ObjectIdentifier
-												text="{parts: [{path:'tblModelOpt>OptionPackages'},{path:'tblModelOpt>OptionPackages'}] , formatter: 'formatter.formatOptPack'}"/>
-											<ObjectIdentifier
-												text="{parts: [{path:'tblModelOpt>OptionPackages1'},{path:'tblModelOpt>OptionPackages1'}] , formatter: 'formatter.formatOptPack'}"/>
+											<ObjectIdentifier title="{tblModelOpt>Vehicle1}" text="{parts: [{path:'tblModelOpt>NETPRICE'},{path:'tblModelOpt&gt;MSRP'},{path:'tblModelOpt>Language'}] , formatter: 'formatter.decimalFormatterDealerMSRP'}"/>
+											<ObjectIdentifier text="{parts: [{path:'tblModelOpt>OptionPackages'},{path:'tblModelOpt&gt;OptionPackages'}] , formatter: 'formatter.formatOptPack'}"/>
+											<ObjectIdentifier text="{parts: [{path:'tblModelOpt>OptionPackages1'},{path:'tblModelOpt&gt;OptionPackages1'}] , formatter: 'formatter.formatOptPack'}"/>
 										</cells>
 									</ColumnListItem>
 								</items>
@@ -461,13 +415,21 @@
 					<uxap:ObjectPageSubSection title="{i18n>APX}">
 						<uxap:blocks>
 							<VBox>
-								<Table id="tblAPX1" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"></Table>
-								<Table id="tblAPX" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"></Table>
+								<Table id="tblAPX1" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
+								<Table id="tblAPX" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
 							</VBox>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
 			</uxap:ObjectPageSection>
 		</uxap:sections>
+			<uxap:footer>
+	    <Bar id="bar1" enableFlexBox="true">
+	        <contentMiddle>
+	            <!--<TextArea xmlns="sap.m" value="Lorem ipsum dolor" rows="4" id="area0_1551515388569"/>-->
+	            <TextArea xmlns="sap.m" value="* CONFIDENTIALITY NOTICE -This document is intended for Lexus employees and Lexus Dealer staff only.   Redistribution in any form is not permitted without express written authorization from the Lexus Division of Toyota Canada Inc.  **Every effort has been made to ensure the specifications and equipment shown are accurate based on information available at time of printing. The Owner’s Manual remains the most accurate source of technical specification on our vehicles. Lexus reserves the right to make necessary changes without notice or obligation." rows="10" id="tACompareDisclaimer" cols="500" height="100%"/>
+	        </contentMiddle>
+	    </Bar>
+	</uxap:footer>
 	</uxap:ObjectPageLayout>
 </mvc:View>

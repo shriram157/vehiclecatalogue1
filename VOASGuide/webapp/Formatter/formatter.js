@@ -162,7 +162,7 @@ var formatter = {
 			if (returnVal == 0.00 && returnVal2 == 0) {
 				return "DealerNet:  MSRP:";
 			} else {
-				return "DealerNet:  MSRP:";
+				return "Dealer Net: $" + commaVal + "MSRP: $" + commaVal2;
 			}
 		}
 		//	return returnString;

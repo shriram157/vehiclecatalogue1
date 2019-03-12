@@ -123,8 +123,18 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			DetailController.getView().setModel(modelDetail, "modelDetail");
 			if (brandCB == "TOYOTA") {
 				sap.ui.getCore().byId("__xmlview0--idLogo").setSrc("images/Toyota.png");
+				var disclaimerT= DetailController.getView().getModel("i18n").getResourceBundle().getText("Toyota_Disclaimer");
+			DetailController.getView().byId("tADetailDisclaimer").setValue(disclaimerT);
+				
+				
+				
+
 			} else {
 				sap.ui.getCore().byId("__xmlview0--idLogo").setSrc("images/Lexus.png");
+			
+				
+			var disclaimerL= DetailController.getView().getModel("i18n").getResourceBundle().getText("Lexus_Disclaimer");
+			DetailController.getView().byId("tADetailDisclaimer").setValue(disclaimerL);
 			}
 			DetailController.user = parseArg[0].user; //DetailController.getLoggedUser();
 
@@ -170,7 +180,6 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			emptydata.push(fixedData);
 			emptydata.push(fixedData);
 			emptydata.push(fixedData);
-		
 
 			if (DetailController.getView().getModel("TblModel")) {
 				var dat = DetailController.getView().getModel("TblModel").getData();

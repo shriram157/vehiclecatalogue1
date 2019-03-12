@@ -1,10 +1,7 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="com.sap.build.toyota-canada.vehiclesGuideV3.controller.DetailsOption"
-	xmlns:uxap="sap.uxap" xmlns="sap.m" xmlns:core="sap.ui.core">
-	<uxap:ObjectPageLayout showTitleInHeaderContent="false" showHeaderContent="true" showEditHeaderButton="false" showFooter="false"
-		class="sapUiSizeCompact">
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:uxap="sap.uxap" xmlns="sap.m" xmlns:core="sap.ui.core" controllerName="com.sap.build.toyota-canada.vehiclesGuideV3.controller.DetailsOption">
+	<uxap:ObjectPageLayout showTitleInHeaderContent="false" showHeaderContent="true" showEditHeaderButton="false" showFooter="true" class="sapUiSizeCompact">
 		<uxap:headerTitle>
-			<uxap:ObjectPageHeader objectTitle="{modelDetail>/moYear} {modelDetail>/brand} {modelDetail>/series} - {i18n>SeeAllFeatures}"
-				isObjectIconAlwaysVisible="false" isObjectTitleAlwaysVisible="true" isObjectSubtitleAlwaysVisible="true" showPlaceholder="true">
+			<uxap:ObjectPageHeader objectTitle="{modelDetail>/moYear} {modelDetail&gt;/brand} {modelDetail>/series} - {i18n>SeeAllFeatures}" isObjectIconAlwaysVisible="false" isObjectTitleAlwaysVisible="true" isObjectSubtitleAlwaysVisible="true" showPlaceholder="true">
 				<!--objectImageURI="/build/uilibraries/content/static/image-canvas.svg"-->
 				<uxap:navigationBar>
 					<Bar>
@@ -18,18 +15,12 @@
 					</Bar>
 				</uxap:navigationBar>
 				<uxap:actions> <!--	press="_onFioriObjectPageActionButtonPress"-->
-					<Button text="{i18n>VehicleGuide}" icon="sap-icon://pdf-attachment" iconFirst="true" type="Default" enabled="true"
-						press="_onCreateVehGuide"/>
-					<Button text="{i18n>WhatsNewGuide}" icon="sap-icon://pdf-attachment" iconFirst="true" type="Default" enabled="true"
-						press="_onCreateWhatsNew"/>
-					<Button text="{i18n>WalkUpGuide}" icon="sap-icon://pdf-attachment" iconFirst="true" type="Default" enabled="true"
-						press="_onCreateWalkUp"/>
-					<Button text="{i18n>Supplemental}" icon="sap-icon://pdf-attachment" iconFirst="true" type="Default" enabled="true"
-						press="_onCreateSupplemental"/>
-					<Button text="{i18n>PocketSummary}" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true" enabled="true" visible="true"
-						iconDensityAware="false" press="_onCreatePocSum"/>
-					<Button text="{i18n>ManageSeries}" icon="sap-icon://edit" iconFirst="true" type="Transparent" enabled="false" id="manageSeriesBtnId"
-						press="manageSeries"/>
+					<Button text="{i18n>VehicleGuide}" icon="sap-icon://pdf-attachment" iconFirst="true" type="Default" enabled="true" press="_onCreateVehGuide"/>
+					<Button text="{i18n>WhatsNewGuide}" icon="sap-icon://pdf-attachment" iconFirst="true" type="Default" enabled="true" press="_onCreateWhatsNew"/>
+					<Button text="{i18n>WalkUpGuide}" icon="sap-icon://pdf-attachment" iconFirst="true" type="Default" enabled="true" press="_onCreateWalkUp"/>
+					<Button text="{i18n>Supplemental}" icon="sap-icon://pdf-attachment" iconFirst="true" type="Default" enabled="true" press="_onCreateSupplemental"/>
+					<Button text="{i18n>PocketSummary}" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true" enabled="true" visible="true" iconDensityAware="false" press="_onCreatePocSum"/>
+					<Button text="{i18n>ManageSeries}" icon="sap-icon://edit" iconFirst="true" type="Transparent" enabled="false" id="manageSeriesBtnId" press="manageSeries"/>
 				</uxap:actions>
 				<uxap:breadCrumbsLinks/>
 			</uxap:ObjectPageHeader>
@@ -54,8 +45,8 @@
 									<!--<Label text="MSRP"/>
 							<Label text=":" class="sapUiTinyMarginEnd"/>
 							<ObjectStatus text="{modelDetail>/msrp} "/>-->
-									<Label text="{i18n>MSRPWithoutDoll}"></Label>
-									<ObjectStatus text="{parts: [{path:'modelDetail>/msrp'},{path:'modelDetail>/msrp'}] , formatter: 'formatter.decimalFormatter'}"/>
+									<Label text="{i18n>MSRPWithoutDoll}"/>
+									<ObjectStatus text="{parts: [{path:'modelDetail>/msrp'},{path:'modelDetail&gt;/msrp'}] , formatter: 'formatter.decimalFormatter'}"/>
 								</items>
 							</HBox>
 							<HBox>
@@ -63,8 +54,8 @@
 									<!--<Label text="Dealer Net"/>
 									<Label text=":" class="sapUiTinyMarginEnd"/>
 									<ObjectStatus text="{modelDetail>/dealerNet}"/>-->
-										<Label text="{i18n>DealerNetWithoutDoll}"></Label>
-									<ObjectStatus text="{parts: [{path:'modelDetail>/dealerNet'},{path:'modelDetail>/dealerNet'}] , formatter: 'formatter.decimalFormatterDealer'}"/>
+										<Label text="{i18n>DealerNetWithoutDoll}"/>
+									<ObjectStatus text="{parts: [{path:'modelDetail>/dealerNet'},{path:'modelDetail&gt;/dealerNet'}] , formatter: 'formatter.decimalFormatterDealer'}"/>
 								</items>
 							</HBox>
 						</items>
@@ -77,7 +68,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>Powertrain}">
 						<uxap:blocks>
-							<Table id="DetailtblpwrTrn" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"></Table>
+							<Table id="DetailtblpwrTrn" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -86,7 +77,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>Safety}">
 						<uxap:blocks>
-							<Table id="DetailtblSafety" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"></Table>
+							<Table id="DetailtblSafety" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -95,7 +86,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>Exterior}">
 						<uxap:blocks>
-							<Table id="DetailtblExterior" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"></Table>
+							<Table id="DetailtblExterior" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -104,7 +95,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>Interior}">
 						<uxap:blocks>
-							<Table id="DetailtblInterior" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"></Table>
+							<Table id="DetailtblInterior" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -116,7 +107,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>Infotainment}">
 						<uxap:blocks>
-							<Table id="DetailtblInfotainment" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"></Table>
+							<Table id="DetailtblInfotainment" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -125,7 +116,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>DimensionsSpecs}">
 						<uxap:blocks>
-							<Table id="DetailtblDimensions" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"></Table>
+							<Table id="DetailtblDimensions" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -134,7 +125,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>ColorOptions}">
 						<uxap:blocks>
-							<Table id="DetailtblColorOptions" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"></Table>
+							<Table id="DetailtblColorOptions" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -144,7 +135,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>OptionPackages}">
 						<uxap:blocks>
-							<Table id="DetailtblOptionPack" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"></Table>
+							<Table id="DetailtblOptionPack" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -154,8 +145,8 @@
 					<uxap:ObjectPageSubSection title="{i18n>APX}">
 						<uxap:blocks>
 							<VBox>
-								<Table id="DetailtblAPX1" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"></Table>
-							<Table id="DetailtblAPX" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"></Table>
+								<Table id="DetailtblAPX1" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
+							<Table id="DetailtblAPX" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
 							</VBox>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
@@ -171,5 +162,12 @@
 				</content>
 			</OverflowToolbar>
 		</uxap:footer>-->
+	<uxap:footer>
+	    <Bar id="bar1" enableFlexBox="true">
+	        <contentMiddle>
+	            <TextArea xmlns="sap.m" value=" * CONFIDENTIALITY NOTICE -This document is intended for Lexus employees and Lexus Dealer staff only.   Redistribution in any form is not permitted without express written authorization from the Lexus Division of Toyota Canada Inc.  **Every effort has been made to ensure the specifications and equipment shown are accurate based on information available at time of printing. The Owner’s Manual remains the most accurate source of technical specification on our vehicles. Lexus reserves the right to make necessary changes without notice or obligation." rows="10" id="tADetailDisclaimer" cols="1000" height="100%"/>
+	        </contentMiddle>
+	    </Bar>
+	</uxap:footer>
 	</uxap:ObjectPageLayout>
 </mvc:View>

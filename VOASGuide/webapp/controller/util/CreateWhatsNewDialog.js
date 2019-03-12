@@ -346,6 +346,17 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					// console.log(data.d.results);
 
 					var pdfAsDataUri = "data:application/pdf;base64," + data;
+					// data.replace(/\s/g, '');
+				 //var byteCharacters = atob(data);
+     //   var byteNumbers = new Array(byteCharacters.length);
+     //   for (var i = 0; i < byteCharacters.length; i++) {
+     //       byteNumbers[i] = byteCharacters.charCodeAt(i);
+     //   }
+     //   var byteArray = new Uint8Array(byteNumbers);
+     //   var blob = new Blob([byteArray], {
+     //       type: 'application/pdf'
+     //   });
+     //   window.navigator.msSaveOrOpenBlob(blob, "IEExport.pdf");
 					var link1 = document.createElement('a');
 
 					link1.download = "export.pdf";

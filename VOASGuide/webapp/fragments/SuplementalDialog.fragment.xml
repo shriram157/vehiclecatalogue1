@@ -13,7 +13,7 @@
 									<Label text="" design="Standard" width="100%" required="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
 								</form:label>
 								<form:fields>
-									<u:FileUploader id="suppFileUploadId" name="myFileUpload" uploadUrl="upload/" tooltip="Upload your file to the server"
+									<u:FileUploader id="suppFileUploadId" name="myFileUpload" uploadUrl="upload/" mimeType="application/pdf" tooltip="Upload your file to the server"
 										uploadComplete="handleUploadComplete"/>
 								</form:fields>
 							</form:FormElement>
