@@ -9,7 +9,7 @@ modules:
    path: voasGuide_Node
    parameters:
       host: tci-dev-vehiclecatalogue-node
-      disk-quota: 256M
+      disk-quota: 512M
       memory: 256M
    properties:
       XS_APP_LOG_LEVEL: info
@@ -44,26 +44,25 @@ modules:
       group: destinations
       properties:
          name: vehiclecatalogue-node
+         url: ~{url}
          forwardAuthToken: true
          timeout: 60000
-         url: '~{url}'
 
 resources:
  - name: application-logs_vehiclecatalogue
+   type: org.cloudfoundry.managed-service
    parameters:
       service: application-logs
       service-plan: lite
-   type: org.cloudfoundry.managed-service
 
  - name: uaa_vehiclecatalogue
+   type: org.cloudfoundry.managed-service
    parameters:
-      path: ./xs-security.json
       service: xsuaa
       service-plan: application
-      service: xsuaa
-   type: org.cloudfoundry.managed-service
+      path: ./xs-security.json
 
  - name: VEHICLE_CATALOGUE_APIM_CUPS
+   type: org.cloudfoundry.existing-service
    parameters:
       service-name: VEHICLE_CATALOGUE_APIM_CUPS
-   type: org.cloudfoundry.existing-service
