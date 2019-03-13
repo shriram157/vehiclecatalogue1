@@ -94,7 +94,7 @@ sap.ui.define([
 			var langData, Language;
 			if (userAttributesModel) {
 				langData = userAttributesModel.getData();
-				Language = langData[0].Language[0];
+				Language = langData.Language[0];
 				if (Language == "English") {
 					var i18nModel = new sap.ui.model.resource.ResourceModel({
 						bundleUrl: "i18n/i18n.properties",

@@ -35,11 +35,11 @@ sap.ui.define([
 					"Division": "10", //20 lexus
 					"Attribute": "01"
 				}],
-				"samlAttributes": [{
+				"samlAttributes": {
 					"DealerCode": ["42120"],
 					"Language": ["English"],
 					"UserType": ["Dealer"]
-				}],
+				},
 				"legacyDealer": "42120",
 				"legacyDealerName": "Don Valley North Toyota"
 			};

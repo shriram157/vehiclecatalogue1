@@ -70,7 +70,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			//var langData;
 			//	if (userAttributesModel) {
 			/*langData = userAttributesModel.getData();
-			Language = langData[0].Language[0];
+			Language = langData.Language[0];
 			if (Language == "English") {
 				LanguageState = true;
 			} else {
