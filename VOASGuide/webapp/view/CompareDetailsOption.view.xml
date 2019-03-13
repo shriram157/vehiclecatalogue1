@@ -422,8 +422,8 @@
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
 			</uxap:ObjectPageSection>
-		</uxap:sections>
-			</uxap:ObjectPageSection>
+		
+		
 				<uxap:ObjectPageSection title="">
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="">
@@ -436,6 +436,7 @@
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
 			</uxap:ObjectPageSection>
+			</uxap:sections>
 	<!--		<uxap:footer>-->
 	<!--    <Bar id="bar1" enableFlexBox="true">-->
 	<!--        <contentMiddle>-->

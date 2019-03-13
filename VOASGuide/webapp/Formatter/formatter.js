@@ -151,7 +151,7 @@ var formatter = {
 		}
 
 		if (lang === "FR") {
-			returnString = "Prix net conc.:  $" + commaVal + "PDSF:  $" + commaVal2;
+			returnString =  "PDSF:  $" + commaVal2+" \n "+"Prix net conc.:  $" + commaVal ;
 			if (returnVal == 0.00 && returnVal2 == 0) {
 				return "Prix net conc.:  PDSF:";
 			} else {
