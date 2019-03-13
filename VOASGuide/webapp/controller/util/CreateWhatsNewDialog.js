@@ -336,6 +336,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			var url = host +
 				"/Z_VEHICLE_CATALOGUE_SRV/FileDownloadSet(Language='" + lang + "',Tab='WhatsNew',Model_year='" + moYear + "',Tciseries='" +
 				serVal + "',Brand='" + brandVal + "')/$value";
+				// window.open(url);
 			$.ajax({
 				url: url,
 				type: 'GET',

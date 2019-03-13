@@ -423,13 +423,26 @@
 				</uxap:subSections>
 			</uxap:ObjectPageSection>
 		</uxap:sections>
-			<uxap:footer>
-	    <Bar id="bar1" enableFlexBox="true">
-	        <contentMiddle>
+			</uxap:ObjectPageSection>
+				<uxap:ObjectPageSection title="">
+				<uxap:subSections>
+					<uxap:ObjectPageSubSection title="">
+						<uxap:blocks>
+							<VBox>
+								 <TextArea xmlns="sap.m" value=" * CONFIDENTIALITY NOTICE -This document is intended for Lexus employees and Lexus Dealer staff only.   Redistribution in any form is not permitted without express written authorization from the Lexus Division of Toyota Canada Inc.  **Every effort has been made to ensure the specifications and equipment shown are accurate based on information available at time of printing. The Owner’s Manual remains the most accurate source of technical specification on our vehicles. Lexus reserves the right to make necessary changes without notice or obligation." rows="4" id="tADetailDisclaimer" cols="175" height="100%"/>
+	       
+							</VBox>
+						</uxap:blocks>
+					</uxap:ObjectPageSubSection>
+				</uxap:subSections>
+			</uxap:ObjectPageSection>
+	<!--		<uxap:footer>-->
+	<!--    <Bar id="bar1" enableFlexBox="true">-->
+	<!--        <contentMiddle>-->
 	            <!--<TextArea xmlns="sap.m" value="Lorem ipsum dolor" rows="4" id="area0_1551515388569"/>-->
-	            <TextArea xmlns="sap.m" value="* CONFIDENTIALITY NOTICE -This document is intended for Lexus employees and Lexus Dealer staff only.   Redistribution in any form is not permitted without express written authorization from the Lexus Division of Toyota Canada Inc.  **Every effort has been made to ensure the specifications and equipment shown are accurate based on information available at time of printing. The Owner’s Manual remains the most accurate source of technical specification on our vehicles. Lexus reserves the right to make necessary changes without notice or obligation." rows="10" id="tACompareDisclaimer" cols="175" height="100%"/>
-	        </contentMiddle>
-	    </Bar>
-	</uxap:footer>
+	<!--            <TextArea xmlns="sap.m" value="* CONFIDENTIALITY NOTICE -This document is intended for Lexus employees and Lexus Dealer staff only.   Redistribution in any form is not permitted without express written authorization from the Lexus Division of Toyota Canada Inc.  **Every effort has been made to ensure the specifications and equipment shown are accurate based on information available at time of printing. The Owner’s Manual remains the most accurate source of technical specification on our vehicles. Lexus reserves the right to make necessary changes without notice or obligation." rows="10" id="tACompareDisclaimer" cols="175" height="100%"/>-->
+	<!--        </contentMiddle>-->
+	<!--    </Bar>-->
+	<!--</uxap:footer>-->
 	</uxap:ObjectPageLayout>
 </mvc:View>
