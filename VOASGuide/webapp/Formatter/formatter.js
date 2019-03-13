@@ -151,7 +151,7 @@ var formatter = {
 		}
 
 		if (lang === "FR") {
-			returnString = "Prix net conc.: $" + commaVal + "PDSF: $" + commaVal2;
+			returnString = "Prix net conc.:  $" + commaVal + "PDSF:  $" + commaVal2;
 			if (returnVal == 0.00 && returnVal2 == 0) {
 				return "Prix net conc.:  PDSF:";
 			} else {
@@ -162,7 +162,7 @@ var formatter = {
 			if (returnVal == 0.00 && returnVal2 == 0) {
 				return "DealerNet:  MSRP:";
 			} else {
-				return "Dealer Net: $" + commaVal + "MSRP: $" + commaVal2;
+				return "MSRP:  $" + commaVal2 +" \n "+"Dealer Net:  $" + commaVal  ;
 			}
 		}
 		//	return returnString;

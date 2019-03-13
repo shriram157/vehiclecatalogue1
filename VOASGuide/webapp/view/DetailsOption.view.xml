@@ -165,7 +165,7 @@
 	<uxap:footer>
 	    <Bar id="bar1" enableFlexBox="true">
 	        <contentMiddle>
-	            <TextArea xmlns="sap.m" value=" * CONFIDENTIALITY NOTICE -This document is intended for Lexus employees and Lexus Dealer staff only.   Redistribution in any form is not permitted without express written authorization from the Lexus Division of Toyota Canada Inc.  **Every effort has been made to ensure the specifications and equipment shown are accurate based on information available at time of printing. The Owner’s Manual remains the most accurate source of technical specification on our vehicles. Lexus reserves the right to make necessary changes without notice or obligation." rows="10" id="tADetailDisclaimer" cols="1000" height="100%"/>
+	            <TextArea xmlns="sap.m" value=" * CONFIDENTIALITY NOTICE -This document is intended for Lexus employees and Lexus Dealer staff only.   Redistribution in any form is not permitted without express written authorization from the Lexus Division of Toyota Canada Inc.  **Every effort has been made to ensure the specifications and equipment shown are accurate based on information available at time of printing. The Owner’s Manual remains the most accurate source of technical specification on our vehicles. Lexus reserves the right to make necessary changes without notice or obligation." rows="10" id="tADetailDisclaimer" cols="175" height="100%"/>
 	        </contentMiddle>
 	    </Bar>
 	</uxap:footer>
