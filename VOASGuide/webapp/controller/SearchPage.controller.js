@@ -25,15 +25,19 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			sap.ushell.components.modelYearCB = searchController.getView().byId("id_modelYearCB");
 			sap.ushell.components.seriesCB = searchController.getView().byId("id_seriesCB");
 			searchController.language = searchController.returnBrowserLanguage();
-		
-		},
-		onAfterRendering: function () {
 			searchController._readUser();
 			var userModel = sap.ui.getCore().getModel("userModel");
 			if (userModel) {
 			var userData=userModel.getData();
 			searchController.user=userData.loggedUserType[0];
-			}
+		},
+		onAfterRendering: function () {
+			// searchController._readUser();
+			// var userModel = sap.ui.getCore().getModel("userModel");
+			// if (userModel) {
+			// var userData=userModel.getData();
+			// searchController.user=userData.loggedUserType[0];
+			// }
 		},
 
 		_readUser: function () {
