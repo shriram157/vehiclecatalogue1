@@ -31,6 +31,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			var userData=userModel.getData();
 			searchController.user=userData.loggedUserType[0];
 			}
+			
 		},
 		onAfterRendering: function () {
 			// searchController._readUser();
