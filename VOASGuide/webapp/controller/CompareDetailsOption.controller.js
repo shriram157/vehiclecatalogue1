@@ -2821,7 +2821,7 @@ sap.ui.define([
 					tblColorOptions.bindAggregation("columns", "/columns", function (index, context) {
 						return new sap.m.Column({
 							header: new sap.m.Label({
-								text: context.getObject().Vehicle
+								text: context.getObject().Vehicle, textAlign: "Center"
 							}),
 						});
 					});
@@ -2910,7 +2910,7 @@ sap.ui.define([
 					tblAPX1.bindAggregation("columns", "/columns", function (index, context) {
 						return new sap.m.Column({
 							header: new sap.m.Label({
-								text: context.getObject().Vehicle, textAlign: "Center"
+								text: context.getObject().Vehicle
 							}),
 						});
 					});
