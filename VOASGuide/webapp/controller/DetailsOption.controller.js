@@ -702,7 +702,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 						} else {
 							row.addCell(
 								new sap.m.Text({
-									text: obj[k]
+									text: obj[k], textAlign: "Center"
 								})
 							);
 						}
