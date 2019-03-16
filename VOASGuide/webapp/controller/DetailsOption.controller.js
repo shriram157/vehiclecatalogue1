@@ -681,7 +681,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					return new sap.m.Column({
 						header: new sap.m.Label({
 							text: context.getObject().veh
-						}),
+						}),hAlign:"Center"
 					});
 				});
 				tblColorOptions.bindItems("/rows", function (index, context) {
@@ -702,7 +702,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 						} else {
 							row.addCell(
 								new sap.m.Text({
-									text: obj[k], textAlign: "Center"
+									text: obj[k]
 								})
 							);
 						}
