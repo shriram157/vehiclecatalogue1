@@ -124,7 +124,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			if (brandCB == "TOYOTA") {
 				sap.ui.getCore().byId("__xmlview0--idLogo").setSrc("images/Toyota.png");
 				var disclaimerT= DetailController.getView().getModel("i18n").getResourceBundle().getText("Toyota_Disclaimer");
-			DetailController.getView().byId("tADetailDisclaimer").setValue(disclaimerT);
+			DetailController.getView().byId("tADetailDisclaimer").setText(disclaimerT);
 				
 				
 				
@@ -134,7 +134,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			
 				
 			var disclaimerL= DetailController.getView().getModel("i18n").getResourceBundle().getText("Lexus_Disclaimer");
-			DetailController.getView().byId("tADetailDisclaimer").setValue(disclaimerL);
+			DetailController.getView().byId("tADetailDisclaimer").setText(disclaimerL);
 			}
 			DetailController.user = parseArg[0].user; //DetailController.getLoggedUser();
 

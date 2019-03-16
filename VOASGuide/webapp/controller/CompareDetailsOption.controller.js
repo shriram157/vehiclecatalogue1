@@ -2160,7 +2160,7 @@ sap.ui.define([
 				if (brandCBVal == "TOYOTA") {
 				
 				var disclaimerT= CDO_controller.getView().getModel("i18n").getResourceBundle().getText("Toyota_Disclaimer");
-			CDO_controller.getView().byId("tACompareDisclaimer").setValue(disclaimerT);
+			CDO_controller.getView().byId("tACompareDisclaimer").setText(disclaimerT);
 				
 				
 				
@@ -2168,7 +2168,7 @@ sap.ui.define([
 			} else {
 				
 			var disclaimerL= CDO_controller.getView().getModel("i18n").getResourceBundle().getText("Lexus_Disclaimer");
-			CDO_controller.getView().byId("tACompareDisclaimer").setValue(disclaimerL);
+			CDO_controller.getView().byId("tACompareDisclaimer").setText(disclaimerL);
 			}
 			if (len == 2) {
 				this.getView().byId("idTbl_compare2vehicles").setVisible(true);
