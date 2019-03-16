@@ -1,12 +1,12 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:uxap="sap.uxap" xmlns="sap.m" xmlns:core="sap.ui.core" controllerName="com.sap.build.toyota-canada.vehiclesGuideV3.controller.DetailsOption">
-	<uxap:ObjectPageLayout showTitleInHeaderContent="false" showHeaderContent="true" showEditHeaderButton="false" showFooter="true" class="sapUiSizeCompact">
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" controllerName="com.sap.build.toyota-canada.vehiclesGuideV3.controller.DetailsOption" xmlns:uxap="sap.uxap">
+	<uxap:ObjectPageLayout class="sapUiSizeCompact" showTitleInHeaderContent="false" showHeaderContent="true" showEditHeaderButton="false" showFooter="false">
 		<uxap:headerTitle>
 			<uxap:ObjectPageHeader objectTitle="{modelDetail>/moYear} {modelDetail&gt;/brand} {modelDetail>/series} - {i18n>SeeAllFeatures}" isObjectIconAlwaysVisible="false" isObjectTitleAlwaysVisible="true" isObjectSubtitleAlwaysVisible="true" showPlaceholder="true">
 				<!--objectImageURI="/build/uilibraries/content/static/image-canvas.svg"-->
 				<uxap:navigationBar>
-					<Bar>
+					<Bar xmlns="sap.m">
 						<contentLeft>
-							<Button type="Back" press="_onFioriObjectPageHeaderPress"/>
+							<Button type="Back" text="Back" press="_onFioriObjectPageHeaderPress"/>
 						</contentLeft>
 						<contentMiddle>
 							<Title text="{i18n>VehicleDetails}"/>
@@ -15,18 +15,18 @@
 					</Bar>
 				</uxap:navigationBar>
 				<uxap:actions> <!--	press="_onFioriObjectPageActionButtonPress"-->
-					<Button text="{i18n>VehicleGuide}" icon="sap-icon://pdf-attachment" iconFirst="true" type="Default" enabled="true" press="_onCreateVehGuide"/>
-					<Button text="{i18n>WhatsNewGuide}" icon="sap-icon://pdf-attachment" iconFirst="true" type="Default" enabled="true" press="_onCreateWhatsNew"/>
-					<Button text="{i18n>WalkUpGuide}" icon="sap-icon://pdf-attachment" iconFirst="true" type="Default" enabled="true" press="_onCreateWalkUp"/>
-					<Button text="{i18n>Supplemental}" icon="sap-icon://pdf-attachment" iconFirst="true" type="Default" enabled="true" press="_onCreateSupplemental"/>
-					<Button text="{i18n>PocketSummary}" type="Default" icon="sap-icon://pdf-attachment" iconFirst="true" enabled="true" visible="true" iconDensityAware="false" press="_onCreatePocSum"/>
-					<Button text="{i18n>ManageSeries}" icon="sap-icon://edit" iconFirst="true" type="Transparent" enabled="false" id="manageSeriesBtnId" press="manageSeries"/>
+					<Button xmlns="sap.m" type="Default" text="{i18n>VehicleGuide}" enabled="true" press="_onCreateVehGuide" iconFirst="true" icon="sap-icon://pdf-attachment"/>
+					<Button xmlns="sap.m" type="Default" text="{i18n>WhatsNewGuide}" enabled="true" press="_onCreateWhatsNew" iconFirst="true" icon="sap-icon://pdf-attachment"/>
+					<Button xmlns="sap.m" type="Default" text="{i18n>WalkUpGuide}" enabled="true" press="_onCreateWalkUp" iconFirst="true" icon="sap-icon://pdf-attachment"/>
+					<Button xmlns="sap.m" type="Default" text="{i18n>Supplemental}" enabled="true" press="_onCreateSupplemental" iconFirst="true" icon="sap-icon://pdf-attachment"/>
+					<Button xmlns="sap.m" type="Default" text="{i18n>PocketSummary}" enabled="true" press="_onCreatePocSum" iconFirst="true" icon="sap-icon://pdf-attachment" iconDensityAware="false" visible="true"/>
+					<Button xmlns="sap.m" id="manageSeriesBtnId" type="Transparent" text="{i18n>ManageSeries}" enabled="false" press="manageSeries" iconFirst="true" icon="sap-icon://edit"/>
 				</uxap:actions>
 				<uxap:breadCrumbsLinks/>
 			</uxap:ObjectPageHeader>
 		</uxap:headerTitle>
 		<uxap:headerContent>
-			<VBox width="100%">
+			<VBox xmlns="sap.m" width="100%">
 				<HBox class="justifyCenter">
 					<VBox>
 						<items>
@@ -35,7 +35,7 @@
 							<HBox>
 								<items>
 									<Label text="{i18n>Model}"/>
-									<Label text=":" class="sapUiTinyMarginEnd"/>
+									<Label class="sapUiTinyMarginEnd" text=":"/>
 									<!--	<ObjectStatus text="{modelDetail>/model}"/>-->
 									<ObjectStatus text="{modelDetail>/ENModelDesc}"/>
 								</items>
@@ -68,7 +68,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>Powertrain}">
 						<uxap:blocks>
-							<Table id="DetailtblpwrTrn" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
+							<Table xmlns="sap.m" id="DetailtblpwrTrn" width="100%" noDataText=" " growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -77,7 +77,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>Safety}">
 						<uxap:blocks>
-							<Table id="DetailtblSafety" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
+							<Table xmlns="sap.m" id="DetailtblSafety" width="100%" noDataText=" " growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -86,7 +86,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>Exterior}">
 						<uxap:blocks>
-							<Table id="DetailtblExterior" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
+							<Table xmlns="sap.m" id="DetailtblExterior" width="100%" noDataText=" " growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -95,7 +95,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>Interior}">
 						<uxap:blocks>
-							<Table id="DetailtblInterior" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
+							<Table xmlns="sap.m" id="DetailtblInterior" width="100%" noDataText=" " growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -107,7 +107,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>Infotainment}">
 						<uxap:blocks>
-							<Table id="DetailtblInfotainment" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
+							<Table xmlns="sap.m" id="DetailtblInfotainment" width="100%" noDataText=" " growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -116,7 +116,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>DimensionsSpecs}">
 						<uxap:blocks>
-							<Table id="DetailtblDimensions" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
+							<Table xmlns="sap.m" id="DetailtblDimensions" width="100%" noDataText=" " growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -125,7 +125,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>ColorOptions}">
 						<uxap:blocks>
-							<Table id="DetailtblColorOptions" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
+							<Table xmlns="sap.m" id="DetailtblColorOptions" width="100%" noDataText=" " growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -135,7 +135,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>OptionPackages}">
 						<uxap:blocks>
-							<Table id="DetailtblOptionPack" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
+							<Table xmlns="sap.m" id="DetailtblOptionPack" width="100%" noDataText=" " growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -144,9 +144,9 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>APX}">
 						<uxap:blocks>
-							<VBox>
-								<Table id="DetailtblAPX1" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
-							<Table id="DetailtblAPX" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
+							<VBox xmlns="sap.m">
+								<Table id="DetailtblAPX1" width="100%" noDataText=" " growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
+							<Table id="DetailtblAPX" width="100%" noDataText=" " growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
 							</VBox>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
@@ -156,8 +156,11 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="">
 						<uxap:blocks>
-							<VBox>
-								 <TextArea xmlns="sap.m" value=" * CONFIDENTIALITY NOTICE -This document is intended for Lexus employees and Lexus Dealer staff only.   Redistribution in any form is not permitted without express written authorization from the Lexus Division of Toyota Canada Inc.  **Every effort has been made to ensure the specifications and equipment shown are accurate based on information available at time of printing. The Owner’s Manual remains the most accurate source of technical specification on our vehicles. Lexus reserves the right to make necessary changes without notice or obligation." rows="4" id="tADetailDisclaimer" cols="175" height="100%"/>
+							<VBox xmlns="sap.m">
+								 <!--<TextArea id="tADetailDisclaimer" value=" * CONFIDENTIALITY NOTICE -This document is intended for Lexus employees and Lexus Dealer staff only.   Redistribution in any form is not permitted without express written authorization from the Lexus Division of Toyota Canada Inc.  **Every effort has been made to ensure the specifications and equipment shown are accurate based on information available at time of printing. The Owner’s Manual remains the most accurate source of technical specification on our vehicles. Lexus reserves the right to make necessary changes without notice or obligation." height="100%" rows="4" cols="175"/>-->
+								 <Text id="tADetailDisclaimer" text=" * CONFIDENTIALITY NOTICE -This document is intended for Lexus employees and Lexus Dealer staff only.   Redistribution in any form is not permitted without express written authorization from the Lexus Division of Toyota Canada Inc.  **Every effort has been made to ensure the specifications and equipment shown are accurate based on information available at time of printing. The Owner’s Manual remains the most accurate source of technical specification on our vehicles. Lexus reserves the right to make necessary changes without notice or obligation."/>
+	       
+							<items/>
 	       
 							</VBox>
 						</uxap:blocks>

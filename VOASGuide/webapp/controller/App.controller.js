@@ -8,8 +8,8 @@ sap.ui.define([
 		
 		onInit: function () {
 			AppController = this;
-			// AppController._user();
-			AppController.userAPI();
+			AppController._user();
+			// AppController.userAPI();
 			var bpModel = sap.ui.getCore().getModel("BpDealerModel");
 			if (bpModel) {
 				if (bpModel.getData()[0].Division == "10") {

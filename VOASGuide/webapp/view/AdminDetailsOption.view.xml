@@ -1,14 +1,11 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="com.sap.build.toyota-canada.vehiclesGuideV3.controller.AdminDetailsOption"
-	xmlns:uxap="sap.uxap" xmlns="sap.m">
-	<uxap:ObjectPageLayout showTitleInHeaderContent="false" showHeaderContent="true" showEditHeaderButton="false" showFooter="false"
-		class="sapUiSizeCompact">
+<mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="com.sap.build.toyota-canada.vehiclesGuideV3.controller.AdminDetailsOption" xmlns:uxap="sap.uxap">
+	<uxap:ObjectPageLayout class="sapUiSizeCompact" showTitleInHeaderContent="false" showHeaderContent="true" showEditHeaderButton="false" showFooter="false">
 		<uxap:headerTitle>
-			<uxap:ObjectPageHeader objectTitle="{modelDetail>/moYear} {modelDetail>/brand} {modelDetail>/series}" objectSubtitle="" isObjectIconAlwaysVisible="false" isObjectTitleAlwaysVisible="true"
-				isObjectSubtitleAlwaysVisible="true" showPlaceholder="true"> <!--objectImageURI="/build/uilibraries/content/static/image-canvas.svg"-->
+			<uxap:ObjectPageHeader objectTitle="{modelDetail>/moYear} {modelDetail&gt;/brand} {modelDetail>/series}" isObjectIconAlwaysVisible="false" isObjectTitleAlwaysVisible="true" isObjectSubtitleAlwaysVisible="true" showPlaceholder="true" objectSubtitle=""> <!--objectImageURI="/build/uilibraries/content/static/image-canvas.svg"-->
 				<uxap:navigationBar>
-					<Bar>
+					<Bar xmlns="sap.m">
 						<contentLeft>
-							<Button type="Back" press="_onFioriObjectPageHeaderPress"/>
+							<Button type="Back" text="Back" press="_onFioriObjectPageHeaderPress"/>
 						</contentLeft>
 						<contentMiddle>
 							<Title text="{i18n>ManageVehicleSeriesDetails}"/>
@@ -17,8 +14,7 @@
 					</Bar>
 				</uxap:navigationBar>
 				<uxap:actions>
-					<Button text="{i18n>CreateVehicleGuide}" icon="sap-icon://pdf-attachment" iconFirst="false" type="Default" enabled="true"
-						press="_createVehGuidePDF">
+					<Button xmlns="sap.m" type="Default" text="{i18n>CreateVehicleGuide}" enabled="true" press="_createVehGuidePDF" iconFirst="false" icon="sap-icon://pdf-attachment">
 						<layoutData>
 							<OverflowToolbarLayoutData moveToOverflow="true"/>
 						</layoutData>
@@ -33,18 +29,17 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>WhatsNew}">
 						<uxap:blocks>
-							<Table id="whatsNewTbl" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="2" mode="SingleSelectLeft"
-								items="{path:'whatsNewTblModel>/', templateShareable:true}">
+							<Table xmlns="sap.m" id="whatsNewTbl" items="{path:'whatsNewTblModel>/', templateShareable:true}" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="2" mode="SingleSelectLeft">
 								<headerToolbar>
 									<OverflowToolbar design="Transparent">
 										<content>
 											<ToolbarSpacer/>
-											<Button text="{i18n>Upload}" icon="sap-icon://write-new" iconFirst="true" type="Transparent" press="_uploadWhatNew">
+											<Button type="Transparent" text="{i18n>Upload}" press="_uploadWhatNew" iconFirst="true" icon="sap-icon://write-new">
 												<layoutData>
 													<OverflowToolbarLayoutData moveToOverflow="true"/>
 												</layoutData>
 											</Button>
-											<Button text="{i18n>Delete}" icon="sap-icon://delete" iconFirst="false" type="Transparent" press="_deleteWhatNew">
+											<Button type="Transparent" text="{i18n>Delete}" press="_deleteWhatNew" iconFirst="false" icon="sap-icon://delete">
 												<layoutData>
 													<OverflowToolbarLayoutData moveToOverflow="true"/>
 												</layoutData>
@@ -79,7 +74,7 @@
 										<cells>
 											<Text text="{whatsNewTblModel>FileName}"/> 
 											<Text text="{whatsNewTblModel>Comment}"/> 
-											<Text text="{parts: [{path:'whatsNewTblModel>Lastupdate'},{path:'whatsNewTblModel>Sytime'}] , formatter: 'formatter.formatManagePageDate'}"  />
+											<Text text="{parts: [{path:'whatsNewTblModel>Lastupdate'},{path:'whatsNewTblModel&gt;Sytime'}] , formatter: 'formatter.formatManagePageDate'}"/>
 											<Text text="{whatsNewTblModel>Language}"/>
 										</cells>
 									</ColumnListItem>
@@ -93,18 +88,17 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>Walk-up}">
 						<uxap:blocks>
-							<Table id="walkUpTbl" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="2" mode="SingleSelectLeft"
-								items="{path:'walkUpTblModel>/', templateShareable:true}">
+							<Table xmlns="sap.m" id="walkUpTbl" items="{path:'walkUpTblModel>/', templateShareable:true}" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="2" mode="SingleSelectLeft">
 								<headerToolbar>
 									<OverflowToolbar design="Transparent">
 										<content>
 											<ToolbarSpacer/>
-											<Button text="{i18n>Upload}" icon="sap-icon://write-new" iconFirst="true" type="Transparent" press="_uploadFileWalkUp">
+											<Button type="Transparent" text="{i18n>Upload}" press="_uploadFileWalkUp" iconFirst="true" icon="sap-icon://write-new">
 												<layoutData>
 													<OverflowToolbarLayoutData moveToOverflow="true"/>
 												</layoutData>
 											</Button>
-											<Button text="{i18n>Delete}" icon="sap-icon://delete" iconFirst="false" type="Transparent" press="_deleteFileWalkUp">
+											<Button type="Transparent" text="{i18n>Delete}" press="_deleteFileWalkUp" iconFirst="false" icon="sap-icon://delete">
 												<layoutData>
 													<OverflowToolbarLayoutData moveToOverflow="true"/>
 												</layoutData>
@@ -139,7 +133,7 @@
 										<cells>
 											<Text text="{walkUpTblModel>FileName}"/>
 											<Text text="{walkUpTblModel>Comment}"/>
-											<Text text="{parts: [{path:'walkUpTblModel>Lastupdate'},{path:'walkUpTblModel>Sytime'}] , formatter: 'formatter.formatManagePageDate'}"/>
+											<Text text="{parts: [{path:'walkUpTblModel>Lastupdate'},{path:'walkUpTblModel&gt;Sytime'}] , formatter: 'formatter.formatManagePageDate'}"/>
 											<Text text="{walkUpTblModel>Language}"/>
 										</cells>
 									</ColumnListItem>
@@ -153,18 +147,17 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>SupplementalGuide}">
 						<uxap:blocks>
-							<Table id="suppTbl" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="2" mode="SingleSelectLeft"
-								items="{path:'suppTblModel>/', templateShareable:true}">
+							<Table xmlns="sap.m" id="suppTbl" items="{path:'suppTblModel>/', templateShareable:true}" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="2" mode="SingleSelectLeft">
 								<headerToolbar>
 									<OverflowToolbar design="Transparent">
 										<content>
 											<ToolbarSpacer/>
-											<Button text="{i18n>Upload}" icon="sap-icon://write-new" iconFirst="true" type="Transparent" press="_uploadFileSupp">
+											<Button type="Transparent" text="{i18n>Upload}" press="_uploadFileSupp" iconFirst="true" icon="sap-icon://write-new">
 												<layoutData>
 													<OverflowToolbarLayoutData moveToOverflow="true"/>
 												</layoutData>
 											</Button>
-											<Button text="{i18n>Delete}" icon="sap-icon://delete" iconFirst="false" type="Transparent" press="_deleteFileSupp">
+											<Button type="Transparent" text="{i18n>Delete}" press="_deleteFileSupp" iconFirst="false" icon="sap-icon://delete">
 												<layoutData>
 													<OverflowToolbarLayoutData moveToOverflow="true"/>
 												</layoutData>
@@ -199,7 +192,7 @@
 										<cells>
 											<Text text="{suppTblModel>FileName}"/>
 											<Text text="{suppTblModel>Comment}"/>
-											<Text text="{parts: [{path:'suppTblModel>Lastupdate'},{path:'suppTblModel>Sytime'}] , formatter: 'formatter.formatManagePageDate'}" />
+											<Text text="{parts: [{path:'suppTblModel>Lastupdate'},{path:'suppTblModel&gt;Sytime'}] , formatter: 'formatter.formatManagePageDate'}"/>
 											<Text text="{suppTblModel>Language}"/>
 										</cells>
 									</ColumnListItem>
