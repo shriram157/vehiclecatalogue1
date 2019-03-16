@@ -107,14 +107,14 @@ var formatter = {
 			var returnVal = "";
 			returnVal = parseInt(oDecVal);
 			var commaVal = returnVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-			returnString = "$" + commaVal;
+			returnString = "  $" + commaVal;
 			if (returnVal == 0.00) {
-				return "";
+				return "  ";
 			} else {
 				return returnString;
 			}
 		} else {
-			return "";
+			return "  ";
 		}
 	},
 	decimalFormatterDealer: function (oDecVal, oDecVal2) {
@@ -147,20 +147,20 @@ var formatter = {
 		}
 		if (msrp != undefined && msrp != null && !isNaN(msrp) && msrp != "") {
 			returnVal2 = parseInt(msrp);
-			commaVal2 = returnVal2.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			commaVal2 = returnVal2.toString().replace  (/\B(?=(\d{3})+(?!\d))/g, ",");
 		}
 
 		if (lang === "FR") {
 			returnString =  "PDSF:  $" + commaVal2+" \n "+"Prix net conc.:  $" + commaVal ;
 			if (returnVal == 0.00 && returnVal2 == 0) {
-				return "Prix net conc.:  PDSF:";
+				return "PDSF:  Prix net conc.:  ";
 			} else {
 				return returnString;
 			}
 		} else {
 			returnString = "Dealer Net: $" + commaVal + "MSRP: $" + commaVal2;
 			if (returnVal == 0.00 && returnVal2 == 0) {
-				return "DealerNet:  MSRP:";
+				return "DealerNet:  MSRP:  ";
 			} else {
 				return "MSRP:  $" + commaVal2 +" \n "+"Dealer Net:  $" + commaVal  ;
 			}
