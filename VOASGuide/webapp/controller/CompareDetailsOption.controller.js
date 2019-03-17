@@ -1730,7 +1730,7 @@ sap.ui.define([
 						return new sap.m.Column({
 							header: new sap.m.Label({
 								text: context.getObject().Vehicle
-							}),
+							}),hAlign:"Center"
 						});
 					});
 					tblExterior.bindItems("/rows", function (index, context) {
@@ -1765,7 +1765,7 @@ sap.ui.define([
 						return new sap.m.Column({
 							header: new sap.m.Label({
 								text: context.getObject().Vehicle
-							}),
+							}),hAlign:"Center"
 						});
 					});
 					tblInterior.bindItems("/rows", function (index, context) {
@@ -1801,7 +1801,7 @@ sap.ui.define([
 						return new sap.m.Column({
 							header: new sap.m.Label({
 								text: context.getObject().Vehicle
-							}),
+							}),hAlign:"Center"
 						});
 					});
 					tblPowertrain.bindItems("/rows", function (index, context) {
@@ -1835,7 +1835,7 @@ sap.ui.define([
 						return new sap.m.Column({
 							header: new sap.m.Label({
 								text: context.getObject().Vehicle
-							}),
+							}),hAlign:"Center"
 						});
 					});
 					tblSafety.bindItems("/rows", function (index, context) {
@@ -1869,7 +1869,7 @@ sap.ui.define([
 						return new sap.m.Column({
 							header: new sap.m.Label({
 								text: context.getObject().Vehicle
-							}),
+							}),hAlign:"Center"
 						});
 					});
 					tblInfotainment.bindItems("/rows", function (index, context) {
@@ -1903,7 +1903,7 @@ sap.ui.define([
 						return new sap.m.Column({
 							header: new sap.m.Label({
 								text: context.getObject().Vehicle
-							}),
+							}),hAlign:"Center"
 						});
 					});
 					tblColorOptions.bindItems("/rows", function (index, context) {
@@ -1937,7 +1937,7 @@ sap.ui.define([
 						return new sap.m.Column({
 							header: new sap.m.Label({
 								text: context.getObject().Vehicle
-							}),
+							}),hAlign:"Center"
 						});
 					});
 					tblDimensions.bindItems("/rows", function (index, context) {
@@ -1992,7 +1992,7 @@ sap.ui.define([
 						return new sap.m.Column({
 							header: new sap.m.Label({
 								text: context.getObject().Vehicle
-							}),
+							}),hAlign:"Center"
 						});
 					});
 					tblAPX.bindItems("/rows", function (index, context) {
@@ -2648,7 +2648,7 @@ sap.ui.define([
 						return new sap.m.Column({
 							header: new sap.m.Label({
 								text: context.getObject().Vehicle
-							}),
+							}),hAlign:"Center"
 						});
 					});
 
@@ -2685,7 +2685,7 @@ sap.ui.define([
 						return new sap.m.Column({
 							header: new sap.m.Label({
 								text: context.getObject().Vehicle
-							}),
+							}),hAlign:"Center"
 						});
 					});
 					tblInterior.bindItems("/rows", function (index, context) {
@@ -2721,7 +2721,7 @@ sap.ui.define([
 						return new sap.m.Column({
 							header: new sap.m.Label({
 								text: context.getObject().Vehicle
-							}),
+							}),hAlign:"Center"
 						});
 					});
 					tblPowertrain.bindItems("/rows", function (index, context) {
@@ -2755,7 +2755,7 @@ sap.ui.define([
 						return new sap.m.Column({
 							header: new sap.m.Label({
 								text: context.getObject().Vehicle
-							}),
+							}),hAlign:"Center"
 						});
 					});
 					tblSafety.bindItems("/rows", function (index, context) {
@@ -2789,7 +2789,7 @@ sap.ui.define([
 						return new sap.m.Column({
 							header: new sap.m.Label({
 								text: context.getObject().Vehicle
-							}),
+							}),hAlign:"Center"
 						});
 					});
 					tblInfotainment.bindItems("/rows", function (index, context) {
@@ -2857,7 +2857,7 @@ sap.ui.define([
 						return new sap.m.Column({
 							header: new sap.m.Label({
 								text: context.getObject().Vehicle
-							}),
+							}),hAlign:"Center"
 						});
 					});
 					tblDimensions.bindItems("/rows", function (index, context) {
@@ -2912,7 +2912,7 @@ sap.ui.define([
 						return new sap.m.Column({
 							header: new sap.m.Label({
 								text: context.getObject().Vehicle
-							}),
+							}),hAlign:"Center"
 						});
 					});
 					tblAPX1.bindItems("/rows", function (index, context) {
@@ -2947,7 +2947,7 @@ sap.ui.define([
 						return new sap.m.Column({
 							header: new sap.m.Label({
 								text: context.getObject().Vehicle
-							}),
+							}),hAlign:"Center"
 						});
 					});
 					tblAPX.bindItems("/rows", function (index, context) {
