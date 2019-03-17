@@ -1423,25 +1423,25 @@ sap.ui.define([
 				url2 = host +
 					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + CDO_controller.user + "' and Brand eq  '" + brandCBVal +
 					" ' and TCISeries eq  '" + seriesCBVal +
-					"' and (" + newSuffixStr + ") and Modelyear eq  '" + modelYearCBVal + " ')";
+					"' and (" + newSuffixStr + ") and Modelyear eq  '" + modelYearCBVal + " 'and Language eq '" + CDO_controller.language +"')";
 			} else if (suffixDescString == "" && modelDescString !== "") {
 				console.log("2");
 				url2 = host +
 					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + CDO_controller.user + "' and Brand eq  '" + brandCBVal +
 					" ' and TCISeries eq  '" + seriesCBVal +
-					" ' and Modelyear eq  '" + modelYearCBVal + " 'and (" + newModelStr + ") )";
+					" ' and Modelyear eq  '" + modelYearCBVal + " 'and (" + newModelStr + ") and Language eq '" + CDO_controller.language +"')";
 			} else if (suffixDescString == "" && modelDescString == "") {
 				console.log("3");
 				url2 = host +
 					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + CDO_controller.user + "' and Brand eq  '" + brandCBVal +
 					" ' and TCISeries eq  '" + seriesCBVal +
-					" ' and Modelyear eq  '" + modelYearCBVal + " ')";
+					" ' and Modelyear eq  '" + modelYearCBVal + " 'and Language eq '" + CDO_controller.language +"')";
 			} else {
 				console.log("4");
 				url2 = host +
 					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + CDO_controller.user + "' and Brand eq  '" + brandCBVal +
 					" ' and TCISeries eq  '" + seriesCBVal +
-					" ' and Modelyear eq  '" + modelYearCBVal + " ' and (" + newModelStr + ") and (" + newSuffixStr + ") )";
+					" ' and Modelyear eq  '" + modelYearCBVal + " ' and (" + newModelStr + ") and (" + newSuffixStr + ")and Language eq '" + CDO_controller.language +"' )";
 			}
 			$.ajax({
 				url: url2,
