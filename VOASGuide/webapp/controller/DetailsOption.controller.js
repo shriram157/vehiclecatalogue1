@@ -783,7 +783,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					return new sap.m.Column({
 						header: new sap.m.Label({
 							text: context.getObject().Vehicle
-						}),
+						}),hAlign:"Center"
 					});
 				});
 				tblAPX1.bindItems("/rows", function (index, context) {
