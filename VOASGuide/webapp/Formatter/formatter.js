@@ -160,7 +160,7 @@ var formatter = {
 		} else {
 			returnString = "Dealer Net: $" + commaVal + "MSRP: $" + commaVal2;
 			if (returnVal == 0.00 && returnVal2 == 0) {
-				return "DealerNet:  MSRP:  ";
+				return "MSRP:  DealerNet:  ";
 			} else {
 				return "MSRP:  $" + commaVal2 +" \n "+"Dealer Net:  $" + commaVal  ;
 			}

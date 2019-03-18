@@ -1,7 +1,7 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" controllerName="com.sap.build.toyota-canada.vehiclesGuideV3.controller.DetailsOption" xmlns:uxap="sap.uxap">
-	<uxap:ObjectPageLayout class="sapUiSizeCompact" showTitleInHeaderContent="false" showHeaderContent="true" showEditHeaderButton="false" showFooter="false">
+	<uxap:ObjectPageLayout class="sapUiSizeCompact" showFooter="false" showEditHeaderButton="false" showHeaderContent="true" showTitleInHeaderContent="false">
 		<uxap:headerTitle>
-			<uxap:ObjectPageHeader objectTitle="{modelDetail>/moYear} {modelDetail&gt;/brand} {modelDetail>/series} - {i18n>SeeAllFeatures}" isObjectIconAlwaysVisible="false" isObjectTitleAlwaysVisible="true" isObjectSubtitleAlwaysVisible="true" showPlaceholder="true">
+			<uxap:ObjectPageHeader showPlaceholder="true" isObjectSubtitleAlwaysVisible="true" isObjectTitleAlwaysVisible="true" isObjectIconAlwaysVisible="false" objectTitle="{modelDetail>/moYear} {modelDetail&gt;/brand} {modelDetail>/series} - {i18n>SeeAllFeatures}">
 				<!--objectImageURI="/build/uilibraries/content/static/image-canvas.svg"-->
 				<uxap:navigationBar>
 					<Bar xmlns="sap.m">
@@ -15,12 +15,12 @@
 					</Bar>
 				</uxap:navigationBar>
 				<uxap:actions> <!--	press="_onFioriObjectPageActionButtonPress"-->
-					<Button xmlns="sap.m" type="Default" text="{i18n>VehicleGuide}" enabled="true" press="_onCreateVehGuide" iconFirst="true" icon="sap-icon://pdf-attachment"/>
-					<Button xmlns="sap.m" type="Default" text="{i18n>WhatsNewGuide}" enabled="true" press="_onCreateWhatsNew" iconFirst="true" icon="sap-icon://pdf-attachment"/>
-					<Button xmlns="sap.m" type="Default" text="{i18n>WalkUpGuide}" enabled="true" press="_onCreateWalkUp" iconFirst="true" icon="sap-icon://pdf-attachment"/>
-					<Button xmlns="sap.m" type="Default" text="{i18n>Supplemental}" enabled="true" press="_onCreateSupplemental" iconFirst="true" icon="sap-icon://pdf-attachment"/>
-					<Button xmlns="sap.m" type="Default" text="{i18n>PocketSummary}" enabled="true" press="_onCreatePocSum" iconFirst="true" icon="sap-icon://pdf-attachment" iconDensityAware="false" visible="true"/>
-					<Button xmlns="sap.m" id="manageSeriesBtnId" type="Transparent" text="{i18n>ManageSeries}" enabled="false" press="manageSeries" iconFirst="true" icon="sap-icon://edit"/>
+					<Button xmlns="sap.m" type="Default" icon="sap-icon://pdf-attachment" text="{i18n>VehicleGuide}" enabled="true" press="_onCreateVehGuide" iconFirst="true"/>
+					<Button xmlns="sap.m" type="Default" icon="sap-icon://pdf-attachment" text="{i18n>WhatsNewGuide}" enabled="true" press="_onCreateWhatsNew" iconFirst="true"/>
+					<Button xmlns="sap.m" type="Default" icon="sap-icon://pdf-attachment" text="{i18n>WalkUpGuide}" enabled="true" press="_onCreateWalkUp" iconFirst="true"/>
+					<Button xmlns="sap.m" type="Default" icon="sap-icon://pdf-attachment" text="{i18n>Supplemental}" enabled="true" press="_onCreateSupplemental" iconFirst="true"/>
+					<Button xmlns="sap.m" type="Default" icon="sap-icon://pdf-attachment" text="{i18n>PocketSummary}" enabled="true" press="_onCreatePocSum" visible="true" iconDensityAware="false" iconFirst="true"/>
+					<Button xmlns="sap.m" id="manageSeriesBtnId" type="Transparent" icon="sap-icon://edit" text="{i18n>ManageSeries}" enabled="false" press="manageSeries" iconFirst="true"/>
 				</uxap:actions>
 				<uxap:breadCrumbsLinks/>
 			</uxap:ObjectPageHeader>
@@ -45,7 +45,7 @@
 									<!--<Label text="MSRP"/>
 							<Label text=":" class="sapUiTinyMarginEnd"/>
 							<ObjectStatus text="{modelDetail>/msrp} "/>-->
-									<Label text="{i18n>MSRPWithoutDoll}"/>
+									<Label text="{i18n>MSRPWithoutDoll}:  "/>
 									<ObjectStatus text="{parts: [{path:'modelDetail>/msrp'},{path:'modelDetail&gt;/msrp'}] , formatter: 'formatter.decimalFormatter'}"/>
 								</items>
 							</HBox>
@@ -54,7 +54,7 @@
 									<!--<Label text="Dealer Net"/>
 									<Label text=":" class="sapUiTinyMarginEnd"/>
 									<ObjectStatus text="{modelDetail>/dealerNet}"/>-->
-										<Label text="{i18n>DealerNetWithoutDoll}"/>
+										<Label text="{i18n>DealerNetWithoutDoll}:  "/>
 									<ObjectStatus text="{parts: [{path:'modelDetail>/dealerNet'},{path:'modelDetail&gt;/dealerNet'}] , formatter: 'formatter.decimalFormatterDealer'}"/>
 								</items>
 							</HBox>
@@ -68,7 +68,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>Powertrain}">
 						<uxap:blocks>
-							<Table xmlns="sap.m" id="DetailtblpwrTrn" width="100%" noDataText=" " growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
+							<Table xmlns="sap.m" id="DetailtblpwrTrn" width="100%" mode="None" growingThreshold="30" growingScrollToLoad="true" growing="false" noDataText=" "/>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -77,7 +77,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>Safety}">
 						<uxap:blocks>
-							<Table xmlns="sap.m" id="DetailtblSafety" width="100%" noDataText=" " growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
+							<Table xmlns="sap.m" id="DetailtblSafety" width="100%" mode="None" growingThreshold="30" growingScrollToLoad="true" growing="false" noDataText=" "/>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -86,7 +86,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>Exterior}">
 						<uxap:blocks>
-							<Table xmlns="sap.m" id="DetailtblExterior" width="100%" noDataText=" " growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
+							<Table xmlns="sap.m" id="DetailtblExterior" width="100%" mode="None" growingThreshold="30" growingScrollToLoad="true" growing="false" noDataText=" "/>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -95,7 +95,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>Interior}">
 						<uxap:blocks>
-							<Table xmlns="sap.m" id="DetailtblInterior" width="100%" noDataText=" " growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
+							<Table xmlns="sap.m" id="DetailtblInterior" width="100%" mode="None" growingThreshold="30" growingScrollToLoad="true" growing="false" noDataText=" "/>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -107,7 +107,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>Infotainment}">
 						<uxap:blocks>
-							<Table xmlns="sap.m" id="DetailtblInfotainment" width="100%" noDataText=" " growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
+							<Table xmlns="sap.m" id="DetailtblInfotainment" width="100%" mode="None" growingThreshold="30" growingScrollToLoad="true" growing="false" noDataText=" "/>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -116,7 +116,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>DimensionsSpecs}">
 						<uxap:blocks>
-							<Table xmlns="sap.m" id="DetailtblDimensions" width="100%" noDataText=" " growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
+							<Table xmlns="sap.m" id="DetailtblDimensions" width="100%" mode="None" growingThreshold="30" growingScrollToLoad="true" growing="false" noDataText=" "/>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -125,7 +125,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>ColorOptions}">
 						<uxap:blocks>
-							<Table xmlns="sap.m" id="DetailtblColorOptions" width="100%" noDataText=" " growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
+							<Table xmlns="sap.m" id="DetailtblColorOptions" width="100%" mode="None" growingThreshold="30" growingScrollToLoad="true" growing="false" noDataText=" "/>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -135,7 +135,7 @@
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>OptionPackages}">
 						<uxap:blocks>
-							<Table xmlns="sap.m" id="DetailtblOptionPack" width="100%" noDataText=" " growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
+							<Table xmlns="sap.m" id="DetailtblOptionPack" width="100%" mode="None" growingThreshold="30" growingScrollToLoad="true" growing="false" noDataText=" "/>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
@@ -145,8 +145,8 @@
 					<uxap:ObjectPageSubSection title="{i18n>APX}">
 						<uxap:blocks>
 							<VBox xmlns="sap.m">
-								<Table id="DetailtblAPX1" width="100%" noDataText=" " growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
-							<Table id="DetailtblAPX" width="100%" noDataText=" " growing="false" growingScrollToLoad="true" growingThreshold="30" mode="None"/>
+								<Table id="DetailtblAPX1" width="100%" mode="None" growingThreshold="30" growingScrollToLoad="true" growing="false" noDataText=" "/>
+							<Table id="DetailtblAPX" width="100%" mode="None" growingThreshold="30" growingScrollToLoad="true" growing="false" noDataText=" "/>
 							</VBox>
 						</uxap:blocks>
 					</uxap:ObjectPageSubSection>
