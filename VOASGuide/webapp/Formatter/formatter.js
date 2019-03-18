@@ -124,7 +124,7 @@ var formatter = {
 			var returnVal = "";
 			returnVal = parseInt(oDecVal);
 			var commaVal = returnVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-			returnString = "$" + commaVal;
+			returnString = "  $" + commaVal;
 			if (returnVal == 0.00) {
 				return "";
 			} else {
