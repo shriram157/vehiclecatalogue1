@@ -44,9 +44,12 @@
 								<items>
 									<!--<Label text="MSRP"/>
 							<Label text=":" class="sapUiTinyMarginEnd"/>
-							<ObjectStatus text="{modelDetail>/msrp} "/>-->
-									<Label text="{i18n>MSRPWithoutDoll}:  "/>
-									<ObjectStatus text="{parts: [{path:'modelDetail>/msrp'},{path:'modelDetail&gt;/msrp'}] , formatter: 'formatter.decimalFormatter'}"/>
+							<ObjectStatus text="{modelDetail>/msrp} "/>-->	
+					
+							
+						<Text text="{i18n>MSRPWithoutDoll}{parts: [{path:'modelDetail>/msrp'},{path:'modelDetail&gt;/msrp'}] , formatter: 'formatter.decimalFormatter'}"/>
+									<!--<Text text="{i18n>MSRPWithoutDoll}  "/>-->
+									<!--<ObjectStatus text="{parts: [{path:'modelDetail>/msrp'},{path:'modelDetail&gt;/msrp'}] , formatter: 'formatter.decimalFormatter'}"/>-->
 								</items>
 							</HBox>
 							<HBox>
@@ -54,8 +57,10 @@
 									<!--<Label text="Dealer Net"/>
 									<Label text=":" class="sapUiTinyMarginEnd"/>
 									<ObjectStatus text="{modelDetail>/dealerNet}"/>-->
-										<Label text="{i18n>DealerNetWithoutDoll}:  "/>
-									<ObjectStatus text="{parts: [{path:'modelDetail>/dealerNet'},{path:'modelDetail&gt;/dealerNet'}] , formatter: 'formatter.decimalFormatterDealer'}"/>
+						<Text text="{i18n>DealerNetWithoutDoll}{parts: [{path:'modelDetail>/dealerNet'},{path:'modelDetail&gt;/dealerNet'}] , formatter: 'formatter.decimalFormatterDealer'}"/>
+
+									<!--	<Text text="{i18n>DealerNetWithoutDoll}  "/>-->
+									<!--<ObjectStatus text="{parts: [{path:'modelDetail>/dealerNet'},{path:'modelDetail&gt;/dealerNet'}] , formatter: 'formatter.decimalFormatterDealer'}"/>-->
 								</items>
 							</HBox>
 						</items>
