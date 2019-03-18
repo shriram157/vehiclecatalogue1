@@ -167,7 +167,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 						var tblModel = new sap.ui.model.json.JSONModel(data.d.results);
 						tblModel.setSizeLimit(data.d.results.length);
 						searchController.getView().setModel(tblModel, "searchTblModel");
-						var oSorter = new sap.ui.model.Sorter("MSRP", false); // sort on based of MSRP
+						var oSorter = new sap.ui.model.Sorter("MSRP", true); // sort on based of MSRP
 						searchController.getView().byId("idTbl_Search").setModel("searchTblModel");
 						searchController.byId("idTbl_Search").getBinding("items").sort(oSorter);
 						searchController.oBusyDialog.close();
