@@ -680,12 +680,12 @@ sap.ui.define([
 						var msrp = [],
 							net = [];
 						if (dtCol[i].MSRP != undefined && dtCol[i].MSRP != null && !isNaN(dtCol[i].MSRP) && dtCol[i].MSRP != "") {
-							msrp[i] = " $" + parseInt(dtCol[i].MSRP);
+							msrp[i] = "  $" + parseInt(dtCol[i].MSRP);
 						} else {
 							msrp[i] = "NA";
 						}
 						if (dtCol[i].NETPRICE != undefined && dtCol[i].NETPRICE != null && !isNaN(dtCol[i].NETPRICE) && dtCol[i].NETPRICE != "") {
-							net[i] = " $" + parseInt(dtCol[i].NETPRICE);
+							net[i] = "  $" + parseInt(dtCol[i].NETPRICE);
 						} else {
 							net[i] = "";
 						}
@@ -959,7 +959,7 @@ sap.ui.define([
 							return new sap.m.Column({
 								header: new sap.m.Label({
 									text: context.getObject().Vehicle
-								}),hAlign:"Center"
+								})
 							});
 						});
 					tblExterior.bindItems("/rows", function (index, context) {
@@ -996,7 +996,7 @@ sap.ui.define([
 							return new sap.m.Column({
 								header: new sap.m.Label({
 									text: context.getObject().Vehicle
-								}),hAlign:"Center"
+								})
 							});
 						});
 					tblInterior.bindItems("/rows", function (index, context) {
@@ -1034,7 +1034,7 @@ sap.ui.define([
 							return new sap.m.Column({
 								header: new sap.m.Label({
 									text: context.getObject().Vehicle
-								}),hAlign:"Center"
+								})
 							});
 						});
 					tblPowertrain.bindItems("/rows", function (index, context) {
@@ -1070,7 +1070,7 @@ sap.ui.define([
 							return new sap.m.Column({
 								header: new sap.m.Label({
 									text: context.getObject().Vehicle,
-								}),hAlign:"Center"
+								})
 							});
 						});
 					tblSafety.bindItems("/rows", function (index, context) {
@@ -1105,7 +1105,7 @@ sap.ui.define([
 							return new sap.m.Column({
 								header: new sap.m.Label({
 									text: context.getObject().Vehicle
-								}),hAlign:"Center"
+								})
 							});
 						});
 					tblInfotainment.bindItems("/rows", function (index, context) {
@@ -1176,7 +1176,7 @@ sap.ui.define([
 							return new sap.m.Column({
 								header: new sap.m.Label({
 									text: context.getObject().Vehicle
-								}),hAlign:"Center"
+								})
 							});
 						});
 					tblDimensions.bindItems("/rows", function (index, context) {
@@ -1233,7 +1233,7 @@ sap.ui.define([
 							return new sap.m.Column({
 								header: new sap.m.Label({
 									text: context.getObject().Vehicle
-								}),hAlign:"Center"
+								})
 							});
 						});
 					tblAPX.bindItems("/rows", function (index, context) {
@@ -1621,12 +1621,12 @@ sap.ui.define([
 						var msrp = [],
 							net = [];
 						if (dtCol[i].MSRP != undefined && dtCol[i].MSRP != null && !isNaN(dtCol[i].MSRP) && dtCol[i].MSRP != "") {
-							msrp[i] = " $" + parseInt(dtCol[i].MSRP);
+							msrp[i] = "  $" + parseInt(dtCol[i].MSRP);
 						} else {
 							msrp[i] = "";
 						}
 						if (dtCol[i].NETPRICE != undefined && dtCol[i].NETPRICE != null && !isNaN(dtCol[i].NETPRICE) && dtCol[i].NETPRICE != "") {
-							net[i] = " $" + parseInt(dtCol[i].NETPRICE);
+							net[i] = "  $" + parseInt(dtCol[i].NETPRICE);
 						} else {
 							net[i] = "";
 						}
@@ -1730,7 +1730,7 @@ sap.ui.define([
 						return new sap.m.Column({
 							header: new sap.m.Label({
 								text: context.getObject().Vehicle
-							}),hAlign:"Center"
+							})
 						});
 					});
 					tblExterior.bindItems("/rows", function (index, context) {
@@ -1765,7 +1765,7 @@ sap.ui.define([
 						return new sap.m.Column({
 							header: new sap.m.Label({
 								text: context.getObject().Vehicle
-							}),hAlign:"Center"
+							})
 						});
 					});
 					tblInterior.bindItems("/rows", function (index, context) {
@@ -1801,7 +1801,7 @@ sap.ui.define([
 						return new sap.m.Column({
 							header: new sap.m.Label({
 								text: context.getObject().Vehicle
-							}),hAlign:"Center"
+							})
 						});
 					});
 					tblPowertrain.bindItems("/rows", function (index, context) {
@@ -1835,7 +1835,7 @@ sap.ui.define([
 						return new sap.m.Column({
 							header: new sap.m.Label({
 								text: context.getObject().Vehicle
-							}),hAlign:"Center"
+							})
 						});
 					});
 					tblSafety.bindItems("/rows", function (index, context) {
@@ -1869,7 +1869,7 @@ sap.ui.define([
 						return new sap.m.Column({
 							header: new sap.m.Label({
 								text: context.getObject().Vehicle
-							}),hAlign:"Center"
+							})
 						});
 					});
 					tblInfotainment.bindItems("/rows", function (index, context) {
@@ -1937,7 +1937,7 @@ sap.ui.define([
 						return new sap.m.Column({
 							header: new sap.m.Label({
 								text: context.getObject().Vehicle
-							}),hAlign:"Center"
+							})
 						});
 					});
 					tblDimensions.bindItems("/rows", function (index, context) {
@@ -1992,7 +1992,7 @@ sap.ui.define([
 						return new sap.m.Column({
 							header: new sap.m.Label({
 								text: context.getObject().Vehicle
-							}),hAlign:"Center"
+							})
 						});
 					});
 					tblAPX.bindItems("/rows", function (index, context) {
@@ -2488,12 +2488,12 @@ sap.ui.define([
 						var msrp = [],
 							net = [];
 						if (dtCol[i].MSRP != undefined && dtCol[i].MSRP != null && !isNaN(dtCol[i].MSRP) && dtCol[i].MSRP != "") {
-							msrp[i] = "$" + parseInt(dtCol[i].MSRP);
+							msrp[i] = "  $" + parseInt(dtCol[i].MSRP);
 						} else {
 							msrp[i] = "";
 						}
 						if (dtCol[i].NETPRICE != undefined && dtCol[i].NETPRICE != null && !isNaN(dtCol[i].NETPRICE) && dtCol[i].NETPRICE != "") {
-							net[i] = "$" + parseInt(dtCol[i].NETPRICE);
+							net[i] = "  $" + parseInt(dtCol[i].NETPRICE);
 						} else {
 							net[i] = "";
 						}
@@ -2533,12 +2533,12 @@ sap.ui.define([
 						var msrp = [],
 							net = [];
 						if (dtApx[i].MSRP != undefined && dtApx[i].MSRP != null && !isNaN(dtApx[i].MSRP) && dtApx[i].MSRP != "") {
-							msrp[i] = "$" + parseInt(dtApx[i].MSRP);
+							msrp[i] = "  $" + parseInt(dtApx[i].MSRP);
 						} else {
 							msrp[i] = "";
 						}
 						if (dtApx[i].NETPRICE != undefined && dtApx[i].NETPRICE != null && !isNaN(dtApx[i].NETPRICE) && dtApx[i].NETPRICE != "") {
-							net[i] = "$" + parseInt(dtApx[i].NETPRICE);
+							net[i] = "  $" + parseInt(dtApx[i].NETPRICE);
 						} else {
 							net[i] = "";
 						}
@@ -2562,12 +2562,12 @@ sap.ui.define([
 						var msrp = [],
 							net = [];
 						if (dtApx[i].MSRP != undefined && dtApx[i].MSRP != null && !isNaN(dtApx[i].MSRP) && dtApx[i].MSRP != "") {
-							msrp[i] = "$" + parseInt(dtApx[i].MSRP);
+							msrp[i] = "  $" + parseInt(dtApx[i].MSRP);
 						} else {
 							msrp[i] = "";
 						}
 						if (dtApx[i].NETPRICE != undefined && dtApx[i].NETPRICE != null && !isNaN(dtApx[i].NETPRICE) && dtApx[i].NETPRICE != "") {
-							net[i] = "$" + parseInt(dtApx[i].NETPRICE);
+							net[i] = "  $" + parseInt(dtApx[i].NETPRICE);
 						} else {
 							net[i] = "";
 						}
@@ -2648,7 +2648,7 @@ sap.ui.define([
 						return new sap.m.Column({
 							header: new sap.m.Label({
 								text: context.getObject().Vehicle
-							}),hAlign:"Center"
+							})
 						});
 					});
 
@@ -2685,7 +2685,7 @@ sap.ui.define([
 						return new sap.m.Column({
 							header: new sap.m.Label({
 								text: context.getObject().Vehicle
-							}),hAlign:"Center"
+							})
 						});
 					});
 					tblInterior.bindItems("/rows", function (index, context) {
@@ -2721,7 +2721,7 @@ sap.ui.define([
 						return new sap.m.Column({
 							header: new sap.m.Label({
 								text: context.getObject().Vehicle
-							}),hAlign:"Center"
+							})
 						});
 					});
 					tblPowertrain.bindItems("/rows", function (index, context) {
@@ -2755,7 +2755,7 @@ sap.ui.define([
 						return new sap.m.Column({
 							header: new sap.m.Label({
 								text: context.getObject().Vehicle
-							}),hAlign:"Center"
+							})
 						});
 					});
 					tblSafety.bindItems("/rows", function (index, context) {
@@ -2789,7 +2789,7 @@ sap.ui.define([
 						return new sap.m.Column({
 							header: new sap.m.Label({
 								text: context.getObject().Vehicle
-							}),hAlign:"Center"
+							})
 						});
 					});
 					tblInfotainment.bindItems("/rows", function (index, context) {
@@ -2857,7 +2857,7 @@ sap.ui.define([
 						return new sap.m.Column({
 							header: new sap.m.Label({
 								text: context.getObject().Vehicle
-							}),hAlign:"Center"
+							})
 						});
 					});
 					tblDimensions.bindItems("/rows", function (index, context) {
@@ -2912,7 +2912,7 @@ sap.ui.define([
 						return new sap.m.Column({
 							header: new sap.m.Label({
 								text: context.getObject().Vehicle
-							}),hAlign:"Center"
+							})
 						});
 					});
 					tblAPX1.bindItems("/rows", function (index, context) {
@@ -2947,7 +2947,7 @@ sap.ui.define([
 						return new sap.m.Column({
 							header: new sap.m.Label({
 								text: context.getObject().Vehicle
-							}),hAlign:"Center"
+							})
 						});
 					});
 					tblAPX.bindItems("/rows", function (index, context) {

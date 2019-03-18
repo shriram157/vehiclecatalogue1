@@ -316,12 +316,12 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					var msrp = [],
 						net = [];
 					if (dtCol[i].MSRP != undefined && dtCol[i].MSRP != null && !isNaN(dtCol[i].MSRP) && dtCol[i].MSRP != "") {
-						msrp[i] = " $" + parseInt(dtCol[i].MSRP);
+						msrp[i] = "  $" + parseInt(dtCol[i].MSRP);
 					} else {
 						msrp[i] = "";
 					}
 					if (dtCol[i].NETPRICE != undefined && dtCol[i].NETPRICE != null && !isNaN(dtCol[i].NETPRICE) && dtCol[i].NETPRICE != "") {
-						net[i] = " $" + parseInt(dtCol[i].NETPRICE);
+						net[i] = "  $" + parseInt(dtCol[i].NETPRICE);
 					} else {
 						net[i] = "";
 					}
@@ -359,12 +359,12 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					var msrp = [],
 						net = [];
 					if (dtOpt[i].MSRP != undefined && dtOpt[i].MSRP != null && !isNaN(dtOpt[i].MSRP) && dtOpt[i].MSRP != "") {
-						msrp[i] = " $" + parseInt(dtOpt[i].MSRP);
+						msrp[i] = "  $" + parseInt(dtOpt[i].MSRP);
 					} else {
 						msrp[i] = "";
 					}
 					if (dtOpt[i].NETPRICE != undefined && dtOpt[i].NETPRICE != null && !isNaN(dtOpt[i].NETPRICE) && dtOpt[i].NETPRICE != "") {
-						net[i] = " $" + parseInt(dtOpt[i].NETPRICE);
+						net[i] = "  $" + parseInt(dtOpt[i].NETPRICE);
 					} else {
 						net[i] = "";
 					}
@@ -419,12 +419,12 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					var msrp = [],
 						net = [];
 					if (dtApx[i].MSRP != undefined && dtApx[i].MSRP != null && !isNaN(dtApx[i].MSRP) && dtApx[i].MSRP != "") {
-						msrp[i] = "$" + parseInt(dtApx[i].MSRP);
+						msrp[i] = "  $" + parseInt(dtApx[i].MSRP);
 					} else {
 						msrp[i] = "";
 					}
 					if (dtApx[i].NETPRICE != undefined && dtApx[i].NETPRICE != null && !isNaN(dtApx[i].NETPRICE) && dtApx[i].NETPRICE != "") {
-						net[i] = "$" + parseInt(dtApx[i].NETPRICE);
+						net[i] = "  $" + parseInt(dtApx[i].NETPRICE);
 					} else {
 						net[i] = "";
 					}
@@ -783,7 +783,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					return new sap.m.Column({
 						header: new sap.m.Label({
 							text: context.getObject().Vehicle
-						}),hAlign:"Center"
+						})
 					});
 				});
 				tblAPX1.bindItems("/rows", function (index, context) {
