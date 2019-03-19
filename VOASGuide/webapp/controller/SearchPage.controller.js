@@ -165,11 +165,45 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 						//var oBusyDialog = searchController.getView().byId("BusyDialog");
 
 						var tblModel = new sap.ui.model.json.JSONModel(data.d.results);
+						 var mGroupInfo = {
+            S: { order: 2, text:" "},
+            M: { order: 1, text:" "}
+           
+        };
+        // Returns to what group (S/M/L) a value belongs
+        var fGroup = function(v) {
+            return v  > 0.0? "M" :  "S";
+        };
+ 
+         var fGrouper = function(oContext) {
+            var v = oContext.getProperty("MSRP");
+            var group = fGroup(v);
+            return { key: group, text: mGroupInfo[group].text };
+        };
 						tblModel.setSizeLimit(data.d.results.length);
 						searchController.getView().setModel(tblModel, "searchTblModel");
-						var oSorter = new sap.ui.model.Sorter("MSRP", false); // sort on based of MSRP
+						var oSorter = new sap.ui.model.Sorter("MSRP", false,fGrouper ); // sort on based of MSRP
+						 oSorter.fnCompare = function(a, b) {
+            // Determine the group and group order
+            var agroup = mGroupInfo[fGroup(a)].order;
+            var bgroup = mGroupInfo[fGroup(b)].order;
+            // Return sort result, by group ...
+            if (agroup < bgroup) return -1;
+            if (agroup > bgroup) return  1;
+             // ... and then within group (when relevant)
+            if (a < b) return -1;
+            if (a == b) return 0;
+            if (a > b) return  1;
+        };
 						searchController.getView().byId("idTbl_Search").setModel("searchTblModel");
 						searchController.byId("idTbl_Search").getBinding("items").sort(oSorter);
+		// 				 var aFilters = [];
+  //for (var i = 0, l = data.d.results.length; i < l; i++) {
+   
+  //  var oFilter = new sap.ui.model.Filter("MSRP", "GT", "0.0", null);
+  //  aFilters.push(oFilter);
+  //}
+  //searchController.byId("idTbl_Search").getBinding("items").filter(aFilters);
 						searchController.oBusyDialog.close();
 					},
 					error: function (jqXHR, textStatus, errorThrown) {
