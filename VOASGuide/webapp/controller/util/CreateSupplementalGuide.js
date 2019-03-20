@@ -337,13 +337,20 @@ sap.ui.define([
 				success: function (data, textStatus, jqXHR) {
 					console.log("GET success: ");
 					// console.log(data.d.results);
-
+if(data!=="")
+{
 					var pdfAsDataUri = "data:application/pdf;base64," + data;
 					var link1 = document.createElement('a');
 
-					link1.download = "export.pdf";
+					link1.download = "SG_"+serVal+"_"+ moYear +"_"+ lang +".pdf";
 					link1.href = pdfAsDataUri;
 					link1.click();
+}
+else
+{
+						sap.m.MessageBox.show("No File exists for curent selection.", sap.m.MessageBox.Icon.ERROR,"Error",sap.m.MessageBox.Action.OK, null, null);
+
+}
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
 					sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR,"Error",sap.m.MessageBox.Action.OK, null, null);

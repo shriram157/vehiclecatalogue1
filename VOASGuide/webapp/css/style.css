@@ -175,6 +175,9 @@
 	text-align:left !important;
 	font-size:medium !important;
 }
+.sapMGHLI{
+	display: none;
+}
 .tableCol1 .sapUiSizeCompact .sapMListTblHighlightCol + .sapMListTblCell.sapMListTblHeaderCell {
     padding-left: .1rem;
     width: 10rem !important;

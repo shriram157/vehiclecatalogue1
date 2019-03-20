@@ -178,7 +178,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
          var fGrouper = function(oContext) {
             var v = oContext.getProperty("MSRP");
             var group = fGroup(v);
-            return { key: group, text: mGroupInfo[group].text };
+            return { key: group , text: mGroupInfo[group].text};
         };
 						tblModel.setSizeLimit(data.d.results.length);
 						searchController.getView().setModel(tblModel, "searchTblModel");
