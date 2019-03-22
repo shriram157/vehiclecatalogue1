@@ -66,9 +66,9 @@ var formatter = {
 			date = year + "-" + month + "-" + day;
 		}
 		if (str2 != "" && str2 != " " && str2 != null && str2 != undefined) {
-			var hour = str.slice(0, 2);
-			var min = str.slice(2, 4);
-			var sec = str.slice(4, 6);
+			var hour = str2.slice(0, 2);
+			var min = str2.slice(2, 4);
+			var sec = str2.slice(4, 6);
 			time = hour + ":" + min + ":" + sec;
 		}
 		timeStamp=date+ " "+time;
