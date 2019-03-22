@@ -68,7 +68,7 @@
 				</HBox>
 			</VBox>
 		</uxap:headerContent>
-		<uxap:sections>
+		<uxap:sections id  = "sect">
 			<uxap:ObjectPageSection title="Powertrain &amp; Mechanical">
 				<uxap:subSections>
 					<uxap:ObjectPageSubSection title="{i18n>Powertrain}">
