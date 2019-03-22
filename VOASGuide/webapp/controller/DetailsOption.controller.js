@@ -13,8 +13,8 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			DetailController = this;
 			//	this.getUserLanguage();
 			this.getBrowserLanguage();
-			var oSect = this.getView().byId("sect");
-			oSect.scrollTo(0,0);
+			// var oSect = this.getView().byId("sect");
+			// oSect.scrollTo(0,0);
 			DetailController.oRouter = sap.ui.core.UIComponent.getRouterFor(DetailController);
 			DetailController.oRouter.getTarget("DetailsOption").attachDisplay(jQuery.proxy(DetailController.handleRouteMatched,
 				DetailController));
@@ -24,6 +24,14 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 		},
 		onAfterRendering: function () {
 			DetailController._readUser();
+			this.oObjectPageLayout = this.getView().byId("ObjectPage");
+this.oTargetSubSection = this.getView().byId("power");
+this.oObjectPageLayout.addEventDelegate({
+onAfterRendering: jQuery.proxy(function () {
+			//need to wait for the scrollEnablement to be active
+			jQuery.sap.delayedCall(500, this.oObjectPageLayout, this.oObjectPageLayout.scrollToSection, [this.oTargetSubSection.getId()]);
+			}, this)
+});
 		},
 		formatFeatures: function (str) {
 			var feat = "";
