@@ -862,7 +862,9 @@ onAfterRendering: jQuery.proxy(function () {
 			var oHistory = History.getInstance();
 			var sPreviousHash = oHistory.getPreviousHash();
 			var oQueryParams = DetailController.getQueryParameters(window.location);
-
+			const obj = this.byId("ObjectPage");
+			const pow = this.byId("power");
+			obj.scrollToSection(pow.getId(), 450);
 			if (sPreviousHash !== undefined || oQueryParams.navBackToLaunchpad) {
 				window.history.go(-1);
 			} else {

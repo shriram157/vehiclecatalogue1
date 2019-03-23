@@ -2983,7 +2983,9 @@ sap.ui.define([
 			var oHistory = History.getInstance();
 			var sPreviousHash = oHistory.getPreviousHash();
 			var oQueryParams = CDO_controller.getQueryParameters(window.location);
-
+const obj = this.byId("Co_ObjectPage");
+			const pow = this.byId("Co_power");
+			obj.scrollToSection(pow.getId(), 450);
 			if (sPreviousHash !== undefined || oQueryParams.navBackToLaunchpad) {
 				window.history.go(-1);
 			} else {
