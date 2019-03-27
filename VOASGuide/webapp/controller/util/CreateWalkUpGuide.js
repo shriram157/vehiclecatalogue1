@@ -320,7 +320,7 @@ sap.ui.define([
 					CreateWalkUpDialogController.nodeJsUrl = CreateWalkUpDialogController.sPrefix + "/node";
 					var host = CreateWalkUpDialogController.nodeJsUrl;
 					var url = host +
-						"/Z_VEHICLE_CATALOGUE_SRV/FileDownloadSet(Language='" + lang + "',Tab='WalkUp',Model_year='" + moYear + "',Tciseries='" + serVal +
+						"/Z_VEHICLE_CATALOGUE_SRV/FileDownloadSet(Language='" + lang + "',Tab='Walkup',Model_year='" + moYear + "',Tciseries='" + serVal +
 						"',Brand='" + brandVal + "')/$value";
 						
 	$.ajax({
