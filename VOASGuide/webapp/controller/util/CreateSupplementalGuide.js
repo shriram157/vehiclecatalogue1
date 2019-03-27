@@ -118,9 +118,12 @@ sap.ui.define([
 					}
 					CreateSuppGuideController.nodeJsUrl = CreateSuppGuideController.sPrefix + "/node";
 					var host = CreateSuppGuideController.nodeJsUrl;
+					var userModel = sap.ui.getCore().getModel("userModel");
+					var userData = userModel.getData();
+					var usr = userData.loggedUserType[0];
 					var url = host +
-						"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(Brand eq '" + brandVal + "' and Modelyear eq '" + moYearVal +
-						"')";
+						"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(User eq  '" + usr + "' and Language eq 'EN' and Brand eq '" + brandVal + "' and Modelyear eq '" + moYearVal +
+					"')";
 					$.ajax({
 						url: url,
 						method: 'GET',
@@ -214,8 +217,18 @@ sap.ui.define([
 			}
 			CreateSuppGuideController.nodeJsUrl = CreateSuppGuideController.sPrefix + "/node";
 			var host = CreateSuppGuideController.nodeJsUrl;
+			var langSwitchState = CreateSuppGuideController.getView().byId("idCreateSupp_LangSwitch").mProperties.state;
+							var lang = "";
+					if (langSwitchState == false) {
+						lang = "FR";
+					} else {
+						lang = "EN";
+					}
+						var userModel = sap.ui.getCore().getModel("userModel");
+			var userData = userModel.getData();
+			var usr = userData.loggedUserType[0];
 			var url = host +
-				"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(Brand eq '" + brandCBVal + "' and Modelyear eq '" + modelYearCBVal +
+				"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(User eq  '" + usr + "' and Language eq '" + lang + "'and Brand eq '" + brandCBVal + "' and Modelyear eq '" + modelYearCBVal +
 				"')";
 			//	"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter= (Brand eq 'TOYOTA' and Modelyear eq '2018')";
 			$.ajax({

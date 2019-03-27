@@ -61,6 +61,10 @@ sap.ui.define([
 			CreateWalkUpDialogController._oDialog = CreateWalkUpDialogController.getControl();
 			CreateWalkUpDialogController.listOfBrand();
 			CreateWalkUpDialogController.listOfModelYear();
+			
+			var userModel = sap.ui.getCore().getModel("userModel");
+			var userData = userModel.getData();
+			var usr = userData.loggedUserType[0];
 			var brandCB = sap.ushell.components.brandCB;
 			var moYearCB = sap.ushell.components.modelYearCB;
 			var seriesCB = sap.ushell.components.seriesCB;
@@ -119,8 +123,15 @@ sap.ui.define([
 				}
 				CreateWalkUpDialogController.nodeJsUrl = CreateWalkUpDialogController.sPrefix + "/node";
 				var host = CreateWalkUpDialogController.nodeJsUrl;
+					// var langSwitchState = CreateWalkUpDialogController.getView().byId("walkUpCreate_Lang").mProperties.state;
+					// var lang = "";
+					// if (langSwitchState == false) {
+					// 	lang = "FR";
+					// } else {
+					// 	lang = "EN";
+					// }
 				var url = host +
-					"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(Brand eq '" + brandVal + "' and Modelyear eq '" + moYearVal +
+					"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(User eq  '" + usr + "' and Language eq 'EN' and Brand eq '" + brandVal + "' and Modelyear eq '" + moYearVal +
 					"')";
 				$.ajax({
 					url: url,
@@ -215,8 +226,18 @@ sap.ui.define([
 			}
 			CreateWalkUpDialogController.nodeJsUrl = CreateWalkUpDialogController.sPrefix + "/node";
 			var host = CreateWalkUpDialogController.nodeJsUrl;
+			var langSwitchState = CreateWalkUpDialogController.getView().byId("walkUpCreate_Lang").mProperties.state;
+					var lang = "";
+					if (langSwitchState == false) {
+						lang = "FR";
+					} else {
+						lang = "EN";
+					}
+						var userModel = sap.ui.getCore().getModel("userModel");
+			var userData = userModel.getData();
+			var usr = userData.loggedUserType[0];
 			var url = host +
-				"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(Brand eq '" + brandCBVal + "' and Modelyear eq '" + modelYearCBVal +
+				"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(User eq  '" + usr + "' and Language eq '" + lang + "'and Brand eq '" + brandCBVal + "' and Modelyear eq '" + modelYearCBVal +
 				"')";
 			//	"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter= (Brand eq 'TOYOTA' and Modelyear eq '2018')";
 			$.ajax({
