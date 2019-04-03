@@ -691,7 +691,7 @@ onAfterRendering: jQuery.proxy(function () {
 					return new sap.m.Column({
 						header: new sap.m.Label({
 							text: context.getObject().veh
-						}),hAlign:"Center"
+						}),
 					});
 				});
 				tblColorOptions.bindItems("/rows", function (index, context) {

@@ -1140,7 +1140,7 @@ sap.ui.define([
 							return new sap.m.Column({
 								header: new sap.m.Label({
 									text: context.getObject().Vehicle
-								}),hAlign:"Center"
+								}),
 							});
 						});
 					tblColorOptions.bindItems("/rows", function (index, context) {
@@ -1903,7 +1903,7 @@ sap.ui.define([
 						return new sap.m.Column({
 							header: new sap.m.Label({
 								text: context.getObject().Vehicle
-							}),hAlign:"Center"
+							}),
 						});
 					});
 					tblColorOptions.bindItems("/rows", function (index, context) {
@@ -2823,7 +2823,7 @@ sap.ui.define([
 						return new sap.m.Column({
 							header: new sap.m.Label({
 								text: context.getObject().Vehicle
-							}),hAlign:"Center"
+							}),
 						});
 					});
 					tblColorOptions.bindItems("/rows", function (index, context) {

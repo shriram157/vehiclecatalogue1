@@ -10,6 +10,11 @@ var formatter = {
 		}
 		return feature;
 	},
+	 //downloadUrl: function(reqDocno, reqType, reqCounter, fileName) {
+	       
+  //          var downloadUrl = "voasguide_node/node/Z_VEHICLE_CATALOGUE_SRV/FileSet(Comment='',FileName=fileName,Language='EN',Lastupdate='20190330',Tab='Whatsup',Model='Camry%20SE',Model_year='2018',Tciseries='CAMRY',Brand='TOYOTA')/$value";
+  //          return downloadUrl;
+  //      },
 	formatFeatures: function (str, str2) {
 		var feat = "";
 		var feature = "";

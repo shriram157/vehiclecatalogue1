@@ -69,6 +69,89 @@ sap.ui.define([
 			return {};
 
 		},
+		 //onChange: function(oEvent) {  
+           
+   //         var oUploadCollection = oEvent.getSource();
+			// // var _csrfToken = this.getModel().getHeaders()['x-csrf-token'];
+			// var _csrfToken = this._oODataModel.getHeaders()['x-csrf-token'];
+			// var oCustomerHeaderToken = new sap.m.UploadCollectionParameter({
+			// 	name: "x-csrf-token",
+			// 	value: _csrfToken
+			// });
+			// oUploadCollection.addHeaderParameter(oCustomerHeaderToken);
+        // }, 
+        // onBeforeUploadStarts: function(oEvent) {
+			// var ReqDocno = this.getView().getBindingContext().getObject().ReqDocno;
+
+	// 	var modelAdm = sap.ui.getCore().getModel("modelAdmin");
+	// 		var modelAdmData = modelAdm.getData();
+	// var comment = this._oView.byId("__component0---AdminDetailsOption--walkUp_TA_Comment").getValue(); // "ok"; 
+	// 				// var filename = this._oView.byId("__component0---AdminDetailsOption--walkUpFileUploadId").mProperties.value; //"abc.pdf";
+	// 				var date = new Date();
+	// 				var date2 = sap.ui.core.format.DateFormat.getDateInstance({
+	// 					pattern: "yyyyMMdd"
+	// 				});
+	// 				var date3 = date2.format(date);
+	// 				var langSwitchState = this._oView.byId("__component0---AdminDetailsOption--walkUp_Switch_Lang").mProperties.state;
+	// 				var lang = "";
+	// 				if (langSwitchState == false) {
+	// 					lang = "FR";
+	// 				} else {
+	// 					lang = "EN";
+	// 				}
+
+	
+	
+	// 		var oReqDocno = new sap.m.UploadCollectionParameter({
+	// 			name: "Comment",
+	// 			value: comment
+	// 		});
+	// 		oEvent.getParameters().addHeaderParameter(oReqDocno);
+
+// 			var oReqType = new sap.m.UploadCollectionParameter({
+// 				name: "Language",
+// 				value: lang
+// 			});
+// 			oEvent.getParameters().addHeaderParameter(oReqType);
+// var oUpdate = new sap.m.UploadCollectionParameter({
+// 				name: "Lastupdate",
+// 				value: date3
+// 			});
+// 			oEvent.getParameters().addHeaderParameter(oUpdate);
+			
+// 			var oTab = new sap.m.UploadCollectionParameter({
+// 				name: "Tab",
+// 				value: "Walkup"
+// 			});
+// 			oEvent.getParameters().addHeaderParameter(oTab);
+// 				var oModelDesc = new sap.m.UploadCollectionParameter({
+// 				name: "Model",
+// 				value: modelAdmData.modelDesc
+// 			});
+// 			oEvent.getParameters().addHeaderParameter(oModelDesc);
+// 				var oModelYear = new sap.m.UploadCollectionParameter({
+// 				name: "Model_year",
+// 				value: modelAdmData.moYear
+// 			});
+// 			oEvent.getParameters().addHeaderParameter(oModelYear);
+// 		var oSeries = new sap.m.UploadCollectionParameter({
+// 				name: "Tciseries",
+// 				value: modelAdmData.series
+// 			});
+// 			oEvent.getParameters().addHeaderParameter(oSeries);
+		// 		var oBrand = new sap.m.UploadCollectionParameter({
+		// 		name: "x-csrf-token",
+		// 		value: "Vikr8t-rcA4NOkt4nq9Sag=="
+		// 	});
+		// 	oEvent.getParameters().addHeaderParameter(oBrand);
+					
+		// 	var oFileName = new sap.m.UploadCollectionParameter({
+		// 		name: "slug",
+		// 		value: oEvent.getParameter("fileName")
+		// 	});
+		// 	oEvent.getParameters().addHeaderParameter(oFileName);
+		// },
+        
 		_uploadPDFFile: function (oEvent) {
 			var modelAdm = sap.ui.getCore().getModel("modelAdmin");
 			var modelAdmData = modelAdm.getData();

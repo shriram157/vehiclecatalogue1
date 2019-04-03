@@ -1,7 +1,5 @@
-<core:FragmentDefinition id="walkUp_fragmentId" xmlns:core="sap.ui.core" controllerName="com.sap.build.toyota-canada.vehiclesGuideV3.controller.util.WalkupDialog"
-	xmlns="sap.m" xmlns:form="sap.ui.layout.form" xmlns:u="sap.ui.unified">
-	<Dialog horizontalScrolling="true" showHeader="true" state="None" stretch="false" title="Walk-up Section PDF" type="Standard"
-		verticalScrolling="true">
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:form="sap.ui.layout.form" xmlns:u="sap.ui.unified" id="walkUp_fragmentId" controllerName="com.sap.build.toyota-canada.vehiclesGuideV3.controller.util.WalkupDialog">
+	<Dialog horizontalScrolling="true" showHeader="true" state="None" stretch="false" title="Walk-up Section PDF" type="Standard" verticalScrolling="true">
 		<content>
 			<form:Form width="100%" editable="true" visible="true">
 				<form:title/>
@@ -13,8 +11,8 @@
 									<Label text="" design="Standard" width="100%" required="true" textAlign="Begin" textDirection="Inherit" visible="true"/>
 								</form:label>
 								<form:fields>
-								<u:FileUploader id="walkUpFileUploadId" name="myFileUpload" uploadUrl="upload/" mimeType="application/pdf" tooltip="Upload your file to the server"
-										uploadComplete="handleUploadComplete"/>
+								
+								<u:FileUploader id="walkUpFileUploadId" name="myFileUpload" uploadUrl="/sap/opu/odata/sap/Z_VEHICLE_CATALOGUE_SRV/FileSet" mimeType="application/pdf" tooltip="Upload your file to the server" items="{/FileSet}" uploadComplete="handleUploadComplete"/>
 								</form:fields>
 							</form:FormElement>
 							<form:FormElement visible="true">
@@ -22,7 +20,7 @@
 									<Label text="Comments" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
 								</form:label>
 								<form:fields>
-									<TextArea  id="walkUp_TA_Comment" rows="2" cols="20" maxLength="0" wrapping="None" enabled="true" visible="true"/>
+									<TextArea id="walkUp_TA_Comment" rows="2" cols="20" maxLength="0" wrapping="None" enabled="true" visible="true"/>
 								</form:fields>
 							</form:FormElement>
 							<form:FormElement visible="true" class="sapUiResponsiveMargin">
@@ -30,7 +28,7 @@
 									<Label text="Language" design="Bold" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
 								</form:label>
 								<form:fields>
-									<Switch  id="walkUp_Switch_Lang" state="true" customTextOff="Fr" customTextOn="En" type="Default" enabled="true" visible="true" class="sapUiTinyMargin"/>
+									<Switch id="walkUp_Switch_Lang" state="true" customTextOff="Fr" customTextOn="En" type="Default" enabled="true" visible="true" class="sapUiTinyMargin"/>
 								</form:fields>
 							</form:FormElement>
 						</form:formElements>
@@ -41,13 +39,17 @@
 					<form:ResponsiveGridLayout adjustLabelSpan="false" columnsL="2" labelSpanL="3" columnsM="1" labelSpanM="2" labelSpanS="12"/>
 				</form:layout>
 			</form:Form>
+			<!--<UploadCollection noDataText="No files found" beforeUploadStarts="onBeforeUploadStarts" selectionChange = "onChange" instantUpload = "true" uploadUrl="/voasguide_node/node/Z_VEHICLE_CATALOGUE_SRV/FileSet(Comment='',FileName='abc.pdf',Language='EN',Lastupdate='20190331',Tab='Whatsup',Model='Camry%20SE',Model_year='2018',Tciseries='CAMRY',Brand='TOYOTA')/$value" noDataDescription="Drop files to upload, or use the &quot;+&quot; button."   items="{/FileSet}" mode = "SingleSelectMaster">-->
+			<!--    <items>-->
+			<!--        <UploadCollectionItem documentId="{ReqCounter}" fileName="ade.pdf" mimeType="application/pdf" thumbnailUrl="{thumbnailUrl}" url="{ parts: ['ReqDocno','ReqType','ReqCounter','Filename'], formatter: 'formatter.downloadUrl' }" enableEdit="true" enableDelete="true" visibleDelete="true" visibleEdit="true" selected="0"/>-->
+			      
+			<!--        </items>-->
+			<!--</UploadCollection>-->
 		</content>
 		<beginButton/>
 		<buttons>
-			<Button text="Upload PDF" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"
-				press="_uploadPDFFile"/>
-			<Button text="Cancel" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"
-				press="_onButtonPress1"/>
+			<Button text="Upload PDF" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="_uploadPDFFile"/>
+			<Button text="Cancel" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="_onButtonPress1"/>
 		</buttons>
 		<customHeader/>
 		<endButton/>
