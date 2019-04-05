@@ -5,6 +5,17 @@
 		"logoutEndpoint": "/do/logout"
 	},
 	"routes": [{
+		"source": "^/vehiclecatalogue/index.html$",
+		"target": "index.html",
+		"localDir": "webapp",
+		"cacheControl": "no-cache, no-store, must-revalidate",
+		"scope": [
+			"$XSAPPNAME.Manage_VOAS_Guides",
+			"$XSAPPNAME.View_VOAS_Guides_Dealer_Net",
+			"$XSAPPNAME.View_VOAS_Guides_MSRP",
+			"$XSAPPNAME.View_VOAS_Guides_Unreleased"
+		]
+	}, {
 		"source": "^/vehiclecatalogue/(.*)$",
 		"target": "$1",
 		"localDir": "webapp",
