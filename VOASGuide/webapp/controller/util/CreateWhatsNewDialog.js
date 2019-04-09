@@ -116,10 +116,10 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					CreateWhatsNewDialogController.getView().byId("idNew_modelYearCB").setEnabled(true);
 				}
 				var seriesVal = seriesCB.getValue();
-				if (seriesVal != " " && seriesVal != "" && seriesVal != null && seriesVal != undefined) {
-					CreateWhatsNewDialogController.getView().byId("id_seriesCBNew").setValue(seriesVal);
+				// if (seriesVal != " " && seriesVal != "" && seriesVal != null && seriesVal != undefined) {
+				// 	CreateWhatsNewDialogController.getView().byId("id_seriesCBNew").setValue(seriesVal);
 					//	CreateWhatsNewDialogController.getView().byId("id_seriesCBNew").setEnabled(false);
-				} else {
+				// } else {
 					CreateWhatsNewDialogController.getView().byId("id_seriesCBNew").setEnabled(true);
 					var sLocation = window.location.host;
 					var sLocation_conf = sLocation.search("webide");
@@ -156,6 +156,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 
 							oModel.setData(arr);
 							CreateWhatsNewDialogController.getView().setModel(oModel, "seriesdropDownModelNew");
+							CreateWhatsNewDialogController.getView().byId("id_seriesCBNew").setSelectedKey(seriesVal);
 						},
 						error: function (jqXHR, textStatus, errorThrown) {
 							sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
@@ -163,7 +164,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 								.m.MessageBox.Action.OK, null, null);
 						}
 					});
-				}
+				// }
 			}
 		},
 		exit: function () {

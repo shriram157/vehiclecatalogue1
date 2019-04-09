@@ -104,10 +104,10 @@ sap.ui.define([
 					CreateSuppGuideController.getView().byId("idSupp_modelYearCB").setEnabled(true);
 				}
 				var seriesVal = seriesCB.getValue();
-				if (seriesVal != " " && seriesVal != "" && seriesVal != null && seriesVal != undefined) {
-					CreateSuppGuideController.getView().byId("idSupp_seriesCB").setValue(seriesVal);
-					//	CreateSuppGuideController.getView().byId("idSupp_seriesCB").setEnabled(false);
-				} else {
+				// if (seriesVal != " " && seriesVal != "" && seriesVal != null && seriesVal != undefined) {
+				// 	CreateSuppGuideController.getView().byId("idSupp_seriesCB").setValue(seriesVal);
+				// 	//	CreateSuppGuideController.getView().byId("idSupp_seriesCB").setEnabled(false);
+				// } else {
 					CreateSuppGuideController.getView().byId("idSupp_seriesCB").setEnabled(true);
 					var sLocation = window.location.host;
 					var sLocation_conf = sLocation.search("webide");
@@ -143,6 +143,7 @@ sap.ui.define([
 							}
 							oModel.setData(arr);
 							CreateSuppGuideController.getView().setModel(oModel, "seriesdropDownModelNew");
+							CreateSuppGuideController.getView().byId("idSupp_seriesCB").setSelectedKey(seriesVal);
 						},
 						error: function (jqXHR, textStatus, errorThrown) {
 							sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
@@ -150,7 +151,7 @@ sap.ui.define([
 								.m.MessageBox.Action.OK, null, null);
 						}
 					});
-				}
+				// }
 			}
 		},
 		listOfBrand: function () {

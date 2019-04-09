@@ -93,10 +93,10 @@ sap.ui.define([
 					CreateVehicleGuideDialogController.getView().byId("idVeh_modelYearCB").setEnabled(true);
 				}
 				var seriesVal = seriesCB.getValue();
-				if (seriesVal != " " && seriesVal != "" && seriesVal != null && seriesVal != undefined) {
-					CreateVehicleGuideDialogController.getView().byId("idVeh_seriesCB").setValue(seriesVal);
-					//	CreateVehicleGuideDialogController.getView().byId("idVeh_seriesCB").setEnabled(false);
-				} else {
+				// if (seriesVal != " " && seriesVal != "" && seriesVal != null && seriesVal != undefined) {
+				// 	CreateVehicleGuideDialogController.getView().byId("idVeh_seriesCB").setValue(seriesVal);
+				// 	//	CreateVehicleGuideDialogController.getView().byId("idVeh_seriesCB").setEnabled(false);
+				// } else {
 					CreateVehicleGuideDialogController.getView().byId("idVeh_seriesCB").setEnabled(true);
 					var sLocation = window.location.host;
 					var sLocation_conf = sLocation.search("webide");
@@ -129,6 +129,7 @@ sap.ui.define([
 							}
 							oModel.setData(arr);
 							CreateVehicleGuideDialogController.getView().setModel(oModel, "seriesdropDownModelNew");
+								CreateVehicleGuideDialogController.getView().byId("idVeh_seriesCB").setSelectedKey(seriesVal);
 						},
 						error: function (jqXHR, textStatus, errorThrown) {
 							sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
@@ -136,7 +137,7 @@ sap.ui.define([
 								.m.MessageBox.Action.OK, null, null);
 						}
 					});
-				}
+				
 			}
 		},
 		listOfBrand: function () {
