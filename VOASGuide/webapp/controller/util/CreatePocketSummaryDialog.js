@@ -256,9 +256,9 @@ sap.ui.define([
 					var dealerSwitch = CreatePocketSumController.getView().byId("id_poc_DealerSwitch").mProperties.state;
 					var dealer = "";
 					if (dealerSwitch == true) {
-						dealer = "ON";
+						dealer = "X";
 					} else {
-						dealer = "OFF";
+						dealer = "";
 					}
 					var langSwitchState = CreatePocketSumController.getView().byId("id_poc_LangSwitch").mProperties.state;
 					var lang = "";
@@ -277,9 +277,9 @@ sap.ui.define([
 					CreatePocketSumController.nodeJsUrl = CreatePocketSumController.sPrefix + "/node";
 					var host = CreatePocketSumController.nodeJsUrl;
 					var url = host +
-						"/Z_VEHICLE_CATALOGUE_SRV/FileDownloadSet(Language='" + lang + "',Tab='WhatsNew',Model_year='" + moYear + "',Brand='" +
+						"/Z_VEHICLE_CATALOGUE_SRV/FileDownload_summarySet(Language='" + lang + "',Tab='X',Model_year='" + moYear + "',Brand='" +
 						brandVal +
-						"',DealerNet='" + dealer + "')/$value";
+						"',Tciseries='" + dealer + "')/$value";
 					/*	$.ajax({
 							url: url,
 							method: 'GET',
@@ -294,7 +294,7 @@ sap.ui.define([
 									.m.MessageBox.Action.OK, null, null);
 							}
 						});*/
-					window.open(url, '_blank');
+					window.open(url);
 
 					//	alert("CreatePocketSumController should Generate and display Active (Based on Today's Date) What's New Pdf in new window");
 
