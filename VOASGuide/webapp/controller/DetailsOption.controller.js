@@ -12,15 +12,21 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 		onInit: function () {
 			DetailController = this;
 			//	this.getUserLanguage();
-			this.getBrowserLanguage();
+				var oBusyDialog = new sap.m.BusyDialog({
+				showCancelButton: false
+			});
+			oBusyDialog.open();
+			// this.getBrowserLanguage();
 			// var oSect = this.getView().byId("sect");
 			// oSect.scrollTo(0,0);
 			DetailController.oRouter = sap.ui.core.UIComponent.getRouterFor(DetailController);
 			DetailController.oRouter.getTarget("DetailsOption").attachDisplay(jQuery.proxy(DetailController.handleRouteMatched,
 				DetailController));
+				
 			//DetailController.getView().byId("manageSeriesBtnId").setEnabled(true);
 			//DetailController._readUser();
 			DetailController.language = DetailController.returnBrowserLanguage();
+	oBusyDialog.close();
 		},
 		onAfterRendering: function () {
 			DetailController._readUser();
@@ -123,7 +129,7 @@ onAfterRendering: jQuery.proxy(function () {
 		},
 
 		handleRouteMatched: function (oEvent) {
-
+			
 			var parseArg = JSON.parse(oEvent.getParameters().data.num);
 			var modelDetail = new sap.ui.model.json.JSONModel(parseArg[0]);
 			var veh = parseArg[0].veh;
@@ -155,7 +161,7 @@ onAfterRendering: jQuery.proxy(function () {
 			$.ajax({
 				url: urlTable,
 				method: 'GET',
-				async: false,
+				async: true,
 				dataType: 'json',
 				success: function (data, textStatus, jqXHR) {
 					var tblModel = new sap.ui.model.json.JSONModel(data.d.results);
@@ -857,6 +863,7 @@ onAfterRendering: jQuery.proxy(function () {
 					return row;
 				});
 			}
+			// DetailController.oBusyDialog.close();
 		},
 		_onFioriObjectPageHeaderPress: function () {
 			var oHistory = History.getInstance();

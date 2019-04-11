@@ -107,7 +107,10 @@ sap.ui.define([
 					} else {
 						lang = "EN";
 					}
-
+						var oBusyDialog = new sap.m.BusyDialog({
+				showCancelButton: false
+			});
+ oBusyDialog.open();
 					//var oURL = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileSet('" + filename + "')/$value";
 					var oFileUploader = this._oView.byId("__component0---AdminDetailsOption--suppFileUploadId");
 					var oURL4 = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileSet(Comment='" + comment + "',FileName='" + filename + "',Language='" +
@@ -140,7 +143,7 @@ sap.ui.define([
 							$.ajax({	
 								type: 'PUT',
 									url: oURL2,
-									data: encodeURIComponent(_base64),
+									data: _base64,
 									dataType: 'json',
 									beforeSend: function (xhr) {
 										xhr.setRequestHeader('X-CSRF-Token', token);
@@ -180,7 +183,7 @@ sap.ui.define([
 						});
 					};
 					reader.readAsDataURL(file);
-
+ oBusyDialog.close(); 
 				}.bind(this))
 				.then(function (result) {
 					if (result === false) {

@@ -136,6 +136,10 @@ sap.ui.define([
 						"' and Model_year eq '" + modelAdmData.moYear + "' and Tciseries eq '" + modelAdmData.series + "' and Brand eq '" +
 						modelAdmData.brand + "')";
 					var token;
+					var oBusyDialog = new sap.m.BusyDialog({
+				showCancelButton: false
+			});
+jQuery.sap.delayedCall(0, this, function () { oBusyDialog.open(); }); 
 					var tbl = sap.ushell.components.whatsNewTbl;
 					var file = jQuery.sap.domById(oFileUploader.getId() + "-fu").files[0];
 					var base64_marker = 'data:' + file.type + ';base64,';
@@ -154,7 +158,7 @@ sap.ui.define([
 								$.ajax({
 									type: 'PUT',
 									url: oURL2,
-									data: encodeURIComponent(_base64),
+									data: _base64,
 									dataType: 'json',
 									beforeSend: function (xhr) {
 										xhr.setRequestHeader('X-CSRF-Token', token);
@@ -196,6 +200,7 @@ sap.ui.define([
 					};
 					reader.readAsDataURL(file);
 
+jQuery.sap.delayedCall(2000, this, function () { oBusyDialog.close(); }); 
 				}.bind(this))
 				.then(function (result) {
 					if (result === false) {

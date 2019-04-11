@@ -342,11 +342,15 @@ sap.ui.define([
 						"/Z_VEHICLE_CATALOGUE_SRV/FileDownloadSet(Language='" + lang + "',Tab='suppliment',Model_year='" + moYear + "',Tciseries='" +
 						serVal +
 						"',Brand='" + brandVal + "')/$value";
-					
+						var oBusyDialog = new sap.m.BusyDialog({
+				showCancelButton: false
+			});
+			 //oBusyDialog.open();
+				oBusyDialog.open();
 								$.ajax({
 				url: url,
 				type: 'GET',
-				async: false,
+				async: true,
 				dataType: 'text',
 				success: function (data, textStatus, jqXHR) {
 					console.log("GET success: ");
@@ -354,19 +358,49 @@ sap.ui.define([
 if(data!=="")
 {
 					var pdfAsDataUri = "data:application/pdf;base64," + data;
-					var link1 = document.createElement('a');
-
-					link1.download = "SG_"+serVal+"_"+ moYear +"_"+ lang +".pdf";
-					link1.href = pdfAsDataUri;
-					link1.click();
+						 var byteCharacters = atob(data);
+        var byteNumbers = new Array(byteCharacters.length);
+        for (var i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+        var byteArray = new Uint8Array(byteNumbers);
+        var blob = new Blob([byteArray], {
+            type: 'application/pdf'
+        });
+        
+  //var blobAnchor = $("#blob");
+  //var dataURIAnchor = $("#pdfAsDataUri");
+  //blobAnchor.download = dataURIAnchor.download = "abc.pdf";
+  //blobAnchor.href = url1;
+  //dataURIAnchor.href = pdfAsDataUri;
+  //blobAnchor.click();
+  
+  //stat_.textContent = '';
+ if (window.navigator.msSaveBlob) {
+ 	var fileName = "SG_" + serVal + "_" + moYear + "_" + lang + ".pdf";
+ 	window.navigator.msSaveOrOpenBlob(blob, fileName);
+   }
+   else
+   {
+   	 var url1 = URL.createObjectURL(blob);
+   	window.open(url1);
+   	URL.revokeObjectURL(url1);
+   }
+					// var link1 = document.createElement('a');
+oBusyDialog.close();
+					// link1.download = "SG_"+serVal+"_"+ moYear +"_"+ lang +".pdf";
+					// link1.href = pdfAsDataUri;
+					// link1.click();
 }
 else
 {
+	oBusyDialog.close();
 						sap.m.MessageBox.show("No File exists for curent selection.", sap.m.MessageBox.Icon.ERROR,"Error",sap.m.MessageBox.Action.OK, null, null);
 
 }
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
+					oBusyDialog.close();
 					sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR,"Error",sap.m.MessageBox.Action.OK, null, null);
 				}
 			});

@@ -358,10 +358,15 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				"/Z_VEHICLE_CATALOGUE_SRV/FileDownloadSet(Language='" + lang + "',Tab='WhatsNew',Model_year='" + moYear + "',Tciseries='" +
 				serVal + "',Brand='" + brandVal + "')/$value";
 				// window.open(url);
+				var oBusyDialog = new sap.m.BusyDialog({
+				showCancelButton: false
+			});
+			 //oBusyDialog.open();
+				oBusyDialog.open();
 			$.ajax({
 				url: url,
 				type: 'GET',
-				async: false,
+				async: true,
 				dataType: 'text',
 				success: function (data, textStatus, jqXHR) {
 					console.log("GET success: ");
@@ -370,29 +375,50 @@ if(data!=="")
 {
 					var pdfAsDataUri = "data:application/pdf;base64," + data;
 					// data.replace(/\s/g, '');
-				 //var byteCharacters = atob(data);
-     //   var byteNumbers = new Array(byteCharacters.length);
-     //   for (var i = 0; i < byteCharacters.length; i++) {
-     //       byteNumbers[i] = byteCharacters.charCodeAt(i);
-     //   }
-     //   var byteArray = new Uint8Array(byteNumbers);
-     //   var blob = new Blob([byteArray], {
-     //       type: 'application/pdf'
-     //   });
-     //   window.navigator.msSaveOrOpenBlob(blob, "IEExport.pdf");
-					var link1 = document.createElement('a');
+				 var byteCharacters = atob(data);
+        var byteNumbers = new Array(byteCharacters.length);
+        for (var i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+        var byteArray = new Uint8Array(byteNumbers);
+        var blob = new Blob([byteArray], {
+            type: 'application/pdf'
+        });
+        
+  //var blobAnchor = $("#blob");
+  //var dataURIAnchor = $("#pdfAsDataUri");
+  //blobAnchor.download = dataURIAnchor.download = "abc.pdf";
+  //blobAnchor.href = url1;
+  //dataURIAnchor.href = pdfAsDataUri;
+  //blobAnchor.click();
+  
+  //stat_.textContent = '';
+ if (window.navigator.msSaveBlob) {
+ 	var fileName = "WN_" + serVal + "_" + moYear + "_" + lang + ".pdf";
+ 	window.navigator.msSaveOrOpenBlob(blob, fileName);
+   }
+   else
+   {
+   	 var url1 = URL.createObjectURL(blob);
+   	window.open(url1);
+   	URL.revokeObjectURL(url1);
+   }
+  oBusyDialog.close(); 
+					// var link1 = document.createElement('a');
 
-					link1.download = "WN_"+serVal+"_"+ moYear +"_"+ lang +".pdf";
-					link1.href = pdfAsDataUri;
-					link1.click();
+					// link1.download = "WN_"+serVal+"_"+ moYear +"_"+ lang +".pdf";
+					// link1.href = pdfAsDataUri;
+					// link1.click();
 }
 else
 {
+	oBusyDialog.close();
 						sap.m.MessageBox.show("No File exists for curent selection.", sap.m.MessageBox.Icon.ERROR,"Error",sap.m.MessageBox.Action.OK, null, null);
 
 }
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
+					oBusyDialog.close();
 					sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR,"Error",sap.m.MessageBox.Action.OK, null, null);
 				}
 			});

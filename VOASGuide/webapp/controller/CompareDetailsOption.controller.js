@@ -12,15 +12,15 @@ sap.ui.define([
 		formatter: formatter,
 		onInit: function () {
 			CDO_controller = this;
-			this.getUserLanguage();
-			this.getBrowserLanguage();
+			// this.getUserLanguage();
+			// this.getBrowserLanguage();
+			CDO_controller.language = CDO_controller.returnBrowserLanguage();
 			CDO_controller.oRouter = sap.ui.core.UIComponent.getRouterFor(CDO_controller);
+	
 			CDO_controller.oRouter.getTarget("CompareDetailsOption").attachDisplay(jQuery.proxy(CDO_controller.handleRouteMatched,
 				CDO_controller));
-			CDO_controller.oBusyDialog = new sap.m.BusyDialog({
-				showCancelButton: false
-			});
-			CDO_controller.language = CDO_controller.returnBrowserLanguage();
+			
+			
 		},
 		onSwitchstateChange: function (evt_Switch) {
 			var state = evt_Switch.getSource().mProperties.state;
@@ -2102,6 +2102,10 @@ sap.ui.define([
 		},
 		handleRouteMatched: function (oEvent) {
 			//	CDO_controller.user = CDO_controller.getLoggedUser();
+			// 	var oBusyDialog = new sap.m.BusyDialog({
+			// 	showCancelButton: false
+			// });
+		// jQuery.sap.delayedCall(0, this, function () { oBusyDialog.open(); }); 
 			var fixedData = {
 				Vehicle: " "
 			};
@@ -2305,16 +2309,23 @@ sap.ui.define([
 					" ' and Modelyear eq  '" + modelYearCBVal + " ' and (" + newModelStr + ") and (" + newSuffixStr + ") and Language eq '" +
 					CDO_controller.language + "')";
 			}
+			
+// 
+
+// 
+			// CDO_controller.oBusyDialog.open();
 			$.ajax({
 				url: url2,
 				method: 'GET',
 				async: false,
 				dataType: 'json',
 				success: function (data, textStatus, jqXHR) {
+					// CDO_controller.oBusyDialog.close();
 					var tblModel = new sap.ui.model.json.JSONModel(data.d.results);
 					CDO_controller.getView().setModel(tblModel, "searchTblModel");
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
+					// CDO_controller.oBusyDialog.close();
 					var errMsg = CDO_controller.getView().getModel("i18n").getResourceBundle().getText("Error1");
 					sap.m.MessageBox.show(errMsg, sap.m.MessageBox.Icon.ERROR, "Error",
 						sap
@@ -2977,6 +2988,9 @@ sap.ui.define([
 					});
 				}
 			}
+			// jQuery.sap.delayedCall(20000, this, function () {oBusyDialog.close();});
+						window.document.body.style.cursor = "default";
+
 		},
 
 		_onFioriObjectPageHeaderPress: function () {

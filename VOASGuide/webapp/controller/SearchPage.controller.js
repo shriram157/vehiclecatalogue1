@@ -653,6 +653,11 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 		},
 
 		_navToDetail: function (oEvent) {
+			var oBusyDialog = new sap.m.BusyDialog({
+				showCancelButton: false
+			});
+			 //oBusyDialog.open();
+				jQuery.sap.delayedCall(0, this, function () { oBusyDialog.open(); }); 
 			//	var oBindingContext = oEvent.getParameter("listItem").getBindingContext();
 			var sPath = oEvent.getParameter("listItem").oBindingContexts.searchTblModel.sPath;
 			var sEntityNameSet2 = sPath.split("/")[1];
@@ -695,9 +700,17 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			searchController.oRouter.navTo("DetailsOption", {
 				num: routeData
 			});
+		jQuery.sap.delayedCall(2000, this, function () { oBusyDialog.close(); }); 
 		},
 
 		_navToCompare: function (oEvent) {
+			// window.document.body.style.cursor = "wait";
+			// oBusyDialog.open();
+			var oBusyDialog = new sap.m.BusyDialog({
+				showCancelButton: false
+			});
+			 //oBusyDialog.open();
+			var busydialog =	jQuery.sap.delayedCall(0, this, function () { searchController.oBusyDialog.open(); }); 
 			var arr = [];
 			var arr_msrp = [];
 			var arr_netPrice = [];
@@ -810,15 +823,21 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					"modelData": modelDescStringFromModelData,
 					"user":searchController.user
 				}];
-
+				oTable.removeSelections("true");
 				//console.log(arr2);
 				var routeData = JSON.stringify(arr2);
+				// searchController.oBusyDialog.close();
+					
 				searchController.oRouter.navTo("CompareDetailsOption", {
 					num2: routeData
 				});
-				oTable.removeSelections("true");
+				 //oBusyDialog.close();
+				jQuery.sap.delayedCall(10000, this, function () { searchController.oBusyDialog.close(); }); 
+			
+				// jQuery.sap.clearDelayedCall(busydialog);
 			} else {
-
+				jQuery.sap.delayedCall(10000, this, function () { searchController.oBusyDialog.close(); }); 
+				// searchController.oBusyDialog.close();
 				//	var errForm = formatter.formatErrorType("SO00002");
 				var errMsg = searchController.getView().getModel("i18n").getResourceBundle().getText("ErrorSearchScreen");
 				//	var errMsg = "Select atleast 2 and maximum 5 items to compare";
