@@ -391,16 +391,22 @@ if(data!=="")
   //blobAnchor.href = url1;
   //dataURIAnchor.href = pdfAsDataUri;
   //blobAnchor.click();
-  
+ 	var fileName = "WN_" + serVal + "_" + moYear + "_" + lang + ".pdf";
   //stat_.textContent = '';
  if (window.navigator.msSaveBlob) {
- 	var fileName = "WN_" + serVal + "_" + moYear + "_" + lang + ".pdf";
  	window.navigator.msSaveOrOpenBlob(blob, fileName);
    }
    else
-   {
-   	 var url1 = URL.createObjectURL(blob);
-   	window.open(url1);
+ {
+   	 var link = document.createElement("a");
+ var url1 = URL.createObjectURL(blob);        
+ link.href = url1;
+           
+            link.download = fileName;
+            
+            link.click();
+   	
+   	// window.open(url1);
    	URL.revokeObjectURL(url1);
    }
   oBusyDialog.close(); 

@@ -367,23 +367,31 @@ if(data!=="")
         var blob = new Blob([byteArray], {
             type: 'application/pdf'
         });
-        
+       
+            
   //var blobAnchor = $("#blob");
   //var dataURIAnchor = $("#pdfAsDataUri");
   //blobAnchor.download = dataURIAnchor.download = "abc.pdf";
   //blobAnchor.href = url1;
   //dataURIAnchor.href = pdfAsDataUri;
   //blobAnchor.click();
-  
+  var fileName = "SG_" + serVal + "_" + moYear + "_" + lang + ".pdf";
   //stat_.textContent = '';
  if (window.navigator.msSaveBlob) {
- 	var fileName = "SG_" + serVal + "_" + moYear + "_" + lang + ".pdf";
+ 	
  	window.navigator.msSaveOrOpenBlob(blob, fileName);
    }
    else
    {
-   	 var url1 = URL.createObjectURL(blob);
-   	window.open(url1);
+   	 var link = document.createElement("a");
+ var url1 = URL.createObjectURL(blob);        
+ link.href = url1;
+           
+            link.download = fileName;
+            
+            link.click();
+   	
+   	// window.open(url1);
    	URL.revokeObjectURL(url1);
    }
 					// var link1 = document.createElement('a');
