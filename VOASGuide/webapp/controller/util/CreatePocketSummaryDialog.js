@@ -280,10 +280,15 @@ sap.ui.define([
 						"/Z_VEHICLE_CATALOGUE_SRV/FileDownload_summarySet(Language='" + lang + "',Tab='X',Model_year='" + moYear + "',Brand='" +
 						brandVal +
 						"',Tciseries='" + dealer + "')/$value";
-					/*	$.ajax({
+						var oBusyDialog = new sap.m.BusyDialog({
+				showCancelButton: false
+			});
+			 //oBusyDialog.open();
+				oBusyDialog.open();
+						$.ajax({
 							url: url,
 							method: 'GET',
-							async: false,
+							async: true,
 							dataType: 'json',
 							success: function (data, textStatus, jqXHR) {
 								console.log(data);
@@ -293,9 +298,9 @@ sap.ui.define([
 									sap
 									.m.MessageBox.Action.OK, null, null);
 							}
-						});*/
+						});
 					window.open(url);
-
+oBusyDialog.close();
 					//	alert("CreatePocketSumController should Generate and display Active (Based on Today's Date) What's New Pdf in new window");
 
 				}.bind(CreatePocketSumController))

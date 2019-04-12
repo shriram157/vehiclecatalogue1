@@ -303,12 +303,12 @@ sap.ui.define([
 					var brandVal = brandCB.getValue();
 					var moYear = modelYearCB.getValue();
 					var serVal = seriesCB.getValue();
-					var dealerSwitch = CreatePocketSumController.getView().byId("id_Veh_DealerSwitch").mProperties.state;
+					var dealerSwitch = CreateVehicleGuideDialogController.getView().byId("id_Veh_DealerSwitch").mProperties.state;
 					var dealer = "";
 					if (dealerSwitch == true) {
-						dealer = "ON";
+						dealer = "X";
 					} else {
-						dealer = "OFF";
+						dealer = "";
 					}
 					var langSwitchState = CreateVehicleGuideDialogController.getView().byId("idVehCreate_Lang").mProperties.state;
 					var lang = "";
@@ -326,10 +326,15 @@ sap.ui.define([
 					}
 					CreateVehicleGuideDialogController.nodeJsUrl = CreateVehicleGuideDialogController.sPrefix + "/node";
 					var host = CreateVehicleGuideDialogController.nodeJsUrl;
+					var oBusyDialog = new sap.m.BusyDialog({
+				showCancelButton: false
+			});
+			 //oBusyDialog.open();
+				oBusyDialog.open();
 					var url = host +
-						"/Z_VEHICLE_CATALOGUE_SRV/FileDownloadSet(Language='" + lang + "',Tab='WhatsNew',Model_year='" + moYear + "',Tciseries='" +
+						"/Z_VEHICLE_CATALOGUE_SRV/FileDownload_ord_guide_pdfSet(Language='" + lang + "',Tab='" + dealer + "',Model_year='" + moYear + "',Tciseries='" +
 						serVal +
-						"',Brand='" + brandVal + "',DealerNet='" + dealer + "')/$value";
+						"',Brand='" + brandVal + "')/$value";
 					/*	$.ajax({
 							url: url,
 							method: 'GET',
@@ -345,6 +350,7 @@ sap.ui.define([
 							}
 						});*/
 					window.open(url, '_blank');
+					oBusyDialog.close();
 					//	alert("CreateVehicleGuideDialogController should Generate and display Active (Based on Today's Date) What's New Pdf in new window");
 
 				}.bind(CreateVehicleGuideDialogController))
