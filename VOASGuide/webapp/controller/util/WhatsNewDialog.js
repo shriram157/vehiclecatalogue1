@@ -139,7 +139,7 @@ sap.ui.define([
 					var oBusyDialog = new sap.m.BusyDialog({
 				showCancelButton: false
 			});
-jQuery.sap.delayedCall(0, this, function () { oBusyDialog.open(); }); 
+
 					var tbl = sap.ushell.components.whatsNewTbl;
 					var file = jQuery.sap.domById(oFileUploader.getId() + "-fu").files[0];
 					var base64_marker = 'data:' + file.type + ';base64,';
@@ -155,6 +155,7 @@ jQuery.sap.delayedCall(0, this, function () { oBusyDialog.open(); });
 							},
 							complete: function (xhr) {
 								token = xhr.getResponseHeader("X-CSRF-Token");
+							oBusyDialog.open(); 
 								$.ajax({
 									type: 'PUT',
 									url: oURL2,
@@ -166,6 +167,7 @@ jQuery.sap.delayedCall(0, this, function () { oBusyDialog.open(); });
 										
 									},
 									success: function (data) {
+									 oBusyDialog.close(); 
 										console.log("PUT success: " + data);
 										$.ajax({
 											url: oUrl3,
@@ -189,6 +191,8 @@ jQuery.sap.delayedCall(0, this, function () { oBusyDialog.open(); });
 										});
 									},
 									error: function (data) {
+																	oBusyDialog.close(); 
+
 										sap.m.MessageBox.show("Error occurred while sending data. Please try again later.", sap.m.MessageBox.Icon.ERROR,
 											"Error", sap
 											.m.MessageBox.Action.OK, null, null);
@@ -200,7 +204,6 @@ jQuery.sap.delayedCall(0, this, function () { oBusyDialog.open(); });
 					};
 					reader.readAsDataURL(file);
 
-jQuery.sap.delayedCall(2000, this, function () { oBusyDialog.close(); }); 
 				}.bind(this))
 				.then(function (result) {
 					if (result === false) {

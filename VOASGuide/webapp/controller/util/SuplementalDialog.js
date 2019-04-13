@@ -110,7 +110,6 @@ sap.ui.define([
 						var oBusyDialog = new sap.m.BusyDialog({
 				showCancelButton: false
 			});
- oBusyDialog.open();
 					//var oURL = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileSet('" + filename + "')/$value";
 					var oFileUploader = this._oView.byId("__component0---AdminDetailsOption--suppFileUploadId");
 					var oURL4 = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileSet(Comment='" + comment + "',FileName='" + filename + "',Language='" +
@@ -140,6 +139,7 @@ sap.ui.define([
 							},
 							complete: function (xhr) {
 								token = xhr.getResponseHeader("X-CSRF-Token");
+							 oBusyDialog.open();
 							$.ajax({	
 								type: 'PUT',
 									url: oURL2,
@@ -150,6 +150,7 @@ sap.ui.define([
 										xhr.setRequestHeader('Content-Type',"application/pdf");
 									},
 									success: function (data) {
+										 oBusyDialog.close();
 										console.log("PUT success");
 										//	var errMsg = this._oView.getModel("i18n").getResourceBundle().getText("Error1");
 										//	console.log(errMsg);
@@ -173,6 +174,8 @@ sap.ui.define([
 										});
 									},
 									error: function (data) {
+										 oBusyDialog.close();
+
 										sap.m.MessageBox.show("Error occurred while sending data. Please try again later.", sap.m.MessageBox.Icon.ERROR,
 											"Error", sap
 											.m.MessageBox.Action.OK, null, null);
