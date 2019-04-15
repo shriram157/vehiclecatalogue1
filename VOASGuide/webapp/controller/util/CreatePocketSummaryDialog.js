@@ -256,9 +256,9 @@ sap.ui.define([
 					var dealerSwitch = CreatePocketSumController.getView().byId("id_poc_DealerSwitch").mProperties.state;
 					var dealer = "";
 					if (dealerSwitch == true) {
-						dealer = "X";
-					} else {
 						dealer = "";
+					} else {
+						dealer = "X";
 					}
 					var langSwitchState = CreatePocketSumController.getView().byId("id_poc_LangSwitch").mProperties.state;
 					var lang = "";
