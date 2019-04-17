@@ -75,6 +75,9 @@ sap.ui.define([
 			} else {
 				LanguageState = true;
 			}
+				var userModel = sap.ui.getCore().getModel("userModel");
+			var userData = userModel.getData();
+			var usr = userData.loggedUserType[0];
 			//	}
 			CreateVehicleGuideDialogController.getView().byId("idVehCreate_Lang").setState(LanguageState);
 			if (brandCB != undefined && moYearCB != undefined && seriesCB != undefined) {
@@ -108,7 +111,7 @@ sap.ui.define([
 					CreateVehicleGuideDialogController.nodeJsUrl = CreateVehicleGuideDialogController.sPrefix + "/node";
 					var host = CreateVehicleGuideDialogController.nodeJsUrl;
 					var url = host +
-						"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(Brand eq '" + brandVal + "' and Modelyear eq '" + moYearVal +
+						"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(User eq  '" + usr + "' and Language eq '" + Language + "'and Brand eq '" + brandVal + "' and Modelyear eq '" + moYearVal +
 						"')";
 					$.ajax({
 						url: url,
@@ -204,8 +207,18 @@ sap.ui.define([
 			}
 			CreateVehicleGuideDialogController.nodeJsUrl = CreateVehicleGuideDialogController.sPrefix + "/node";
 			var host = CreateVehicleGuideDialogController.nodeJsUrl;
+			var langSwitchState = CreateVehicleGuideDialogController.getView().byId("idVehCreate_Lang").mProperties.state;
+					var lang = "";
+					if (langSwitchState == false) {
+						lang = "FR";
+					} else {
+						lang = "EN";
+					}
+						var userModel = sap.ui.getCore().getModel("userModel");
+			var userData = userModel.getData();
+			var usr = userData.loggedUserType[0];
 			var url = host +
-				"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(Brand eq '" + brandCBVal + "' and Modelyear eq '" + modelYearCBVal +
+				"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(User eq  '" + usr + "' and Language eq '" + lang + "'and Brand eq '" + brandCBVal + "' and Modelyear eq '" + modelYearCBVal +
 				"')";
 			//	"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter= (Brand eq 'TOYOTA' and Modelyear eq '2018')";
 			$.ajax({
