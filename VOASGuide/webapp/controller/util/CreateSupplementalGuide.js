@@ -122,7 +122,7 @@ sap.ui.define([
 					var userData = userModel.getData();
 					var usr = userData.loggedUserType[0];
 					var url = host +
-						"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(User eq  '" + usr + "' and Language eq 'EN' and Brand eq '" + brandVal + "' and Modelyear eq '" + moYearVal +
+						"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(User eq  '" + usr + "' and Language eq '" + Language + "' and Brand eq '" + brandVal + "' and Modelyear eq '" + moYearVal +
 					"')";
 					$.ajax({
 						url: url,

@@ -283,22 +283,22 @@ sap.ui.define([
 						var oBusyDialog = new sap.m.BusyDialog({
 				showCancelButton: false
 			});
-			 //oBusyDialog.open();
-				oBusyDialog.open();
-						$.ajax({
-							url: url,
-							method: 'GET',
-							async: true,
-							dataType: 'json',
-							success: function (data, textStatus, jqXHR) {
-								console.log(data);
-							},
-							error: function (jqXHR, textStatus, errorThrown) {
-								sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
-									sap
-									.m.MessageBox.Action.OK, null, null);
-							}
-						});
+			 oBusyDialog.open();
+				// oBusyDialog.open();
+						// $.ajax({
+						// 	url: url,
+						// 	method: 'GET',
+						// 	async: true,
+						// 	dataType: 'json',
+						// 	success: function (data, textStatus, jqXHR) {
+						// 		console.log(data);
+						// 	},
+						// 	error: function (jqXHR, textStatus, errorThrown) {
+						// 		sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
+						// 			sap
+						// 			.m.MessageBox.Action.OK, null, null);
+						// 	}
+						// });
 					window.open(url);
 oBusyDialog.close();
 					//	alert("CreatePocketSumController should Generate and display Active (Based on Today's Date) What's New Pdf in new window");
