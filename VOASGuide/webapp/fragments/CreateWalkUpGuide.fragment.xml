@@ -16,7 +16,7 @@
 									<Switch state="true" id="walkUpCreate_Lang" customTextOff="{i18n>Fr}" customTextOn="{i18n>En}" type="Default" enabled="true" visible="true" class="sapUiTinyMargin"/>
 								</form:fields>
 								<form:fields>
-									<ComboBox id="idWalk_brandCB" placeholder="{i18n>SelectBrand}" editable="true" enabled="true" visible="true" width="400px" valueState="None" maxWidth="100%"
+									<ComboBox id="idWalk_brandCB" change="onChange_ModelBrand" placeholder="{i18n>SelectBrand}" editable="true" enabled="true" visible="true" width="400px" valueState="None" maxWidth="100%"
 										class="sapUiResponsiveMargin" items="{path:'brandModelNew>/modelBrand', templateShareable:true}">
 										<items>
 												<core:Item key="{brandModelNew>key}" text="{brandModelNew>text}"/>

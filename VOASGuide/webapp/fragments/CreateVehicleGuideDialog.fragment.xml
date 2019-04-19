@@ -34,7 +34,7 @@
 									<Label text="Label" design="Bold" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="false"/>
 								</form:label>
 							<form:fields>
-									<ComboBox id="idVeh_brandCB" placeholder="{i18n>SelectBrand}" editable="true" enabled="true" visible="true" width="400px" valueState="None" maxWidth="100%"
+									<ComboBox change="onChange_ModelBrand" id="idVeh_brandCB" placeholder="{i18n>SelectBrand}" editable="true" enabled="true" visible="true" width="400px" valueState="None" maxWidth="100%"
 										class="sapUiResponsiveMargin" items="{path:'brandModelNew>/modelBrand', templateShareable:true}">
 										<items>
 												<core:Item key="{brandModelNew>key}" text="{brandModelNew>text}"/>

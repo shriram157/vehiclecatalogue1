@@ -206,6 +206,21 @@ sap.ui.define([
 			modelYearModel.setData(data);
 			CreateWalkUpDialogController.getView().setModel(modelYearModel, "yearModelNew");
 		},
+			onChange_ModelBrand: function () {
+			// CreateVehicleGuideDialogController.getView().byId("filterBar").setShowGoOnFB(false);
+			// var brandCB = CreateVehicleGuideDialogController.getView().byId("id_brandCB");
+			var modelYearCB = CreateWalkUpDialogController.getView().byId("idWalk_modelYearCB");
+			var seriesCB = CreateWalkUpDialogController.getView().byId("idWalk_seriesCB");
+			// var modelCB = CreateVehicleGuideDialogController.getView().byId("id_modelCB");
+			// var suffixCB = CreateVehicleGuideDialogController.getView().byId("id_suffixCB");
+			// searchController.refreshTableData();
+			modelYearCB.setSelectedKey(null);
+if (seriesCB.getValue() !== "") {
+				seriesCB.setValue("");
+				seriesCB.destroyItems();
+			}			// modelCB.setSelectedItems("");
+			// suffixCB.setSelectedItems("");
+		},
 		onChange_ModelYear: function () {
 
 			var brandCB = CreateWalkUpDialogController.getView().byId("idWalk_brandCB");

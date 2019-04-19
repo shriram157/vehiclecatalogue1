@@ -264,7 +264,21 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			modelYearModel.setData(data);
 			CreateWhatsNewDialogController.getView().setModel(modelYearModel, "yearModelNew");
 		},
-
+		onChange_ModelBrand: function () {
+			// CreateVehicleGuideDialogController.getView().byId("filterBar").setShowGoOnFB(false);
+			// var brandCB = CreateVehicleGuideDialogController.getView().byId("id_brandCB");
+			var modelYearCB = CreateWhatsNewDialogController.getView().byId("idNew_modelYearCB");
+			var seriesCB = CreateWhatsNewDialogController.getView().byId("id_seriesCBNew");
+			// var modelCB = CreateVehicleGuideDialogController.getView().byId("id_modelCB");
+			// var suffixCB = CreateVehicleGuideDialogController.getView().byId("id_suffixCB");
+			// searchController.refreshTableData();
+			modelYearCB.setSelectedKey(null);
+if (seriesCB.getValue() !== "") {
+				seriesCB.setValue("");
+				seriesCB.destroyItems();
+			}			// modelCB.setSelectedItems("");
+			// suffixCB.setSelectedItems("");
+		},
 		onChange_ModelYear: function () {
 
 			var brandCB = CreateWhatsNewDialogController.getView().byId("idNew_brandCB");

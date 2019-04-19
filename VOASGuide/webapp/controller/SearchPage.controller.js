@@ -298,8 +298,11 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			searchController.refreshTableData();
 			modelYearCB.setSelectedKey(null);
 			seriesCB.setSelectedKey(null);
+			seriesCB.destroyItems();
 			modelCB.setSelectedItems("");
+			modelCB.destroyItems();
 			suffixCB.setSelectedItems("");
+			suffixCB.destroyItems();
 
 			if (brandCB.getValue() != "") {
 				modelYearCB.setEnabled(true);
