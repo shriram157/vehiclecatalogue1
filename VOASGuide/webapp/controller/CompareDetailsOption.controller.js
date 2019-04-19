@@ -958,7 +958,8 @@ sap.ui.define([
 						function (index, context) {
 							return new sap.m.Column({
 								header: new sap.m.Label({
-									text: context.getObject().Vehicle
+									text: context.getObject().Vehicle,
+									wrapping: true
 								})
 							});
 						});
@@ -995,7 +996,8 @@ sap.ui.define([
 						function (index, context) {
 							return new sap.m.Column({
 								header: new sap.m.Label({
-									text: context.getObject().Vehicle
+									text: context.getObject().Vehicle,
+									wrapping: true
 								})
 							});
 						});
@@ -1033,7 +1035,8 @@ sap.ui.define([
 
 							return new sap.m.Column({
 								header: new sap.m.Label({
-									text: context.getObject().Vehicle
+									text: context.getObject().Vehicle,
+									wrapping: true
 								})
 							});
 						});
@@ -1070,6 +1073,7 @@ sap.ui.define([
 							return new sap.m.Column({
 								header: new sap.m.Label({
 									text: context.getObject().Vehicle,
+									wrapping: true
 								})
 							});
 						});
@@ -1104,7 +1108,8 @@ sap.ui.define([
 						.bindAggregation("columns", "/columns", function (index, context) {
 							return new sap.m.Column({
 								header: new sap.m.Label({
-									text: context.getObject().Vehicle
+									text: context.getObject().Vehicle,
+									wrapping: true
 								})
 							});
 						});
@@ -1139,7 +1144,8 @@ sap.ui.define([
 						.bindAggregation("columns", "/columns", function (index, context) {
 							return new sap.m.Column({
 								header: new sap.m.Label({
-									text: context.getObject().Vehicle
+									text: context.getObject().Vehicle,
+									wrapping: true
 								}),
 							});
 						});
@@ -1175,7 +1181,8 @@ sap.ui.define([
 						function (index, context) {
 							return new sap.m.Column({
 								header: new sap.m.Label({
-									text: context.getObject().Vehicle
+									text: context.getObject().Vehicle,
+									wrapping: true
 								})
 							});
 						});
@@ -1232,7 +1239,8 @@ sap.ui.define([
 						function (index, context) {
 							return new sap.m.Column({
 								header: new sap.m.Label({
-									text: context.getObject().Vehicle
+									text: context.getObject().Vehicle,
+									wrapping: true
 								})
 							});
 						});
@@ -1729,7 +1737,8 @@ sap.ui.define([
 					tblExterior.bindAggregation("columns", "/columns", function (index, context) {
 						return new sap.m.Column({
 							header: new sap.m.Label({
-								text: context.getObject().Vehicle
+								text: context.getObject().Vehicle,
+								wrapping: true
 							})
 						});
 					});
@@ -1764,7 +1773,8 @@ sap.ui.define([
 					tblInterior.bindAggregation("columns", "/columns", function (index, context) {
 						return new sap.m.Column({
 							header: new sap.m.Label({
-								text: context.getObject().Vehicle
+								text: context.getObject().Vehicle,
+								wrapping: true
 							})
 						});
 					});
@@ -1800,7 +1810,8 @@ sap.ui.define([
 
 						return new sap.m.Column({
 							header: new sap.m.Label({
-								text: context.getObject().Vehicle
+								text: context.getObject().Vehicle,
+								wrapping: true
 							})
 						});
 					});
@@ -1834,7 +1845,8 @@ sap.ui.define([
 					tblSafety.bindAggregation("columns", "/columns", function (index, context) {
 						return new sap.m.Column({
 							header: new sap.m.Label({
-								text: context.getObject().Vehicle
+								text: context.getObject().Vehicle,
+								wrapping: true
 							})
 						});
 					});
@@ -1868,7 +1880,8 @@ sap.ui.define([
 					tblInfotainment.bindAggregation("columns", "/columns", function (index, context) {
 						return new sap.m.Column({
 							header: new sap.m.Label({
-								text: context.getObject().Vehicle
+								text: context.getObject().Vehicle,
+								wrapping: true
 							})
 						});
 					});
@@ -1902,7 +1915,8 @@ sap.ui.define([
 					tblColorOptions.bindAggregation("columns", "/columns", function (index, context) {
 						return new sap.m.Column({
 							header: new sap.m.Label({
-								text: context.getObject().Vehicle
+								text: context.getObject().Vehicle,
+								wrapping: true
 							}),
 						});
 					});
@@ -1936,7 +1950,8 @@ sap.ui.define([
 					tblDimensions.bindAggregation("columns", "/columns", function (index, context) {
 						return new sap.m.Column({
 							header: new sap.m.Label({
-								text: context.getObject().Vehicle
+								text: context.getObject().Vehicle,
+								wrapping: true
 							})
 						});
 					});
@@ -1991,7 +2006,8 @@ sap.ui.define([
 					tblAPX.bindAggregation("columns", "/columns", function (index, context) {
 						return new sap.m.Column({
 							header: new sap.m.Label({
-								text: context.getObject().Vehicle
+								text: context.getObject().Vehicle,
+								wrapping: true
 							})
 						});
 					});
@@ -2658,7 +2674,8 @@ sap.ui.define([
 					tblExterior.bindAggregation("columns", "/columns", function (index, context) {
 						return new sap.m.Column({
 							header: new sap.m.Label({
-								text: context.getObject().Vehicle
+								text: context.getObject().Vehicle,
+								wrapping: true
 							})
 						});
 					});
@@ -2695,7 +2712,8 @@ sap.ui.define([
 					tblInterior.bindAggregation("columns", "/columns", function (index, context) {
 						return new sap.m.Column({
 							header: new sap.m.Label({
-								text: context.getObject().Vehicle
+								text: context.getObject().Vehicle,
+								wrapping: true
 							})
 						});
 					});
@@ -2731,7 +2749,8 @@ sap.ui.define([
 
 						return new sap.m.Column({
 							header: new sap.m.Label({
-								text: context.getObject().Vehicle
+								text: context.getObject().Vehicle,
+								wrapping: true
 							})
 						});
 					});
@@ -2765,7 +2784,8 @@ sap.ui.define([
 					tblSafety.bindAggregation("columns", "/columns", function (index, context) {
 						return new sap.m.Column({
 							header: new sap.m.Label({
-								text: context.getObject().Vehicle
+								text: context.getObject().Vehicle,
+								wrapping: true
 							})
 						});
 					});
@@ -2799,7 +2819,8 @@ sap.ui.define([
 					tblInfotainment.bindAggregation("columns", "/columns", function (index, context) {
 						return new sap.m.Column({
 							header: new sap.m.Label({
-								text: context.getObject().Vehicle
+								text: context.getObject().Vehicle,
+								wrapping: true
 							})
 						});
 					});
@@ -2833,7 +2854,8 @@ sap.ui.define([
 					tblColorOptions.bindAggregation("columns", "/columns", function (index, context) {
 						return new sap.m.Column({
 							header: new sap.m.Label({
-								text: context.getObject().Vehicle
+								text: context.getObject().Vehicle,
+								wrapping: true
 							}),
 						});
 					});
@@ -2867,7 +2889,8 @@ sap.ui.define([
 					tblDimensions.bindAggregation("columns", "/columns", function (index, context) {
 						return new sap.m.Column({
 							header: new sap.m.Label({
-								text: context.getObject().Vehicle
+								text: context.getObject().Vehicle,
+								wrapping: true
 							})
 						});
 					});
@@ -2922,7 +2945,8 @@ sap.ui.define([
 					tblAPX1.bindAggregation("columns", "/columns", function (index, context) {
 						return new sap.m.Column({
 							header: new sap.m.Label({
-								text: context.getObject().Vehicle
+								text: context.getObject().Vehicle,
+								wrapping: true
 							})
 						});
 					});
@@ -2957,7 +2981,8 @@ sap.ui.define([
 					tblAPX.bindAggregation("columns", "/columns", function (index, context) {
 						return new sap.m.Column({
 							header: new sap.m.Label({
-								text: context.getObject().Vehicle
+								text: context.getObject().Vehicle,
+								wrapping: true
 							})
 						});
 					});
