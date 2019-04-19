@@ -960,6 +960,7 @@ sap.ui.define([
 								header: new sap.m.Label({
 									text: context.getObject().Vehicle,
 									wrapping: true
+								
 								})
 							});
 						});
