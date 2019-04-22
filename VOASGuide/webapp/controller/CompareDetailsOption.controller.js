@@ -2079,6 +2079,7 @@ sap.ui.define([
 		formatFeatures1: function (str) {
 			var feat = "";
 			var feature = "";
+			var rturnRes= "";
 			if (str) {
 				/*	var res = str.replace(/;/g, "#- ");
 					feat = res.split('#').join('\n');
@@ -2090,6 +2091,12 @@ sap.ui.define([
 				//	console.log(extra);
 				var len = extra.length;
 				console.log(len);
+				if(len==1)
+				{
+					rturnRes = res5;
+				}
+				else
+				{
 				var lendiv = Math.floor(len / 2);
 				/*var arr = [];
 				for (var i = 0; i < lendiv; i++) {
@@ -2112,8 +2119,9 @@ sap.ui.define([
 					console.log(slicedStr2);
 				var res2 = slicedStr2.replace(/!/g, "#- ");
 				console.log(res2);
-				var rturnRes = res2.split('#').join('\n');
+				 rturnRes = res2.split('#').join('\n');
 						console.log(rturnRes);
+				}
 			}
 			return "- "+rturnRes;
 		},
