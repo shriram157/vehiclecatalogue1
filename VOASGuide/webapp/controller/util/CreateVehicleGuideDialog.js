@@ -370,6 +370,7 @@ if (seriesCB.getValue() !== "") {
 						"/Z_VEHICLE_CATALOGUE_SRV/FileDownload_ord_guide_pdfSet(User='" + usr + "',Language='" + lang + "',Tab='" + dealer + "',Model_year='" + moYear + "',Tciseries='" +
 						serVal +
 						"',Brand='" + brandVal + "')/$value";
+						
 					/*	$.ajax({
 							url: url,
 							method: 'GET',
