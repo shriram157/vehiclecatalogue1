@@ -14,6 +14,7 @@ sap.ui.define([
 				CreateVehicleGuideDialogController);
 			CreateVehicleGuideDialogController._bInit = false;
 		},
+		
 		_readUserBrand: function () {
 			var brandCB = sap.ushell.components.brandCB;
 			var brandVal = brandCB.getValue();
