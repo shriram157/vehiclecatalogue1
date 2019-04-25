@@ -276,8 +276,11 @@ sap.ui.define([
 					}
 					CreatePocketSumController.nodeJsUrl = CreatePocketSumController.sPrefix + "/node";
 					var host = CreatePocketSumController.nodeJsUrl;
+						var userModel = sap.ui.getCore().getModel("userModel");
+			var userData = userModel.getData();
+			var usr = userData.loggedUserType[0];
 					var url = host +
-						"/Z_VEHICLE_CATALOGUE_SRV/FileDownload_summarySet(Language='" + lang + "',Tab='X',Model_year='" + moYear + "',Brand='" +
+						"/Z_VEHICLE_CATALOGUE_SRV/FileDownload_summarySet(User='" + usr + "',Language='" + lang + "',Tab='X',Model_year='" + moYear + "',Brand='" +
 						brandVal +
 						"',Tciseries='" + dealer + "')/$value";
 						var oBusyDialog = new sap.m.BusyDialog({

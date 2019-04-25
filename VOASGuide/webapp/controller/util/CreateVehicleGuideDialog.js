@@ -360,10 +360,13 @@ if (seriesCB.getValue() !== "") {
 					var oBusyDialog = new sap.m.BusyDialog({
 				showCancelButton: false
 			});
+			var userModel = sap.ui.getCore().getModel("userModel");
+			var userData = userModel.getData();
+			var usr = userData.loggedUserType[0];
 			 //oBusyDialog.open();
 				oBusyDialog.open();
 					var url = host +
-						"/Z_VEHICLE_CATALOGUE_SRV/FileDownload_ord_guide_pdfSet(Language='" + lang + "',Tab='" + dealer + "',Model_year='" + moYear + "',Tciseries='" +
+						"/Z_VEHICLE_CATALOGUE_SRV/FileDownload_ord_guide_pdfSet(User='" + usr + "',Language='" + lang + "',Tab='" + dealer + "',Model_year='" + moYear + "',Tciseries='" +
 						serVal +
 						"',Brand='" + brandVal + "')/$value";
 					/*	$.ajax({
