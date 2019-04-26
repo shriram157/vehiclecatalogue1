@@ -216,10 +216,10 @@ onAfterRendering: jQuery.proxy(function () {
 					if (dat[j].Super_catgy == "INTERIOR") {
 						dtInt = dat[j].ZCVOASDEEP.results;
 					}
-					if (dat[j].Super_catgy == "POWERTRAIN/MECHANICAL") {
+					if (dat[j].Super_catgy == "POWERTRAIN & MECHANICAL") {
 						dtPwr = dat[j].ZCVOASDEEP.results;
 					}
-					if (dat[j].Super_catgy == "SAFETY/CONVENIENCE") {
+					if (dat[j].Super_catgy == "SAFETY & CONVENIENCE") {
 						dtSaf = dat[j].ZCVOASDEEP.results;
 					}
 					if (dat[j].Super_catgy == "INFOTAINMENT") {

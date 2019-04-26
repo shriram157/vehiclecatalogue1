@@ -299,10 +299,10 @@ sap.ui.define([
 						if (dat[j].Super_catgy == "INTERIOR") {
 							dtInt = dat[j].ZCVOASDEEP.results;
 						}
-						if (dat[j].Super_catgy == "POWERTRAIN/MECHANICAL") {
+						if (dat[j].Super_catgy == "POWERTRAIN & MECHANICAL") {
 							dtPwr = dat[j].ZCVOASDEEP.results;
 						}
-						if (dat[j].Super_catgy == "SAFETY/CONVENIENCE") {
+						if (dat[j].Super_catgy == "SAFETY & CONVENIENCE") {
 							dtSaf = dat[j].ZCVOASDEEP.results;
 						}
 						if (dat[j].Super_catgy == "INFOTAINMENT") {
@@ -1539,10 +1539,10 @@ sap.ui.define([
 						if (dat[j].Super_catgy == "INTERIOR") {
 							dtInt = dat[j].ZCVOASDEEP.results;
 						}
-						if (dat[j].Super_catgy == "POWERTRAIN/MECHANICAL") {
+						if (dat[j].Super_catgy == "POWERTRAIN & MECHANICAL") {
 							dtPwr = dat[j].ZCVOASDEEP.results;
 						}
-						if (dat[j].Super_catgy == "SAFETY/CONVENIENCE") {
+						if (dat[j].Super_catgy == "SAFETY & CONVENIENCE") {
 							dtSaf = dat[j].ZCVOASDEEP.results;
 						}
 						if (dat[j].Super_catgy == "INFOTAINMENT") {
@@ -2432,10 +2432,10 @@ sap.ui.define([
 						if (dat[j].Super_catgy == "INTERIOR") {
 							dtInt = dat[j].ZCVOASDEEP.results;
 						}
-						if (dat[j].Super_catgy == "POWERTRAIN/MECHANICAL") {
+						if (dat[j].Super_catgy == "POWERTRAIN & MECHANICAL") {
 							dtPwr = dat[j].ZCVOASDEEP.results;
 						}
-						if (dat[j].Super_catgy == "SAFETY/CONVENIENCE") {
+						if (dat[j].Super_catgy == "SAFETY & CONVENIENCE") {
 							dtSaf = dat[j].ZCVOASDEEP.results;
 						}
 						if (dat[j].Super_catgy == "INFOTAINMENT") {
