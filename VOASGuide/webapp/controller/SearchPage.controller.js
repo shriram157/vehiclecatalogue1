@@ -709,11 +709,11 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 		_navToCompare: function (oEvent) {
 			// window.document.body.style.cursor = "wait";
 			// oBusyDialog.open();
-			var oBusyDialog = new sap.m.BusyDialog({
-				showCancelButton: false
-			});
+			// var oBusyDialog = new sap.m.BusyDialog({
+			// 	showCancelButton: false
+			// });
 			 //oBusyDialog.open();
-			var busydialog =	jQuery.sap.delayedCall(0, this, function () { searchController.oBusyDialog.open(); }); 
+			searchController.oBusyDialog.open(); 
 			var arr = [];
 			var arr_msrp = [];
 			var arr_netPrice = [];
@@ -835,11 +835,11 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					num2: routeData
 				});
 				 //oBusyDialog.close();
-				jQuery.sap.delayedCall(10000, this, function () { searchController.oBusyDialog.close(); }); 
+				searchController.oBusyDialog.close();  
 			
 				// jQuery.sap.clearDelayedCall(busydialog);
 			} else {
-				jQuery.sap.delayedCall(10000, this, function () { searchController.oBusyDialog.close(); }); 
+				searchController.oBusyDialog.close();
 				// searchController.oBusyDialog.close();
 				//	var errForm = formatter.formatErrorType("SO00002");
 				var errMsg = searchController.getView().getModel("i18n").getResourceBundle().getText("ErrorSearchScreen");

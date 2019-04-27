@@ -3023,7 +3023,7 @@ sap.ui.define([
 				}
 			}
 			// jQuery.sap.delayedCall(20000, this, function () {oBusyDialog.close();});
-						window.document.body.style.cursor = "default";
+					
 
 		},
 
