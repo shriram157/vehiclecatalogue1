@@ -43,6 +43,13 @@ sap.ui.define([
 						CreatePocketSumController.getView().byId("idPoc_brandCB").setValue(brandVal);
 					}
 				}
+				if (userData.loggedUserType[0] == "TCI_User" || userData.loggedUserType[0] == "TCI_User_Preliminary") {
+					
+							CreatePocketSumController.getView().byId("id_poc_DealerSwitch").setEnabled(false);
+							CreatePocketSumController.getView().byId("id_poc_DealerSwitch").setState(false);
+						
+					}
+				
 			}
 		},
 		onInit: function () {

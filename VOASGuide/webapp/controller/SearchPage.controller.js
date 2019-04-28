@@ -321,8 +321,9 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			var modelYearCB = searchController.getView().byId("id_modelYearCB");
 			var seriesCB = searchController.getView().byId("id_seriesCB");
 			var modelCB = searchController.getView().byId("id_modelCB");
+			modelCB.destroyItems();
 			var suffixCB = searchController.getView().byId("id_suffixCB");
-
+			suffixCB.destroyItems();
 			var brandCBVal = brandCB.getValue();
 			var modelYearCBVal = modelYearCB.getValue();
 
@@ -406,6 +407,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			}
 			if (suffixCB.getItems()) {
 				suffixCB.setSelectedItems("");
+				suffixCB.destroyItems();
 			}
 			if (brandCB.getValue() != "" && modelYearCB.getValue() != "" && seriesCB.getValue() != "") {
 				modelCB.setEnabled(true);
