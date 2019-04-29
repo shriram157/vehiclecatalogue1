@@ -44,7 +44,14 @@ sap.ui.define([
 						CreateVehicleGuideDialogController.getView().byId("idVeh_brandCB").setValue(brandVal);
 					}
 				}
+					if (userData.loggedUserType[0] == "TCI_User" || userData.loggedUserType[0] == "TCI_User_Preliminary" || userData.loggedUserType[0] == "Dealer_User" ) {
+					
+							CreateVehicleGuideDialogController.getView().byId("id_Veh_DealerSwitch").setEnabled(false);
+							CreateVehicleGuideDialogController.getView().byId("id_Veh_DealerSwitch").setState(false);
+						
+					}
 			}
+			
 		},
 
 		onInit: function () {
