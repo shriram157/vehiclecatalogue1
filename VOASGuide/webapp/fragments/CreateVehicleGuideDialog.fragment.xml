@@ -16,7 +16,7 @@
 										class="sapUiTinyMargin"/>
 								</form:label>-->
 								<form:fields>
-									<Label text="{i18n>IncludeDealerNetAmount}" design="Bold" width="192px" required="false" textAlign="Begin" textDirection="Inherit"
+									<Label id = "id_poc_DealerSwitch" text="{i18n>IncludeDealerNetAmount}" design="Bold" width="192px" required="false" textAlign="Begin" textDirection="Inherit"
 										visible="true"/>
 									<Switch state="true" id="id_Veh_DealerSwitch" customTextOff="No" customTextOn="Yes" type="Default" enabled="true" visible="true" class="sapUiTinyMargin"/>
 								</form:fields>
