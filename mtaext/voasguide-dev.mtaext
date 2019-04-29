@@ -1,0 +1,11 @@
+_schema-version: "3.1"
+ID: vehiclecatalogue.dev
+extends: vehiclecatalogue
+
+modules:
+ - name: vehiclecatalogue-node
+   parameters:
+      host: tci-dev-${app-name}
+ - name: vehiclecatalogue
+   parameters:
+      host: tci-dev-${app-name}
