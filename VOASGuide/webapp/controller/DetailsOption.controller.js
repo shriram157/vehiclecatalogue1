@@ -161,7 +161,7 @@ onAfterRendering: jQuery.proxy(function () {
 			$.ajax({
 				url: urlTable,
 				method: 'GET',
-				async: true,
+				async: false,
 				dataType: 'json',
 				success: function (data, textStatus, jqXHR) {
 					var tblModel = new sap.ui.model.json.JSONModel(data.d.results);
