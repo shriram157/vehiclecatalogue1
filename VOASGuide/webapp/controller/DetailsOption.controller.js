@@ -165,6 +165,7 @@ onAfterRendering: jQuery.proxy(function () {
 				dataType: 'json',
 				success: function (data, textStatus, jqXHR) {
 					var tblModel = new sap.ui.model.json.JSONModel(data.d.results);
+					
 					DetailController.getView().setModel(tblModel, "TblModel");
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
