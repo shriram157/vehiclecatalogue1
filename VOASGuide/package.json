@@ -5,7 +5,6 @@
 	"devDependencies": {
 		"@sap/grunt-sapui5-bestpractice-build": "1.3.65",
 		"@sap/grunt-sapui5-bestpractice-test": "2.0.0",
-<<<<<<< Upstream, based on origin/master
 		"grunt-shell": "^3.0.1"
 	},
 	"dependencies": {
@@ -16,15 +15,4 @@
 		"test": "grunt unit_and_integration_tests"
 	}
 }
-=======
- 		"grunt-shell": "^3.0.1"
-	},
-	"dependencies": {
-		"@sap/approuter": "5.13.0"
-	},
-	"scripts": {
-		"start": "node node_modules/@sap/approuter/approuter.js",
-		"test": "grunt unit_and_integration_tests"
-	}
-}
->>>>>>> 855f4c3 Added sapui5 best practice build process
+
