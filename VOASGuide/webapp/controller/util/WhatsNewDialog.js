@@ -281,6 +281,7 @@ sap.ui.define([
 						});
 					//var fileString = evt.target.result
 					reader.onload = function readSuccess(evt) {
+						
 						var fileString = evt.target.result;
 						//var base64Index = evt.target.result.indexOf(base64_marker) + base64_marker.length;
 						//var _base64 = evt.target.result.substring(base64Index);
@@ -293,12 +294,12 @@ sap.ui.define([
 									type: 'PUT',
 									url: oURL2,
 									data: file,
+									processData : false,
 									dataType: 'json',
 									beforeSend: function (xhr) {
 										xhr.setRequestHeader('X-CSRF-Token', token);
 										xhr.setRequestHeader('Content-Type',"application/pdf");
 										xhr.setRequestHeader('slug', file.name);
-										
 									},
 									success: function (data) {
 									 oBusyDialog.close(); 
