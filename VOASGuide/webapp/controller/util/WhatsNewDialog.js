@@ -295,7 +295,7 @@ sap.ui.define([
 									url: oURL2,
 									data: file,
 									processData : false,
-									dataType: 'json',
+									dataType: "text",
 									beforeSend: function (xhr) {
 										xhr.setRequestHeader('X-CSRF-Token', token);
 										xhr.setRequestHeader('Content-Type',"application/pdf");
