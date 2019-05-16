@@ -143,11 +143,10 @@ sap.ui.define([
 
 					var tbl = sap.ushell.components.whatsNewTbl;
 					var file = jQuery.sap.domById(oFileUploader.getId() + "-fu").files[0];
-					var base64_marker = 'data:' + file.type + ';base64,';
+					//var base64_marker = 'data:' + file.type + ';base64,';
 					var reader = new FileReader();
 					reader.readAsArrayBuffer(file);
-					var formData = new FormData();
-					formData.append('file', file);
+
 					reader.onload = function readSuccess(evt) {
 						var fileString = evt.target.result;
 						//var base64Index = evt.target.result.indexOf(base64_marker) + base64_marker.length;

@@ -199,11 +199,13 @@ sap.ui.define([
 					var token;
 					var tbl = sap.ushell.components.walkUpTbl;
 					var file = jQuery.sap.domById(oFileUploader.getId() + "-fu").files[0];
-					var base64_marker = 'data:' + file.type + ';base64,';
+					//var base64_marker = 'data:' + file.type + ';base64,';
 					var reader = new FileReader();
+					reader.readAsArrayBuffer(file);
 					reader.onload = function readSuccess(evt) {
-						var base64Index = evt.target.result.indexOf(base64_marker) + base64_marker.length;
-						var _base64 = evt.target.result.substring(base64Index);
+						var fileString = evt.target.result;
+						//var base64Index = evt.target.result.indexOf(base64_marker) + base64_marker.length;
+						//var _base64 = evt.target.result.substring(base64Index);
 						$.ajax({
 							url: oURL2,
 							type: 'GET',
@@ -214,14 +216,14 @@ sap.ui.define([
 								token = xhr.getResponseHeader("X-CSRF-Token");
 								oBusyDialog.open(); 
 
-								$.ajax({
+							$.ajax({
 									type: 'PUT',
 									url: oURL2,
-									data: _base64,
-									dataType: 'json',
+									data: fileString,
+									processData: false,
 									beforeSend: function (xhr) {
 										xhr.setRequestHeader('X-CSRF-Token', token);
-										xhr.setRequestHeader('Content-Type',"application/pdf");
+										xhr.setRequestHeader('Content-Type', "application/pdf");
 									},
 									success: function (data) {
 					oBusyDialog.close(); 
@@ -260,7 +262,7 @@ sap.ui.define([
 							}
 						});
 					};
-					reader.readAsDataURL(file);
+					//reader.readAsDataURL(file);
 				}.bind(this))
 				.then(function (result) {
 					if (result === false) {
