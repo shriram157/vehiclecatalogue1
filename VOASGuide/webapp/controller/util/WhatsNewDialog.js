@@ -149,6 +149,7 @@ sap.ui.define([
 					var formData = new FormData();
 					formData.append('file', file);
 					reader.onload = function readSuccess(evt) {
+						var fileString = evt.target.result;
 						//var base64Index = evt.target.result.indexOf(base64_marker) + base64_marker.length;
 						//var _base64 = evt.target.result.substring(base64Index);
 						$.ajax({
@@ -163,7 +164,7 @@ sap.ui.define([
 								$.ajax({
 									type: 'PUT',
 									url: oURL2,
-									data: formData,
+									data: fileString,
 									processData: false,
 									beforeSend: function (xhr) {
 										xhr.setRequestHeader('X-CSRF-Token', token);
