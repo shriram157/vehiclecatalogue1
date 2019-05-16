@@ -59,8 +59,8 @@ sap.ui.define([
 		},
 
 		close: function () {
-			var comment = this._oView.byId("__component0---AdminDetailsOption--Supp_TA_Comment");//.getValue(); // "ok"; 
-			var filename = this._oView.byId("__component0---AdminDetailsOption--suppFileUploadId");//.mProperties.value; //"abc.pdf";
+			var comment = this._oView.byId("__component0---AdminDetailsOption--Supp_TA_Comment"); //.getValue(); // "ok"; 
+			var filename = this._oView.byId("__component0---AdminDetailsOption--suppFileUploadId"); //.mProperties.value; //"abc.pdf";
 			var langSwitch = this._oView.byId("__component0---AdminDetailsOption--Supp_Switch_Lang");
 			comment.setValue("");
 			filename.setValue("");
@@ -107,9 +107,9 @@ sap.ui.define([
 					} else {
 						lang = "EN";
 					}
-						var oBusyDialog = new sap.m.BusyDialog({
-				showCancelButton: false
-			});
+					var oBusyDialog = new sap.m.BusyDialog({
+						showCancelButton: false
+					});
 					//var oURL = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileSet('" + filename + "')/$value";
 					var oFileUploader = this._oView.byId("__component0---AdminDetailsOption--suppFileUploadId");
 					var oURL4 = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileSet(Comment='" + comment + "',FileName='" + filename + "',Language='" +
@@ -126,11 +126,13 @@ sap.ui.define([
 					var token;
 					var tbl = sap.ushell.components.suppTbl;
 					var file = jQuery.sap.domById(oFileUploader.getId() + "-fu").files[0];
-					var base64_marker = 'data:' + file.type + ';base64,';
+					//var base64_marker = 'data:' + file.type + ';base64,';
 					var reader = new FileReader();
+					reader.readAsArrayBuffer(file);
 					reader.onload = function readSuccess(evt) {
-						var base64Index = evt.target.result.indexOf(base64_marker) + base64_marker.length;
-						var _base64 = evt.target.result.substring(base64Index);
+						//var base64Index = evt.target.result.indexOf(base64_marker) + base64_marker.length;
+						//var _base64 = evt.target.result.substring(base64Index);
+						var fileString = evt.target.result;
 						$.ajax({
 							url: oURL2,
 							type: 'GET',
@@ -139,18 +141,20 @@ sap.ui.define([
 							},
 							complete: function (xhr) {
 								token = xhr.getResponseHeader("X-CSRF-Token");
-							 oBusyDialog.open();
-							$.ajax({	
-								type: 'PUT',
+								oBusyDialog.open();
+								$.ajax({
+									type: 'PUT',
 									url: oURL2,
-									data: _base64,
-									dataType: 'json',
+									//data: _base64,
+									//dataType: 'json',
+									data: fileString,
+									processData: false,
 									beforeSend: function (xhr) {
 										xhr.setRequestHeader('X-CSRF-Token', token);
-										xhr.setRequestHeader('Content-Type',"application/pdf");
+										xhr.setRequestHeader('Content-Type', "application/pdf");
 									},
 									success: function (data) {
-										 oBusyDialog.close();
+										oBusyDialog.close();
 										console.log("PUT success");
 										//	var errMsg = this._oView.getModel("i18n").getResourceBundle().getText("Error1");
 										//	console.log(errMsg);
@@ -174,7 +178,7 @@ sap.ui.define([
 										});
 									},
 									error: function (data) {
-										 oBusyDialog.close();
+										oBusyDialog.close();
 
 										sap.m.MessageBox.show("Error occurred while sending data. Please try again later.", sap.m.MessageBox.Icon.ERROR,
 											"Error", sap
@@ -185,8 +189,8 @@ sap.ui.define([
 							}
 						});
 					};
-					reader.readAsDataURL(file);
- oBusyDialog.close(); 
+					//reader.readAsDataURL(file);
+					oBusyDialog.close();
 				}.bind(this))
 				.then(function (result) {
 					if (result === false) {

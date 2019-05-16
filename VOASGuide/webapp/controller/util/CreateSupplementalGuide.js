@@ -21,9 +21,9 @@ sap.ui.define([
 			var userData = [];
 			var bpData = [];
 			if (userModel) {
-					userData = userModel.getData();
+				userData = userModel.getData();
 				if (bpDealerModel) {
-				
+
 					bpData = bpDealerModel.getData();
 					if (userData.loggedUserType[0] == "Dealer_User" || userData.loggedUserType[0] == "Dealer_Admin") {
 						if (bpData[0].Division == "10") {
@@ -42,9 +42,8 @@ sap.ui.define([
 						CreateSuppGuideController.getView().byId("idSupp_brandCB").setEnabled(true);
 						CreateSuppGuideController.getView().byId("idSupp_brandCB").setValue(brandVal);
 					}
-				}
-				else{
-					 if (userData.loggedUserType[0] == "TCI_User" || userData.loggedUserType[0] == "TCI_User_Preliminary") {
+				} else {
+					if (userData.loggedUserType[0] == "TCI_User" || userData.loggedUserType[0] == "TCI_User_Preliminary") {
 
 						CreateSuppGuideController.getView().byId("idSupp_brandCB").setEnabled(true);
 						CreateSuppGuideController.getView().byId("idSupp_brandCB").setValue(brandVal);
@@ -108,49 +107,50 @@ sap.ui.define([
 				// 	CreateSuppGuideController.getView().byId("idSupp_seriesCB").setValue(seriesVal);
 				// 	//	CreateSuppGuideController.getView().byId("idSupp_seriesCB").setEnabled(false);
 				// } else {
-					CreateSuppGuideController.getView().byId("idSupp_seriesCB").setEnabled(true);
-					var sLocation = window.location.host;
-					var sLocation_conf = sLocation.search("webide");
-					if (sLocation_conf == 0) {
-						CreateSuppGuideController.sPrefix = "/voasguide_node";
-					} else {
-						CreateSuppGuideController.sPrefix = "";
-					}
-					CreateSuppGuideController.nodeJsUrl = CreateSuppGuideController.sPrefix + "/node";
-					var host = CreateSuppGuideController.nodeJsUrl;
-					var userModel = sap.ui.getCore().getModel("userModel");
-					var userData = userModel.getData();
-					var usr = userData.loggedUserType[0];
-					var url = host +
-						"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(User eq  '" + usr + "' and Language eq '" + Language + "' and Brand eq '" + brandVal + "' and Modelyear eq '" + moYearVal +
+				CreateSuppGuideController.getView().byId("idSupp_seriesCB").setEnabled(true);
+				var sLocation = window.location.host;
+				var sLocation_conf = sLocation.search("webide");
+				if (sLocation_conf == 0) {
+					CreateSuppGuideController.sPrefix = "/voasguide_node";
+				} else {
+					CreateSuppGuideController.sPrefix = "";
+				}
+				CreateSuppGuideController.nodeJsUrl = CreateSuppGuideController.sPrefix + "/node";
+				var host = CreateSuppGuideController.nodeJsUrl;
+				var userModel = sap.ui.getCore().getModel("userModel");
+				var userData = userModel.getData();
+				var usr = userData.loggedUserType[0];
+				var url = host +
+					"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(User eq  '" + usr + "' and Language eq '" + Language +
+					"' and Brand eq '" + brandVal + "' and Modelyear eq '" + moYearVal +
 					"')";
-					$.ajax({
-						url: url,
-						method: 'GET',
-						async: false,
-						dataType: 'json',
-						success: function (data, textStatus, jqXHR) {
-							var oModel = new sap.ui.model.json.JSONModel();
-							var arr = [];
-							var j = 0;
-							for (var c = 0; c < data.d.results.length; c++) {
-								for (var i = 0; i < data.d.results.length; i++) {
-									if ($.inArray(data.d.results[i]["TCISeries"], arr) < 0) {
-										arr[j] = data.d.results[i]["TCISeries"];
-										j++;
-									}
+				$.ajax({
+					url: url,
+					method: 'GET',
+					async: false,
+					dataType: 'json',
+					success: function (data, textStatus, jqXHR) {
+						var oModel = new sap.ui.model.json.JSONModel();
+						var arr = [];
+						var j = 0;
+						for (var c = 0; c < data.d.results.length; c++) {
+							for (var i = 0; i < data.d.results.length; i++) {
+								if ($.inArray(data.d.results[i]["TCISeries"], arr) < 0) {
+									arr[j] = data.d.results[i]["TCISeries"];
+									j++;
 								}
 							}
-							oModel.setData(arr);
-							CreateSuppGuideController.getView().setModel(oModel, "seriesdropDownModelNew");
-							CreateSuppGuideController.getView().byId("idSupp_seriesCB").setSelectedKey(seriesVal);
-						},
-						error: function (jqXHR, textStatus, errorThrown) {
-							sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
-								sap
-								.m.MessageBox.Action.OK, null, null);
 						}
-					});
+						oModel.setData(arr);
+						CreateSuppGuideController.getView().setModel(oModel, "seriesdropDownModelNew");
+						CreateSuppGuideController.getView().byId("idSupp_seriesCB").setSelectedKey(seriesVal);
+					},
+					error: function (jqXHR, textStatus, errorThrown) {
+						sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
+							sap
+							.m.MessageBox.Action.OK, null, null);
+					}
+				});
 				// }
 			}
 		},
@@ -197,7 +197,7 @@ sap.ui.define([
 			modelYearModel.setData(data);
 			CreateSuppGuideController.getView().setModel(modelYearModel, "yearModelNew");
 		},
-			onChange_ModelBrand: function () {
+		onChange_ModelBrand: function () {
 			// CreateVehicleGuideDialogController.getView().byId("filterBar").setShowGoOnFB(false);
 			// var brandCB = CreateVehicleGuideDialogController.getView().byId("id_brandCB");
 			var modelYearCB = CreateSuppGuideController.getView().byId("idSupp_modelYearCB");
@@ -206,10 +206,10 @@ sap.ui.define([
 			// var suffixCB = CreateVehicleGuideDialogController.getView().byId("id_suffixCB");
 			// searchController.refreshTableData();
 			modelYearCB.setSelectedKey(null);
-if (seriesCB.getValue() !== "") {
+			if (seriesCB.getValue() !== "") {
 				seriesCB.setValue("");
 				seriesCB.destroyItems();
-			}			// modelCB.setSelectedItems("");
+			} // modelCB.setSelectedItems("");
 			// suffixCB.setSelectedItems("");
 		},
 		onChange_ModelYear: function () {
@@ -234,17 +234,18 @@ if (seriesCB.getValue() !== "") {
 			CreateSuppGuideController.nodeJsUrl = CreateSuppGuideController.sPrefix + "/node";
 			var host = CreateSuppGuideController.nodeJsUrl;
 			var langSwitchState = CreateSuppGuideController.getView().byId("idCreateSupp_LangSwitch").mProperties.state;
-							var lang = "";
-					if (langSwitchState == false) {
-						lang = "FR";
-					} else {
-						lang = "EN";
-					}
-						var userModel = sap.ui.getCore().getModel("userModel");
+			var lang = "";
+			if (langSwitchState == false) {
+				lang = "FR";
+			} else {
+				lang = "EN";
+			}
+			var userModel = sap.ui.getCore().getModel("userModel");
 			var userData = userModel.getData();
 			var usr = userData.loggedUserType[0];
 			var url = host +
-				"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(User eq  '" + usr + "' and Language eq '" + lang + "'and Brand eq '" + brandCBVal + "' and Modelyear eq '" + modelYearCBVal +
+				"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(User eq  '" + usr + "' and Language eq '" + lang + "'and Brand eq '" +
+				brandCBVal + "' and Modelyear eq '" + modelYearCBVal +
 				"')";
 			//	"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter= (Brand eq 'TOYOTA' and Modelyear eq '2018')";
 			$.ajax({
@@ -330,39 +331,39 @@ if (seriesCB.getValue() !== "") {
 
 		},
 		_onButtonPress: function (oEvent) {
-			
-					var brandCB = CreateSuppGuideController.getView().byId("idSupp_brandCB");
-					var modelYearCB = CreateSuppGuideController.getView().byId("idSupp_modelYearCB");
-					var seriesCB = CreateSuppGuideController.getView().byId("idSupp_seriesCB");
-					var brandVal = brandCB.getValue();
-					var moYear = modelYearCB.getValue();
-					var serVal = seriesCB.getValue();
-					var langSwitchState = CreateSuppGuideController.getView().byId("idCreateSupp_LangSwitch").mProperties.state;
-					var lang = "";
-					if (langSwitchState == false) {
-						lang = "FR";
-					} else {
-						lang = "EN";
-					}
-					var sLocation = window.location.host;
-					var sLocation_conf = sLocation.search("webide");
-					if (sLocation_conf == 0) {
-						CreateSuppGuideController.sPrefix = "/voasguide_node";
-					} else {
-						CreateSuppGuideController.sPrefix = "";
-					}
-					CreateSuppGuideController.nodeJsUrl = CreateSuppGuideController.sPrefix + "/node";
-					var host = CreateSuppGuideController.nodeJsUrl;
-					var url = host +
-						"/Z_VEHICLE_CATALOGUE_SRV/FileDownloadSet(Language='" + lang + "',Tab='suppliment',Model_year='" + moYear + "',Tciseries='" +
-						serVal +
-						"',Brand='" + brandVal + "')/$value";
-						var oBusyDialog = new sap.m.BusyDialog({
+
+			var brandCB = CreateSuppGuideController.getView().byId("idSupp_brandCB");
+			var modelYearCB = CreateSuppGuideController.getView().byId("idSupp_modelYearCB");
+			var seriesCB = CreateSuppGuideController.getView().byId("idSupp_seriesCB");
+			var brandVal = brandCB.getValue();
+			var moYear = modelYearCB.getValue();
+			var serVal = seriesCB.getValue();
+			var langSwitchState = CreateSuppGuideController.getView().byId("idCreateSupp_LangSwitch").mProperties.state;
+			var lang = "";
+			if (langSwitchState == false) {
+				lang = "FR";
+			} else {
+				lang = "EN";
+			}
+			var sLocation = window.location.host;
+			var sLocation_conf = sLocation.search("webide");
+			if (sLocation_conf == 0) {
+				CreateSuppGuideController.sPrefix = "/voasguide_node";
+			} else {
+				CreateSuppGuideController.sPrefix = "";
+			}
+			CreateSuppGuideController.nodeJsUrl = CreateSuppGuideController.sPrefix + "/node";
+			var host = CreateSuppGuideController.nodeJsUrl;
+			var url = host +
+				"/Z_VEHICLE_CATALOGUE_SRV/FileDownloadSet(Language='" + lang + "',Tab='suppliment',Model_year='" + moYear + "',Tciseries='" +
+				serVal +
+				"',Brand='" + brandVal + "')/$value";
+			var oBusyDialog = new sap.m.BusyDialog({
 				showCancelButton: false
 			});
-			 //oBusyDialog.open();
-				oBusyDialog.open();
-								$.ajax({
+			//oBusyDialog.open();
+			oBusyDialog.open();
+			$.ajax({
 				url: url,
 				type: 'GET',
 				async: true,
@@ -370,9 +371,8 @@ if (seriesCB.getValue() !== "") {
 				success: function (data, textStatus, jqXHR) {
 					console.log("GET success: ");
 					// console.log(data.d.results);
-if(data!=="")
-{
-					var pdfAsDataUri = "data:application/pdf;base64," + data;
+					if (data !== "") {
+						/*	var pdfAsDataUri = "data:application/pdf;base64," + data;
 						 var byteCharacters = atob(data);
         var byteNumbers = new Array(byteCharacters.length);
         for (var i = 0; i < byteCharacters.length; i++) {
@@ -381,56 +381,55 @@ if(data!=="")
         var byteArray = new Uint8Array(byteNumbers);
         var blob = new Blob([byteArray], {
             type: 'application/pdf'
-        });
-       
-            
-  //var blobAnchor = $("#blob");
-  //var dataURIAnchor = $("#pdfAsDataUri");
-  //blobAnchor.download = dataURIAnchor.download = "abc.pdf";
-  //blobAnchor.href = url1;
-  //dataURIAnchor.href = pdfAsDataUri;
-  //blobAnchor.click();
-  var fileName = "SG_" + serVal + "_" + moYear + "_" + lang + ".pdf";
-  //stat_.textContent = '';
- if (window.navigator.msSaveBlob) {
- 	
- 	window.navigator.msSaveOrOpenBlob(blob, fileName);
-   }
-   else
-   {
-   	 var link = document.createElement("a");
- var url1 = URL.createObjectURL(blob);        
- link.href = url1;
-           
-            link.download = fileName;
-            
-            link.click();
-   	
-   	// window.open(url1);
-   	URL.revokeObjectURL(url1);
-   }
-					// var link1 = document.createElement('a');
-oBusyDialog.close();
-					// link1.download = "SG_"+serVal+"_"+ moYear +"_"+ lang +".pdf";
-					// link1.href = pdfAsDataUri;
-					// link1.click();
-}
-else
-{
-	oBusyDialog.close();
-						sap.m.MessageBox.show("No File exists for curent selection.", sap.m.MessageBox.Icon.ERROR,"Error",sap.m.MessageBox.Action.OK, null, null);
+        });*/
 
-}
+						//var blobAnchor = $("#blob");
+						//var dataURIAnchor = $("#pdfAsDataUri");
+						//blobAnchor.download = dataURIAnchor.download = "abc.pdf";
+						//blobAnchor.href = url1;
+						//dataURIAnchor.href = pdfAsDataUri;
+						//blobAnchor.click();
+						//var fileName = "SG_" + serVal + "_" + moYear + "_" + lang + ".pdf";
+						//stat_.textContent = '';
+						/*if (window.navigator.msSaveBlob) {
+							
+							window.navigator.msSaveOrOpenBlob(blob, fileName);
+						  }
+						  else
+						  {
+						  	 var link = document.createElement("a");
+						var url1 = URL.createObjectURL(blob);        
+						link.href = url1;
+						          
+						           link.download = fileName;
+						           
+						           link.click();
+						  	
+						  	// window.open(url1);
+						  	URL.revokeObjectURL(url1);
+						  	
+						  }*/
+						// var link1 = document.createElement('a');
+						window.open(url, '_blank');
+						oBusyDialog.close();
+						// link1.download = "SG_"+serVal+"_"+ moYear +"_"+ lang +".pdf";
+						// link1.href = pdfAsDataUri;
+						// link1.click();
+					} else {
+						oBusyDialog.close();
+						sap.m.MessageBox.show("No File exists for curent selection.", sap.m.MessageBox.Icon.ERROR, "Error", sap.m.MessageBox.Action.OK,
+							null, null);
+
+					}
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
 					oBusyDialog.close();
-					sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR,"Error",sap.m.MessageBox.Action.OK, null, null);
+					sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error", sap
+						.m.MessageBox.Action.OK, null, null);
 				}
 			});
-						CreateSuppGuideController.close();
+			CreateSuppGuideController.close();
 
-
-				
 		},
 		_onButtonPress1: function () {
 
