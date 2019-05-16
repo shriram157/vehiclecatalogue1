@@ -97,6 +97,7 @@ sap.ui.define([
 			var modelAdm = sap.ui.getCore().getModel("modelAdmin");
 			var modelAdmData = modelAdm.getData();
 			oEvent = jQuery.extend(true, {}, oEvent);
+			debugger;
 			return new Promise(function (fnResolve) {
 					fnResolve(true);
 				})
@@ -137,16 +138,19 @@ sap.ui.define([
 						modelAdmData.brand + "')";
 					var token;
 					var oBusyDialog = new sap.m.BusyDialog({
-				showCancelButton: false
-			});
+						showCancelButton: false
+					});
 
 					var tbl = sap.ushell.components.whatsNewTbl;
 					var file = jQuery.sap.domById(oFileUploader.getId() + "-fu").files[0];
 					var base64_marker = 'data:' + file.type + ';base64,';
 					var reader = new FileReader();
+					reader.readAsArrayBuffer(file);
+					var formData = new FormData();
+					formData.append('file', file);
 					reader.onload = function readSuccess(evt) {
-						var base64Index = evt.target.result.indexOf(base64_marker) + base64_marker.length;
-						var _base64 = evt.target.result.substring(base64Index);
+						//var base64Index = evt.target.result.indexOf(base64_marker) + base64_marker.length;
+						//var _base64 = evt.target.result.substring(base64Index);
 						$.ajax({
 							url: oURL2,
 							type: 'GET',
@@ -155,19 +159,19 @@ sap.ui.define([
 							},
 							complete: function (xhr) {
 								token = xhr.getResponseHeader("X-CSRF-Token");
-							oBusyDialog.open(); 
+								oBusyDialog.open();
 								$.ajax({
 									type: 'PUT',
 									url: oURL2,
-									data: _base64,
-									dataType: 'json',
+									data: formData,
+									processData: false,
 									beforeSend: function (xhr) {
 										xhr.setRequestHeader('X-CSRF-Token', token);
-										xhr.setRequestHeader('Content-Type',"application/pdf");
-										
+										xhr.setRequestHeader('Content-Type', "application/pdf");
+
 									},
 									success: function (data) {
-									 oBusyDialog.close(); 
+										oBusyDialog.close();
 										console.log("PUT success: " + data);
 										$.ajax({
 											url: oUrl3,
@@ -191,7 +195,7 @@ sap.ui.define([
 										});
 									},
 									error: function (data) {
-																	oBusyDialog.close(); 
+										oBusyDialog.close();
 
 										sap.m.MessageBox.show("Error occurred while sending data. Please try again later.", sap.m.MessageBox.Icon.ERROR,
 											"Error", sap
@@ -202,7 +206,7 @@ sap.ui.define([
 							}
 						});
 					};
-					reader.readAsDataURL(file);
+					// reader.readAsDataURL(file);
 
 				}.bind(this))
 				.then(function (result) {
