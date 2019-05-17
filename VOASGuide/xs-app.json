@@ -5,7 +5,7 @@
 		"logoutEndpoint": "/do/logout"
 	},
 	"routes": [{
-		"source": "^/vehiclecatalogue/index.html$",
+		"source": "^/vehiclecatalogue/index.html",
 		"target": "index.html",
 		"localDir": "webapp",
 		"cacheControl": "no-cache, no-store, must-revalidate",
