@@ -116,11 +116,12 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					CreateWhatsNewDialogController.getView().byId("idNew_modelYearCB").setEnabled(true);
 				}
 				var seriesVal = seriesCB.getValue();
-				// if (seriesVal != " " && seriesVal != "" && seriesVal != null && seriesVal != undefined) {
-				// 	CreateWhatsNewDialogController.getView().byId("id_seriesCBNew").setValue(seriesVal);
+				 if (seriesVal != " " && seriesVal != "" && seriesVal != null && seriesVal != undefined) {
+				/	CreateWhatsNewDialogController.getView().byId("id_seriesCBNew").setValue(seriesVal);
 				//	CreateWhatsNewDialogController.getView().byId("id_seriesCBNew").setEnabled(false);
-				// } else {
+				 } else {
 				CreateWhatsNewDialogController.getView().byId("id_seriesCBNew").setEnabled(true);
+				 }
 				var sLocation = window.location.host;
 				var sLocation_conf = sLocation.search("webide");
 				if (sLocation_conf == 0) {
