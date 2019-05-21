@@ -117,7 +117,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				}
 				var seriesVal = seriesCB.getValue();
 				 if (seriesVal != " " && seriesVal != "" && seriesVal != null && seriesVal != undefined) {
-				/	CreateWhatsNewDialogController.getView().byId("id_seriesCBNew").setValue(seriesVal);
+					CreateWhatsNewDialogController.getView().byId("id_seriesCBNew").setValue(seriesVal);
 				//	CreateWhatsNewDialogController.getView().byId("id_seriesCBNew").setEnabled(false);
 				 } else {
 				CreateWhatsNewDialogController.getView().byId("id_seriesCBNew").setEnabled(true);
