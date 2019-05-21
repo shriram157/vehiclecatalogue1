@@ -29,7 +29,7 @@
 									<Label text="Language" design="Bold" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
 								</form:label>
 								<form:fields>
-									<Switch  id="whatsNew_Switch_Lang" state="true" customTextOff="Fr" change="handleLanguageChange" customTextOn="En" type="Default" enabled="true" visible="true" class="sapUiTinyMargin"/>
+									<Switch  id="whatsNew_Switch_Lang" state="true" customTextOff="Fr"  customTextOn="En" type="Default" enabled="true" visible="true" class="sapUiTinyMargin"/>
 								</form:fields>
 							</form:FormElement>
 						</form:formElements>
