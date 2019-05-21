@@ -78,7 +78,7 @@ sap.ui.define([
 			} else {
 				Language = "EN";
 			}
-			if (Language == "FR") {
+			if (Language === "FR" || Language === "fr" ) {
 				LanguageState = false;
 			} else {
 				LanguageState = true;

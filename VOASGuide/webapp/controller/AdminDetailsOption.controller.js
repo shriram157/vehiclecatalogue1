@@ -160,7 +160,21 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 
 		},
 		_createVehGuidePDF: function () {
-			alert("Open PDF in New Window");
+			//alert("Open PDF in New Window");
+			/*var modelAdm = sap.ui.getCore().getModel("modelAdmin");
+			var modelAdmData = modelAdm.getData();
+			var userModel = sap.ui.getCore().getModel("userModel");
+			var userData = userModel.getData();
+			var usr = userData.loggedUserType[0];
+			 //oBusyDialog.open();
+				oBusyDialog.open();
+					var url = host +
+						"/Z_VEHICLE_CATALOGUE_SRV/FileDownload_ord_guide_pdfSet(User='" + usr + "',Language='" + lang + "',Tab='" + dealer + "',Model_year='" + moYear + "',Tciseries='" +
+						serVal +
+						"',Brand='" + brandVal + "')/$value";
+			var oUrl3 = host + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'WhatsNew' and Model eq '" + modelAdmData.modelDesc +
+				"' and Model_year eq '" + modelAdmData.moYear + "' and Tciseries eq '" + modelAdmData.series + "' and Brand eq '" + modelAdmData.brand +
+				"')";*/
 
 		},
 		_uploadWhatNew: function () {

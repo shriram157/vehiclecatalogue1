@@ -93,7 +93,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			} else {
 				Language = "EN";
 			}
-			if (Language == "FR") {
+			if (Language === "FR"  || Language === "fr"  ) {
 				LanguageState = false;
 			} else {
 				LanguageState = true;
@@ -478,6 +478,23 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				}
 			}
 
+		},
+		
+		handleLanguageChange : function(oEvent) {
+			var oSource = oEvent.getSource();
+			var bState = oSource.getState();
+			var sLang = "EN";
+			if (!bState) {
+			    sLang = "FR";
+			}
+			var oServicesVal =	CreateWhatsNewDialogController.getView().byId("id_seriesCBNew").getValue();
+			
+			if (oServicesVal) {
+			this.onChange_ModelYear();
+			CreateWhatsNewDialogController.getView().byId("id_seriesCBNew").setValue(oServicesVal);
+			}
+			
+			
 		}
 
 	});
