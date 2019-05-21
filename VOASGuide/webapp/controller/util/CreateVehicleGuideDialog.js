@@ -91,24 +91,25 @@ sap.ui.define([
 			if (brandCB != undefined && moYearCB != undefined && seriesCB != undefined) {
 				var brandVal = brandCB.getValue();
 
-				if (brandVal != " " && brandVal != "" && brandVal != null && brandVal != undefined) {
+				if (brandVal != " " && brandVal != "" && brandVal !== null && brandVal != undefined) {
 					CreateVehicleGuideDialogController._readUserBrand();
 				} else {
 					CreateVehicleGuideDialogController.getView().byId("idVeh_brandCB").setEnabled(true);
 				}
 				var moYearVal = moYearCB.getValue();
-				if (moYearVal != " " && moYearVal != "" && moYearVal != null && moYearVal != undefined) {
+				if (moYearVal != " " && moYearVal != "" && moYearVal !== null && moYearVal !== undefined) {
 					CreateVehicleGuideDialogController.getView().byId("idVeh_modelYearCB").setValue(moYearVal);
 					//	CreateVehicleGuideDialogController.getView().byId("idVeh_modelYearCB").setEnabled(false);
 				} else {
 					CreateVehicleGuideDialogController.getView().byId("idVeh_modelYearCB").setEnabled(true);
 				}
 				var seriesVal = seriesCB.getValue();
-				// if (seriesVal != " " && seriesVal != "" && seriesVal != null && seriesVal != undefined) {
-				// 	CreateVehicleGuideDialogController.getView().byId("idVeh_seriesCB").setValue(seriesVal);
+				 if (seriesVal != " " && seriesVal != "" && seriesVal !== null && seriesVal !== undefined) {
+					CreateVehicleGuideDialogController.getView().byId("idVeh_seriesCB").setValue(seriesVal);
 				// 	//	CreateVehicleGuideDialogController.getView().byId("idVeh_seriesCB").setEnabled(false);
-				// } else {
+				 } else {
 					CreateVehicleGuideDialogController.getView().byId("idVeh_seriesCB").setEnabled(true);
+				 }
 					var sLocation = window.location.host;
 					var sLocation_conf = sLocation.search("webide");
 					if (sLocation_conf == 0) {

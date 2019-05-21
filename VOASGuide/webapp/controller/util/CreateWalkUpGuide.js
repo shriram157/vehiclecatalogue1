@@ -95,24 +95,25 @@ sap.ui.define([
 						if (brandCB != undefined && moYearCB != undefined && seriesCB != undefined) {
 							var brandVal = brandCB.getValue();
 
-							if (brandVal != " " && brandVal != "" && brandVal != null && brandVal != undefined) {
+							if (brandVal != " " && brandVal != "" && brandVal !== null && brandVal !== undefined) {
 								CreateWalkUpDialogController._readUserBrand();
 							} else {
 								CreateWalkUpDialogController.getView().byId("idWalk_brandCB").setEnabled(true);
 							}
 							var moYearVal = moYearCB.getValue();
-							if (moYearVal != " " && moYearVal != "" && moYearVal != null && moYearVal != undefined) {
+							if (moYearVal != " " && moYearVal != "" && moYearVal !== null && moYearVal !== undefined) {
 								CreateWalkUpDialogController.getView().byId("idWalk_modelYearCB").setValue(moYearVal);
 								//	CreateWalkUpDialogController.getView().byId("idWalk_modelYearCB").setEnabled(false);
 							} else {
 								CreateWalkUpDialogController.getView().byId("idWalk_modelYearCB").setEnabled(true);
 							}
 							var seriesVal = seriesCB.getValue();
-							// if (seriesVal != " " && seriesVal != "" && seriesVal != null && seriesVal != undefined) {
-							// 	CreateWalkUpDialogController.getView().byId("idWalk_seriesCB").setValue(seriesVal);
+							 if (seriesVal != " " && seriesVal != "" && seriesVal !== null && seriesVal != undefined) {
+								CreateWalkUpDialogController.getView().byId("idWalk_seriesCB").setValue(seriesVal);
 							// //	CreateWalkUpDialogController.getView().byId("idWalk_seriesCB").setEnabled(false);
-							// } else {
+							 } else {
 							CreateWalkUpDialogController.getView().byId("idWalk_seriesCB").setEnabled(true);
+							 }
 							var sLocation = window.location.host;
 							var sLocation_conf = sLocation.search("webide");
 							if (sLocation_conf == 0) {
