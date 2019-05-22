@@ -146,13 +146,31 @@ var formatter = {
 		var commaVal2 = "";
 		var commaVal = "";
 		var returnString = "";
+		var bmsrpMinus = false;
+		var bdecMinus = false;
+		if (msrp !== undefined && msrp !== null && msrp.indexOf("-") !== -1) {
+				msrp = msrp.replace("-","");
+				bmsrpMinus = true;
+
+		}
+		if (oDecVal !== undefined && oDecVal !== null && oDecVal.indexOf("-") !== -1) {
+				oDecVal = oDecVal.replace("-","");
+				bdecMinus = true;
+
+		}
 		if (oDecVal != undefined && oDecVal != null && !isNaN(oDecVal) && oDecVal != "") {
 			returnVal = parseInt(oDecVal);
 			commaVal = returnVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			if (bdecMinus) {
+				commaVal = "-" + commaVal;
+			}
 		}
 		if (msrp != undefined && msrp != null && !isNaN(msrp) && msrp != "") {
 			returnVal2 = parseInt(msrp);
 			commaVal2 = returnVal2.toString().replace  (/\B(?=(\d{3})+(?!\d))/g, ",");
+			if (bmsrpMinus) {
+				commaVal2 = "-" + commaVal2;
+			}
 		}
 
 		if (lang === "FR") {
