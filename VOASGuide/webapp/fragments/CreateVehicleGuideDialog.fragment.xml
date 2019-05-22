@@ -49,7 +49,7 @@
 									<ComboBox id="idVeh_seriesCB" placeholder="{i18n>SelectSeries}" editable="true" enabled="true" visible="true" width="397px" valueState="None" maxWidth="100%"
 										class="sapUiResponsiveMargin" items="{path:'seriesdropDownModelNew>/', templateShareable:true}">
 										<items>
-											<core:Item text="{seriesdropDownModelNew>}" enabled="true" key="{seriesdropDownModelNew>}"/>
+											<core:Item text="{seriesdropDownModelNew>key}" enabled="true" key="{seriesdropDownModelNew>value}"/>
 										</items>
 									</ComboBox>
 								</form:fields>
