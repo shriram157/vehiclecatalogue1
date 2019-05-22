@@ -116,8 +116,10 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					CreateWhatsNewDialogController.getView().byId("idNew_modelYearCB").setEnabled(true);
 				}
 				var seriesVal = seriesCB.getValue();
-				 if (seriesVal != " " && seriesVal != "" && seriesVal != null && seriesVal != undefined) {
-					CreateWhatsNewDialogController.getView().byId("id_seriesCBNew").setValue(seriesVal);
+				var seriesKey = seriesCB.getKey();
+				 //if (seriesVal != " " && seriesVal != "" && seriesVal != null && seriesVal != undefined) {
+				 if (seriesKey !== " " && seriesKey !== "" && seriesKey !== null && seriesKey !== undefined) {
+					CreateWhatsNewDialogController.getView().byId("id_seriesCBNew").setSelectedKey(seriesKey);
 				//	CreateWhatsNewDialogController.getView().byId("id_seriesCBNew").setEnabled(false);
 				 } else {
 				CreateWhatsNewDialogController.getView().byId("id_seriesCBNew").setEnabled(true);
@@ -326,7 +328,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					//	var oModel = new sap.ui.model.json.JSONModel(data.d.results);
 					var oModel = new sap.ui.model.json.JSONModel();
 
-					var arr = [];
+					/*var arr = [];
 					var j = 0;
 					for (var c = 0; c < data.d.results.length; c++) {
 						for (var i = 0; i < data.d.results.length; i++) {
@@ -334,6 +336,35 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 								arr[j] = data.d.results[i]["TCISeries"];
 								j++;
 
+							}
+						}
+					}*/
+					
+					var arr = [];
+					var j = 0; //TCISeries_fr
+					if (lang == "FR") {
+						for (var c = 0; c < data.d.results.length; c++) {
+							for (var i = 0; i < data.d.results.length; i++) {
+								if ($.inArray(data.d.results[i]["TCISeries_fr"], arr) < 0) {
+									arr.push({"key" : data.d.results[i]["Zseries"] + "_" + data.d.results[i]["Suffix"] , "value" : data.d.results[i]["TCISeries_fr"] });
+									//var key = {"key" : data.d.results[i]["Zseries"]};
+									//var value = {"value" : data.d.results[i]["TCISeries_fr"]};
+									//arr.push({key , value});
+									//arr[j] = data.d.results[i]["TCISeries_fr"];
+									j++;
+
+								}
+							}
+						}
+					} else { //if (language == "EN") {
+						for (var c = 0; c < data.d.results.length; c++) {
+							for (var i = 0; i < data.d.results.length; i++) {
+								if ($.inArray(data.d.results[i]["TCISeries"], arr) < 0) {
+									//arr[j] = data.d.results[i]["TCISeries"];
+									arr.push({"key" : data.d.results[i]["Zseries"] + "_" + data.d.results[i]["Suffix"] , "value" : data.d.results[i]["TCISeries"] });
+									j++;
+
+								}
 							}
 						}
 					}
@@ -487,11 +518,11 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			if (!bState) {
 			    sLang = "FR";
 			}
-			var oServicesVal =	CreateWhatsNewDialogController.getView().byId("id_seriesCBNew").getValue();
-			
-			if (oServicesVal) {
+			var oSeriesVal =	CreateWhatsNewDialogController.getView().byId("id_seriesCBNew").getValue();
+			var oSeriesKey =	CreateWhatsNewDialogController.getView().byId("id_seriesCBNew").getSelectedKey();
+			if (oSeriesKey) {
 			this.onChange_ModelYear();
-			CreateWhatsNewDialogController.getView().byId("id_seriesCBNew").setValue(oServicesVal);
+			CreateWhatsNewDialogController.getView().byId("id_seriesCBNew").setSelectedKey(oSeriesKey);
 			}
 			
 			

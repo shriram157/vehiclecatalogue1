@@ -362,7 +362,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 						for (var c = 0; c < data.d.results.length; c++) {
 							for (var i = 0; i < data.d.results.length; i++) {
 								if ($.inArray(data.d.results[i]["TCISeries_fr"], arr) < 0) {
-									arr.push({"key" : data.d.results[i]["Zseries"]  , "value" : data.d.results[i]["TCISeries"] });
+									arr.push({"key" : data.d.results[i]["Zseries"] + "_" + data.d.results[i]["Suffix"] , "value" : data.d.results[i]["TCISeries_fr"] });
 									//var key = {"key" : data.d.results[i]["Zseries"]};
 									//var value = {"value" : data.d.results[i]["TCISeries_fr"]};
 									//arr.push({key , value});
@@ -377,7 +377,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 							for (var i = 0; i < data.d.results.length; i++) {
 								if ($.inArray(data.d.results[i]["TCISeries"], arr) < 0) {
 									//arr[j] = data.d.results[i]["TCISeries"];
-									arr.push({"key" : data.d.results[i]["Zseries"]  , "value" : data.d.results[i]["TCISeries"] });
+									arr.push({"key" : data.d.results[i]["Zseries"] + "_" + data.d.results[i]["Suffix"] , "value" : data.d.results[i]["TCISeries"] });
 									j++;
 
 								}
