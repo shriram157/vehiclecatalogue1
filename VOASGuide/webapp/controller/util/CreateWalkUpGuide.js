@@ -109,7 +109,7 @@ sap.ui.define([
 				} else {
 					CreateWalkUpDialogController.getView().byId("idWalk_modelYearCB").setEnabled(true);
 				}
-				var seriesVal = seriesCB.getValue();
+				//var seriesVal = seriesCB.getValue();
 				var seriesKey = seriesCB.getSelectedKey();
 				if (seriesKey !== " " && seriesKey !== "" && seriesKey !== null && seriesKey !== undefined) {
 					// if (seriesVal != " " && seriesVal != "" && seriesVal !== null && seriesVal != undefined) {
@@ -146,20 +146,22 @@ sap.ui.define([
 					success: function (data, textStatus, jqXHR) {
 						var oModel = new sap.ui.model.json.JSONModel();
 						var arr = [];
-						var j = 0;
-						for (var c = 0; c < data.d.results.length; c++) {
+						var arrVal = [];
+						//var j = 0;
+						/*for (var c = 0; c < data.d.results.length; c++) {
 							for (var i = 0; i < data.d.results.length; i++) {
 								if ($.inArray(data.d.results[i]["TCISeries"], arr) < 0) {
 									arr[j] = data.d.results[i]["TCISeries"];
-									j++;
+									//j++;
 								}
 							}
-						}
+						}*/
 
 						if (Language === "FR") {
 							//for (var c = 0; c < data.d.results.length; c++) {
 							for (var i = 0; i < data.d.results.length; i++) {
-								if ($.inArray(data.d.results[i]["TCISeries_fr"], arr) < 0) {
+								if ($.inArray(data.d.results[i]["TCISeries_fr"], arrVal) < 0) {
+									arrVal.push(data.d.results[i]["TCISeries_fr"]);
 									arr.push({
 										"key": data.d.results[i]["Zseries"] + "_" + data.d.results[i]["Suffix"],
 										"value": data.d.results[i]["TCISeries_fr"]
@@ -168,7 +170,7 @@ sap.ui.define([
 									//var value = {"value" : data.d.results[i]["TCISeries_fr"]};
 									//arr.push({key , value});
 									//arr[j] = data.d.results[i]["TCISeries_fr"];
-									j++;
+									//j++;
 
 								}
 								//}
@@ -176,13 +178,14 @@ sap.ui.define([
 						} else { //if (language == "EN") {
 							//for (var c = 0; c < data.d.results.length; c++) {
 							for (var i = 0; i < data.d.results.length; i++) {
-								if ($.inArray(data.d.results[i]["TCISeries"], arr) < 0) {
+								if ($.inArray(data.d.results[i]["TCISeries"], arrVal) < 0) {
+									arrVal.push(data.d.results[i]["TCISeries"]);
 									//arr[j] = data.d.results[i]["TCISeries"];
 									arr.push({
 										"key": data.d.results[i]["Zseries"] + "_" + data.d.results[i]["Suffix"],
 										"value": data.d.results[i]["TCISeries"]
 									});
-									j++;
+									//j++;
 
 								}
 							}
@@ -306,7 +309,8 @@ sap.ui.define([
 					var oModel = new sap.ui.model.json.JSONModel();
 
 					var arr = [];
-					var j = 0;
+					var arrVal = [];
+					//var j = 0;
 				/*	for (var c = 0; c < data.d.results.length; c++) {
 						for (var i = 0; i < data.d.results.length; i++) {
 							if ($.inArray(data.d.results[i]["TCISeries"], arr) < 0) {
@@ -319,13 +323,14 @@ sap.ui.define([
 					if (lang == "FR") {
 						//for (var c = 0; c < data.d.results.length; c++) {
 							for (var i = 0; i < data.d.results.length; i++) {
-								if ($.inArray(data.d.results[i]["TCISeries_fr"], arr) < 0) {
+								if ($.inArray(data.d.results[i]["TCISeries_fr"], arrVal) < 0) {
+									arrVal.push(data.d.results[i]["TCISeries_fr"]);
 									arr.push({"key" : data.d.results[i]["Zseries"] + "_" + data.d.results[i]["Suffix"] , "value" : data.d.results[i]["TCISeries_fr"] });
 									//var key = {"key" : data.d.results[i]["Zseries"]};
 									//var value = {"value" : data.d.results[i]["TCISeries_fr"]};
 									//arr.push({key , value});
 									//arr[j] = data.d.results[i]["TCISeries_fr"];
-									j++;
+									//j++;
 
 								}
 							}
@@ -333,10 +338,11 @@ sap.ui.define([
 					} else { //if (language == "EN") {
 						//for (var c = 0; c < data.d.results.length; c++) {
 							for (var i = 0; i < data.d.results.length; i++) {
-								if ($.inArray(data.d.results[i]["TCISeries"], arr) < 0) {
+								if ($.inArray(data.d.results[i]["TCISeries"], arrVal) < 0) {
+									arrVal.push(data.d.results[i]["TCISeries"]);
 									//arr[j] = data.d.results[i]["TCISeries"];
 									arr.push({"key" : data.d.results[i]["Zseries"] + "_" + data.d.results[i]["Suffix"] , "value" : data.d.results[i]["TCISeries"] });
-									j++;
+									//j++;
 
 								}
 							}
@@ -540,7 +546,7 @@ sap.ui.define([
 			    sLang = "FR";
 			}
 			//var oSeriesVal =	CreateWalkUpDialogController.getView().byId("id_seriesCBNew").getValue();
-			var oSeriesKey =	CreateWalkUpDialogController.getView().byId("id_seriesCBNew").getSelectedKey();
+			var oSeriesKey =	CreateWalkUpDialogController.getView().byId("idWalk_seriesCB").getSelectedKey();
 			if (oSeriesKey) {
 			this.onChange_ModelYear();
 			CreateWalkUpDialogController.getView().byId("idWalk_seriesCB").setSelectedKey(oSeriesKey);
