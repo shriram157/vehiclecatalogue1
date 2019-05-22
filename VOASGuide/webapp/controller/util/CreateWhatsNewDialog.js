@@ -95,6 +95,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			}
 			if (Language === "FR"  || Language === "fr"  ) {
 				LanguageState = false;
+				Language = "FR";
 			} else {
 				LanguageState = true;
 			}
@@ -116,7 +117,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					CreateWhatsNewDialogController.getView().byId("idNew_modelYearCB").setEnabled(true);
 				}
 				var seriesVal = seriesCB.getValue();
-				var seriesKey = seriesCB.getKey();
+				var seriesKey = seriesCB.getSelectedKey();
 				 //if (seriesVal != " " && seriesVal != "" && seriesVal != null && seriesVal != undefined) {
 				 if (seriesKey !== " " && seriesKey !== "" && seriesKey !== null && seriesKey !== undefined) {
 					CreateWhatsNewDialogController.getView().byId("id_seriesCBNew").setSelectedKey(seriesKey);
@@ -148,7 +149,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 
 						var arr = [];
 						var j = 0;
-						for (var c = 0; c < data.d.results.length; c++) {
+						/*for (var c = 0; c < data.d.results.length; c++) {
 							for (var i = 0; i < data.d.results.length; i++) {
 								if ($.inArray(data.d.results[i]["TCISeries"], arr) < 0) {
 									arr[j] = data.d.results[i]["TCISeries"];
@@ -156,11 +157,38 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 
 								}
 							}
+						}*/
+						if (Language === "FR") {
+						for (var c = 0; c < data.d.results.length; c++) {
+							//for (var i = 0; i < data.d.results.length; i++) {
+								if ($.inArray(data.d.results[i]["TCISeries_fr"], arr) < 0) {
+									arr.push({"key" : data.d.results[i]["Zseries"] + "_" + data.d.results[i]["Suffix"] , "value" : data.d.results[i]["TCISeries_fr"] });
+									//var key = {"key" : data.d.results[i]["Zseries"]};
+									//var value = {"value" : data.d.results[i]["TCISeries_fr"]};
+									//arr.push({key , value});
+									//arr[j] = data.d.results[i]["TCISeries_fr"];
+									j++;
+
+								}
+							//}
 						}
+					} else { //if (language == "EN") {
+						//for (var c = 0; c < data.d.results.length; c++) {
+							for (var i = 0; i < data.d.results.length; i++) {
+								if ($.inArray(data.d.results[i]["TCISeries"], arr) < 0) {
+									//arr[j] = data.d.results[i]["TCISeries"];
+									arr.push({"key" : data.d.results[i]["Zseries"] + "_" + data.d.results[i]["Suffix"] , "value" : data.d.results[i]["TCISeries"] });
+									j++;
+
+								}
+							}
+						//}
+
+					}
 
 						oModel.setData(arr);
 						CreateWhatsNewDialogController.getView().setModel(oModel, "seriesdropDownModelNew");
-						CreateWhatsNewDialogController.getView().byId("id_seriesCBNew").setSelectedKey(seriesVal);
+						CreateWhatsNewDialogController.getView().byId("id_seriesCBNew").setSelectedKey(seriesKey);
 					},
 					error: function (jqXHR, textStatus, errorThrown) {
 						sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
@@ -343,7 +371,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					var arr = [];
 					var j = 0; //TCISeries_fr
 					if (lang == "FR") {
-						for (var c = 0; c < data.d.results.length; c++) {
+						//for (var c = 0; c < data.d.results.length; c++) {
 							for (var i = 0; i < data.d.results.length; i++) {
 								if ($.inArray(data.d.results[i]["TCISeries_fr"], arr) < 0) {
 									arr.push({"key" : data.d.results[i]["Zseries"] + "_" + data.d.results[i]["Suffix"] , "value" : data.d.results[i]["TCISeries_fr"] });
@@ -355,9 +383,9 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 
 								}
 							}
-						}
+						//}
 					} else { //if (language == "EN") {
-						for (var c = 0; c < data.d.results.length; c++) {
+						//for (var c = 0; c < data.d.results.length; c++) {
 							for (var i = 0; i < data.d.results.length; i++) {
 								if ($.inArray(data.d.results[i]["TCISeries"], arr) < 0) {
 									//arr[j] = data.d.results[i]["TCISeries"];
@@ -366,7 +394,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 
 								}
 							}
-						}
+						//}
 					}
 
 					oModel.setData(arr);
