@@ -40,7 +40,7 @@
 								<filterbar:control>
 									<ComboBox xmlns="sap.m" id="id_seriesCB" items="{path:'seriesdropDownModel>/', templateShareable:true}" enabled="false" required="true" change="onChange_Series">
 										<items>
-											<core:Item key="{seriesdropDownModel>key}" value="{seriesdropDownModel>value}"/>
+											<core:Item key="{seriesdropDownModel>key}" text="{seriesdropDownModel>value}"/>
 										</items>
 									</ComboBox>
 								</filterbar:control>
