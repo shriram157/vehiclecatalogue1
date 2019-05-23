@@ -1,9 +1,9 @@
 sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseController",
 	"sap/m/MessageBox",
-	"./util/SuplementalDialog", "./util/WhatsNewDialog", "./util/WalkupDialog",
+	"./util/SuplementalDialog", "./util/WhatsNewDialog", "./util/WalkupDialog", ""./util/CreateVehicleGuideDialog"
 	"./util/utilities",
 	"sap/ui/core/routing/History", "com/sap/build/toyota-canada/vehiclesGuideV3/Formatter/formatter"
-], function (BaseController, MessageBox, SuplementalDialog, WhatsNewDialog, WalkupDialog, utilities, History, formatter) {
+], function (BaseController, MessageBox, SuplementalDialog, WhatsNewDialog, WalkupDialog, CreateVehicleGuideDialog, utilities, History, formatter) {
 	"use strict";
 	var AdminDetailCntroller;
 	return BaseController.extend("com.sap.build.toyota-canada.vehiclesGuideV3.controller.AdminDetailsOption", {
@@ -160,21 +160,17 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 
 		},
 		_createVehGuidePDF: function () {
-			//alert("Open PDF in New Window");
-			/*var modelAdm = sap.ui.getCore().getModel("modelAdmin");
-			var modelAdmData = modelAdm.getData();
-			var userModel = sap.ui.getCore().getModel("userModel");
-			var userData = userModel.getData();
-			var usr = userData.loggedUserType[0];
-			 //oBusyDialog.open();
-				oBusyDialog.open();
-					var url = host +
-						"/Z_VEHICLE_CATALOGUE_SRV/FileDownload_ord_guide_pdfSet(User='" + usr + "',Language='" + lang + "',Tab='" + dealer + "',Model_year='" + moYear + "',Tciseries='" +
-						serVal +
-						"',Brand='" + brandVal + "')/$value";
-			var oUrl3 = host + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'WhatsNew' and Model eq '" + modelAdmData.modelDesc +
-				"' and Model_year eq '" + modelAdmData.moYear + "' and Tciseries eq '" + modelAdmData.series + "' and Brand eq '" + modelAdmData.brand +
-				"')";*/
+			var sDialogName = "CreateVehicleGuideDialog";
+			AdminDetailCntroller.mDialogs = AdminDetailCntroller.mDialogs || {};
+			var oDialog = AdminDetailCntroller.mDialogs[sDialogName];
+
+			//	if (!oDialog) {
+			oDialog = new CreateVehicleGuideDialog(AdminDetailCntroller.getView());
+			AdminDetailCntroller.mDialogs[sDialogName] = oDialog;
+			oDialog.setRouter(AdminDetailCntroller.oRouter);
+			//	}
+			oDialog.open();
+			
 
 		},
 		_uploadWhatNew: function () {
