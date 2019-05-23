@@ -1,10 +1,12 @@
 sap.ui.define([
+	"sap/m/Dialog",
+	"sap/m/Text",
 	"sap/ui/core/UIComponent",
 	"sap/ui/Device",
 	"./model/errorHandling",
 	"com/sap/build/toyota-canada/vehiclesGuideV3/model/models",
-		"sap/ui/model/odata/v2/ODataModel"
-], function (UIComponent, Device, errorHandling, models,ODataModel) {
+	"sap/ui/model/odata/v2/ODataModel"
+], function (Dialog, Text, UIComponent, Device, errorHandling, models, ODataModel) {
 	"use strict";
 	var navigationWithContext = {
 
@@ -39,6 +41,31 @@ sap.ui.define([
 			sap.ui.getCore().setModel(employeemodel, "employee");
 			
 		*/
+		
+			// Get resource bundle
+			var bundle = this.getModel('i18n').getResourceBundle();
+
+			// Attach XHR event handler to detect 401 error responses for handling as timeout
+			var sessionExpDialog = new Dialog({
+				title: bundle.getText('SESSION_EXP_TITLE'),
+				type: 'Message',
+				state: 'Warning',
+				content: new Text({
+					text: bundle.getText('SESSION_EXP_TEXT')
+				})
+			});
+			var origOpen = XMLHttpRequest.prototype.open;
+			XMLHttpRequest.prototype.open = function () {
+				this.addEventListener('load', function (event) {
+					// TODO Compare host name in URLs to ensure only app resources are checked
+					if (event.target.status === 401) {
+						if (!sessionExpDialog.isOpen()) {
+							sessionExpDialog.open();
+						}
+					}
+				});
+				origOpen.apply(this, arguments);
+			};
 
 		},
 		getNavigationPropertyForNavigationWithContext: function (sEntityNameSet, targetPageName) {
