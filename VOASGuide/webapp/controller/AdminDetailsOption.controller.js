@@ -1,6 +1,6 @@
 sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseController",
 	"sap/m/MessageBox",
-	"./util/SuplementalDialog", "./util/WhatsNewDialog", "./util/WalkupDialog", ""./util/CreateVehicleGuideDialog"
+	"./util/SuplementalDialog", "./util/WhatsNewDialog", "./util/WalkupDialog", "./util/CreateVehicleGuideDialog",
 	"./util/utilities",
 	"sap/ui/core/routing/History", "com/sap/build/toyota-canada/vehiclesGuideV3/Formatter/formatter"
 ], function (BaseController, MessageBox, SuplementalDialog, WhatsNewDialog, WalkupDialog, CreateVehicleGuideDialog, utilities, History, formatter) {
