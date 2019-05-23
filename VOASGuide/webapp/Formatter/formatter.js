@@ -10,11 +10,11 @@ var formatter = {
 		}
 		return feature;
 	},
-	 //downloadUrl: function(reqDocno, reqType, reqCounter, fileName) {
-	       
-  //          var downloadUrl = "voasguide_node/node/Z_VEHICLE_CATALOGUE_SRV/FileSet(Comment='',FileName=fileName,Language='EN',Lastupdate='20190330',Tab='Whatsup',Model='Camry%20SE',Model_year='2018',Tciseries='CAMRY',Brand='TOYOTA')/$value";
-  //          return downloadUrl;
-  //      },
+	//downloadUrl: function(reqDocno, reqType, reqCounter, fileName) {
+
+	//          var downloadUrl = "voasguide_node/node/Z_VEHICLE_CATALOGUE_SRV/FileSet(Comment='',FileName=fileName,Language='EN',Lastupdate='20190330',Tab='Whatsup',Model='Camry%20SE',Model_year='2018',Tciseries='CAMRY',Brand='TOYOTA')/$value";
+	//          return downloadUrl;
+	//      },
 	formatFeatures: function (str, str2) {
 		var feat = "";
 		var feature = "";
@@ -62,8 +62,8 @@ var formatter = {
 	},
 	formatManagePageDate: function (str, str2) {
 		var date = "";
-		var time="";
-		var timeStamp="";
+		var time = "";
+		var timeStamp = "";
 		if (str != "" && str != " " && str != null && str != undefined) {
 			var year = str.slice(0, 4);
 			var month = str.slice(4, 6);
@@ -76,7 +76,7 @@ var formatter = {
 			var sec = str2.slice(4, 6);
 			time = hour + ":" + min + ":" + sec;
 		}
-		timeStamp=date+ " "+time;
+		timeStamp = date + " " + time;
 		return timeStamp;
 	},
 	formatSuffix: function (str, str2) {
@@ -105,14 +105,19 @@ var formatter = {
 			return sTrimval;
 		}
 	},
-	decimalFormatter: function (oDecVal, oDecVal2) {
+	decimalFormatter: function (oDecVal, oDecVal2, lang) {
 
 		if (oDecVal != undefined && oDecVal != null && !isNaN(oDecVal) && oDecVal != "") {
 			var returnString = "";
 			var returnVal = "";
 			returnVal = parseInt(oDecVal);
-			var commaVal = returnVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-			returnString = "  $" + commaVal;
+			if (lang !== undefined && lang !== null && lang.toUpperCase() === "FR") {
+				var commaVal = returnVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+				returnString = commaVal + "  $";
+			} else {
+				var commaVal = returnVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				returnString = "  $" + commaVal;
+			}
 			if (returnVal == 0.00) {
 				return "  ";
 			} else {
@@ -122,14 +127,19 @@ var formatter = {
 			return "  ";
 		}
 	},
-	decimalFormatterDealer: function (oDecVal, oDecVal2) {
+	decimalFormatterDealer: function (oDecVal, oDecVal2, lang) {
 
 		if (oDecVal != undefined && oDecVal != null && !isNaN(oDecVal) && oDecVal != "") {
 			var returnString = "";
 			var returnVal = "";
 			returnVal = parseInt(oDecVal);
-			var commaVal = returnVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-			returnString = "  $" + commaVal;
+			if (lang !== undefined && lang !== null && lang.toUpperCase() === "FR") {
+				var commaVal = returnVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+				returnString = commaVal + "  $";
+			} else {
+				var commaVal = returnVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				returnString = "  $" + commaVal;
+			}
 			if (returnVal == 0.00) {
 				return "";
 			} else {
@@ -149,32 +159,41 @@ var formatter = {
 		var bmsrpMinus = false;
 		var bdecMinus = false;
 		if (msrp !== undefined && msrp !== null && msrp.indexOf("-") !== -1) {
-				msrp = msrp.replace("-","");
-				bmsrpMinus = true;
+			msrp = msrp.replace("-", "");
+			bmsrpMinus = true;
 
 		}
 		if (oDecVal !== undefined && oDecVal !== null && oDecVal.indexOf("-") !== -1) {
-				oDecVal = oDecVal.replace("-","");
-				bdecMinus = true;
+			oDecVal = oDecVal.replace("-", "");
+			bdecMinus = true;
 
 		}
 		if (oDecVal != undefined && oDecVal != null && !isNaN(oDecVal) && oDecVal != "") {
 			returnVal = parseInt(oDecVal);
-			commaVal = returnVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			if (lang && lang.toUpperCase() === "EN") {
+				commaVal = returnVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			} else {
+				commaVal = returnVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+			}
+
 			if (bdecMinus) {
 				commaVal = "-" + commaVal;
 			}
 		}
 		if (msrp != undefined && msrp != null && !isNaN(msrp) && msrp != "") {
 			returnVal2 = parseInt(msrp);
-			commaVal2 = returnVal2.toString().replace  (/\B(?=(\d{3})+(?!\d))/g, ",");
+			if (lang && lang.toUpperCase() === "EN") {
+				commaVal2 = returnVal2.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			} else {
+				commaVal2 = returnVal2.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+			}
 			if (bmsrpMinus) {
 				commaVal2 = "-" + commaVal2;
 			}
 		}
 
 		if (lang === "FR") {
-			returnString =  "PDSF:  $" + commaVal2+" \n "+"Prix net conc.:  $" + commaVal ;
+			returnString = "PDSF:  " + commaVal2 + " $ \n " + "Prix net conc.:  " + commaVal+ " $";
 			if (returnVal == 0.00 && returnVal2 == 0) {
 				return "PDSF:  Prix net conc.:  ";
 			} else {
@@ -185,7 +204,7 @@ var formatter = {
 			if (returnVal == 0.00 && returnVal2 == 0) {
 				return "MSRP:  DealerNet:  ";
 			} else {
-				return "MSRP:  $" + commaVal2 +" \n "+"Dealer Net:  $" + commaVal  ;
+				return "MSRP:  $" + commaVal2 + " \n " + "Dealer Net:  $" + commaVal;
 			}
 		}
 		//	return returnString;
