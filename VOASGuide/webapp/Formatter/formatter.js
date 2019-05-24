@@ -1,11 +1,11 @@
 jQuery.sap.declare("com.sap.build.toyota-canada.vehiclesGuideV3.Formatter.formatter");
 
 var formatter = {
-	
-    init: function(sLanguage) {
-			this.language = sLanguage;
-		},
-    
+
+	init: function (sLanguage) {
+		this.language = sLanguage;
+	},
+
 	formatOptPack: function (str, str2) {
 		var feature = "";
 		if (str) {
@@ -111,10 +111,13 @@ var formatter = {
 	},
 	decimalFormatter: function (oDecVal, oDecVal2, lang) {
 		if (lang === null || lang === undefined) {
-			lang = com.sap.build.toyota-canada.vehiclesGuideV3.Formatter.formatter.language;
+			var isLocaleSent = window.location.search.match(/language=([^&]*)/i);
+			if (isLocaleSent) {
+				lang = window.location.search.match(/language=([^&]*)/i)[1];
+			} else {
+				lang = "EN"; // default is english 
+			}
 		}
-
-		
 
 		if (oDecVal != undefined && oDecVal != null && !isNaN(oDecVal) && oDecVal != "") {
 			var returnString = "";
@@ -137,10 +140,12 @@ var formatter = {
 		}
 	},
 	decimalFormatterDealer: function (oDecVal, oDecVal2, lang) {
-			if (lang === null || lang === undefined) {
-			lang = com.sap.build.toyota-canada.vehiclesGuideV3.Formatter.formatter.language;
+		var isLocaleSent = window.location.search.match(/language=([^&]*)/i);
+		if (isLocaleSent) {
+			lang = window.location.search.match(/language=([^&]*)/i)[1];
+		} else {
+			lang = "EN"; // default is english 
 		}
-
 
 		if (oDecVal != undefined && oDecVal != null && !isNaN(oDecVal) && oDecVal != "") {
 			var returnString = "";
@@ -206,7 +211,7 @@ var formatter = {
 		}
 
 		if (lang === "FR") {
-			returnString = "PDSF:  " + commaVal2 + " $ \n " + "Prix net conc.:  " + commaVal+ " $";
+			returnString = "PDSF:  " + commaVal2 + " $ \n " + "Prix net conc.:  " + commaVal + " $";
 			if (returnVal == 0.00 && returnVal2 == 0) {
 				return "PDSF:  Prix net conc.:  ";
 			} else {
