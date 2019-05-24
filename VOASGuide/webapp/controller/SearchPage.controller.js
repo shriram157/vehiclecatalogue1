@@ -25,7 +25,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			sap.ushell.components.modelYearCB = searchController.getView().byId("id_modelYearCB");
 			sap.ushell.components.seriesCB = searchController.getView().byId("id_seriesCB");
 			searchController.language = searchController.returnBrowserLanguage();
-			formatter.init(searchController.language);
+			
 			searchController._readUser();
 			var userModel = sap.ui.getCore().getModel("userModel");
 			if (userModel) {
