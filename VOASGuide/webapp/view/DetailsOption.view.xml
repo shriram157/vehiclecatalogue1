@@ -47,7 +47,7 @@
 							<ObjectStatus text="{modelDetail>/msrp} "/>-->	
 					
 							
-						<Text text="{i18n>MSRPWithoutDoll}{parts: [{path:'modelDetail>/msrp'},{path:'modelDetail&gt;/msrp'},{path:'tblModelOpt>Language'}] , formatter: 'formatter.decimalFormatter'}"/>
+						<Text text="{i18n>MSRPWithoutDoll}{parts: [{path:'modelDetail>/msrp'},{path:'modelDetail&gt;/msrp'}],formatter: 'formatter.decimalFormatter'}"/>
 									<!--<Text text="{i18n>MSRPWithoutDoll}  "/>-->
 									<!--<ObjectStatus text="{parts: [{path:'modelDetail>/msrp'},{path:'modelDetail&gt;/msrp'}] , formatter: 'formatter.decimalFormatter'}"/>-->
 								</items>
