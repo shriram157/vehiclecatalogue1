@@ -1652,7 +1652,7 @@ sap.ui.define([
 						if (dtCol[i].MSRP != undefined && dtCol[i].MSRP != null && !isNaN(dtCol[i].MSRP) && dtCol[i].MSRP != "") {
 							var iMsrp = parseInt(dtCol[i].MSRP);
 							if (iMsrp !== 0) {
-								if (DetailController.language.toUpperCase() === "EN") {
+								if (CDO_controller.language.toUpperCase() === "EN") {
 									msrp[i] = "  $" + iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 								} else {
 									msrp[i] = iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
@@ -2558,7 +2558,7 @@ sap.ui.define([
 						if (dtCol[i].MSRP != undefined && dtCol[i].MSRP != null && !isNaN(dtCol[i].MSRP) && dtCol[i].MSRP != "") {
 							var iMsrp = parseInt(dtCol[i].MSRP);
 							if (iMsrp !== 0) {
-								if (DetailController.language.toUpperCase() === "EN") {
+								if (CDO_controller.language.toUpperCase() === "EN") {
 									msrp[i] = "  $" + iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 								} else {
 									msrp[i] = iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
@@ -2621,7 +2621,7 @@ sap.ui.define([
 						if (dtApx[i].MSRP != undefined && dtApx[i].MSRP != null && !isNaN(dtApx[i].MSRP) && dtApx[i].MSRP != "") {
 							var iMsrp = parseInt(dtApx[i].MSRP);
 							if (iMsrp !== 0) {
-								if (DetailController.language.toUpperCase() === "EN") {
+								if (CDO_controller.language.toUpperCase() === "EN") {
 									msrp[i] = "  $" + iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 								} else {
 									msrp[i] = iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
