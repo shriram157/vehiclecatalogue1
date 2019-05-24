@@ -63,7 +63,7 @@
 										<items>
 											<Title text="{compareModel>/0/ENModelDesc} - ({compareModel>/0/Model}) - SFX {compareModel>/0/Suffix}" wrapping="true"/>
 											<Text text="{i18n>Model}: {compareModel>/0/ENModelDesc}" wrapping="true"/>
-											<Text text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/0/MSRP'},{path:'compareModel&gt;/0/MSRP'},{path:'ModelLocale>Language'}] , formatter: 'formatter.decimalFormatter'}"/>
+											<Text text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/0/MSRP'},{path:'compareModel&gt;/0/MSRP'},{path:'ModelLocale>/Language'}] , formatter: 'formatter.decimalFormatter'}"/>
 											<Text text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/0/NETPRICE'},{path:'compareModel&gt;/0/NETPRICE'},{path:'ModelLocale>Language'}] , formatter: 'formatter.decimalFormatterDealer'}"/>
 										</items>
 									</VBox>

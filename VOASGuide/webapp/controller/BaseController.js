@@ -3,8 +3,9 @@ sap.ui.define([
 	/*"sap/ui/model/json/JSONModel",
 	"sap/ui/model/odata/oDataModel",*/
 	"/sap/ui/model/resource/ResourceModel",
-	"sap/ui/core/routing/History"
-], function (Controller, ResourceModel, History) {
+	"sap/ui/core/routing/History",
+	"com/sap/build/toyota-canada/vehiclesGuideV3/Formatter/formatter",
+], function (Controller, ResourceModel, History, formatter) {
 	"use strict";
 	var baseController;
 	return Controller.extend("com.sap.build.toyota-canada.vehiclesGuideV3.controller.BaseController", {
@@ -178,7 +179,8 @@ sap.ui.define([
 				this.getView().setModel(i18nModel, "i18n");
 				this.sCurrentLocale = 'EN';
 			}
-			this.setModel(new sap.ui.model.json.JSONModel({"Language" : this.sCurrentLocale}), "ModelLocale");
+			this.getView().setModel(new sap.ui.model.json.JSONModel({"Language" : this.sCurrentLocale}), "ModelLocale");
+			formatter.init(this.sCurrentLocale);
 			return this.sCurrentLocale;
 		}
 

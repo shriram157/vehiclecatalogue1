@@ -1,7 +1,11 @@
 jQuery.sap.declare("com.sap.build.toyota-canada.vehiclesGuideV3.Formatter.formatter");
 
 var formatter = {
-
+	
+    init: function(sLanguage) {
+			this.language = sLanguage;
+		},
+    
 	formatOptPack: function (str, str2) {
 		var feature = "";
 		if (str) {
@@ -106,6 +110,11 @@ var formatter = {
 		}
 	},
 	decimalFormatter: function (oDecVal, oDecVal2, lang) {
+		if (lang === null || lang === undefined) {
+			lang = com.sap.build.toyota-canada.vehiclesGuideV3.Formatter.formatter.language;
+		}
+
+		
 
 		if (oDecVal != undefined && oDecVal != null && !isNaN(oDecVal) && oDecVal != "") {
 			var returnString = "";
@@ -128,6 +137,10 @@ var formatter = {
 		}
 	},
 	decimalFormatterDealer: function (oDecVal, oDecVal2, lang) {
+			if (lang === null || lang === undefined) {
+			lang = com.sap.build.toyota-canada.vehiclesGuideV3.Formatter.formatter.language;
+		}
+
 
 		if (oDecVal != undefined && oDecVal != null && !isNaN(oDecVal) && oDecVal != "") {
 			var returnString = "";
