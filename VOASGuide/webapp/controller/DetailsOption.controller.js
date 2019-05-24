@@ -331,7 +331,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					if (dtCol[i].MSRP != undefined && dtCol[i].MSRP != null && !isNaN(dtCol[i].MSRP) && dtCol[i].MSRP != "") {
 						var iMsrp = parseInt(dtCol[i].MSRP);
 						if (iMsrp !== 0) {
-							if (DetailController.language.toUpperString() === "EN") {
+							if (DetailController.language.toUpperCase() === "EN") {
 								msrp[i] = "  $" + iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 							} else {
 								msrp[i] =  iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
@@ -347,7 +347,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 						
 						var iNet = parseInt(dtCol[i].NETPRICE);
 						if (iNet !== 0) {
-							if (DetailController.language.toUpperString() === "EN") {
+							if (DetailController.language.toUpperCase() === "EN") {
 								net[i] = "  $" + iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 							} else {
 								net[i] =  iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
@@ -394,7 +394,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					if (dtOpt[i].MSRP != undefined && dtOpt[i].MSRP != null && !isNaN(dtOpt[i].MSRP) && dtOpt[i].MSRP != "") {
 						var iMsrp = parseInt(dtOpt[i].MSRP);
 						if (iMsrp !== 0) {
-							if (DetailController.language.toUpperString() === "EN") {
+							if (DetailController.language.toUpperCase() === "EN") {
 								msrp[i] = "  $" + iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 							} else {
 								msrp[i] =  iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
@@ -408,7 +408,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					if (dtOpt[i].NETPRICE != undefined && dtOpt[i].NETPRICE != null && !isNaN(dtOpt[i].NETPRICE) && dtOpt[i].NETPRICE != "") {
 						var iNet = parseInt(dtOpt[i].NETPRICE);
 						if (iNet !== 0) {
-							if (DetailController.language.toUpperString() === "EN") {
+							if (DetailController.language.toUpperCase() === "EN") {
 								net[i] = "  $" + iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 							} else {
 								net[i] =  iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
@@ -472,7 +472,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					if (dtApx[i].MSRP != undefined && dtApx[i].MSRP != null && !isNaN(dtApx[i].MSRP) && dtApx[i].MSRP != "") {
 					   var iMsrp = parseInt(dtApx[i].MSRP);
 						if (iMsrp !== 0) {
-							if (DetailController.language.toUpperString() === "EN") {
+							if (DetailController.language.toUpperCase() === "EN") {
 								msrp[i] = "  $" + iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 							} else {
 								msrp[i] =  iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
@@ -486,7 +486,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					if (dtApx[i].NETPRICE != undefined && dtApx[i].NETPRICE != null && !isNaN(dtApx[i].NETPRICE) && dtApx[i].NETPRICE != "") {
 						var iNet = parseInt(dtApx[i].NETPRICE);
 						if (iNet !== 0) {
-							if (DetailController.language.toUpperString() === "EN") {
+							if (DetailController.language.toUpperCase() === "EN") {
 								net[i] = "  $" + iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 							} else {
 								net[i] =  iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";

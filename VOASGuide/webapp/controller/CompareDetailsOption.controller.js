@@ -682,7 +682,7 @@ sap.ui.define([
 						if (dtCol[i].MSRP != undefined && dtCol[i].MSRP != null && !isNaN(dtCol[i].MSRP) && dtCol[i].MSRP != "") {
 							var iMsrp = parseInt(dtCol[i].MSRP);
 							if (iMsrp !== 0) {
-								if (CDO_controller.language.toUpperString() === "EN") {
+								if (CDO_controller.language.toUpperCase() === "EN") {
 									msrp[i] = "  $" + iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 								} else {
 									msrp[i] = iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
@@ -696,7 +696,7 @@ sap.ui.define([
 						if (dtCol[i].NETPRICE != undefined && dtCol[i].NETPRICE != null && !isNaN(dtCol[i].NETPRICE) && dtCol[i].NETPRICE != "") {
 							var iNet = parseInt(dtCol[i].NETPRICE);
 							if (iNet !== 0) {
-								if (CDO_controller.language.toUpperString() === "EN") {
+								if (CDO_controller.language.toUpperCase() === "EN") {
 									net[i] = "  $" + iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 								} else {
 									net[i] = iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
@@ -1652,7 +1652,7 @@ sap.ui.define([
 						if (dtCol[i].MSRP != undefined && dtCol[i].MSRP != null && !isNaN(dtCol[i].MSRP) && dtCol[i].MSRP != "") {
 							var iMsrp = parseInt(dtCol[i].MSRP);
 							if (iMsrp !== 0) {
-								if (DetailController.language.toUpperString() === "EN") {
+								if (DetailController.language.toUpperCase() === "EN") {
 									msrp[i] = "  $" + iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 								} else {
 									msrp[i] = iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
@@ -1666,7 +1666,7 @@ sap.ui.define([
 						if (dtCol[i].NETPRICE != undefined && dtCol[i].NETPRICE != null && !isNaN(dtCol[i].NETPRICE) && dtCol[i].NETPRICE != "") {
 							var iNet = parseInt(dtCol[i].NETPRICE);
 							if (iNet !== 0) {
-								if (CDO_controller.language.toUpperString() === "EN") {
+								if (CDO_controller.language.toUpperCase() === "EN") {
 									net[i] = "  $" + iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 								} else {
 									net[i] = iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
@@ -2558,7 +2558,7 @@ sap.ui.define([
 						if (dtCol[i].MSRP != undefined && dtCol[i].MSRP != null && !isNaN(dtCol[i].MSRP) && dtCol[i].MSRP != "") {
 							var iMsrp = parseInt(dtCol[i].MSRP);
 							if (iMsrp !== 0) {
-								if (DetailController.language.toUpperString() === "EN") {
+								if (DetailController.language.toUpperCase() === "EN") {
 									msrp[i] = "  $" + iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 								} else {
 									msrp[i] = iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
@@ -2572,7 +2572,7 @@ sap.ui.define([
 						if (dtCol[i].NETPRICE != undefined && dtCol[i].NETPRICE != null && !isNaN(dtCol[i].NETPRICE) && dtCol[i].NETPRICE != "") {
 							var iNet = parseInt(dtCol[i].NETPRICE);
 							if (iNet !== 0) {
-								if (CDO_controller.language.toUpperString() === "EN") {
+								if (CDO_controller.language.toUpperCase() === "EN") {
 									net[i] = "  $" + iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 								} else {
 									net[i] = iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
@@ -2621,7 +2621,7 @@ sap.ui.define([
 						if (dtApx[i].MSRP != undefined && dtApx[i].MSRP != null && !isNaN(dtApx[i].MSRP) && dtApx[i].MSRP != "") {
 							var iMsrp = parseInt(dtApx[i].MSRP);
 							if (iMsrp !== 0) {
-								if (DetailController.language.toUpperString() === "EN") {
+								if (DetailController.language.toUpperCase() === "EN") {
 									msrp[i] = "  $" + iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 								} else {
 									msrp[i] = iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
@@ -2635,7 +2635,7 @@ sap.ui.define([
 						if (dtApx[i].NETPRICE != undefined && dtApx[i].NETPRICE != null && !isNaN(dtApx[i].NETPRICE) && dtApx[i].NETPRICE != "") {
 							var iNet = parseInt(dtApx[i].NETPRICE);
 							if (iNet !== 0) {
-								if (CDO_controller.language.toUpperString() === "EN") {
+								if (CDO_controller.language.toUpperCase() === "EN") {
 									net[i] = "  $" + iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 								} else {
 									net[i] = iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
