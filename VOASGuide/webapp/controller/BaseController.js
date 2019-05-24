@@ -7,8 +7,10 @@ sap.ui.define([
 	"com/sap/build/toyota-canada/vehiclesGuideV3/Formatter/formatter",
 ], function (Controller, ResourceModel, History, formatter) {
 	"use strict";
+		
 	var baseController;
 	return Controller.extend("com.sap.build.toyota-canada.vehiclesGuideV3.controller.BaseController", {
+		formatter : formatter,
 		onInit: function () {
 			baseController = this;
 			var r = baseController.getRouter();
