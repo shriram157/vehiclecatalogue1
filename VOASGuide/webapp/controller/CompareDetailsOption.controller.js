@@ -2666,12 +2666,30 @@ sap.ui.define([
 						var msrp = [],
 							net = [];
 						if (dtApx[i].MSRP != undefined && dtApx[i].MSRP != null && !isNaN(dtApx[i].MSRP) && dtApx[i].MSRP != "") {
-							msrp[i] = "  $" + parseInt(dtApx[i].MSRP);
+							var iMsrp = parseInt(dtApx[i].MSRP);
+							if (iMsrp !== 0) {
+								if (CDO_controller.language.toUpperCase() === "EN") {
+									msrp[i] = "  $" + iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+								} else {
+									msrp[i] = iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
+								}
+							} else {
+								msrp[i] = "";
+							}
 						} else {
 							msrp[i] = "";
 						}
 						if (dtApx[i].NETPRICE != undefined && dtApx[i].NETPRICE != null && !isNaN(dtApx[i].NETPRICE) && dtApx[i].NETPRICE != "") {
-							net[i] = "  $" + parseInt(dtApx[i].NETPRICE);
+							var iNet = parseInt(dtApx[i].NETPRICE);
+							if (iNet !== 0) {
+								if (CDO_controller.language.toUpperCase() === "EN") {
+									net[i] = "  $" + iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+								} else {
+									net[i] = iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
+								}
+							} else {
+								net[i] = "";
+							}
 						} else {
 							net[i] = "";
 						}
