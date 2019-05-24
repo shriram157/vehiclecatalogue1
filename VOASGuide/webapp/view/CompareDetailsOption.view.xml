@@ -63,8 +63,8 @@
 										<items>
 											<Title text="{compareModel>/0/ENModelDesc} - ({compareModel>/0/Model}) - SFX {compareModel>/0/Suffix}" wrapping="true"/>
 											<Text text="{i18n>Model}: {compareModel>/0/ENModelDesc}" wrapping="true"/>
-											<Text text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/0/MSRP'},{path:'compareModel&gt;/0/MSRP'},{path:'tblModelOpt>Language'}] , formatter: 'formatter.decimalFormatter'}"/>
-											<Text text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/0/NETPRICE'},{path:'compareModel&gt;/0/NETPRICE'},{path:'tblModelOpt>Language'}] , formatter: 'formatter.decimalFormatterDealer'}"/>
+											<Text text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/0/MSRP'},{path:'compareModel&gt;/0/MSRP'},{path:'ModelLocale>Language'}] , formatter: 'formatter.decimalFormatter'}"/>
+											<Text text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/0/NETPRICE'},{path:'compareModel&gt;/0/NETPRICE'},{path:'ModelLocale>Language'}] , formatter: 'formatter.decimalFormatterDealer'}"/>
 										</items>
 									</VBox>
 								</header>
@@ -75,8 +75,8 @@
 										<items>
 											<Title text="{compareModel>/1/ENModelDesc} - ({compareModel>/1/Model}) - SFX {compareModel>/1/Suffix}" wrapping="true"/>
 											<Text text="{i18n>Model}: {compareModel>/1/ENModelDesc}" wrapping="true"/>
-											<Text text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/1/MSRP'},{path:'compareModel&gt;/1/MSRP'},{path:'tblModelOpt>Language'}] , formatter: 'formatter.decimalFormatter'}"/>
-											<Text text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/1/NETPRICE'},{path:'compareModel&gt;/1/NETPRICE'},{path:'tblModelOpt>Language'}] , formatter: 'formatter.decimalFormatterDealer'}"/>
+											<Text text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/1/MSRP'},{path:'compareModel&gt;/1/MSRP'},{path:'ModelLocale>Language'}] , formatter: 'formatter.decimalFormatter'}"/>
+											<Text text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/1/NETPRICE'},{path:'compareModel&gt;/1/NETPRICE'},{path:'ModelLocale>Language'}] , formatter: 'formatter.decimalFormatterDealer'}"/>
 										</items>
 									</VBox>
 								</header>
@@ -109,8 +109,8 @@
 										<items>
 											<Title text="{compareModel>/0/ENModelDesc} - ({compareModel>/0/Model}) - SFX {compareModel>/0/Suffix}" wrapping="true"/>
 											<Text text="{i18n>Model}: {compareModel>/0/ENModelDesc}" wrapping="true"/>
-											<Text text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/0/MSRP'},{path:'compareModel&gt;/0/MSRP'},{path:'tblModelOpt>Language'}] , formatter: 'formatter.decimalFormatter'}"/>
-											<Text text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/0/NETPRICE'},{path:'compareModel&gt;/0/NETPRICE'},{path:'tblModelOpt>Language'}] , formatter: 'formatter.decimalFormatterDealer'}"/>
+											<Text text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/0/MSRP'},{path:'compareModel&gt;/0/MSRP'},{path:'ModelLocale>Language'}] , formatter: 'formatter.decimalFormatter'}"/>
+											<Text text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/0/NETPRICE'},{path:'compareModel&gt;/0/NETPRICE'},{path:'ModelLocale>Language'}] , formatter: 'formatter.decimalFormatterDealer'}"/>
 										</items>
 									</VBox>
 								</header>
@@ -121,8 +121,8 @@
 										<items>
 											<Title text="{compareModel>/1/ENModelDesc} - ({compareModel>/1/Model}) - SFX {compareModel>/1/Suffix}" wrapping="true"/>
 											<Text text="{i18n>Model}: {compareModel>/1/ENModelDesc}" wrapping="true"/>
-											<Text text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/1/MSRP'},{path:'compareModel&gt;/1/MSRP'},{path:'tblModelOpt>Language'}] , formatter: 'formatter.decimalFormatter'}"/>
-											<Text text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/1/NETPRICE'},{path:'compareModel&gt;/1/NETPRICE'},{path:'tblModelOpt>Language'}] , formatter: 'formatter.decimalFormatterDealer'}"/>
+											<Text text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/1/MSRP'},{path:'compareModel&gt;/1/MSRP'},{path:'ModelLocale>Language'}] , formatter: 'formatter.decimalFormatter'}"/>
+											<Text text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/1/NETPRICE'},{path:'compareModel&gt;/1/NETPRICE'},{path:'ModelLocale>Language'}] , formatter: 'formatter.decimalFormatterDealer'}"/>
 										</items>
 									</VBox>
 								</header>
@@ -133,8 +133,8 @@
 										<items>
 											<Title text="{compareModel>/2/ENModelDesc} - ({compareModel>/2/Model}) - SFX {compareModel>/2/Suffix}" wrapping="true"/>
 											<Text text="{i18n>Model}: {compareModel>/2/ENModelDesc}" wrapping="true"/>
-											<Text text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/2/MSRP'},{path:'compareModel&gt;/2/MSRP'},{path:'tblModelOpt>Language'}] , formatter: 'formatter.decimalFormatter'}"/>
-											<Text text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/2/NETPRICE'},{path:'compareModel&gt;/2/NETPRICE'},{path:'tblModelOpt>Language'}] , formatter: 'formatter.decimalFormatterDealer'}"/>
+											<Text text="{i18n>MSRPWithoutDoll}{parts: [{path:'compareModel>/2/MSRP'},{path:'compareModel&gt;/2/MSRP'},{path:'ModelLocale>Language'}] , formatter: 'formatter.decimalFormatter'}"/>
+											<Text text="{i18n>DealerNetWithoutDoll}{parts: [{path:'compareModel>/2/NETPRICE'},{path:'compareModel&gt;/2/NETPRICE'},{path:'ModelLocale>Language'}] , formatter: 'formatter.decimalFormatterDealer'}"/>
 										</items>
 									</VBox>
 								</header>

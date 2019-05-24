@@ -178,6 +178,7 @@ sap.ui.define([
 				this.getView().setModel(i18nModel, "i18n");
 				this.sCurrentLocale = 'EN';
 			}
+			this.setModel(new sap.ui.model.json.JSONModel({"Language" : this.sCurrentLocale}), "ModelLocale");
 			return this.sCurrentLocale;
 		}
 
