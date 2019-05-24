@@ -12,7 +12,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 		onInit: function () {
 			DetailController = this;
 			//	this.getUserLanguage();
-				var oBusyDialog = new sap.m.BusyDialog({
+			var oBusyDialog = new sap.m.BusyDialog({
 				showCancelButton: false
 			});
 			oBusyDialog.open();
@@ -22,22 +22,22 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			DetailController.oRouter = sap.ui.core.UIComponent.getRouterFor(DetailController);
 			DetailController.oRouter.getTarget("DetailsOption").attachDisplay(jQuery.proxy(DetailController.handleRouteMatched,
 				DetailController));
-				
+
 			//DetailController.getView().byId("manageSeriesBtnId").setEnabled(true);
 			//DetailController._readUser();
 			DetailController.language = DetailController.returnBrowserLanguage();
-	oBusyDialog.close();
+			oBusyDialog.close();
 		},
 		onAfterRendering: function () {
 			DetailController._readUser();
 			this.oObjectPageLayout = this.getView().byId("ObjectPage");
-this.oTargetSubSection = this.getView().byId("power");
-this.oObjectPageLayout.addEventDelegate({
-onAfterRendering: jQuery.proxy(function () {
-			//need to wait for the scrollEnablement to be active
-			jQuery.sap.delayedCall(500, this.oObjectPageLayout, this.oObjectPageLayout.scrollToSection, [this.oTargetSubSection.getId()]);
-			}, this)
-});
+			this.oTargetSubSection = this.getView().byId("power");
+			this.oObjectPageLayout.addEventDelegate({
+				onAfterRendering: jQuery.proxy(function () {
+					//need to wait for the scrollEnablement to be active
+					jQuery.sap.delayedCall(500, this.oObjectPageLayout, this.oObjectPageLayout.scrollToSection, [this.oTargetSubSection.getId()]);
+				}, this)
+			});
 		},
 		formatFeatures: function (str) {
 			var feat = "";
@@ -129,7 +129,7 @@ onAfterRendering: jQuery.proxy(function () {
 		},
 
 		handleRouteMatched: function (oEvent) {
-			
+
 			var parseArg = JSON.parse(oEvent.getParameters().data.num);
 			var modelDetail = new sap.ui.model.json.JSONModel(parseArg[0]);
 			var veh = parseArg[0].veh;
@@ -139,18 +139,14 @@ onAfterRendering: jQuery.proxy(function () {
 			DetailController.getView().setModel(modelDetail, "modelDetail");
 			if (brandCB == "TOYOTA") {
 				sap.ui.getCore().byId("__xmlview0--idLogo").setSrc("images/Toyota.png");
-				var disclaimerT= DetailController.getView().getModel("i18n").getResourceBundle().getText("Toyota_Disclaimer");
-			DetailController.getView().byId("tADetailDisclaimer").setText(disclaimerT);
-				
-				
-				
+				var disclaimerT = DetailController.getView().getModel("i18n").getResourceBundle().getText("Toyota_Disclaimer");
+				DetailController.getView().byId("tADetailDisclaimer").setText(disclaimerT);
 
 			} else {
 				sap.ui.getCore().byId("__xmlview0--idLogo").setSrc("images/Lexus.png");
-			
-				
-			var disclaimerL= DetailController.getView().getModel("i18n").getResourceBundle().getText("Lexus_Disclaimer");
-			DetailController.getView().byId("tADetailDisclaimer").setText(disclaimerL);
+
+				var disclaimerL = DetailController.getView().getModel("i18n").getResourceBundle().getText("Lexus_Disclaimer");
+				DetailController.getView().byId("tADetailDisclaimer").setText(disclaimerL);
 			}
 			DetailController.user = parseArg[0].user; //DetailController.getLoggedUser();
 
@@ -165,7 +161,7 @@ onAfterRendering: jQuery.proxy(function () {
 				dataType: 'json',
 				success: function (data, textStatus, jqXHR) {
 					var tblModel = new sap.ui.model.json.JSONModel(data.d.results);
-					
+
 					DetailController.getView().setModel(tblModel, "TblModel");
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
@@ -333,12 +329,32 @@ onAfterRendering: jQuery.proxy(function () {
 					var msrp = [],
 						net = [];
 					if (dtCol[i].MSRP != undefined && dtCol[i].MSRP != null && !isNaN(dtCol[i].MSRP) && dtCol[i].MSRP != "") {
-						msrp[i] = "  $" + parseInt(dtCol[i].MSRP);
+						var iMsrp = parseInt(dtCol[i].MSRP);
+						if (iMsrp !== 0) {
+							if (DetailController.language.toUpperString() === "EN") {
+								msrp[i] = "  $" + iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+							} else {
+								msrp[i] =  iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
+							}
+						} else {
+							msrp[i] = "";		
+						}
+						
 					} else {
 						msrp[i] = "";
 					}
 					if (dtCol[i].NETPRICE != undefined && dtCol[i].NETPRICE != null && !isNaN(dtCol[i].NETPRICE) && dtCol[i].NETPRICE != "") {
-						net[i] = "  $" + parseInt(dtCol[i].NETPRICE);
+						
+						var iNet = parseInt(dtCol[i].NETPRICE);
+						if (iNet !== 0) {
+							if (DetailController.language.toUpperString() === "EN") {
+								net[i] = "  $" + iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+							} else {
+								net[i] =  iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
+							}
+						} else {
+							net[i] = "";		
+						}
 					} else {
 						net[i] = "";
 					}
@@ -376,12 +392,30 @@ onAfterRendering: jQuery.proxy(function () {
 					var msrp = [],
 						net = [];
 					if (dtOpt[i].MSRP != undefined && dtOpt[i].MSRP != null && !isNaN(dtOpt[i].MSRP) && dtOpt[i].MSRP != "") {
-						msrp[i] = "  $" + parseInt(dtOpt[i].MSRP);
+						var iMsrp = parseInt(dtOpt[i].MSRP);
+						if (iMsrp !== 0) {
+							if (DetailController.language.toUpperString() === "EN") {
+								msrp[i] = "  $" + iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+							} else {
+								msrp[i] =  iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
+							}
+						} else {
+							msrp[i] = "";		
+						}
 					} else {
 						msrp[i] = "";
 					}
 					if (dtOpt[i].NETPRICE != undefined && dtOpt[i].NETPRICE != null && !isNaN(dtOpt[i].NETPRICE) && dtOpt[i].NETPRICE != "") {
-						net[i] = "  $" + parseInt(dtOpt[i].NETPRICE);
+						var iNet = parseInt(dtOpt[i].NETPRICE);
+						if (iNet !== 0) {
+							if (DetailController.language.toUpperString() === "EN") {
+								net[i] = "  $" + iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+							} else {
+								net[i] =  iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
+							}
+						} else {
+							net[i] = "";		
+						}
 					} else {
 						net[i] = "";
 					}
@@ -436,12 +470,30 @@ onAfterRendering: jQuery.proxy(function () {
 					var msrp = [],
 						net = [];
 					if (dtApx[i].MSRP != undefined && dtApx[i].MSRP != null && !isNaN(dtApx[i].MSRP) && dtApx[i].MSRP != "") {
-						msrp[i] = "  $" + parseInt(dtApx[i].MSRP);
+					   var iMsrp = parseInt(dtApx[i].MSRP);
+						if (iMsrp !== 0) {
+							if (DetailController.language.toUpperString() === "EN") {
+								msrp[i] = "  $" + iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+							} else {
+								msrp[i] =  iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
+							}
+						} else {
+							msrp[i] = "";		
+						}
 					} else {
 						msrp[i] = "";
 					}
 					if (dtApx[i].NETPRICE != undefined && dtApx[i].NETPRICE != null && !isNaN(dtApx[i].NETPRICE) && dtApx[i].NETPRICE != "") {
-						net[i] = "  $" + parseInt(dtApx[i].NETPRICE);
+						var iNet = parseInt(dtApx[i].NETPRICE);
+						if (iNet !== 0) {
+							if (DetailController.language.toUpperString() === "EN") {
+								net[i] = "  $" + iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+							} else {
+								net[i] =  iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
+							}
+						} else {
+							net[i] = "";		
+						}
 					} else {
 						net[i] = "";
 					}
