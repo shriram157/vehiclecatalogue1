@@ -15,12 +15,12 @@ sap.ui.define([
 			// this.getUserLanguage();
 			// this.getBrowserLanguage();
 			CDO_controller.language = CDO_controller.returnBrowserLanguage();
+
 			CDO_controller.oRouter = sap.ui.core.UIComponent.getRouterFor(CDO_controller);
-	
+
 			CDO_controller.oRouter.getTarget("CompareDetailsOption").attachDisplay(jQuery.proxy(CDO_controller.handleRouteMatched,
 				CDO_controller));
-			
-			
+
 		},
 		onSwitchstateChange: function (evt_Switch) {
 			var state = evt_Switch.getSource().mProperties.state;
@@ -191,26 +191,26 @@ sap.ui.define([
 				url2 = host +
 					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + CDO_controller.user + "' and Brand eq  '" + brandCBVal +
 					" ' and TCISeries eq  '" + seriesCBVal +
-					"' and (" + newSuffixStr + ") and Modelyear eq  '" + modelYearCBVal + " 'and Language eq '" + CDO_controller.language +"')";
+					"' and (" + newSuffixStr + ") and Modelyear eq  '" + modelYearCBVal + " 'and Language eq '" + CDO_controller.language + "')";
 			} else if (suffixDescString == "" && modelDescString !== "") {
 				console.log("2");
 				url2 = host +
 					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + CDO_controller.user + "' and Brand eq  '" + brandCBVal +
 					" ' and TCISeries eq  '" + seriesCBVal +
-					" ' and Modelyear eq  '" + modelYearCBVal + " 'and (" + newModelStr + ") and Language eq '" + CDO_controller.language +"')";
+					" ' and Modelyear eq  '" + modelYearCBVal + " 'and (" + newModelStr + ") and Language eq '" + CDO_controller.language + "')";
 			} else if (suffixDescString == "" && modelDescString == "") {
 				console.log("3");
 				url2 = host +
 					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + CDO_controller.user + "' and Brand eq  '" + brandCBVal +
 					" ' and TCISeries eq  '" + seriesCBVal +
-					" ' and Modelyear eq  '" + modelYearCBVal + " 'and Language eq '" + CDO_controller.language +"')";
+					" ' and Modelyear eq  '" + modelYearCBVal + " 'and Language eq '" + CDO_controller.language + "')";
 			} else {
 				console.log("4");
 				url2 = host +
 					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + CDO_controller.user + "' and Brand eq  '" + brandCBVal +
 					" ' and TCISeries eq  '" + seriesCBVal +
-					" ' and Modelyear eq  '" + modelYearCBVal + 
-					" ' and (" + newModelStr + ") and (" + newSuffixStr + ") and Language eq '" + CDO_controller.language +"')";
+					" ' and Modelyear eq  '" + modelYearCBVal +
+					" ' and (" + newModelStr + ") and (" + newSuffixStr + ") and Language eq '" + CDO_controller.language + "')";
 			}
 			$.ajax({
 				url: url2,
@@ -680,12 +680,31 @@ sap.ui.define([
 						var msrp = [],
 							net = [];
 						if (dtCol[i].MSRP != undefined && dtCol[i].MSRP != null && !isNaN(dtCol[i].MSRP) && dtCol[i].MSRP != "") {
-							msrp[i] = "  $" + parseInt(dtCol[i].MSRP);
+							var iMsrp = parseInt(dtCol[i].MSRP);
+							if (iMsrp !== 0) {
+								if (CDO_controller.language.toUpperString() === "EN") {
+									msrp[i] = "  $" + iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+								} else {
+									msrp[i] = iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
+								}
+							} else {
+								msrp[i] = "";
+							}
 						} else {
 							msrp[i] = "NA";
 						}
 						if (dtCol[i].NETPRICE != undefined && dtCol[i].NETPRICE != null && !isNaN(dtCol[i].NETPRICE) && dtCol[i].NETPRICE != "") {
-							net[i] = "  $" + parseInt(dtCol[i].NETPRICE);
+							var iNet = parseInt(dtCol[i].NETPRICE);
+							if (iNet !== 0) {
+								if (CDO_controller.language.toUpperString() === "EN") {
+									net[i] = "  $" + iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+								} else {
+									net[i] = iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
+								}
+							} else {
+								net[i] = "";
+							}
+
 						} else {
 							net[i] = "";
 						}
@@ -843,7 +862,7 @@ sap.ui.define([
 							} else {
 								dataApx.push({
 									"Category_en": dtApx[i].APX,
-									"Cust_fac_desc_en": "",//dtApx[i].INT_DESC,
+									"Cust_fac_desc_en": "", //dtApx[i].INT_DESC,
 									"Vehicle1": dtApx[i].Vehicle1,
 									"Vehicle2": dtApx[i].Vehicle2,
 									"Vehicle3": dtApx[i].Vehicle3,
@@ -859,7 +878,7 @@ sap.ui.define([
 							} else {
 								dataApx.push({
 									"Category_en": dtApx[i].APX,
-									"Cust_fac_desc_en": "",//dtApx[i].INT_DESC,
+									"Cust_fac_desc_en": "", //dtApx[i].INT_DESC,
 									"Vehicle1": dtApx[i].Vehicle1,
 									"Vehicle2": dtApx[i].Vehicle2,
 									"Vehicle3": dtApx[i].Vehicle3,
@@ -874,7 +893,7 @@ sap.ui.define([
 							} else {
 								dataApx.push({
 									"Category_en": dtApx[i].APX,
-									"Cust_fac_desc_en": "",//dtApx[i].INT_DESC,
+									"Cust_fac_desc_en": "", //dtApx[i].INT_DESC,
 									"Vehicle1": dtApx[i].Vehicle1,
 									"Vehicle2": dtApx[i].Vehicle2,
 									"Vehicle3": dtApx[i].Vehicle3,
@@ -890,7 +909,7 @@ sap.ui.define([
 							} else {
 								dataApx.push({
 									"Category_en": dtApx[i].APX,
-									"Cust_fac_desc_en": "",//dtApx[i].INT_DESC,
+									"Cust_fac_desc_en": "", //dtApx[i].INT_DESC,
 									"Vehicle1": dtApx[i].Vehicle1,
 									"Vehicle2": dtApx[i].Vehicle2,
 									"Vehicle3": dtApx[i].Vehicle3,
@@ -960,7 +979,7 @@ sap.ui.define([
 								header: new sap.m.Label({
 									text: context.getObject().Vehicle,
 									wrapping: true
-								
+
 								})
 							});
 						});
@@ -1432,25 +1451,26 @@ sap.ui.define([
 				url2 = host +
 					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + CDO_controller.user + "' and Brand eq  '" + brandCBVal +
 					" ' and TCISeries eq  '" + seriesCBVal +
-					"' and (" + newSuffixStr + ") and Modelyear eq  '" + modelYearCBVal + " 'and Language eq '" + CDO_controller.language +"')";
+					"' and (" + newSuffixStr + ") and Modelyear eq  '" + modelYearCBVal + " 'and Language eq '" + CDO_controller.language + "')";
 			} else if (suffixDescString == "" && modelDescString !== "") {
 				console.log("2");
 				url2 = host +
 					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + CDO_controller.user + "' and Brand eq  '" + brandCBVal +
 					" ' and TCISeries eq  '" + seriesCBVal +
-					" ' and Modelyear eq  '" + modelYearCBVal + " 'and (" + newModelStr + ") and Language eq '" + CDO_controller.language +"')";
+					" ' and Modelyear eq  '" + modelYearCBVal + " 'and (" + newModelStr + ") and Language eq '" + CDO_controller.language + "')";
 			} else if (suffixDescString == "" && modelDescString == "") {
 				console.log("3");
 				url2 = host +
 					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + CDO_controller.user + "' and Brand eq  '" + brandCBVal +
 					" ' and TCISeries eq  '" + seriesCBVal +
-					" ' and Modelyear eq  '" + modelYearCBVal + " 'and Language eq '" + CDO_controller.language +"')";
+					" ' and Modelyear eq  '" + modelYearCBVal + " 'and Language eq '" + CDO_controller.language + "')";
 			} else {
 				console.log("4");
 				url2 = host +
 					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + CDO_controller.user + "' and Brand eq  '" + brandCBVal +
 					" ' and TCISeries eq  '" + seriesCBVal +
-					" ' and Modelyear eq  '" + modelYearCBVal + " ' and (" + newModelStr + ") and (" + newSuffixStr + ")and Language eq '" + CDO_controller.language +"' )";
+					" ' and Modelyear eq  '" + modelYearCBVal + " ' and (" + newModelStr + ") and (" + newSuffixStr + ")and Language eq '" +
+					CDO_controller.language + "' )";
 			}
 			$.ajax({
 				url: url2,
@@ -1630,12 +1650,30 @@ sap.ui.define([
 						var msrp = [],
 							net = [];
 						if (dtCol[i].MSRP != undefined && dtCol[i].MSRP != null && !isNaN(dtCol[i].MSRP) && dtCol[i].MSRP != "") {
-							msrp[i] = "  $" + parseInt(dtCol[i].MSRP);
+							var iMsrp = parseInt(dtCol[i].MSRP);
+							if (iMsrp !== 0) {
+								if (DetailController.language.toUpperString() === "EN") {
+									msrp[i] = "  $" + iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+								} else {
+									msrp[i] = iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
+								}
+							} else {
+								msrp[i] = "";
+							}
 						} else {
 							msrp[i] = "";
 						}
 						if (dtCol[i].NETPRICE != undefined && dtCol[i].NETPRICE != null && !isNaN(dtCol[i].NETPRICE) && dtCol[i].NETPRICE != "") {
-							net[i] = "  $" + parseInt(dtCol[i].NETPRICE);
+							var iNet = parseInt(dtCol[i].NETPRICE);
+							if (iNet !== 0) {
+								if (CDO_controller.language.toUpperString() === "EN") {
+									net[i] = "  $" + iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+								} else {
+									net[i] = iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
+								}
+							} else {
+								net[i] = "";
+							}
 						} else {
 							net[i] = "";
 						}
@@ -1676,7 +1714,7 @@ sap.ui.define([
 					for (var i = 0; i < dtApx.length; i++) {
 						dataApx.push({
 							"Category_en": dtApx[i].APX,
-							"Cust_fac_desc_en": "",//dtApx[i].INT_DESC,
+							"Cust_fac_desc_en": "", //dtApx[i].INT_DESC,
 							"Vehicle1": dtApx[i].Vehicle1,
 							"Vehicle2": dtApx[i].Vehicle2,
 							"Vehicle3": dtApx[i].Vehicle3,
@@ -2079,7 +2117,7 @@ sap.ui.define([
 		formatFeatures1: function (str) {
 			var feat = "";
 			var feature = "";
-			var rturnRes= "";
+			var rturnRes = "";
 			if (str) {
 				/*	var res = str.replace(/;/g, "#- ");
 					feat = res.split('#').join('\n');
@@ -2091,46 +2129,43 @@ sap.ui.define([
 				//	console.log(extra);
 				var len = extra.length;
 				console.log(len);
-				if(len==1)
-				{
+				if (len == 1) {
 					rturnRes = res5;
-				}
-				else
-				{
-				var lendiv = Math.floor(len / 2);
-				/*var arr = [];
-				for (var i = 0; i < lendiv; i++) {
-					arr.push(extra[i]);
-				}
-				var string = arr.toString();
+				} else {
+					var lendiv = Math.floor(len / 2);
+					/*var arr = [];
+					for (var i = 0; i < lendiv; i++) {
+						arr.push(extra[i]);
+					}
+					var string = arr.toString();
 				
-				var res9 = string.replace(/!/g, "#- ");
-				var rturnRes1 = res9.split('#').join('\n');
-				*/
+					var res9 = string.replace(/!/g, "#- ");
+					var rturnRes1 = res9.split('#').join('\n');
+					*/
 
-				var arr2 = [];
-				for (var q = lendiv; q < len; q++) {
-					arr2.push(extra[q]);
-				}
-				console.log(arr2);
-				var string2 = arr2.toString();
+					var arr2 = [];
+					for (var q = lendiv; q < len; q++) {
+						arr2.push(extra[q]);
+					}
+					console.log(arr2);
+					var string2 = arr2.toString();
 					console.log(string2);
-					var slicedStr2=string2.slice(2);
+					var slicedStr2 = string2.slice(2);
 					console.log(slicedStr2);
-				var res2 = slicedStr2.replace(/!/g, "#- ");
-				console.log(res2);
-				 rturnRes = res2.split('#').join('\n');
-						console.log(rturnRes);
+					var res2 = slicedStr2.replace(/!/g, "#- ");
+					console.log(res2);
+					rturnRes = res2.split('#').join('\n');
+					console.log(rturnRes);
 				}
 			}
-			return "- "+rturnRes;
+			return "- " + rturnRes;
 		},
 		handleRouteMatched: function (oEvent) {
 			//	CDO_controller.user = CDO_controller.getLoggedUser();
 			// 	var oBusyDialog = new sap.m.BusyDialog({
 			// 	showCancelButton: false
 			// });
-		// jQuery.sap.delayedCall(0, this, function () { oBusyDialog.open(); }); 
+			// jQuery.sap.delayedCall(0, this, function () { oBusyDialog.open(); }); 
 			var fixedData = {
 				Vehicle: " "
 			};
@@ -2187,18 +2222,15 @@ sap.ui.define([
 
 			var parsePathArg = JSON.parse(parseArg[0].pathVeh);
 			var len = parsePathArg.length;
-				if (brandCBVal == "TOYOTA") {
-				
-				var disclaimerT= CDO_controller.getView().getModel("i18n").getResourceBundle().getText("Toyota_Disclaimer");
-			CDO_controller.getView().byId("tACompareDisclaimer").setText(disclaimerT);
-				
-				
-				
+			if (brandCBVal == "TOYOTA") {
+
+				var disclaimerT = CDO_controller.getView().getModel("i18n").getResourceBundle().getText("Toyota_Disclaimer");
+				CDO_controller.getView().byId("tACompareDisclaimer").setText(disclaimerT);
 
 			} else {
-				
-			var disclaimerL= CDO_controller.getView().getModel("i18n").getResourceBundle().getText("Lexus_Disclaimer");
-			CDO_controller.getView().byId("tACompareDisclaimer").setText(disclaimerL);
+
+				var disclaimerL = CDO_controller.getView().getModel("i18n").getResourceBundle().getText("Lexus_Disclaimer");
+				CDO_controller.getView().byId("tACompareDisclaimer").setText(disclaimerL);
 			}
 			if (len == 2) {
 				this.getView().byId("idTbl_compare2vehicles").setVisible(true);
@@ -2334,10 +2366,10 @@ sap.ui.define([
 					" ' and Modelyear eq  '" + modelYearCBVal + " ' and (" + newModelStr + ") and (" + newSuffixStr + ") and Language eq '" +
 					CDO_controller.language + "')";
 			}
-			
-// 
 
-// 
+			// 
+
+			// 
 			// CDO_controller.oBusyDialog.open();
 			$.ajax({
 				url: url2,
@@ -2524,12 +2556,30 @@ sap.ui.define([
 						var msrp = [],
 							net = [];
 						if (dtCol[i].MSRP != undefined && dtCol[i].MSRP != null && !isNaN(dtCol[i].MSRP) && dtCol[i].MSRP != "") {
-							msrp[i] = "  $" + parseInt(dtCol[i].MSRP);
+							var iMsrp = parseInt(dtCol[i].MSRP);
+							if (iMsrp !== 0) {
+								if (DetailController.language.toUpperString() === "EN") {
+									msrp[i] = "  $" + iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+								} else {
+									msrp[i] = iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
+								}
+							} else {
+								msrp[i] = "";
+							}
 						} else {
 							msrp[i] = "";
 						}
 						if (dtCol[i].NETPRICE != undefined && dtCol[i].NETPRICE != null && !isNaN(dtCol[i].NETPRICE) && dtCol[i].NETPRICE != "") {
-							net[i] = "  $" + parseInt(dtCol[i].NETPRICE);
+							var iNet = parseInt(dtCol[i].NETPRICE);
+							if (iNet !== 0) {
+								if (CDO_controller.language.toUpperString() === "EN") {
+									net[i] = "  $" + iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+								} else {
+									net[i] = iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
+								}
+							} else {
+								net[i] = "";
+							}
 						} else {
 							net[i] = "";
 						}
@@ -2569,12 +2619,30 @@ sap.ui.define([
 						var msrp = [],
 							net = [];
 						if (dtApx[i].MSRP != undefined && dtApx[i].MSRP != null && !isNaN(dtApx[i].MSRP) && dtApx[i].MSRP != "") {
-							msrp[i] = "  $" + parseInt(dtApx[i].MSRP);
+							var iMsrp = parseInt(dtApx[i].MSRP);
+							if (iMsrp !== 0) {
+								if (DetailController.language.toUpperString() === "EN") {
+									msrp[i] = "  $" + iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+								} else {
+									msrp[i] = iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
+								}
+							} else {
+								msrp[i] = "";
+							}
 						} else {
 							msrp[i] = "";
 						}
 						if (dtApx[i].NETPRICE != undefined && dtApx[i].NETPRICE != null && !isNaN(dtApx[i].NETPRICE) && dtApx[i].NETPRICE != "") {
-							net[i] = "  $" + parseInt(dtApx[i].NETPRICE);
+							var iNet = parseInt(dtApx[i].NETPRICE);
+							if (iNet !== 0) {
+								if (CDO_controller.language.toUpperString() === "EN") {
+									net[i] = "  $" + iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+								} else {
+									net[i] = iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
+								}
+							} else {
+								net[i] = "";
+							}
 						} else {
 							net[i] = "";
 						}
@@ -2616,9 +2684,9 @@ sap.ui.define([
 						dataApx1.push({
 							"Category_en": dtApx[i].APX + "\n" + msrpF + msrp[i] + "\n" + netPriceF + net[i],
 							//dtApx[i].APX + "\n" + dtApxDesc + "\n" + msrpF + msrp[i] + "\n" + netPriceF + net[i],
-							"Cust_fac_desc_en": dtApxDesc[i],//"", //dtApx[i].INT_DESC,
+							"Cust_fac_desc_en": dtApxDesc[i], //"", //dtApx[i].INT_DESC,
 							"Vehicle1": dtApxDesc2[i], //dtApx[i].INT_DESC, //dtApx[i].Vehicle1,
-							"Vehicle2": "",//dtApxDesc2[i], //dtApx[i].INT_DESC,//dtApx[i].Vehicle2
+							"Vehicle2": "", //dtApxDesc2[i], //dtApx[i].INT_DESC,//dtApx[i].Vehicle2
 							"Vehicle3": dtApx[i].Vehicle3,
 							"Vehicle4": dtApx[i].Vehicle4,
 							"Vehicle5": dtApx[i].Vehicle5
@@ -3023,7 +3091,6 @@ sap.ui.define([
 				}
 			}
 			// jQuery.sap.delayedCall(20000, this, function () {oBusyDialog.close();});
-					
 
 		},
 
@@ -3031,7 +3098,7 @@ sap.ui.define([
 			var oHistory = History.getInstance();
 			var sPreviousHash = oHistory.getPreviousHash();
 			var oQueryParams = CDO_controller.getQueryParameters(window.location);
-const obj = this.byId("Co_ObjectPage");
+			const obj = this.byId("Co_ObjectPage");
 			const pow = this.byId("Co_power");
 			obj.scrollToSection(pow.getId(), 450);
 			if (sPreviousHash !== undefined || oQueryParams.navBackToLaunchpad) {
