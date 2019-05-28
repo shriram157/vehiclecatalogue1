@@ -220,30 +220,51 @@ sap.ui.define([
 			CreateWalkUpDialogController.getView().setModel(modelBrandModel, "brandModelNew");
 		},
 		listOfModelYear: function () {
-			var d = new Date();
-			var currentModelYear = d.getFullYear();
-			var oldYear = currentModelYear - 1;
+			// Hardcoded - as Requested May 28, 2019
+			/*var d = new Date();
+			//var currentModelYear = d.getFullYear();
+			//var oldYear = currentModelYear - 1;
+			var startModelYear = 
 			var nextModelYear = currentModelYear + 1;
 			var nextModelYear2 = currentModelYear + 2;
-			var nextModelYear3 = currentModelYear + 3;
+			var nextModelYear3 = currentModelYear + 3;	*/
 			var data = {
 				"modelYear": [{
-					"key": "5",
-					"text": oldYear
-				}, {
 					"key": "1",
-					"text": currentModelYear
+					"text": "2020"
 				}, {
 					"key": "2",
-					"text": nextModelYear
+					"text": "2021"
 				}, {
 					"key": "3",
-					"text": nextModelYear2
+					"text": "2022"
 				}, {
 					"key": "4",
-					"text": nextModelYear3
+					"text": "2023"
+				}, {
+					"key": "5",
+					"text":"2024"
+				}, {
+					"key": "6",
+					"text":"2025"
+				}, {
+					"key": "7",
+					"text":"2026"
+				}, {
+					"key": "8",
+					"text":"2027"
+				}, {
+					"key": "9",
+					"text":"2028"
+				},{
+					"key": "10",
+					"text":"2029"
+				},{
+					"key": "11",
+					"text":"2030"
 				}]
 			};
+		
 			var modelYearModel = new sap.ui.model.json.JSONModel();
 			modelYearModel.setData(data);
 			CreateWalkUpDialogController.getView().setModel(modelYearModel, "yearModelNew");

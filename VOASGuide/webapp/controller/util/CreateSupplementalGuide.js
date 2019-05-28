@@ -211,30 +211,55 @@ sap.ui.define([
 			CreateSuppGuideController.getView().setModel(modelBrandModel, "brandModelNew");
 		},
 		listOfModelYear: function () {
-			var d = new Date();
-			var currentModelYear = d.getFullYear();
-			var oldYear = currentModelYear - 1;
+			// Hardcoded - as Requested May 28, 2019
+			/*var d = new Date();
+			//var currentModelYear = d.getFullYear();
+			//var oldYear = currentModelYear - 1;
+			var startModelYear = 
 			var nextModelYear = currentModelYear + 1;
 			var nextModelYear2 = currentModelYear + 2;
 			var nextModelYear3 = currentModelYear + 3;
+			
+			
+			*/
+
 			var data = {
 				"modelYear": [{
-					"key": "5",
-					"text": oldYear
-				}, {
 					"key": "1",
-					"text": currentModelYear
+					"text": "2020"
 				}, {
 					"key": "2",
-					"text": nextModelYear
+					"text": "2021"
 				}, {
 					"key": "3",
-					"text": nextModelYear2
+					"text": "2022"
 				}, {
 					"key": "4",
-					"text": nextModelYear3
+					"text": "2023"
+				}, {
+					"key": "5",
+					"text": "2024"
+				}, {
+					"key": "6",
+					"text": "2025"
+				}, {
+					"key": "7",
+					"text": "2026"
+				}, {
+					"key": "8",
+					"text": "2027"
+				}, {
+					"key": "9",
+					"text": "2028"
+				}, {
+					"key": "10",
+					"text": "2029"
+				}, {
+					"key": "11",
+					"text": "2030"
 				}]
 			};
+
 			var modelYearModel = new sap.ui.model.json.JSONModel();
 			modelYearModel.setData(data);
 			CreateSuppGuideController.getView().setModel(modelYearModel, "yearModelNew");
@@ -312,31 +337,37 @@ sap.ui.define([
 							}
 						}
 					}*/
-						if (lang === "FR") {
+					if (lang === "FR") {
 						//for (var c = 0; c < data.d.results.length; c++) {
-							for (var i = 0; i < data.d.results.length; i++) {
-								if ($.inArray(data.d.results[i]["TCISeries_fr"], arrVal) < 0) {
-									arrVal.push(data.d.results[i]["TCISeries_fr"]);
-									arr.push({"key" : data.d.results[i]["Zseries"] + "_" + data.d.results[i]["Suffix"] , "value" : data.d.results[i]["TCISeries_fr"] });
-									//var key = {"key" : data.d.results[i]["Zseries"]};
-									//var value = {"value" : data.d.results[i]["TCISeries_fr"]};
-									//arr.push({key , value});
-									//arr[j] = data.d.results[i]["TCISeries_fr"];
-									//j++;
+						for (var i = 0; i < data.d.results.length; i++) {
+							if ($.inArray(data.d.results[i]["TCISeries_fr"], arrVal) < 0) {
+								arrVal.push(data.d.results[i]["TCISeries_fr"]);
+								arr.push({
+									"key": data.d.results[i]["Zseries"] + "_" + data.d.results[i]["Suffix"],
+									"value": data.d.results[i]["TCISeries_fr"]
+								});
+								//var key = {"key" : data.d.results[i]["Zseries"]};
+								//var value = {"value" : data.d.results[i]["TCISeries_fr"]};
+								//arr.push({key , value});
+								//arr[j] = data.d.results[i]["TCISeries_fr"];
+								//j++;
 
-								}
+							}
 							//}
 						}
 					} else { //if (language == "EN") {
 						//for (var c = 0; c < data.d.results.length; c++) {
-							for (var i = 0; i < data.d.results.length; i++) {
-								if ($.inArray(data.d.results[i]["TCISeries"], arrVal) < 0) {
-									//arr[j] = data.d.results[i]["TCISeries"];
-									arr.push({"key" : data.d.results[i]["Zseries"] + "_" + data.d.results[i]["Suffix"] , "value" : data.d.results[i]["TCISeries"] });
-									//j++;
+						for (var i = 0; i < data.d.results.length; i++) {
+							if ($.inArray(data.d.results[i]["TCISeries"], arrVal) < 0) {
+								//arr[j] = data.d.results[i]["TCISeries"];
+								arr.push({
+									"key": data.d.results[i]["Zseries"] + "_" + data.d.results[i]["Suffix"],
+									"value": data.d.results[i]["TCISeries"]
+								});
+								//j++;
 
-								}
 							}
+						}
 						//}
 
 					}
@@ -537,22 +568,21 @@ sap.ui.define([
 			}
 
 		},
-		
-		handleLanguageChange : function(oEvent) {
+
+		handleLanguageChange: function (oEvent) {
 			var oSource = oEvent.getSource();
 			var bState = oSource.getState();
 			var sLang = "EN";
 			if (!bState) {
-			    sLang = "FR";
+				sLang = "FR";
 			}
 			//var oSeriesVal =	CreateWhatsNewDialogController.getView().byId("id_seriesCBNew").getValue();
 			var oSeriesKey = CreateSuppGuideController.getView().byId("idSupp_seriesCB").getSelectedKey();
 			if (oSeriesKey) {
-			this.onChange_ModelYear();
-			CreateSuppGuideController.getView().byId("idSupp_seriesCB").setSelectedKey(oSeriesKey);
+				this.onChange_ModelYear();
+				CreateSuppGuideController.getView().byId("idSupp_seriesCB").setSelectedKey(oSeriesKey);
 			}
-			
-			
+
 		}
 
 	});
