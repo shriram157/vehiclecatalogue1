@@ -43,14 +43,13 @@ sap.ui.define([
 						CreatePocketSumController.getView().byId("idPoc_brandCB").setValue(brandVal);
 					}
 				}
-				if (userData.loggedUserType[0] == "TCI_User" || userData.loggedUserType[0] == "TCI_User_Preliminary" || userData.loggedUserType[0] ==
-					"Dealer_User") {
-
-					CreatePocketSumController.getView().byId("id_poc_DealerSwitch").setEnabled(false);
-					CreatePocketSumController.getView().byId("id_poc_DealerSwitch").setState(false);
-
-				}
-
+				if (userData.loggedUserType[0] == "TCI_User" || userData.loggedUserType[0] == "TCI_User_Preliminary" || userData.loggedUserType[0] == "Dealer_User" ) {
+					
+							CreatePocketSumController.getView().byId("id_poc_DealerSwitch").setEnabled(false);
+							CreatePocketSumController.getView().byId("id_poc_DealerSwitch").setState(false);
+						
+					}
+				
 			}
 		},
 		onInit: function () {
@@ -114,55 +113,31 @@ sap.ui.define([
 			modelBrandModel.setData(data);
 			CreatePocketSumController.getView().setModel(modelBrandModel, "brandModelNew");
 		},
-		
 		listOfModelYear: function () {
-			// Hardcoded - as Requested May 28, 2019
-			/*var d = new Date();
-			//var currentModelYear = d.getFullYear();
-			//var oldYear = currentModelYear - 1;
-			var startModelYear = 
+			var d = new Date();
+			var currentModelYear = d.getFullYear();
+			var oldYear = currentModelYear - 1;
 			var nextModelYear = currentModelYear + 1;
 			var nextModelYear2 = currentModelYear + 2;
 			var nextModelYear3 = currentModelYear + 3;
-			*/
-
 			var data = {
 				"modelYear": [{
+					"key": "5",
+					"text": oldYear
+				}, {
 					"key": "1",
-					"text": "2020"
+					"text": currentModelYear
 				}, {
 					"key": "2",
-					"text": "2021"
+					"text": nextModelYear
 				}, {
 					"key": "3",
-					"text": "2022"
+					"text": nextModelYear2
 				}, {
 					"key": "4",
-					"text": "2023"
-				}, {
-					"key": "5",
-					"text": "2024"
-				}, {
-					"key": "6",
-					"text": "2025"
-				}, {
-					"key": "7",
-					"text": "2026"
-				}, {
-					"key": "8",
-					"text": "2027"
-				}, {
-					"key": "9",
-					"text": "2028"
-				}, {
-					"key": "10",
-					"text": "2029"
-				}, {
-					"key": "11",
-					"text": "2030"
+					"text": nextModelYear3
 				}]
 			};
-
 			var modelYearModel = new sap.ui.model.json.JSONModel();
 			modelYearModel.setData(data);
 			CreatePocketSumController.getView().setModel(modelYearModel, "yearModelNew");
@@ -308,36 +283,35 @@ sap.ui.define([
 					}
 					CreatePocketSumController.nodeJsUrl = CreatePocketSumController.sPrefix + "/node";
 					var host = CreatePocketSumController.nodeJsUrl;
-					var userModel = sap.ui.getCore().getModel("userModel");
-					var userData = userModel.getData();
-					var usr = userData.loggedUserType[0];
+						var userModel = sap.ui.getCore().getModel("userModel");
+			var userData = userModel.getData();
+			var usr = userData.loggedUserType[0];
 					var url = host +
-						"/Z_VEHICLE_CATALOGUE_SRV/FileDownload_summarySet(User='" + usr + "',Language='" + lang + "',Tab='X',Model_year='" + moYear +
-						"',Brand='" +
+						"/Z_VEHICLE_CATALOGUE_SRV/FileDownload_summarySet(User='" + usr + "',Language='" + lang + "',Tab='X',Model_year='" + moYear + "',Brand='" +
 						brandVal +
 						"',Tciseries='" + dealer + "')/$value";
-					var oBusyDialog = new sap.m.BusyDialog({
-						showCancelButton: false
-					});
-
-					oBusyDialog.open();
-					// oBusyDialog.open();
-					// $.ajax({
-					// 	url: url,
-					// 	method: 'GET',
-					// 	async: true,
-					// 	dataType: 'json',
-					// 	success: function (data, textStatus, jqXHR) {
-					// 		console.log(data);
-					// 	},
-					// 	error: function (jqXHR, textStatus, errorThrown) {
-					// 		sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
-					// 			sap
-					// 			.m.MessageBox.Action.OK, null, null);
-					// 	}
-					// });
+						var oBusyDialog = new sap.m.BusyDialog({
+				showCancelButton: false
+			});
+			
+			 oBusyDialog.open();
+				// oBusyDialog.open();
+						// $.ajax({
+						// 	url: url,
+						// 	method: 'GET',
+						// 	async: true,
+						// 	dataType: 'json',
+						// 	success: function (data, textStatus, jqXHR) {
+						// 		console.log(data);
+						// 	},
+						// 	error: function (jqXHR, textStatus, errorThrown) {
+						// 		sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
+						// 			sap
+						// 			.m.MessageBox.Action.OK, null, null);
+						// 	}
+						// });
 					window.open(url);
-					oBusyDialog.close();
+oBusyDialog.close();
 					//	alert("CreatePocketSumController should Generate and display Active (Based on Today's Date) What's New Pdf in new window");
 
 				}.bind(CreatePocketSumController))
