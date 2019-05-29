@@ -366,6 +366,18 @@ sap.ui.define([
 
 		},
 
+		onChange_ModelBrand: function () {
+			// CreateVehicleGuideDialogController.getView().byId("filterBar").setShowGoOnFB(false);
+			// var brandCB = CreateVehicleGuideDialogController.getView().byId("id_brandCB");
+			var modelYearCB = CreatePocketSumController.getView().byId("idPoc_modelYearCB");
+
+			// var modelCB = CreateVehicleGuideDialogController.getView().byId("id_modelCB");
+			// var suffixCB = CreateVehicleGuideDialogController.getView().byId("id_suffixCB");
+			// searchController.refreshTableData();
+			modelYearCB.setSelectedKey(null);
+			CreatePocketSumController.listOfModelYear();
+		},
+
 		onExit: function () {
 			CreatePocketSumController._oDialog.destroy();
 

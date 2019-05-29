@@ -34,7 +34,7 @@
 								<form:fields>
 								
 									<ComboBox id="idPoc_brandCB" placeholder="{i18n>SelectBrand}" editable="true" enabled="true" visible="true" width="400px" valueState="None" maxWidth="100%"
-										class="sapUiResponsiveMargin" items="{path:'brandModelNew>/modelBrand', templateShareable:true}">
+										class="sapUiResponsiveMargin" change="onChange_ModelBrand" items="{path:'brandModelNew>/modelBrand', templateShareable:true}">
 										<items>
 												<core:Item key="{brandModelNew>key}" text="{brandModelNew>text}"/>
 										</items>
