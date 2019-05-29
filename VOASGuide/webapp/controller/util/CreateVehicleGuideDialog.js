@@ -262,6 +262,7 @@ sap.ui.define([
 			// var suffixCB = CreateVehicleGuideDialogController.getView().byId("id_suffixCB");
 			// searchController.refreshTableData();
 			modelYearCB.setSelectedKey(null);
+			CreateVehicleGuideDialogController.listOfModelYear();
 			if (seriesCB.getValue() !== "") {
 				seriesCB.setValue("");
 				seriesCB.destroyItems();

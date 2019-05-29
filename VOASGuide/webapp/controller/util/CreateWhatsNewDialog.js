@@ -327,6 +327,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			// var suffixCB = CreateVehicleGuideDialogController.getView().byId("id_suffixCB");
 			// searchController.refreshTableData();
 			modelYearCB.setSelectedKey(null);
+			CreateWhatsNewDialogController.listOfModelYear();
 			if (seriesCB.getValue() !== "") {
 				seriesCB.setValue("");
 				seriesCB.destroyItems();
