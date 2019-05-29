@@ -59,7 +59,7 @@ sap.ui.define([
 
 			CreateSuppGuideController._oDialog = CreateSuppGuideController.getControl();
 			CreateSuppGuideController.listOfBrand();
-			CreateSuppGuideController.listOfModelYear();
+			
 			var brandCB = sap.ushell.components.brandCB;
 			var moYearCB = sap.ushell.components.modelYearCB;
 			var seriesCB = sap.ushell.components.seriesCB;
@@ -95,6 +95,7 @@ sap.ui.define([
 
 				if (brandVal != " " && brandVal != "" && brandVal != null && brandVal != undefined) {
 					CreateSuppGuideController._readUserBrand();
+					CreateSuppGuideController.listOfModelYear();
 				} else {
 					CreateSuppGuideController.getView().byId("idSupp_brandCB").setEnabled(true);
 				}

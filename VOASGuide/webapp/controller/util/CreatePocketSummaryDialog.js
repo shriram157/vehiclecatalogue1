@@ -57,7 +57,7 @@ sap.ui.define([
 
 			CreatePocketSumController._oDialog = CreatePocketSumController.getControl();
 			CreatePocketSumController.listOfBrand();
-			CreatePocketSumController.listOfModelYear();
+			//CreatePocketSumController.listOfModelYear();
 			var brandCB = sap.ushell.components.brandCB;
 			var moYearCB = sap.ushell.components.modelYearCB;
 			//var userAttributesModel = sap.ui.getCore().getModel("userAttributesModel");
@@ -89,6 +89,7 @@ sap.ui.define([
 				var moYearVal = moYearCB.getValue();
 				if (brandVal != " " && brandVal != "" && brandVal != null && brandVal != undefined) {
 					CreatePocketSumController._readUserBrand();
+					CreatePocketSumController.listOfModelYear();
 				} else {
 					CreatePocketSumController.getView().byId("idPoc_brandCB").setEnabled(true);
 				}

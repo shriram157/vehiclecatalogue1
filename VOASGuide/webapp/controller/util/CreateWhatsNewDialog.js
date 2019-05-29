@@ -62,7 +62,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 
 			CreateWhatsNewDialogController._oDialog = CreateWhatsNewDialogController.getControl();
 			CreateWhatsNewDialogController.listOfBrand();
-			CreateWhatsNewDialogController.listOfModelYear();
+		
 			var brandCB = sap.ushell.components.brandCB;
 			var moYearCB = sap.ushell.components.modelYearCB;
 			var seriesCB = sap.ushell.components.seriesCB;
@@ -107,6 +107,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				var brandVal = brandCB.getValue();
 				if (brandVal != " " && brandVal != "" && brandVal != null && brandVal != undefined) {
 					CreateWhatsNewDialogController._readUserBrand();
+					CreateWhatsNewDialogController.listOfModelYear();
 				} else {
 					CreateWhatsNewDialogController.getView().byId("idNew_brandCB").setEnabled(true);
 				}

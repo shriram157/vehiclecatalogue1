@@ -58,7 +58,7 @@ sap.ui.define([
 		onInit: function () {
 			CreateVehicleGuideDialogController._oDialog = CreateVehicleGuideDialogController.getControl();
 			CreateVehicleGuideDialogController.listOfBrand();
-			CreateVehicleGuideDialogController.listOfModelYear();
+			
 			var brandCB = sap.ushell.components.brandCB;
 			var moYearCB = sap.ushell.components.modelYearCB;
 			var seriesCB = sap.ushell.components.seriesCB;
@@ -96,6 +96,7 @@ sap.ui.define([
 
 				if (brandVal != " " && brandVal != "" && brandVal !== null && brandVal != undefined) {
 					CreateVehicleGuideDialogController._readUserBrand();
+					CreateVehicleGuideDialogController.listOfModelYear();
 				} else {
 					CreateVehicleGuideDialogController.getView().byId("idVeh_brandCB").setEnabled(true);
 				}

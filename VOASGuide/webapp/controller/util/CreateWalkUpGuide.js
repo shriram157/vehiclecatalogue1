@@ -59,7 +59,7 @@ sap.ui.define([
 
 			CreateWalkUpDialogController._oDialog = CreateWalkUpDialogController.getControl();
 			CreateWalkUpDialogController.listOfBrand();
-			CreateWalkUpDialogController.listOfModelYear();
+			
 
 			var userModel = sap.ui.getCore().getModel("userModel");
 			var userData = userModel.getData();
@@ -99,6 +99,7 @@ sap.ui.define([
 
 				if (brandVal != " " && brandVal != "" && brandVal !== null && brandVal !== undefined) {
 					CreateWalkUpDialogController._readUserBrand();
+					CreateWalkUpDialogController.listOfModelYear();
 				} else {
 					CreateWalkUpDialogController.getView().byId("idWalk_brandCB").setEnabled(true);
 				}
