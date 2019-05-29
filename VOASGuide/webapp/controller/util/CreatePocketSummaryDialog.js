@@ -43,13 +43,14 @@ sap.ui.define([
 						CreatePocketSumController.getView().byId("idPoc_brandCB").setValue(brandVal);
 					}
 				}
-				if (userData.loggedUserType[0] == "TCI_User" || userData.loggedUserType[0] == "TCI_User_Preliminary" || userData.loggedUserType[0] == "Dealer_User" ) {
-					
-							CreatePocketSumController.getView().byId("id_poc_DealerSwitch").setEnabled(false);
-							CreatePocketSumController.getView().byId("id_poc_DealerSwitch").setState(false);
-						
-					}
-				
+				if (userData.loggedUserType[0] == "TCI_User" || userData.loggedUserType[0] == "TCI_User_Preliminary" || userData.loggedUserType[0] ==
+					"Dealer_User") {
+
+					CreatePocketSumController.getView().byId("id_poc_DealerSwitch").setEnabled(false);
+					CreatePocketSumController.getView().byId("id_poc_DealerSwitch").setState(false);
+
+				}
+
 			}
 		},
 		onInit: function () {
@@ -113,15 +114,24 @@ sap.ui.define([
 			modelBrandModel.setData(data);
 			CreatePocketSumController.getView().setModel(modelBrandModel, "brandModelNew");
 		},
-		
+
 		listOfModelYear: function () {
-			var host = CreatePocketSumController.host();
+			var sLocation = window.location.host;
+			var sLocation_conf = sLocation.search("webide");
+			if (sLocation_conf == 0) {
+				CreatePocketSumController.sPrefix = "/voasguide_node";
+			} else {
+				CreatePocketSumController.sPrefix = "";
+			}
+			CreatePocketSumController.nodeJsUrl = CreatePocketSumController.sPrefix + "/node";
+			var host = CreatePocketSumController.nodeJsUrl;
 			var brandCB = CreatePocketSumController.getView().byId("idPoc_brandCB");
 			var url2 = "";
 			var language = CreatePocketSumController.language; // searchController.returnBrowserLanguage(); //"EN";
 
-			var url2 = host + "/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(Brand eq '" + brandCB.getValue() + "' and Language eq '" + language + "')";
-			var arr = [];	
+			var url2 = host + "/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(Brand eq '" + brandCB.getValue() +
+				"' and Language eq '" + language + "')";
+			var arr = [];
 			$.ajax({
 				url: url2,
 				method: 'GET',
@@ -132,22 +142,21 @@ sap.ui.define([
 
 					//for (var c = 0; c < data.d.results.length; c++) {
 					for (var i = 0; i < data.d.results.length; i++) {
-					
-							arr.push({
-								"key": data.d.results[i]["Modelyear"] ,
-								"text": data.d.results[i]["Modelyear"]
-							});
-							//var key = {"key" : data.d.results[i]["Zseries"]};
-							//var value = {"value" : data.d.results[i]["TCISeries_fr"]};
-							//arr.push({key , value});
-							//arr[j] = data.d.results[i]["TCISeries_fr"];
-							//j++;
 
-						}
-					
+						arr.push({
+							"key": data.d.results[i]["Modelyear"],
+							"text": data.d.results[i]["Modelyear"]
+						});
+						//var key = {"key" : data.d.results[i]["Zseries"]};
+						//var value = {"value" : data.d.results[i]["TCISeries_fr"]};
+						//arr.push({key , value});
+						//arr[j] = data.d.results[i]["TCISeries_fr"];
+						//j++;
+
+					}
+
 					//}
 
-					
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
 					var errMsg = CreatePocketSumController.getView().getModel("i18n").getResourceBundle().getText("Error1");
@@ -155,9 +164,11 @@ sap.ui.define([
 						.m.MessageBox.Action.OK, null, null);
 				}
 			});
-			
+
 			var modelYearModel = new sap.ui.model.json.JSONModel();
-			modelYearModel.setData({"modelYear" : arr});
+			modelYearModel.setData({
+				"modelYear": arr
+			});
 			CreatePocketSumController.getView().setModel(modelYearModel, "yearModelNew");
 		},
 		/*onChange_ModelYear: function () {
@@ -301,35 +312,36 @@ sap.ui.define([
 					}
 					CreatePocketSumController.nodeJsUrl = CreatePocketSumController.sPrefix + "/node";
 					var host = CreatePocketSumController.nodeJsUrl;
-						var userModel = sap.ui.getCore().getModel("userModel");
-			var userData = userModel.getData();
-			var usr = userData.loggedUserType[0];
+					var userModel = sap.ui.getCore().getModel("userModel");
+					var userData = userModel.getData();
+					var usr = userData.loggedUserType[0];
 					var url = host +
-						"/Z_VEHICLE_CATALOGUE_SRV/FileDownload_summarySet(User='" + usr + "',Language='" + lang + "',Tab='X',Model_year='" + moYear + "',Brand='" +
+						"/Z_VEHICLE_CATALOGUE_SRV/FileDownload_summarySet(User='" + usr + "',Language='" + lang + "',Tab='X',Model_year='" + moYear +
+						"',Brand='" +
 						brandVal +
 						"',Tciseries='" + dealer + "')/$value";
-						var oBusyDialog = new sap.m.BusyDialog({
-				showCancelButton: false
-			});
-			
-			 oBusyDialog.open();
-				// oBusyDialog.open();
-						// $.ajax({
-						// 	url: url,
-						// 	method: 'GET',
-						// 	async: true,
-						// 	dataType: 'json',
-						// 	success: function (data, textStatus, jqXHR) {
-						// 		console.log(data);
-						// 	},
-						// 	error: function (jqXHR, textStatus, errorThrown) {
-						// 		sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
-						// 			sap
-						// 			.m.MessageBox.Action.OK, null, null);
-						// 	}
-						// });
+					var oBusyDialog = new sap.m.BusyDialog({
+						showCancelButton: false
+					});
+
+					oBusyDialog.open();
+					// oBusyDialog.open();
+					// $.ajax({
+					// 	url: url,
+					// 	method: 'GET',
+					// 	async: true,
+					// 	dataType: 'json',
+					// 	success: function (data, textStatus, jqXHR) {
+					// 		console.log(data);
+					// 	},
+					// 	error: function (jqXHR, textStatus, errorThrown) {
+					// 		sap.m.MessageBox.show("Error occurred while fetching data. Please try again later.", sap.m.MessageBox.Icon.ERROR, "Error",
+					// 			sap
+					// 			.m.MessageBox.Action.OK, null, null);
+					// 	}
+					// });
 					window.open(url);
-oBusyDialog.close();
+					oBusyDialog.close();
 					//	alert("CreatePocketSumController should Generate and display Active (Based on Today's Date) What's New Pdf in new window");
 
 				}.bind(CreatePocketSumController))

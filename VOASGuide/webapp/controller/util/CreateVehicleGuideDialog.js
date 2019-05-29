@@ -207,7 +207,15 @@ sap.ui.define([
 			CreateVehicleGuideDialogController.getView().setModel(modelBrandModel, "brandModelNew");
 		},
 		listOfModelYear: function () {
-			var host = CreateVehicleGuideDialogController.host();
+			var sLocation = window.location.host;
+			var sLocation_conf = sLocation.search("webide");
+			if (sLocation_conf == 0) {
+				CreateVehicleGuideDialogController.sPrefix = "/voasguide_node";
+			} else {
+				CreateVehicleGuideDialogController.sPrefix = "";
+			}
+			CreateVehicleGuideDialogController.nodeJsUrl = CreateVehicleGuideDialogController.sPrefix + "/node";
+			var host = CreateVehicleGuideDialogController.nodeJsUrl;
 			var brandCB = CreateVehicleGuideDialogController.getView().byId("idVeh_brandCB");
 			
 			var language = CreateVehicleGuideDialogController.language; // searchController.returnBrowserLanguage(); //"EN";
@@ -230,16 +238,7 @@ sap.ui.define([
 							"key": data.d.results[i]["Modelyear"],
 							"text": data.d.results[i]["Modelyear"]
 						});
-						//var key = {"key" : data.d.results[i]["Zseries"]};
-						//var value = {"value" : data.d.results[i]["TCISeries_fr"]};
-						//arr.push({key , value});
-						//arr[j] = data.d.results[i]["TCISeries_fr"];
-						//j++;
-
 					}
-
-					//}
-
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
 					var errMsg = CreateVehicleGuideDialogController.getView().getModel("i18n").getResourceBundle().getText("Error1");

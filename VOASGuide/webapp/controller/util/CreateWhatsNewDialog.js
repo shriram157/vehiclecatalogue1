@@ -271,7 +271,15 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 		},
 
 		listOfModelYear: function () {
-			var host = CreateWhatsNewDialogController.host();
+				var sLocation = window.location.host;
+			var sLocation_conf = sLocation.search("webide");
+			if (sLocation_conf == 0) {
+				CreateWhatsNewDialogController.sPrefix = "/voasguide_node";
+			} else {
+				CreateWhatsNewDialogController.sPrefix = "";
+			}
+			CreateWhatsNewDialogController.nodeJsUrl = CreateWhatsNewDialogController.sPrefix + "/node";
+			var host = CreateWhatsNewDialogController.nodeJsUrl;
 			var brandCB = CreateWhatsNewDialogController.getView().byId("idNew_brandCB");
 			
 			var language = CreateWhatsNewDialogController.language; // searchController.returnBrowserLanguage(); //"EN";

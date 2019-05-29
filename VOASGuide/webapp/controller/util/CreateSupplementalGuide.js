@@ -211,7 +211,16 @@ sap.ui.define([
 			CreateSuppGuideController.getView().setModel(modelBrandModel, "brandModelNew");
 		},
 		listOfModelYear: function () {
-			var host = CreateSuppGuideController.host();
+			var sLocation = window.location.host;
+			var sLocation_conf = sLocation.search("webide");
+			if (sLocation_conf == 0) {
+				CreateSuppGuideController.sPrefix = "/voasguide_node";
+			} else {
+				CreateSuppGuideController.sPrefix = "";
+			}
+			CreateSuppGuideController.nodeJsUrl = CreateSuppGuideController.sPrefix + "/node";
+			var host = CreateSuppGuideController.nodeJsUrl;
+		
 			var brandCB = CreateSuppGuideController.getView().byId("idSupp_brandCB");
 			var url2 = "";
 			var language = CreateSuppGuideController.language; // searchController.returnBrowserLanguage(); //"EN";
@@ -259,7 +268,7 @@ sap.ui.define([
 
 			CreateSuppGuideController.getView().setModel(modelYearModel, "yearModelNew");
 		},
-		
+
 		onChange_ModelBrand: function () {
 			// CreateVehicleGuideDialogController.getView().byId("filterBar").setShowGoOnFB(false);
 			// var brandCB = CreateVehicleGuideDialogController.getView().byId("id_brandCB");

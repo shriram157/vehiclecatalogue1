@@ -220,7 +220,15 @@ sap.ui.define([
 			CreateWalkUpDialogController.getView().setModel(modelBrandModel, "brandModelNew");
 		},
 		listOfModelYear: function () {
-			var host = CreateWalkUpDialogController.host();
+			var sLocation = window.location.host;
+			var sLocation_conf = sLocation.search("webide");
+			if (sLocation_conf == 0) {
+				CreateWalkUpDialogController.sPrefix = "/voasguide_node";
+			} else {
+				CreateWalkUpDialogController.sPrefix = "";
+			}
+			CreateWalkUpDialogController.nodeJsUrl = CreateWalkUpDialogController.sPrefix + "/node";
+			var host = CreateWalkUpDialogController.nodeJsUrl;
 			var brandCB = CreateWalkUpDialogController.getView().byId("idWalk_brandCB");
 			var url2 = "";
 			var language = CreateWalkUpDialogController.language; // searchController.returnBrowserLanguage(); //"EN";
@@ -266,7 +274,6 @@ sap.ui.define([
 				"modelYear": arr
 			});
 
-			
 			CreateWalkUpDialogController.getView().setModel(modelYearModel, "yearModelNew");
 		},
 		onChange_ModelBrand: function () {
@@ -332,41 +339,47 @@ sap.ui.define([
 					var arr = [];
 					var arrVal = [];
 					//var j = 0;
-				/*	for (var c = 0; c < data.d.results.length; c++) {
+					/*	for (var c = 0; c < data.d.results.length; c++) {
+							for (var i = 0; i < data.d.results.length; i++) {
+								if ($.inArray(data.d.results[i]["TCISeries"], arr) < 0) {
+									arr[j] = data.d.results[i]["TCISeries"];
+									j++;
+
+								}
+							}
+						}*/
+					if (lang == "FR") {
+						//for (var c = 0; c < data.d.results.length; c++) {
 						for (var i = 0; i < data.d.results.length; i++) {
-							if ($.inArray(data.d.results[i]["TCISeries"], arr) < 0) {
-								arr[j] = data.d.results[i]["TCISeries"];
-								j++;
+							if ($.inArray(data.d.results[i]["TCISeries_fr"], arrVal) < 0) {
+								arrVal.push(data.d.results[i]["TCISeries_fr"]);
+								arr.push({
+									"key": data.d.results[i]["Zseries"] + "_" + data.d.results[i]["Suffix"],
+									"value": data.d.results[i]["TCISeries_fr"]
+								});
+								//var key = {"key" : data.d.results[i]["Zseries"]};
+								//var value = {"value" : data.d.results[i]["TCISeries_fr"]};
+								//arr.push({key , value});
+								//arr[j] = data.d.results[i]["TCISeries_fr"];
+								//j++;
 
 							}
 						}
-					}*/
-					if (lang == "FR") {
-						//for (var c = 0; c < data.d.results.length; c++) {
-							for (var i = 0; i < data.d.results.length; i++) {
-								if ($.inArray(data.d.results[i]["TCISeries_fr"], arrVal) < 0) {
-									arrVal.push(data.d.results[i]["TCISeries_fr"]);
-									arr.push({"key" : data.d.results[i]["Zseries"] + "_" + data.d.results[i]["Suffix"] , "value" : data.d.results[i]["TCISeries_fr"] });
-									//var key = {"key" : data.d.results[i]["Zseries"]};
-									//var value = {"value" : data.d.results[i]["TCISeries_fr"]};
-									//arr.push({key , value});
-									//arr[j] = data.d.results[i]["TCISeries_fr"];
-									//j++;
-
-								}
-							}
 						//}
 					} else { //if (language == "EN") {
 						//for (var c = 0; c < data.d.results.length; c++) {
-							for (var i = 0; i < data.d.results.length; i++) {
-								if ($.inArray(data.d.results[i]["TCISeries"], arrVal) < 0) {
-									arrVal.push(data.d.results[i]["TCISeries"]);
-									//arr[j] = data.d.results[i]["TCISeries"];
-									arr.push({"key" : data.d.results[i]["Zseries"] + "_" + data.d.results[i]["Suffix"] , "value" : data.d.results[i]["TCISeries"] });
-									//j++;
+						for (var i = 0; i < data.d.results.length; i++) {
+							if ($.inArray(data.d.results[i]["TCISeries"], arrVal) < 0) {
+								arrVal.push(data.d.results[i]["TCISeries"]);
+								//arr[j] = data.d.results[i]["TCISeries"];
+								arr.push({
+									"key": data.d.results[i]["Zseries"] + "_" + data.d.results[i]["Suffix"],
+									"value": data.d.results[i]["TCISeries"]
+								});
+								//j++;
 
-								}
 							}
+						}
 						//}
 					}
 
@@ -558,24 +571,22 @@ sap.ui.define([
 			}
 
 		},
-		
-		handleLanguageChange : function(oEvent) {
+
+		handleLanguageChange: function (oEvent) {
 			var oSource = oEvent.getSource();
 			var bState = oSource.getState();
 			var sLang = "EN";
 			if (!bState) {
-			    sLang = "FR";
+				sLang = "FR";
 			}
 			//var oSeriesVal =	CreateWalkUpDialogController.getView().byId("id_seriesCBNew").getValue();
-			var oSeriesKey =	CreateWalkUpDialogController.getView().byId("idWalk_seriesCB").getSelectedKey();
+			var oSeriesKey = CreateWalkUpDialogController.getView().byId("idWalk_seriesCB").getSelectedKey();
 			if (oSeriesKey) {
-			this.onChange_ModelYear();
-			CreateWalkUpDialogController.getView().byId("idWalk_seriesCB").setSelectedKey(oSeriesKey);
+				this.onChange_ModelYear();
+				CreateWalkUpDialogController.getView().byId("idWalk_seriesCB").setSelectedKey(oSeriesKey);
 			}
-			
-			
+
 		}
-		
 
 	});
 }, /* bExport= */ true);
