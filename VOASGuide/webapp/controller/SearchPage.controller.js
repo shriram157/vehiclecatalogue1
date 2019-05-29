@@ -17,7 +17,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			searchController.oRouter = sap.ui.core.UIComponent.getRouterFor(searchController);
 			searchController.oRouter.getTarget("SearchPage").attachDisplay(jQuery.proxy(searchController.handleRouteMatched, searchController));
 			searchController.listOfBrand();
-			searchController.listOfModelYear();
+			//searchController.listOfModelYear();
 			searchController.oBusyDialog = new sap.m.BusyDialog({
 				showCancelButton: false
 			});
@@ -276,7 +276,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			
 
 			var modelYearModel = new JSONModel();
-			modelYearModel.setData(arr);
+			modelYearModel.setData({"modelYear" : arr});
 			searchController.getView().setModel(modelYearModel, "yearModel");
 			searchController.getView().byId("id_modelYearCB").setModel("yearModel");
 		},
@@ -345,6 +345,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					sap.ui.getCore().byId("__xmlview0--idLogo").setSrc("images/Lexus.png");
 				}
 			}
+			searchController.listOfModelYear();
 
 		},
 		onChange_ModelYear: function () {

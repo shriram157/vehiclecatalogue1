@@ -211,34 +211,55 @@ sap.ui.define([
 			CreateSuppGuideController.getView().setModel(modelBrandModel, "brandModelNew");
 		},
 		listOfModelYear: function () {
-			var d = new Date();
-			var currentModelYear = d.getFullYear();
-			var oldYear = currentModelYear - 1;
-			var nextModelYear = currentModelYear + 1;
-			var nextModelYear2 = currentModelYear + 2;
-			var nextModelYear3 = currentModelYear + 3;
-			var data = {
-				"modelYear": [{
-					"key": "5",
-					"text": oldYear
-				}, {
-					"key": "1",
-					"text": currentModelYear
-				}, {
-					"key": "2",
-					"text": nextModelYear
-				}, {
-					"key": "3",
-					"text": nextModelYear2
-				}, {
-					"key": "4",
-					"text": nextModelYear3
-				}]
-			};
+			var host = CreateSuppGuideController.host();
+			var brandCB = CreateSuppGuideController.getView().byId("idSupp_brandCB");
+			var url2 = "";
+			var language = CreateSuppGuideController.language; // searchController.returnBrowserLanguage(); //"EN";
+
+			var url2 = host + "/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(Brand eq '" + brandCB.getValue() +
+				"' and Language eq '" + language + "')";
+			var arr = [];
+			$.ajax({
+				url: url2,
+				method: 'GET',
+				async: false,
+				dataType: 'json',
+				success: function (data, textStatus, jqXHR) {
+					//var j = 0; //TCISeries_fr
+
+					//for (var c = 0; c < data.d.results.length; c++) {
+					for (var i = 0; i < data.d.results.length; i++) {
+
+						arr.push({
+							"key": data.d.results[i]["Modelyear"],
+							"text": data.d.results[i]["Modelyear"]
+						});
+						//var key = {"key" : data.d.results[i]["Zseries"]};
+						//var value = {"value" : data.d.results[i]["TCISeries_fr"]};
+						//arr.push({key , value});
+						//arr[j] = data.d.results[i]["TCISeries_fr"];
+						//j++;
+
+					}
+
+					//}
+
+				},
+				error: function (jqXHR, textStatus, errorThrown) {
+					var errMsg = CreateSuppGuideController.getView().getModel("i18n").getResourceBundle().getText("Error1");
+					sap.m.MessageBox.show(errMsg, sap.m.MessageBox.Icon.ERROR, "Error", sap
+						.m.MessageBox.Action.OK, null, null);
+				}
+			});
+
 			var modelYearModel = new sap.ui.model.json.JSONModel();
-			modelYearModel.setData(data);
+			modelYearModel.setData({
+				"modelYear": arr
+			});
+
 			CreateSuppGuideController.getView().setModel(modelYearModel, "yearModelNew");
 		},
+		
 		onChange_ModelBrand: function () {
 			// CreateVehicleGuideDialogController.getView().byId("filterBar").setShowGoOnFB(false);
 			// var brandCB = CreateVehicleGuideDialogController.getView().byId("id_brandCB");
@@ -312,31 +333,37 @@ sap.ui.define([
 							}
 						}
 					}*/
-						if (lang === "FR") {
+					if (lang === "FR") {
 						//for (var c = 0; c < data.d.results.length; c++) {
-							for (var i = 0; i < data.d.results.length; i++) {
-								if ($.inArray(data.d.results[i]["TCISeries_fr"], arrVal) < 0) {
-									arrVal.push(data.d.results[i]["TCISeries_fr"]);
-									arr.push({"key" : data.d.results[i]["Zseries"] + "_" + data.d.results[i]["Suffix"] , "value" : data.d.results[i]["TCISeries_fr"] });
-									//var key = {"key" : data.d.results[i]["Zseries"]};
-									//var value = {"value" : data.d.results[i]["TCISeries_fr"]};
-									//arr.push({key , value});
-									//arr[j] = data.d.results[i]["TCISeries_fr"];
-									//j++;
+						for (var i = 0; i < data.d.results.length; i++) {
+							if ($.inArray(data.d.results[i]["TCISeries_fr"], arrVal) < 0) {
+								arrVal.push(data.d.results[i]["TCISeries_fr"]);
+								arr.push({
+									"key": data.d.results[i]["Zseries"] + "_" + data.d.results[i]["Suffix"],
+									"value": data.d.results[i]["TCISeries_fr"]
+								});
+								//var key = {"key" : data.d.results[i]["Zseries"]};
+								//var value = {"value" : data.d.results[i]["TCISeries_fr"]};
+								//arr.push({key , value});
+								//arr[j] = data.d.results[i]["TCISeries_fr"];
+								//j++;
 
-								}
+							}
 							//}
 						}
 					} else { //if (language == "EN") {
 						//for (var c = 0; c < data.d.results.length; c++) {
-							for (var i = 0; i < data.d.results.length; i++) {
-								if ($.inArray(data.d.results[i]["TCISeries"], arrVal) < 0) {
-									//arr[j] = data.d.results[i]["TCISeries"];
-									arr.push({"key" : data.d.results[i]["Zseries"] + "_" + data.d.results[i]["Suffix"] , "value" : data.d.results[i]["TCISeries"] });
-									//j++;
+						for (var i = 0; i < data.d.results.length; i++) {
+							if ($.inArray(data.d.results[i]["TCISeries"], arrVal) < 0) {
+								//arr[j] = data.d.results[i]["TCISeries"];
+								arr.push({
+									"key": data.d.results[i]["Zseries"] + "_" + data.d.results[i]["Suffix"],
+									"value": data.d.results[i]["TCISeries"]
+								});
+								//j++;
 
-								}
 							}
+						}
 						//}
 
 					}
@@ -537,22 +564,21 @@ sap.ui.define([
 			}
 
 		},
-		
-		handleLanguageChange : function(oEvent) {
+
+		handleLanguageChange: function (oEvent) {
 			var oSource = oEvent.getSource();
 			var bState = oSource.getState();
 			var sLang = "EN";
 			if (!bState) {
-			    sLang = "FR";
+				sLang = "FR";
 			}
 			//var oSeriesVal =	CreateWhatsNewDialogController.getView().byId("id_seriesCBNew").getValue();
 			var oSeriesKey = CreateSuppGuideController.getView().byId("idSupp_seriesCB").getSelectedKey();
 			if (oSeriesKey) {
-			this.onChange_ModelYear();
-			CreateSuppGuideController.getView().byId("idSupp_seriesCB").setSelectedKey(oSeriesKey);
+				this.onChange_ModelYear();
+				CreateSuppGuideController.getView().byId("idSupp_seriesCB").setSelectedKey(oSeriesKey);
 			}
-			
-			
+
 		}
 
 	});
