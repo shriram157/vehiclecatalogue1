@@ -165,7 +165,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 						//for (var c = 0; c < data.d.results.length; c++) {
 							for (var i = 0; i < data.d.results.length; i++) {
 								if ($.inArray(data.d.results[i]["TCISeries_fr"], arrVal) < 0) {
-									arrVal.push(data.d.results[i]["TCISeries_fr"]);
+									arrVal.push(data.d.results[i].TCISeries_fr);
 									arr.push({"key" : data.d.results[i]["Zseries"] + "_" + data.d.results[i]["Suffix"] , "value" : data.d.results[i]["TCISeries_fr"] });
 									//var key = {"key" : data.d.results[i]["Zseries"]};
 									//var value = {"value" : data.d.results[i]["TCISeries_fr"]};
@@ -180,6 +180,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 						//for (var c = 0; c < data.d.results.length; c++) {
 							for (var i = 0; i < data.d.results.length; i++) {
 								if ($.inArray(data.d.results[i]["TCISeries"], arrVal) < 0) {
+									arrVal.push(data.d.results[i].TCISeries)
 									//arr[j] = data.d.results[i]["TCISeries"];
 									arr.push({"key" : data.d.results[i]["Zseries"] + "_" + data.d.results[i]["Suffix"] , "value" : data.d.results[i]["TCISeries"] });
 									//j++;
@@ -399,7 +400,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 						//for (var c = 0; c < data.d.results.length; c++) {
 							for (var i = 0; i < data.d.results.length; i++) {
 								if ($.inArray(data.d.results[i]["TCISeries_fr"], arrVal) < 0) {
-									arrVal.push(data.d.results[i]["TCISeries_fr"]);
+									arrVal.push(data.d.results[i].TCISeries_fr);
 									arr.push({"key" : data.d.results[i]["Zseries"] + "_" + data.d.results[i]["Suffix"] , "value" : data.d.results[i]["TCISeries_fr"] });
 									//var key = {"key" : data.d.results[i]["Zseries"]};
 									//var value = {"value" : data.d.results[i]["TCISeries_fr"]};
@@ -414,7 +415,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 						//for (var c = 0; c < data.d.results.length; c++) {
 							for (var i = 0; i < data.d.results.length; i++) {
 								if ($.inArray(data.d.results[i]["TCISeries"], arrVal) < 0) {
-									arrVal.push(data.d.results[i]["TCISeries"]);
+									arrVal.push(data.d.results[i].TCISeries);
 									//arr[j] = data.d.results[i]["TCISeries"];
 									arr.push({"key" : data.d.results[i]["Zseries"] + "_" + data.d.results[i]["Suffix"] , "value" : data.d.results[i]["TCISeries"] });
 								//	j++;
