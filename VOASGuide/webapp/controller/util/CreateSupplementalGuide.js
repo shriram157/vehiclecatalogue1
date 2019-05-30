@@ -173,9 +173,10 @@ sap.ui.define([
 							for (var i = 0; i < data.d.results.length; i++) {
 								if ($.inArray(data.d.results[i]["TCISeries"], arrVal) < 0) {
 									//arr[j] = data.d.results[i]["TCISeries"];
+									arrVal.push(data.d.results[i].TCISeries);
 									arr.push({
 										"key": data.d.results[i]["Zseries"] + "_" + data.d.results[i]["Suffix"],
-										"value": data.d.results[i]["TCISeries"]
+										"value": data.d.results[i].TCISeries
 									});
 									//j++;
 
@@ -366,10 +367,11 @@ sap.ui.define([
 						//for (var c = 0; c < data.d.results.length; c++) {
 						for (var i = 0; i < data.d.results.length; i++) {
 							if ($.inArray(data.d.results[i]["TCISeries"], arrVal) < 0) {
+								arrVal.push(data.d.results[i].TCISeries);
 								//arr[j] = data.d.results[i]["TCISeries"];
 								arr.push({
 									"key": data.d.results[i]["Zseries"] + "_" + data.d.results[i]["Suffix"],
-									"value": data.d.results[i]["TCISeries"]
+									"value": data.d.results[i].TCISeries
 								});
 								//j++;
 
