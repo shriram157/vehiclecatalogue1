@@ -187,9 +187,7 @@ sap.ui.define([
 					var oFileUploader = this._oView.byId("__component0---AdminDetailsOption--walkUpFileUploadId");
 					var oURL4 = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileSet(Comment='" + comment + "',FileName='" + filename + "',Language='" +
 						lang + "',Lastupdate='" + date3 + "',Tab='Walkup')/$value";
-					var oURL2 = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileSet(Comment='" + comment + "',FileName='" + filename + "',Language='" +
-						lang + "',Lastupdate='" + date3 + "',Tab='Walkup',Model='" + modelAdmData.modelDesc + "',Model_year='" + modelAdmData.moYear +
-						"',Tciseries='" + modelAdmData.series + "',Brand='" + modelAdmData.brand + "')/$value";
+					var oURL2 = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileSet(Brand='" + modelAdmData.brand + "',Model='" + modelAdmData.modelDesc + "',Tciseries='" + modelAdmData.series + "',Model_year='" + modelAdmData.moYear + "',Tab='Walkup',Language='" + lang + "',Lastupdate='" + date3 + "',Comment='" + comment + "',FileName='" + filename + "')/$value";
 					var oUrl5 = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'Walkup')";
 					var oUrl3 = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'Walkup' and Model eq '" + modelAdmData.modelDesc +
 						"' and Model_year eq '" + modelAdmData.moYear + "' and Tciseries eq '" + modelAdmData.series + "' and Brand eq '" +

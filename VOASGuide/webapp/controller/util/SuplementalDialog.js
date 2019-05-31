@@ -120,11 +120,8 @@ sap.ui.define([
 					var oUrl3 = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'suppliment' and Model eq '" + modelAdmData.modelDesc +
 						"' and Model_year eq '" + modelAdmData.moYear + "' and Tciseries eq '" + modelAdmData.series + "' and Brand eq '" +
 						modelAdmData.brand + "')";
-					var oURL2 = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileSet(Brand='" + modelAdmData.brand + "',Model='" + modelAdmData.modelDesc + "',Tciseries='" + modelAdmData.series + "',Model_year='" + modelAdmData.moYear + "',Tab='suppliment',Language='" + lang + "',Lastupdate='" + date3 + "',Comment='" + comment + "',FileName='" + filename + "')";
-					/*var oURL2 = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileSet(Comment='" + comment + "',FileName='" + filename + "', 
-						"',Tab='suppliment',Language='" +, lang + "',Lastupdate='" + date3 + "',
-						Lastupdate='" + date3 + "',,Model_year='" + modelAdmData.moYear +
-						"',Brand='" + modelAdmData.brand + "')/$value";*/
+					var oURL2 = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileSet(Brand='" + modelAdmData.brand + "',Model='" + modelAdmData.modelDesc + "',Tciseries='" + modelAdmData.series + "',Model_year='" + modelAdmData.moYear + "',Tab='suppliment',Language='" + lang + "',Lastupdate='" + date3 + "',Comment='" + comment + "',FileName='" + filename + "')/$value";
+				
 					var token;
 					var tbl = sap.ushell.components.suppTbl;
 					var file = jQuery.sap.domById(oFileUploader.getId() + "-fu").files[0];
