@@ -119,7 +119,7 @@ sap.ui.define([
 					//and Model eq 'CamryLE' and Model_year eq '2018' and Tciseries eq 'CAMRY' and Brand eq 'TOYOTA'
 					var oUrl3 = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'suppliment' and Model eq '" + modelAdmData.modelDesc +
 						"' and Model_year eq '" + modelAdmData.moYear + "' and Tciseries eq '" + modelAdmData.series + "' and Brand eq '" +
-						modelAdmData.brand + "')";
+						modelAdmData.brand + "' and Language eq '" + lang.toUpperCase() + "')";
 					var oURL2 = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileSet(Brand='" + modelAdmData.brand + "',Model='" + modelAdmData.modelDesc + "',Tciseries='" + modelAdmData.series + "',Model_year='" + modelAdmData.moYear + "',Tab='suppliment',Language='" + lang + "',Lastupdate='" + date3 + "',Comment='" + comment + "',FileName='" + filename + "')/$value";
 				
 					var token;

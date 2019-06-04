@@ -191,7 +191,7 @@ sap.ui.define([
 					var oUrl5 = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'Walkup')";
 					var oUrl3 = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'Walkup' and Model eq '" + modelAdmData.modelDesc +
 						"' and Model_year eq '" + modelAdmData.moYear + "' and Tciseries eq '" + modelAdmData.series + "' and Brand eq '" +
-						modelAdmData.brand + "')";
+						modelAdmData.brand + "' and Language eq '" + lang.toUpperCase() + "')";
 					var token;
 					var tbl = sap.ushell.components.walkUpTbl;
 					var file = jQuery.sap.domById(oFileUploader.getId() + "-fu").files[0];

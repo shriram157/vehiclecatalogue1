@@ -18,6 +18,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			sap.ushell.components.whatsNewTbl = AdminDetailCntroller.getView().byId("whatsNewTbl");
 			AdminDetailCntroller.getBrowserLanguage();
 			this.lang = AdminDetailCntroller.returnBrowserLanguage();
+			this.lang = this.lang.toUpperCase();
 		},
 		handleRouteMatched: function (oEvent) {
 			var parseArg = JSON.parse(oEvent.getParameters().data.num3);
@@ -37,7 +38,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			var oUrl4 = host + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'suppliment')";
 			var oUrl3 = host + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'suppliment' and Model eq '" + modelAdmData.modelDesc +
 				"' and Model_year eq '" + modelAdmData.moYear + "' and Tciseries eq '" + modelAdmData.series + "' and Brand eq '" + modelAdmData.brand +
-				"' and Language eq '" + this.lang + ")";
+				"' and Language eq '" + this.lang + "')";
 			$.ajax({
 				url: oUrl3,
 				method: 'GET',
@@ -63,7 +64,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			var oUrl4 = host + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'Walkup')";
 			var oUrl3 = host + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'Walkup' and Model eq '" + modelAdmData.modelDesc +
 				"' and Model_year eq '" + modelAdmData.moYear + "' and Tciseries eq '" + modelAdmData.series + "' and Brand eq '" + modelAdmData.brand +
-				"' and Language eq '" + this.lang + ")";
+				"' and Language eq '" + this.lang + "')";
 			$.ajax({
 				url: oUrl3,
 				method: 'GET',
@@ -90,7 +91,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			var oUrl4 = host + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'WhatsNew')";
 			var oUrl3 = host + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'WhatsNew' and Model eq '" + modelAdmData.modelDesc +
 				"' and Model_year eq '" + modelAdmData.moYear + "' and Tciseries eq '" + modelAdmData.series + "' and Brand eq '" + modelAdmData.brand +
-				"' and Language eq '" + this.lang + ")";
+				"' and Language eq '" + this.lang + "')";
 			$.ajax({
 				url: oUrl3,
 				method: 'GET',
@@ -231,7 +232,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 							var Lastupdate = data[oIndex].Lastupdate;
 							var url2 = host +
 								"/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Language eq '" + Language + "' and Lastupdate eq '" + Lastupdate +
-								"' and FileName eq '" + FileName + "' and Language eq '" + this.lang + ")";
+								"' and FileName eq '" + FileName + "' and Language eq '" + this.lang + "')";
 							data.splice(oIndex, 1);
 							modelSupp.setData(data);
 							tbl.setModel(modelSupp);
@@ -334,7 +335,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 							var Lastupdate = data[oIndex].Lastupdate;
 							var url2 = host +
 								"/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Language eq '" + Language + "' and Lastupdate eq '" + Lastupdate +
-								"' and FileName eq '" + FileName + "' and Language eq '" + this.lang + ")";
+								"' and FileName eq '" + FileName + "' and Language eq '" + this.lang + "')";
 							data.splice(oIndex, 1);
 							modelSupp.setData(data);
 							tbl.setModel(modelSupp);
@@ -403,7 +404,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 							var Lastupdate = data[oIndex].Lastupdate;
 							var url2 = host +
 								"/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Language eq '" + Language + "' and Lastupdate eq '" + Lastupdate +
-								"' and FileName eq '" + FileName + "' and Language eq '" + this.lang + ")";
+								"' and FileName eq '" + FileName + "' and Language eq '" + this.lang + "')";
 							data.splice(oIndex, 1);
 							modelSupp.setData(data);
 							tbl.setModel(modelSupp);
