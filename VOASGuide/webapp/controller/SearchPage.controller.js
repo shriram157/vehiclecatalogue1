@@ -205,9 +205,9 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 							if (agroup < bgroup) return -1;
 							if (agroup > bgroup) return 1;
 							// ... and then within group (when relevant)
-							if (a < b) return -1;
-							if (a == b) return 0;
-							if (a > b) return 1;
+							if (parseInt(a, 10) < parseInt(b, 10)) {return -1;}
+							if (parseInt(a,10) === parseInt(b,10)) {return 0;}
+							if (parseInt(a,10) > parseInt(b,10)) {return 1;}
 						};
 						searchController.getView().byId("idTbl_Search").setModel("searchTblModel");
 						searchController.byId("idTbl_Search").getBinding("items").sort(oSorter);
