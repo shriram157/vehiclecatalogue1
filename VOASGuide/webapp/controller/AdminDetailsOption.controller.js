@@ -395,6 +395,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					if (sAction === "DELETE") {
 						var evtContext = tbl._aSelectedPaths[0];
 						if (evtContext != undefined && evtContext != null && evtContext != "") {
+							
 							var oIndex = parseInt(evtContext.substring(evtContext.lastIndexOf('/') + 1));
 							var url = host +
 								"/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Language eq 'EN' and Lastupdate eq '20190125' and FileName eq 'lexus.png')";
@@ -409,14 +410,14 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 							var token;
 
 							$.ajax({
-								url: oURL2,
+								url: url2,
 								type: 'GET',
 								beforeSend: function (xhr) {
 									xhr.setRequestHeader("X-CSRF-Token", "Fetch");
 								},
 								complete: function (xhr) {
 									token = xhr.getResponseHeader("X-CSRF-Token");
-									oBusyDialog.open();
+									//oBusyDialog.open();
 									$.ajax({
 										url: url2,
 										method: 'PUT',
@@ -424,7 +425,6 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 										dataType: "json",
 										beforeSend: function (xhr) {
 											xhr.setRequestHeader('X-CSRF-Token', token);
-											xhr.setRequestHeader('Content-Type', "application/pdf");
 										},
 										success: function (data, textStatus, jqXHR) {
 											data.splice(oIndex, 1);
