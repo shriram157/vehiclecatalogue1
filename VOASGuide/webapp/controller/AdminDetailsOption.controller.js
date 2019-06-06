@@ -3,7 +3,8 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 	"./util/SuplementalDialog", "./util/WhatsNewDialog", "./util/WalkupDialog", "./util/CreateVehicleGuideDialog",
 	"./util/utilities",
 	"sap/ui/core/routing/History", "com/sap/build/toyota-canada/vehiclesGuideV3/Formatter/formatter"
-], function (BaseController, MessageBox, SuplementalDialog, WhatsNewDialog, WalkupDialog, CreateVehicleGuideDialog, utilities, History, formatter) {
+], function (BaseController, MessageBox, SuplementalDialog, WhatsNewDialog, WalkupDialog, CreateVehicleGuideDialog, utilities, History,
+	formatter) {
 	"use strict";
 	var AdminDetailCntroller;
 	return BaseController.extend("com.sap.build.toyota-canada.vehiclesGuideV3.controller.AdminDetailsOption", {
@@ -172,7 +173,6 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			oDialog.setRouter(AdminDetailCntroller.oRouter);
 			//	}
 			oDialog.open();
-			
 
 		},
 		_uploadWhatNew: function () {
@@ -352,7 +352,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 								}
 							});
 						}
-							tbl.removeSelections("true");
+						tbl.removeSelections("true");
 					} else {
 						// 
 					}
@@ -393,7 +393,6 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				actions: [sap.m.MessageBox.Action.DELETE, sap.m.MessageBox.Action.CANCEL],
 				onClose: function (sAction) {
 					if (sAction === "DELETE") {
-
 						var evtContext = tbl._aSelectedPaths[0];
 						if (evtContext != undefined && evtContext != null && evtContext != "") {
 							var oIndex = parseInt(evtContext.substring(evtContext.lastIndexOf('/') + 1));
@@ -405,29 +404,44 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 							var Language = data[oIndex].Language;
 							var Lastupdate = data[oIndex].Lastupdate;
 							var url2 = host +
-								"/Z_VEHICLE_CATALOGUE_SRV/FileSet(Comment='X',FileName='X',Language='" + Language + "',Lastupdate='X',Tab='Walkup',Model='X',Model_year='X',Tciseries='X',Brand='"+ modelAdmData.brand + "')/$value";
-							
-						/*	data.splice(oIndex, 1);
-							modelSupp.setData(data);
-							tbl.setModel(modelSupp);*/
+								"/Z_VEHICLE_CATALOGUE_SRV/FileSet(Comment='X',FileName='X',Language='" + Language +
+								"',Lastupdate='X',Tab='Walkup',Model='X',Model_year='X',Tciseries='X',Brand='" + modelAdmData.brand + "')/$value";
+							var token;
+
 							$.ajax({
-								url: url2,
-								method: 'GET',
-								async: false,
-								dataType: "json",
-								success: function (data, textStatus, jqXHR) {
-										data.splice(oIndex, 1);
-										modelSupp.setData(data);
-										tbl.setModel(modelSupp);
+								url: oURL2,
+								type: 'GET',
+								beforeSend: function (xhr) {
+									xhr.setRequestHeader("X-CSRF-Token", "Fetch");
 								},
-								error: function (jqXHR, textStatus, errorThrown) {
-									var errMsg = AdminDetailCntroller.getView().getModel("i18n").getResourceBundle().getText("Error1");
-									sap.m.MessageBox.show(errMsg, sap.m.MessageBox.Icon.ERROR,
-										"Error", sap.m.MessageBox.Action.OK, null, null);
+								complete: function (xhr) {
+									token = xhr.getResponseHeader("X-CSRF-Token");
+									oBusyDialog.open();
+									$.ajax({
+										url: url2,
+										method: 'PUT',
+										async: false,
+										dataType: "json",
+										beforeSend: function (xhr) {
+											xhr.setRequestHeader('X-CSRF-Token', token);
+											xhr.setRequestHeader('Content-Type', "application/pdf");
+										},
+										success: function (data, textStatus, jqXHR) {
+											data.splice(oIndex, 1);
+											modelSupp.setData(data);
+											tbl.setModel(modelSupp);
+										},
+										error: function (jqXHR, textStatus, errorThrown) {
+											var errMsg = AdminDetailCntroller.getView().getModel("i18n").getResourceBundle().getText("Error1");
+											sap.m.MessageBox.show(errMsg, sap.m.MessageBox.Icon.ERROR,
+												"Error", sap.m.MessageBox.Action.OK, null, null);
+										}
+
+									});
 								}
 							});
 						}
-							tbl.removeSelections("true");
+						tbl.removeSelections("true");
 					} else {
 						//
 					}
