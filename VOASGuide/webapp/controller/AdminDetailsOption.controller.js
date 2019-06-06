@@ -232,7 +232,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 							var Lastupdate = data[oIndex].Lastupdate;
 							var url2 = host +
 								"/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Language eq '" + Language + "' and Lastupdate eq '" + Lastupdate +
-								"' and FileName eq '" + FileName + "' and Language eq '" + this.lang + "')";
+								"' and FileName eq '" + FileName + "')";
 							data.splice(oIndex, 1);
 							modelSupp.setData(data);
 							tbl.setModel(modelSupp);
@@ -335,7 +335,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 							var Lastupdate = data[oIndex].Lastupdate;
 							var url2 = host +
 								"/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Language eq '" + Language + "' and Lastupdate eq '" + Lastupdate +
-								"' and FileName eq '" + FileName + "' and Language eq '" + this.lang + "')";
+								"' and FileName eq '" + FileName + "')";
 							data.splice(oIndex, 1);
 							modelSupp.setData(data);
 							tbl.setModel(modelSupp);
@@ -383,6 +383,8 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 		_deleteFileWalkUp: function (evt) {
 			var host = AdminDetailCntroller.host();
 			var tbl = evt.getSource().getParent().getParent();
+			var modelAdm = sap.ui.getCore().getModel("modelAdmin");
+			var modelAdmData = modelAdm.getData();
 			var errMsg = "Are you sure you want to Delete the selected Walk Up PDF?"; //AdminDetailCntroller.getView().getModel("i18n").getResourceBundle().getText("deleteError");
 			var title = "Delete"; //AdminDetailCntroller.getView().getModel("i18n").getResourceBundle().getText("title1");
 			sap.m.MessageBox.show(errMsg, {
@@ -403,17 +405,21 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 							var Language = data[oIndex].Language;
 							var Lastupdate = data[oIndex].Lastupdate;
 							var url2 = host +
-								"/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Language eq '" + Language + "' and Lastupdate eq '" + Lastupdate +
-								"' and FileName eq '" + FileName + "' and Language eq '" + this.lang + "')";
-							data.splice(oIndex, 1);
+								"/Z_VEHICLE_CATALOGUE_SRV/FileSet(Comment='X',FileName='X',Language='" + Language + "',Lastupdate='X',Tab='Walkup',Model='X',Model_year='X',Tciseries='X',Brand='"+ modelAdmData.brand + "')/$value";
+							
+						/*	data.splice(oIndex, 1);
 							modelSupp.setData(data);
-							tbl.setModel(modelSupp);
+							tbl.setModel(modelSupp);*/
 							$.ajax({
 								url: url2,
 								method: 'GET',
 								async: false,
 								dataType: "json",
-								success: function (data, textStatus, jqXHR) {},
+								success: function (data, textStatus, jqXHR) {
+										data.splice(oIndex, 1);
+										modelSupp.setData(data);
+										tbl.setModel(modelSupp);
+								},
 								error: function (jqXHR, textStatus, errorThrown) {
 									var errMsg = AdminDetailCntroller.getView().getModel("i18n").getResourceBundle().getText("Error1");
 									sap.m.MessageBox.show(errMsg, sap.m.MessageBox.Icon.ERROR,
