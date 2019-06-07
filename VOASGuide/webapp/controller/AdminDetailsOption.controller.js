@@ -234,7 +234,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 							var Lastupdate = tblData[oIndex].Lastupdate;
 							var url2 = host +
 								"/Z_VEHICLE_CATALOGUE_SRV/FileSet(Comment='X',FileName='" + FileName + "',Language='" + Language +
-								"',Lastupdate='" + Lastupdate + "',Tab='Walkup',Model='" + modelAdmData.modelDesc + "',Model_year='" + modelAdmData.moYear +
+								"',Lastupdate='" + Lastupdate + "',Tab='WhatsNew',Model='" + modelAdmData.modelDesc + "',Model_year='" + modelAdmData.moYear +
 								"',Tciseries='" + modelAdmData.series + "',Brand='" + modelAdmData.brand + "')/$value";
 							var token;
 
@@ -359,7 +359,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 							var Lastupdate = tblData[oIndex].Lastupdate;
 							var url2 = host +
 								"/Z_VEHICLE_CATALOGUE_SRV/FileSet(Comment='X',FileName='" + FileName + "',Language='" + Language +
-								"',Lastupdate='" + Lastupdate + "',Tab='Walkup',Model='" + modelAdmData.modelDesc + "',Model_year='" + modelAdmData.moYear +
+								"',Lastupdate='" + Lastupdate + "',Tab='suppliment',Model='" + modelAdmData.modelDesc + "',Model_year='" + modelAdmData.moYear +
 								"',Tciseries='" + modelAdmData.series + "',Brand='" + modelAdmData.brand + "')/$value";
 							var token;
 
