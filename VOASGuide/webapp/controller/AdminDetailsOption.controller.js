@@ -208,6 +208,8 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 
 		},
 		_deleteWhatNew: function (evt) {
+			var modelAdm = sap.ui.getCore().getModel("modelAdmin");
+			var modelAdmData = modelAdm.getData();
 			var host = AdminDetailCntroller.host();
 			var tbl = evt.getSource().getParent().getParent();
 			var errMsg = "Are you sure you want to Delete the selected What's New PDF?"; //AdminDetailCntroller.getView().getModel("i18n").getResourceBundle().getText("deleteError");
@@ -221,31 +223,50 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					if (sAction === "DELETE") {
 
 						var evtContext = tbl._aSelectedPaths[0];
-						if (evtContext != undefined && evtContext != null && evtContext != "") {
+						if (evtContext != undefined && evtContext !== null && evtContext != "") {
 							var oIndex = parseInt(evtContext.substring(evtContext.lastIndexOf('/') + 1));
 							var url = host +
 								"/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Language eq 'EN' and Lastupdate eq '20190125' and FileName eq 'lexus.png')";
 							var modelSupp = sap.ui.getCore().getModel("whatsNewTblModel");
-							var data = modelSupp.getData();
-							var FileName = data[oIndex].FileName;
-							var Language = data[oIndex].Language;
-							var Lastupdate = data[oIndex].Lastupdate;
+							var tblData = modelSupp.getData();
+							var FileName = tblData[oIndex].FileName;
+							var Language = tblData[oIndex].Language;
+							var Lastupdate = tblData[oIndex].Lastupdate;
 							var url2 = host +
-								"/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Language eq '" + Language + "' and Lastupdate eq '" + Lastupdate +
-								"' and FileName eq '" + FileName + "')";
-							data.splice(oIndex, 1);
-							modelSupp.setData(data);
-							tbl.setModel(modelSupp);
+								"/Z_VEHICLE_CATALOGUE_SRV/FileSet(Comment='X',FileName='" + FileName + "',Language='" + Language +
+								"',Lastupdate='" + Lastupdate + "',Tab='Walkup',Model='" + modelAdmData.modelDesc + "',Model_year='" + modelAdmData.moYear +
+								"',Tciseries='" + modelAdmData.series + "',Brand='" + modelAdmData.brand + "')/$value";
+							var token;
+
 							$.ajax({
 								url: url2,
-								method: 'GET',
-								async: false,
-								dataType: "json",
-								success: function (data, textStatus, jqXHR) {},
-								error: function (jqXHR, textStatus, errorThrown) {
-									var errMsg = AdminDetailCntroller.getView().getModel("i18n").getResourceBundle().getText("Error1");
-									sap.m.MessageBox.show(errMsg, sap.m.MessageBox.Icon.ERROR,
-										"Error", sap.m.MessageBox.Action.OK, null, null);
+								type: 'GET',
+								beforeSend: function (xhr) {
+									xhr.setRequestHeader("X-CSRF-Token", "Fetch");
+								},
+								complete: function (xhr) {
+									token = xhr.getResponseHeader("X-CSRF-Token");
+									//oBusyDialog.open();
+									$.ajax({
+										url: url2,
+										method: 'PUT',
+										async: false,
+										dataType: "json",
+										beforeSend: function (xhr) {
+											xhr.setRequestHeader('X-CSRF-Token', token);
+										},
+										success: function (data, textStatus, jqXHR) {
+											tblData.splice(oIndex, 1);
+											modelSupp.setData(data);
+											tbl.setModel(modelSupp);
+										},
+										error: function (jqXHR, textStatus, errorThrown) {
+											var errMsg = AdminDetailCntroller.getView().getModel("i18n").getResourceBundle().getText("Error1");
+											sap.m.MessageBox.show(errMsg, sap.m.MessageBox.Icon.ERROR,
+												"Error", sap.m.MessageBox.Action.OK, null, null);
+										}
+
+									});
 								}
 							});
 						}
@@ -313,6 +334,8 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				});
 			},*/
 		_deleteFileSupp: function (evt) {
+			var modelAdm = sap.ui.getCore().getModel("modelAdmin");
+			var modelAdmData = modelAdm.getData();
 			var host = AdminDetailCntroller.host();
 			var tbl = evt.getSource().getParent().getParent();
 			var errMsg = "Are you sure you want to Delete the selected Supplemental Guide?"; //AdminDetailCntroller.getView().getModel("i18n").getResourceBundle().getText("deleteError");
@@ -323,32 +346,52 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				actions: [sap.m.MessageBox.Action.DELETE, sap.m.MessageBox.Action.CANCEL],
 				onClose: function (sAction) {
 					if (sAction === "DELETE") {
+
 						var evtContext = tbl._aSelectedPaths[0];
 						if (evtContext != undefined && evtContext != null && evtContext != "") {
 							var oIndex = parseInt(evtContext.substring(evtContext.lastIndexOf('/') + 1));
 							var url = host +
 								"/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Language eq 'EN' and Lastupdate eq '20190125' and FileName eq 'lexus.png')";
 							var modelSupp = sap.ui.getCore().getModel("suppTblModel");
-							var data = modelSupp.getData();
-							var FileName = data[oIndex].FileName;
-							var Language = data[oIndex].Language;
-							var Lastupdate = data[oIndex].Lastupdate;
+							var tblData = modelSupp.getData();
+							var FileName = tblData[oIndex].FileName;
+							var Language = tblData[oIndex].Language;
+							var Lastupdate = tblData[oIndex].Lastupdate;
 							var url2 = host +
-								"/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Language eq '" + Language + "' and Lastupdate eq '" + Lastupdate +
-								"' and FileName eq '" + FileName + "')";
-							data.splice(oIndex, 1);
-							modelSupp.setData(data);
-							tbl.setModel(modelSupp);
+								"/Z_VEHICLE_CATALOGUE_SRV/FileSet(Comment='X',FileName='" + FileName + "',Language='" + Language +
+								"',Lastupdate='" + Lastupdate + "',Tab='Walkup',Model='" + modelAdmData.modelDesc + "',Model_year='" + modelAdmData.moYear +
+								"',Tciseries='" + modelAdmData.series + "',Brand='" + modelAdmData.brand + "')/$value";
+							var token;
+
 							$.ajax({
 								url: url2,
-								method: 'GET',
-								async: false,
-								dataType: "json",
-								success: function (data, textStatus, jqXHR) {},
-								error: function (jqXHR, textStatus, errorThrown) {
-									var errMsg = AdminDetailCntroller.getView().getModel("i18n").getResourceBundle().getText("Error1");
-									sap.m.MessageBox.show(errMsg, sap.m.MessageBox.Icon.ERROR,
-										"Error", sap.m.MessageBox.Action.OK, null, null);
+								type: 'GET',
+								beforeSend: function (xhr) {
+									xhr.setRequestHeader("X-CSRF-Token", "Fetch");
+								},
+								complete: function (xhr) {
+									token = xhr.getResponseHeader("X-CSRF-Token");
+									//oBusyDialog.open();
+									$.ajax({
+										url: url2,
+										method: 'PUT',
+										async: false,
+										dataType: "json",
+										beforeSend: function (xhr) {
+											xhr.setRequestHeader('X-CSRF-Token', token);
+										},
+										success: function (data, textStatus, jqXHR) {
+											tblData.splice(oIndex, 1);
+											modelSupp.setData(data);
+											tbl.setModel(modelSupp);
+										},
+										error: function (jqXHR, textStatus, errorThrown) {
+											var errMsg = AdminDetailCntroller.getView().getModel("i18n").getResourceBundle().getText("Error1");
+											sap.m.MessageBox.show(errMsg, sap.m.MessageBox.Icon.ERROR,
+												"Error", sap.m.MessageBox.Action.OK, null, null);
+										}
+
+									});
 								}
 							});
 						}
@@ -395,18 +438,19 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					if (sAction === "DELETE") {
 						var evtContext = tbl._aSelectedPaths[0];
 						if (evtContext != undefined && evtContext != null && evtContext != "") {
-							
+
 							var oIndex = parseInt(evtContext.substring(evtContext.lastIndexOf('/') + 1));
 							var url = host +
 								"/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Language eq 'EN' and Lastupdate eq '20190125' and FileName eq 'lexus.png')";
 							var modelSupp = sap.ui.getCore().getModel("walkUpTblModel");
-							var data = modelSupp.getData();
-							var FileName = data[oIndex].FileName;
-							var Language = data[oIndex].Language;
-							var Lastupdate = data[oIndex].Lastupdate;
+							var tblData = modelSupp.getData();
+							var FileName = tblData[oIndex].FileName;
+							var Language = tblData[oIndex].Language;
+							var Lastupdate = tblData[oIndex].Lastupdate;
 							var url2 = host +
-								"/Z_VEHICLE_CATALOGUE_SRV/FileSet(Comment='X',FileName='X',Language='" + Language +
-								"',Lastupdate='X',Tab='Walkup',Model='X',Model_year='X',Tciseries='X',Brand='" + modelAdmData.brand + "')/$value";
+								"/Z_VEHICLE_CATALOGUE_SRV/FileSet(Comment='X',FileName='" + FileName + "',Language='" + Language +
+								"',Lastupdate='" + Lastupdate + "',Tab='Walkup',Model='" + modelAdmData.modelDesc + "',Model_year='" + modelAdmData.moYear +
+								"',Tciseries='" + modelAdmData.series + "',Brand='" + modelAdmData.brand + "')/$value";
 							var token;
 
 							$.ajax({
@@ -427,7 +471,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 											xhr.setRequestHeader('X-CSRF-Token', token);
 										},
 										success: function (data, textStatus, jqXHR) {
-											data.splice(oIndex, 1);
+											tblData.splice(oIndex, 1);
 											modelSupp.setData(data);
 											tbl.setModel(modelSupp);
 										},
