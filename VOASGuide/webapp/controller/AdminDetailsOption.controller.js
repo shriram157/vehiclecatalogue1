@@ -257,7 +257,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 										},
 										success: function (data, textStatus, jqXHR) {
 											tblData.splice(oIndex, 1);
-											modelSupp.setData(data);
+											modelSupp.setData(tblData);
 											tbl.setModel(modelSupp);
 										},
 										error: function (jqXHR, textStatus, errorThrown) {
@@ -382,7 +382,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 										},
 										success: function (data, textStatus, jqXHR) {
 											tblData.splice(oIndex, 1);
-											modelSupp.setData(data);
+											modelSupp.setData(tblData);
 											tbl.setModel(modelSupp);
 										},
 										error: function (jqXHR, textStatus, errorThrown) {
@@ -472,7 +472,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 										},
 										success: function (data, textStatus, jqXHR) {
 											tblData.splice(oIndex, 1);
-											modelSupp.setData(data);
+											modelSupp.setData(tblData);
 											tbl.setModel(modelSupp);
 										},
 										error: function (jqXHR, textStatus, errorThrown) {
