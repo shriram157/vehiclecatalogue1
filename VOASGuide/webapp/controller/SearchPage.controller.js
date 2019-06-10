@@ -323,7 +323,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 
 			}
 			
-			     		this.listOfModelYear();   
+			  	this.listOfModelYear();   
 
 		},
 
