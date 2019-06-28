@@ -17,41 +17,28 @@ sap.ui.define([
 			var brandCB = sap.ushell.components.brandCB;
 			var brandVal = brandCB.getValue();
 			var userModel = sap.ui.getCore().getModel("userModel");
-			var bpDealerModel = sap.ui.getCore().getModel("BpDealerModel");
+			var urlParamsModel = sap.ui.getCore().getModel("urlParamsModel");
+			var division = "10";
+			if (urlParamsModel && urlParamsModel.getData().Division) {
+				division = urlParamsModel.getData().Division;
+			}
 			var userData = [];
-			var bpData = [];
 			if (userModel) {
 				userData = userModel.getData();
-				if (bpDealerModel) {
-
-					bpData = bpDealerModel.getData();
-					if (userData.loggedUserType[0] == "Dealer_User" || userData.loggedUserType[0] == "Dealer_Admin") {
-						if (bpData[0].Division == "10") {
-							CreateWalkUpDialogController.getView().byId("idWalk_brandCB").setEnabled(false);
-							CreateWalkUpDialogController.getView().byId("idWalk_brandCB").setSelectedKey("1");
-						} else if (bpData[0].Division == "20") {
-							CreateWalkUpDialogController.getView().byId("idWalk_brandCB").setEnabled(false);
-							CreateWalkUpDialogController.getView().byId("idWalk_brandCB").setSelectedKey("2");
-						}
-					} else if (userData.loggedUserType[0] == "TCI_User" || userData.loggedUserType[0] == "TCI_User_Preliminary") {
-
-						CreateWalkUpDialogController.getView().byId("idWalk_brandCB").setEnabled(true);
-						CreateWalkUpDialogController.getView().byId("idWalk_brandCB").setValue(brandVal);
-
-					} else {
-						CreateWalkUpDialogController.getView().byId("idWalk_brandCB").setEnabled(true);
-						CreateWalkUpDialogController.getView().byId("idWalk_brandCB").setValue(brandVal);
+				if (userData.loggedUserType[0] == "Dealer_User" || userData.loggedUserType[0] == "Dealer_Admin") {
+					if (division == "10") {
+						CreateWalkUpDialogController.getView().byId("idWalk_brandCB").setEnabled(false);
+						CreateWalkUpDialogController.getView().byId("idWalk_brandCB").setSelectedKey("1");
+					} else if (division == "20") {
+						CreateWalkUpDialogController.getView().byId("idWalk_brandCB").setEnabled(false);
+						CreateWalkUpDialogController.getView().byId("idWalk_brandCB").setSelectedKey("2");
 					}
+				} else if (userData.loggedUserType[0] == "TCI_User" || userData.loggedUserType[0] == "TCI_User_Preliminary") {
+					CreateWalkUpDialogController.getView().byId("idWalk_brandCB").setEnabled(true);
+					CreateWalkUpDialogController.getView().byId("idWalk_brandCB").setValue(brandVal);
 				} else {
-					if (userData.loggedUserType[0] == "TCI_User" || userData.loggedUserType[0] == "TCI_User_Preliminary") {
-
-						CreateWalkUpDialogController.getView().byId("idWalk_brandCB").setEnabled(true);
-						CreateWalkUpDialogController.getView().byId("idWalk_brandCB").setValue(brandVal);
-
-					} else {
-						CreateWalkUpDialogController.getView().byId("idWalk_brandCB").setEnabled(true);
-						CreateWalkUpDialogController.getView().byId("idWalk_brandCB").setValue(brandVal);
-					}
+					CreateWalkUpDialogController.getView().byId("idWalk_brandCB").setEnabled(true);
+					CreateWalkUpDialogController.getView().byId("idWalk_brandCB").setValue(brandVal);
 				}
 			}
 		},
@@ -59,7 +46,6 @@ sap.ui.define([
 
 			CreateWalkUpDialogController._oDialog = CreateWalkUpDialogController.getControl();
 			CreateWalkUpDialogController.listOfBrand();
-			
 
 			var userModel = sap.ui.getCore().getModel("userModel");
 			var userData = userModel.getData();

@@ -18,39 +18,34 @@ sap.ui.define([
 			var brandCB = sap.ushell.components.brandCB;
 			var brandVal = brandCB.getValue();
 			var userModel = sap.ui.getCore().getModel("userModel");
-			var bpDealerModel = sap.ui.getCore().getModel("BpDealerModel");
+			var urlParamsModel = sap.ui.getCore().getModel("urlParamsModel");
+			var division = "10";
+			if (urlParamsModel && urlParamsModel.getData().Division) {
+				division = urlParamsModel.getData().Division;
+			}
 			var userData = [];
-			var bpData = [];
 			if (userModel) {
-				if (bpDealerModel) {
-					userData = userModel.getData();
-					bpData = bpDealerModel.getData();
-					if (userData.loggedUserType[0] == "Dealer_User" || userData.loggedUserType[0] == "Dealer_Admin") {
-						if (bpData[0].Division == "10") {
-							CreatePocketSumController.getView().byId("idPoc_brandCB").setEnabled(false);
-							CreatePocketSumController.getView().byId("idPoc_brandCB").setSelectedKey("1");
-						} else if (bpData[0].Division == "20") {
-							CreatePocketSumController.getView().byId("idPoc_brandCB").setEnabled(false);
-							CreatePocketSumController.getView().byId("idPoc_brandCB").setSelectedKey("2");
-						}
-					} else if (userData.loggedUserType[0] == "TCI_User" || userData.loggedUserType[0] == "TCI_User_Preliminary") {
-
-						CreatePocketSumController.getView().byId("idPoc_brandCB").setEnabled(true);
-						CreatePocketSumController.getView().byId("idPoc_brandCB").setValue(brandVal);
-
-					} else {
-						CreatePocketSumController.getView().byId("idPoc_brandCB").setEnabled(true);
-						CreatePocketSumController.getView().byId("idPoc_brandCB").setValue(brandVal);
+				userData = userModel.getData();
+				if (userData.loggedUserType[0] == "Dealer_User" || userData.loggedUserType[0] == "Dealer_Admin") {
+					if (division == "10") {
+						CreatePocketSumController.getView().byId("idPoc_brandCB").setEnabled(false);
+						CreatePocketSumController.getView().byId("idPoc_brandCB").setSelectedKey("1");
+					} else if (division == "20") {
+						CreatePocketSumController.getView().byId("idPoc_brandCB").setEnabled(false);
+						CreatePocketSumController.getView().byId("idPoc_brandCB").setSelectedKey("2");
 					}
+				} else if (userData.loggedUserType[0] == "TCI_User" || userData.loggedUserType[0] == "TCI_User_Preliminary") {
+					CreatePocketSumController.getView().byId("idPoc_brandCB").setEnabled(true);
+					CreatePocketSumController.getView().byId("idPoc_brandCB").setValue(brandVal);
+				} else {
+					CreatePocketSumController.getView().byId("idPoc_brandCB").setEnabled(true);
+					CreatePocketSumController.getView().byId("idPoc_brandCB").setValue(brandVal);
 				}
 				if (userData.loggedUserType[0] == "TCI_User" || userData.loggedUserType[0] == "TCI_User_Preliminary" || userData.loggedUserType[0] ==
 					"Dealer_User") {
-
 					CreatePocketSumController.getView().byId("id_poc_DealerSwitch").setEnabled(false);
 					CreatePocketSumController.getView().byId("id_poc_DealerSwitch").setState(false);
-
 				}
-
 			}
 		},
 		onInit: function () {

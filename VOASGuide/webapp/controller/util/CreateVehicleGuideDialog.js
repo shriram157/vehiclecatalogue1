@@ -19,30 +19,30 @@ sap.ui.define([
 			var brandCB = sap.ushell.components.brandCB;
 			var brandVal = brandCB.getValue();
 			var userModel = sap.ui.getCore().getModel("userModel");
-			var bpDealerModel = sap.ui.getCore().getModel("BpDealerModel");
+			var urlParamsModel = sap.ui.getCore().getModel("urlParamsModel");
+			var division = "10";
+			if (urlParamsModel && urlParamsModel.getData().Division) {
+				division = urlParamsModel.getData().Division;
+			}
 			var userData = [];
-			var bpData = [];
 			if (userModel) {
-				if (bpDealerModel) {
-					userData = userModel.getData();
-					bpData = bpDealerModel.getData();
-					if (userData.loggedUserType[0] == "Dealer_User" || userData.loggedUserType[0] == "Dealer_Admin") {
-						if (bpData[0].Division == "10") {
-							CreateVehicleGuideDialogController.getView().byId("idVeh_brandCB").setEnabled(false);
-							CreateVehicleGuideDialogController.getView().byId("idVeh_brandCB").setSelectedKey("1");
-						} else if (bpData[0].Division == "20") {
-							CreateVehicleGuideDialogController.getView().byId("idVeh_brandCB").setEnabled(false);
-							CreateVehicleGuideDialogController.getView().byId("idVeh_brandCB").setSelectedKey("2");
-						}
-					} else if (userData.loggedUserType[0] == "TCI_User" || userData.loggedUserType[0] == "TCI_User_Preliminary") {
-
-						CreateVehicleGuideDialogController.getView().byId("idVeh_brandCB").setEnabled(true);
-						CreateVehicleGuideDialogController.getView().byId("idVeh_brandCB").setValue(brandVal);
-
-					} else {
-						CreateVehicleGuideDialogController.getView().byId("idVeh_brandCB").setEnabled(true);
-						CreateVehicleGuideDialogController.getView().byId("idVeh_brandCB").setValue(brandVal);
+				userData = userModel.getData();
+				if (userData.loggedUserType[0] == "Dealer_User" || userData.loggedUserType[0] == "Dealer_Admin") {
+					if (division == "10") {
+						CreateVehicleGuideDialogController.getView().byId("idVeh_brandCB").setEnabled(false);
+						CreateVehicleGuideDialogController.getView().byId("idVeh_brandCB").setSelectedKey("1");
+					} else if (division == "20") {
+						CreateVehicleGuideDialogController.getView().byId("idVeh_brandCB").setEnabled(false);
+						CreateVehicleGuideDialogController.getView().byId("idVeh_brandCB").setSelectedKey("2");
 					}
+				} else if (userData.loggedUserType[0] == "TCI_User" || userData.loggedUserType[0] == "TCI_User_Preliminary") {
+
+					CreateVehicleGuideDialogController.getView().byId("idVeh_brandCB").setEnabled(true);
+					CreateVehicleGuideDialogController.getView().byId("idVeh_brandCB").setValue(brandVal);
+
+				} else {
+					CreateVehicleGuideDialogController.getView().byId("idVeh_brandCB").setEnabled(true);
+					CreateVehicleGuideDialogController.getView().byId("idVeh_brandCB").setValue(brandVal);
 				}
 				if (userData.loggedUserType[0] == "TCI_User" || userData.loggedUserType[0] == "TCI_User_Preliminary" || userData.loggedUserType[0] ==
 					"Dealer_User") {
@@ -58,7 +58,7 @@ sap.ui.define([
 		onInit: function () {
 			CreateVehicleGuideDialogController._oDialog = CreateVehicleGuideDialogController.getControl();
 			CreateVehicleGuideDialogController.listOfBrand();
-			
+
 			var brandCB = sap.ushell.components.brandCB;
 			var moYearCB = sap.ushell.components.modelYearCB;
 			var seriesCB = sap.ushell.components.seriesCB;
@@ -218,7 +218,7 @@ sap.ui.define([
 			CreateVehicleGuideDialogController.nodeJsUrl = CreateVehicleGuideDialogController.sPrefix + "/node";
 			var host = CreateVehicleGuideDialogController.nodeJsUrl;
 			var brandCB = CreateVehicleGuideDialogController.getView().byId("idVeh_brandCB");
-			
+
 			var language = CreateVehicleGuideDialogController.language; // searchController.returnBrowserLanguage(); //"EN";
 
 			var url2 = host + "/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(Brand eq '" + brandCB.getValue() +

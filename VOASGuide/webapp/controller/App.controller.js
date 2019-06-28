@@ -5,23 +5,15 @@ sap.ui.define([
 	var AppController;
 
 	return BaseController.extend("com.sap.build.toyota-canada.vehiclesGuideV3.controller.App", {
-		
 		onInit: function () {
 			AppController = this;
-			// AppController._user();
 			AppController.userAPI();
-			var bpModel = sap.ui.getCore().getModel("BpDealerModel");
-			if (bpModel) {
-				if (bpModel.getData()[0].Division == "10") {
-					AppController.getView().byId("idLogo").setSrc("images/Toyota.png");
-				} else {
-					AppController.getView().byId("idLogo").setSrc("images/Lexus.png");
-				}
+			var urlParamsModel = sap.ui.getCore().getModel("urlParamsModel");
+			var logoPath = "images/Toyota.png";
+			if (urlParamsModel && urlParamsModel.getData().Division === "20") {
+				logoPath = "images/Lexus.png";
 			}
-			else{
-					AppController.getView().byId("idLogo").setSrc("images/Toyota.png");
-			}
-
+			AppController.getView().byId("idLogo").setSrc(logoPath);
 		},
 
 		_user: function () {
@@ -43,23 +35,36 @@ sap.ui.define([
 				"legacyDealer": "42120",
 				"legacyDealerName": "Don Valley North Toyota"
 			};
-			var bpModel = new sap.ui.model.json.JSONModel(userAttributesData.attributes);
-			sap.ui.getCore().setModel(bpModel, "BpDealerModel");
 			var userAttModel = new sap.ui.model.json.JSONModel(userAttributesData.samlAttributes);
 			sap.ui.getCore().setModel(userAttModel, "userAttributesModel");
 			var userLoggedData = {
-				"loggedUserType":["TCI_Admin"] //["TCI_User"]//["Dealer_User"]
+				"loggedUserType": ["TCI_Admin"] //["TCI_User"]//["Dealer_User"]
 			};
 			var userModel = new sap.ui.model.json.JSONModel(userLoggedData);
 			sap.ui.getCore().setModel(userModel, "userModel");
 		},
 
-		onAfterRendering:function(){
-		//this.getUserLanguage();	
-		this.getBrowserLanguage();
+		onAfterRendering: function () {
+			this.getBrowserLanguage();
 		},
 
 		userAPI: function () {
+			// Store URL params into a model
+			var urlParamsModel = new sap.ui.model.json.JSONModel();
+			var division = jQuery.sap.getUriParameters().get('Division');
+			if (!division) {
+				division = "10";
+			}
+			var language = jQuery.sap.getUriParameters().get('Language');
+			if (!language) {
+				language = "en";
+			}
+			urlParamsModel.setData({
+				Division: division,
+				Language: language
+			});
+			sap.ui.getCore().setModel(urlParamsModel, "urlParamsModel");
+
 			var host = AppController.hostAPI();
 			$.ajax({
 				url: host + "/userDetails/attributes",
@@ -67,9 +72,6 @@ sap.ui.define([
 				dataType: "json",
 				async: false,
 				success: function (oData) {
-					console.log(oData);
-					var bpModel = new sap.ui.model.json.JSONModel(oData.attributes);
-					sap.ui.getCore().setModel(bpModel, "BpDealerModel");
 					var userAttModel = new sap.ui.model.json.JSONModel(oData.samlAttributes);
 					sap.ui.getCore().setModel(userAttModel, "userAttributesModel");
 				},
@@ -83,7 +85,6 @@ sap.ui.define([
 				dataType: "json",
 				async: false,
 				success: function (Data) {
-					console.log(Data);
 					var userModel = new sap.ui.model.json.JSONModel(Data);
 					sap.ui.getCore().setModel(userModel, "userModel");
 				},
