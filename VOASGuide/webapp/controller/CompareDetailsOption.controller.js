@@ -105,14 +105,12 @@ sap.ui.define([
 				stateSwitch = this.getView().byId("stdFeatSwitchId5");
 				//	this.getView().byId("hboxCompare").addStyleClass("paddingleft4");
 			}
-			console.log("len: " + len);
 			if (parseArg[0].model !== "") {
 				/*	if (parseArg[0].model !== "[]") {
 						newModelStr = "Model eq '" +parseArg[0].model;
 					} else {*/
 				var parseModelPathArg = JSON.parse(parseArg[0].model);
 				var lenModel = parseModelPathArg.length;
-				console.log("lenModel: " + lenModel);
 				var jsonModel = JSON.parse(parseArg[0].model);
 				for (var i = 0; i < lenModel; i++) {
 					modelText[i] = jsonModel[i];
@@ -187,25 +185,21 @@ sap.ui.define([
 			var host = CDO_controller.host();
 			var url2 = "";
 			if (modelDescString == "" && suffixDescString !== "") {
-				console.log("1");
 				url2 = host +
 					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + CDO_controller.user + "' and Brand eq  '" + brandCBVal +
 					" ' and TCISeries eq  '" + seriesCBVal +
 					"' and (" + newSuffixStr + ") and Modelyear eq  '" + modelYearCBVal + " 'and Language eq '" + CDO_controller.language + "')";
 			} else if (suffixDescString == "" && modelDescString !== "") {
-				console.log("2");
 				url2 = host +
 					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + CDO_controller.user + "' and Brand eq  '" + brandCBVal +
 					" ' and TCISeries eq  '" + seriesCBVal +
 					" ' and Modelyear eq  '" + modelYearCBVal + " 'and (" + newModelStr + ") and Language eq '" + CDO_controller.language + "')";
 			} else if (suffixDescString == "" && modelDescString == "") {
-				console.log("3");
 				url2 = host +
 					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + CDO_controller.user + "' and Brand eq  '" + brandCBVal +
 					" ' and TCISeries eq  '" + seriesCBVal +
 					" ' and Modelyear eq  '" + modelYearCBVal + " 'and Language eq '" + CDO_controller.language + "')";
 			} else {
-				console.log("4");
 				url2 = host +
 					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + CDO_controller.user + "' and Brand eq  '" + brandCBVal +
 					" ' and TCISeries eq  '" + seriesCBVal +
@@ -1447,25 +1441,21 @@ sap.ui.define([
 			var host = CDO_controller.host();
 			var url2 = "";
 			if (modelDescString == "" && suffixDescString !== "") {
-				console.log("1");
 				url2 = host +
 					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + CDO_controller.user + "' and Brand eq  '" + brandCBVal +
 					" ' and TCISeries eq  '" + seriesCBVal +
 					"' and (" + newSuffixStr + ") and Modelyear eq  '" + modelYearCBVal + " 'and Language eq '" + CDO_controller.language + "')";
 			} else if (suffixDescString == "" && modelDescString !== "") {
-				console.log("2");
 				url2 = host +
 					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + CDO_controller.user + "' and Brand eq  '" + brandCBVal +
 					" ' and TCISeries eq  '" + seriesCBVal +
 					" ' and Modelyear eq  '" + modelYearCBVal + " 'and (" + newModelStr + ") and Language eq '" + CDO_controller.language + "')";
 			} else if (suffixDescString == "" && modelDescString == "") {
-				console.log("3");
 				url2 = host +
 					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + CDO_controller.user + "' and Brand eq  '" + brandCBVal +
 					" ' and TCISeries eq  '" + seriesCBVal +
 					" ' and Modelyear eq  '" + modelYearCBVal + " 'and Language eq '" + CDO_controller.language + "')";
 			} else {
-				console.log("4");
 				url2 = host +
 					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + CDO_controller.user + "' and Brand eq  '" + brandCBVal +
 					" ' and TCISeries eq  '" + seriesCBVal +
@@ -1533,10 +1523,8 @@ sap.ui.define([
 						}
 					}
 				}
-				console.log(aColumnData);
 				var nModel = new sap.ui.model.json.JSONModel();
 				nModel.setData(arrNewData);
-				console.log(arrNewData);
 				CDO_controller.getView().setModel(nModel, "compareModel");
 				//	var stateSwitch = this.getView().byId("stdFeatSwitchId");
 
@@ -2083,10 +2071,8 @@ sap.ui.define([
 			var feature = "";
 			if (str) {
 				var slicestr = str.slice(1);
-				console.log(slicestr);
 				var res5 = slicestr.replace(/;/g, "#! ");
 				var extra = res5.split('#');
-				console.log(extra);
 				var len = extra.length;
 				//	console.log(len);
 				var lendiv = Math.floor(len / 2);
@@ -2094,13 +2080,9 @@ sap.ui.define([
 				for (var i = 0; i < lendiv; i++) {
 					arr.push(extra[i]);
 				}
-				console.log(arr);
 				var string = arr.toString();
-				console.log(string);
 				var res9 = string.replace(/!/g, "#- ");
-				console.log(res9);
 				var rturnRes1 = res9.split('#').join('\n');
-				console.log(rturnRes1);
 
 				/*var arr2 = [];
 				for (var q = lendiv; q < len; q++) {
@@ -2128,7 +2110,6 @@ sap.ui.define([
 				var extra = res5.split('#');
 				//	console.log(extra);
 				var len = extra.length;
-				console.log(len);
 				if (len == 1) {
 					rturnRes = res5;
 				} else {
@@ -2147,15 +2128,10 @@ sap.ui.define([
 					for (var q = lendiv; q < len; q++) {
 						arr2.push(extra[q]);
 					}
-					console.log(arr2);
 					var string2 = arr2.toString();
-					console.log(string2);
 					var slicedStr2 = string2.slice(2);
-					console.log(slicedStr2);
 					var res2 = slicedStr2.replace(/!/g, "#- ");
-					console.log(res2);
 					rturnRes = res2.split('#').join('\n');
-					console.log(rturnRes);
 				}
 			}
 			return "- " + rturnRes;
@@ -2341,25 +2317,21 @@ sap.ui.define([
 			var host = CDO_controller.host();
 			var url2 = "";
 			if (modelDescString == "" && suffixDescString !== "") {
-				console.log("1");
 				url2 = host +
 					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + CDO_controller.user + "' and Brand eq  '" + brandCBVal +
 					" ' and TCISeries eq  '" + seriesCBVal +
 					"' and (" + newSuffixStr + ") and Modelyear eq  '" + modelYearCBVal + " 'and Language eq '" + CDO_controller.language + "')";
 			} else if (suffixDescString == "" && modelDescString !== "") {
-				console.log("2");
 				url2 = host +
 					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + CDO_controller.user + "' and Brand eq  '" + brandCBVal +
 					" ' and TCISeries eq  '" + seriesCBVal +
 					" ' and Modelyear eq  '" + modelYearCBVal + " 'and (" + newModelStr + ") and Language eq '" + CDO_controller.language + "')";
 			} else if (suffixDescString == "" && modelDescString == "") {
-				console.log("3");
 				url2 = host +
 					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + CDO_controller.user + "' and Brand eq  '" + brandCBVal +
 					" ' and TCISeries eq  '" + seriesCBVal +
 					" ' and Modelyear eq  '" + modelYearCBVal + " 'and Language eq '" + CDO_controller.language + "')";
 			} else {
-				console.log("4");
 				url2 = host +
 					"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + CDO_controller.user + "' and Brand eq  '" + brandCBVal +
 					" ' and TCISeries eq  '" + seriesCBVal +
@@ -2434,14 +2406,10 @@ sap.ui.define([
 						}
 					}
 				}
-				console.log(aColumnData);
 				var nModel = new sap.ui.model.json.JSONModel();
 				nModel.setData(arrNewData);
-				console.log(arrNewData);
 				CDO_controller.getView().setModel(nModel, "compareModel");
 				sap.ui.getCore().setModel(nModel, "compareModel");
-				console.log(CDO_controller.getView().getModel("compareModel"));
-				console.log(sap.ui.getCore().getModel("compareModel").getData())
 					//var compData=CDO_controller.getView().getModel("compareModel").getData();
 					//sap.ui.getCore().getModel().setProperty("/compareModelData",compData)
 

@@ -2,7 +2,7 @@ sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	/*"sap/ui/model/json/JSONModel",
 	"sap/ui/model/odata/oDataModel",*/
-	"/sap/ui/model/resource/ResourceModel",
+	"sap/ui/model/resource/ResourceModel",
 	"sap/ui/core/routing/History",
 	
 ], function (Controller, ResourceModel, History) {
@@ -89,7 +89,7 @@ sap.ui.define([
 			});
 		},
 		getUserLanguage: function () {
-			var oI18nModel = new sap.ui.model.resource.ResourceModel({
+			var oI18nModel = new ResourceModel({
 				bundleUrl: "i18n/i18n.properties"
 			});
 			this.getView().setModel(oI18nModel, "i18n");
@@ -99,14 +99,14 @@ sap.ui.define([
 				langData = userAttributesModel.getData();
 				Language = langData.Language[0];
 				if (Language == "English") {
-					var i18nModel = new sap.ui.model.resource.ResourceModel({
+					var i18nModel = new ResourceModel({
 						bundleUrl: "i18n/i18n.properties",
 						bundleLocale: ("en")
 					});
 					this.getView().setModel(i18nModel, "i18n");
 					this.sCurrentLocale = 'EN';
 				} else {
-					var i18nModel = new sap.ui.model.resource.ResourceModel({
+					var i18nModel = new ResourceModel({
 						bundleUrl: "i18n/i18n.properties",
 						bundleLocale: ("fr")
 					});
@@ -117,23 +117,21 @@ sap.ui.define([
 
 		},
 		getBrowserLanguage: function () {
-			var oI18nModel = new sap.ui.model.resource.ResourceModel({
+			var oI18nModel = new ResourceModel({
 				bundleUrl: "i18n/i18n.properties"
 			});
 			this.getView().setModel(oI18nModel, "i18n");
 
 			var isLocaleSent = window.location.search.match(/language=([^&]*)/i);
-			console.log(isLocaleSent);
 			if (isLocaleSent) {
 				var sSelectedLocale = window.location.search.match(/language=([^&]*)/i)[1];
 			} else {
 				var sSelectedLocale = "EN"; // default is english 
 			}
-			console.log(sSelectedLocale);
 			//selected language. 
 			// if (window.location.search == "?language=fr") {
 			if (sSelectedLocale == "fr" || sSelectedLocale == "fr/") {
-				var i18nModel = new sap.ui.model.resource.ResourceModel({
+				var i18nModel = new ResourceModel({
 					bundleUrl: "i18n/i18n.properties",
 					bundleLocale: ("fr")
 				});
@@ -141,7 +139,7 @@ sap.ui.define([
 				this.sCurrentLocale = 'FR';
 
 			} else {
-				var i18nModel = new sap.ui.model.resource.ResourceModel({
+				var i18nModel = new ResourceModel({
 					bundleUrl: "i18n/i18n.properties",
 					bundleLocale: ("en")
 				});
@@ -150,23 +148,21 @@ sap.ui.define([
 			}
 		},
 		returnBrowserLanguage: function () {
-			var oI18nModel = new sap.ui.model.resource.ResourceModel({
+			var oI18nModel = new ResourceModel({
 				bundleUrl: "i18n/i18n.properties"
 			});
 			this.getView().setModel(oI18nModel, "i18n");
 
 			var isLocaleSent = window.location.search.match(/language=([^&]*)/i);
-			console.log(isLocaleSent);
 			if (isLocaleSent) {
 				var sSelectedLocale = window.location.search.match(/language=([^&]*)/i)[1];
 			} else {
 				var sSelectedLocale = "EN"; // default is english 
 			}
-			console.log(sSelectedLocale);
 			//selected language. 
 			// if (window.location.search == "?language=fr") {
 			if (sSelectedLocale == "fr" || sSelectedLocale == "fr/"|| sSelectedLocale == "FR"|| sSelectedLocale == "FR/") {
-				var i18nModel = new sap.ui.model.resource.ResourceModel({
+				var i18nModel = new ResourceModel({
 					bundleUrl: "i18n/i18n.properties",
 					bundleLocale: ("fr")
 				});
@@ -174,7 +170,7 @@ sap.ui.define([
 				this.sCurrentLocale = 'FR';
 
 			} else {
-				var i18nModel = new sap.ui.model.resource.ResourceModel({
+				var i18nModel = new ResourceModel({
 					bundleUrl: "i18n/i18n.properties",
 					bundleLocale: ("en")
 				});
@@ -189,7 +185,7 @@ sap.ui.define([
 	
 			/*var i18nModel;
 			var sLocale;
-			var oI18nModel = new sap.ui.model.resource.ResourceModel({
+			var oI18nModel = new ResourceModel({
 				bundleUrl: "i18n/i18n.properties"
 			});
 			this.getView().setModel(oI18nModel, "i18n");*/
@@ -217,7 +213,7 @@ sap.ui.define([
 		// 	var currentImageSource = this.getView().byId("idLexusLogo");
 		// 	if (window.location.search == "?language=fr") {
 
-		// 	 i18nModel = new sap.ui.model.resource.ResourceModel({
+		// 	 i18nModel = new ResourceModel({
 		// 		bundleUrl: "i18n/i18n_fr.properties",
 		// 		bundleLocale: ("fr")
 
@@ -229,7 +225,7 @@ sap.ui.define([
 		// 	currentImageSource.setProperty("src", "images/Lexus_FR.png");
 
 		// } else {
-		// 	 i18nModel = new sap.ui.model.resource.ResourceModel({
+		// 	 i18nModel = new ResourceModel({
 		// 		bundleUrl: "i18n/i18n_en.properties",
 		// 		bundleLocale: ("en")
 

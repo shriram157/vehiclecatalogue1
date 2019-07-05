@@ -168,7 +168,6 @@ var formatter = {
 		}
 	},
 	decimalFormatterDealerMSRP: function (oDecVal, msrp, lang) {
-		console.log("language is: " + lang);
 		var returnVal = "";
 		var returnVal2 = " ";
 		var commaVal2 = "";

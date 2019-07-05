@@ -138,19 +138,16 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				var url2 = "";
 				var language = searchController.language; // searchController.returnBrowserLanguage(); //"EN";
 				if (modelDescString == "" && suffixDescString !== "") {
-					console.log("1");
 					url2 = host +
 						"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq '" + searchController.user + "' and Brand eq  '" + brandCBVal +
 						" ' and TCISeries eq  '" + seriesCBVal +
 						"' and (" + newSuffixStr + ") and Modelyear eq  '" + modelYearCBVal + " 'and Language eq '" + language + "')";
 				} else if (suffixDescString == "" && modelDescString !== "") {
-					console.log("2");
 					url2 = host +
 						"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + searchController.user + "' and Brand eq  '" +
 						brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
 						" ' and Modelyear eq  '" + modelYearCBVal + " 'and (" + newModelStr + ") and Language eq '" + language + "')";
 				} else if (suffixDescString == "" && modelDescString == "") {
-					console.log("3");
 					url2 = host +
 						"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq  '" + searchController.user + "' and Brand eq  '" +
 						brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
@@ -732,7 +729,6 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			var data = searchTableData[sEntityNameSet2];
 			var language = searchController.language; //searchController.returnBrowserLanguage();
 			var arr = [];
-			console.log(searchController.user);
 			if (language == "FR") {
 				arr = [{
 					"path": sEntityNameSet2,
@@ -815,7 +811,6 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					var index = aContexts[i].split("/")[1];
 					arrIndex.push(index);
 					var data = searchController.getView().getModel("searchTblModel").getData();
-					console.log(data);
 					if (language == "FR") {
 						var indexData = data[index].Vehicle_fr;
 						arr.push(indexData);
