@@ -213,7 +213,6 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 								return 1;
 							}
 						};
-						searchController.getView().byId("idTbl_Search").setModel("searchTblModel");
 						searchController.byId("idTbl_Search").getBinding("items").sort(oSorter);
 						// 				 var aFilters = [];
 						//for (var i = 0, l = data.d.results.length; i < l; i++) {
@@ -283,7 +282,6 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				"modelYear": arr
 			});
 			searchController.getView().setModel(modelYearModel, "yearModel");
-			searchController.getView().byId("id_modelYearCB").setModel("yearModel");
 		},
 
 		listOfBrand: function () {

@@ -464,7 +464,6 @@ sap.ui.define([
 				async: true,
 				dataType: 'text',
 				success: function (data, textStatus, jqXHR) {
-					console.log("GET success: ");
 					// console.log(data.d.results);
 					if (data !== "") {
 						/*			var pdfAsDataUri = "data:application/pdf;base64," + data;

@@ -154,7 +154,6 @@ sap.ui.define([
 									},
 									success: function (data) {
 										oBusyDialog.close();
-										console.log("PUT success");
 										//	var errMsg = this._oView.getModel("i18n").getResourceBundle().getText("Error1");
 										//	console.log(errMsg);
 										$.ajax({
@@ -163,8 +162,6 @@ sap.ui.define([
 											async: false,
 											dataType: 'json',
 											success: function (data, textStatus, jqXHR) {
-												console.log("GET success: ");
-												console.log(data.d.results);
 												var tblModel = new sap.ui.model.json.JSONModel(data.d.results);
 												sap.ui.getCore().setModel(tblModel, "suppTblModel");
 												tbl.setModel(tblModel, "suppTblModel");

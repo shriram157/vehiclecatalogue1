@@ -2982,8 +2982,6 @@ sap.ui.define([
 						}
 						return row;
 					});
-					var tblOptionPack = CDO_controller.getView().byId("tblOptionPackStat");
-					tblOptionPack.setModel("tblModelOpt");
 
 					/*	tblOptionPack.setModel(tblModelOpt);
 					tblOptionPack.bindAggregation("columns", "/columns", function (index, context) {

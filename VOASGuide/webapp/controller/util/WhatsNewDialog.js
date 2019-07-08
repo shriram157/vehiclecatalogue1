@@ -170,15 +170,12 @@ sap.ui.define([
 									},
 									success: function (data) {
 										oBusyDialog.close();
-										console.log("PUT success: " + data);
 										$.ajax({
 											url: oUrl3,
 											method: 'GET',
 											async: false,
 											dataType: 'json',
 											success: function (data, textStatus, jqXHR) {
-												console.log("GET success: ");
-												console.log(data.d.results);
 												var tblModel = new sap.ui.model.json.JSONModel(data.d.results);
 												sap.ui.getCore().setModel(tblModel, "whatsNewTblModel");
 												tbl.setModel(tblModel, "whatsNewTblModel");
