@@ -1223,10 +1223,10 @@ sap.ui.define([
 						}
 						return row;
 					});
-					var tblOptionPack = CDO_controller.getView().byId("tblOptionPackStat");
+					/*	var tblOptionPack = CDO_controller.getView().byId("tblOptionPackStat");
 					tblOptionPack.setModel("tblModelOpt");
 
-					/*	tblOptionPack.setModel(tblModelOpt);
+					tblOptionPack.setModel(tblModelOpt);
 					tblOptionPack.bindAggregation("columns", "/columns", function (index, context) {
 						return new sap.m.Column({
 							header: new sap.m.Label({
@@ -2005,10 +2005,10 @@ sap.ui.define([
 						}
 						return row;
 					});
-					var tblOptionPack = CDO_controller.getView().byId("tblOptionPackStat");
+					/*var tblOptionPack = CDO_controller.getView().byId("tblOptionPackStat");
 					tblOptionPack.setModel("tblModelOpt");
 
-					/*	tblOptionPack.setModel(tblModelOpt);
+					tblOptionPack.setModel(tblModelOpt);
 					tblOptionPack.bindAggregation("columns", "/columns", function (index, context) {
 						return new sap.m.Column({
 							header: new sap.m.Label({
