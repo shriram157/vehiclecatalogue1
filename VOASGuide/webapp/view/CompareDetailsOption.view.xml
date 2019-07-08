@@ -47,7 +47,7 @@
 									<HBox>
 										<items>
 											<Label class="sapUiTinyMargin" text="{i18n>IncludeCommonFeatures}" visible="true" textDirection="Inherit" textAlign="Left" required="false" design="Standard" wrapping="true"/>
-											<Switch class="sapUiTinyMargin" id="stdFeatSwitchId2" type="Default" enabled="true" visible="true" state="false" customTextOn="{i18n>off}" customTextOff="{i18n>on}" change="onSwitchstateChange"/>
+											<Switch class="sapUiTinyMargin" id="stdFeatSwitchId2" state="true" customTextOn="{i18n>on}" customTextOff="{i18n>off}" change="onStdFeatSwitchStateChange"/>
 										</items>
 									</HBox>
 								</header>
@@ -93,7 +93,7 @@
 									<HBox>
 										<items>
 											<Label class="sapUiTinyMargin" text="{i18n>IncludeCommonFeatures}" visible="true" textDirection="Inherit" textAlign="Left" required="false" design="Standard" wrapping="true"/>
-											<Switch class="sapUiTinyMargin" id="stdFeatSwitchId3" type="Default" enabled="true" visible="true" state="false" customTextOn="{i18n>off}" customTextOff="{i18n>on}" change="onSwitchstateChange"/>
+											<Switch class="sapUiTinyMargin" id="stdFeatSwitchId3" state="true" customTextOn="{i18n>on}" customTextOff="{i18n>off}" change="onStdFeatSwitchStateChange"/>
 										</items>
 									</HBox>
 								</header>
@@ -151,7 +151,7 @@
 									<HBox>
 										<items>
 											<Label class="sapUiTinyMargin" text="{i18n>IncludeCommonFeatures}" visible="true" textDirection="Inherit" textAlign="Left" required="false" design="Standard" wrapping="true"/>
-											<Switch class="sapUiTinyMargin" id="stdFeatSwitchId4" type="Default" enabled="true" visible="true" state="false" customTextOn="{i18n>off}" customTextOff="{i18n>on}" change="onSwitchstateChange"/>
+											<Switch class="sapUiTinyMargin" id="stdFeatSwitchId4" state="true" customTextOn="{i18n>on}" customTextOff="{i18n>off}" change="onStdFeatSwitchStateChange"/>
 										</items>
 									</HBox>
 								</header>
@@ -221,7 +221,7 @@
 									<HBox>
 										<items>
 											<Label class="sapUiTinyMargin" text="{i18n>IncludeCommonFeatures}" visible="true" textDirection="Inherit" textAlign="Left" required="false" design="Standard" wrapping="true"/>
-											<Switch class="sapUiTinyMargin" id="stdFeatSwitchId5" type="Default" enabled="true" visible="true" state="false" customTextOn="{i18n>off}" customTextOff="{i18n>on}" change="onSwitchstateChange"/>
+											<Switch class="sapUiTinyMargin" id="stdFeatSwitchId5" state="true" customTextOn="{i18n>on}" customTextOff="{i18n>off}" change="onStdFeatSwitchStateChange"/>
 										</items>
 									</HBox>
 								</header>

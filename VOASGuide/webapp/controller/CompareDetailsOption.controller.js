@@ -20,13 +20,11 @@ sap.ui.define([
 				CDO_controller));
 
 		},
-		onSwitchstateChange: function (evt_Switch) {
-			var state = evt_Switch.getSource().mProperties.state;
-			if (state == true) {
-				//include com fea off
-				CDO_controller.handleRouteMatchedStdFeatureOff();
-			} else {
+		onStdFeatSwitchStateChange: function (evt_Switch) {
+			if (evt_Switch.getSource().mProperties.state) {
 				CDO_controller.handleRouteMatchedStdFeatureOn();
+			} else {
+				CDO_controller.handleRouteMatchedStdFeatureOff();
 			}
 		},
 		handleRouteMatchedStdFeatureOff: function () {
