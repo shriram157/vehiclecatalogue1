@@ -12,8 +12,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 		formatter: formatter,
 		onInit: function () {
 			searchController = this;
-			//	searchController.getUserLanguage();
-			searchController.getBrowserLanguage();
+			searchController.getView().setModel(this.getOwnerComponent().getModel("i18n"), "i18n");
 			searchController.oRouter = sap.ui.core.UIComponent.getRouterFor(searchController);
 			searchController.oRouter.getTarget("SearchPage").attachDisplay(jQuery.proxy(searchController.handleRouteMatched, searchController));
 			searchController.listOfBrand();
@@ -24,7 +23,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			sap.ushell.components.brandCB = searchController.getView().byId("id_brandCB");
 			sap.ushell.components.modelYearCB = searchController.getView().byId("id_modelYearCB");
 			sap.ushell.components.seriesCB = searchController.getView().byId("id_seriesCB");
-			searchController.language = searchController.returnBrowserLanguage();
+			searchController.language = this.getOwnerComponent().getModel("language").getProperty("/language");
 
 			searchController._readUser();
 			var userModel = sap.ui.getCore().getModel("userModel");
@@ -136,7 +135,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				}
 				var host = searchController.host();
 				var url2 = "";
-				var language = searchController.language; // searchController.returnBrowserLanguage(); //"EN";
+				var language = searchController.language; //"EN";
 				if (modelDescString == "" && suffixDescString !== "") {
 					url2 = host +
 						"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq '" + searchController.user + "' and Brand eq  '" + brandCBVal +
@@ -239,7 +238,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			var host = searchController.host();
 			var brandCB = searchController.getView().byId("id_brandCB");
 			var url2 = "";
-			var language = searchController.language; // searchController.returnBrowserLanguage(); //"EN";
+			var language = searchController.language; //"EN";
 
 			var url2 = host + "/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(Brand eq '" + brandCB.getValue() +
 				"' and Language eq '" + language + "')";
@@ -376,7 +375,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			if (brandCB.getValue() != "" && modelYearCB.getValue() != "") {
 				seriesCB.setEnabled(true);
 			}
-			var language = searchController.language; ///searchController.returnBrowserLanguage(); //"EN";
+			var language = searchController.language; //"EN";
 			var host = searchController.host();
 			var url = host +
 				"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(User eq  '" + searchController.user + "' and Brand eq '" + brandCBVal +
@@ -466,7 +465,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				modelCB.setEnabled(true);
 			}
 			var host = searchController.host();
-			var language = searchController.language; //searchController.returnBrowserLanguage();
+			var language = searchController.language;
 			searchController.getView().byId("filterBar").setShowGoOnFB(true);
 			var url = host +
 				"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(User eq  '" + searchController.user + "' and Brand eq '" + brandCBVal +
@@ -551,7 +550,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			}
 			if (newModelStr !== "") {
 				var host = searchController.host();
-				var language = searchController.language; //searchController.returnBrowserLanguage();
+				var language = searchController.language;
 				var url = host +
 					"/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(User eq  '" + searchController.user + "' and Brand eq  '" +
 					brandCBVal + " ' and TCISeries eq  '" + seriesCBVal +
@@ -725,7 +724,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			var sEntityNameSet2 = sPath.split("/")[1];
 			var searchTableData = searchController.getView().getModel("searchTblModel").getData();
 			var data = searchTableData[sEntityNameSet2];
-			var language = searchController.language; //searchController.returnBrowserLanguage();
+			var language = searchController.language;
 			var arr = [];
 			if (language == "FR") {
 				arr = [{
@@ -803,7 +802,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			var modelDescString = "";
 			var modelArrFromData = [];
 			var modelENModelDesc = [];
-			var language = searchController.language; //searchController.returnBrowserLanguage();
+			var language = searchController.language;
 			if (aContexts.length <= 5 && aContexts.length >= 2) {
 				for (var i = 0; i < aContexts.length; i++) {
 					var index = aContexts[i].split("/")[1];

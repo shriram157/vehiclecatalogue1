@@ -82,106 +82,11 @@ sap.ui.define([
 				baseController.getRouter().navTo("default", true);
 			}
 		},
-
 		notfound: function () {
 			baseController.getRouter().getTargets().display("notFound", { //go to not found
 				fromTarget: "SearchPage" //go to view 1 from not found 
 			});
 		},
-		getUserLanguage: function () {
-			var oI18nModel = new ResourceModel({
-				bundleUrl: "i18n/i18n.properties"
-			});
-			this.getView().setModel(oI18nModel, "i18n");
-			var userAttributesModel = sap.ui.getCore().getModel("userAttributesModel");
-			var langData, Language;
-			if (userAttributesModel) {
-				langData = userAttributesModel.getData();
-				Language = langData.Language[0];
-				if (Language == "English") {
-					var i18nModel = new ResourceModel({
-						bundleUrl: "i18n/i18n.properties",
-						bundleLocale: ("en")
-					});
-					this.getView().setModel(i18nModel, "i18n");
-					this.sCurrentLocale = 'EN';
-				} else {
-					var i18nModel = new ResourceModel({
-						bundleUrl: "i18n/i18n.properties",
-						bundleLocale: ("fr")
-					});
-					this.getView().setModel(i18nModel, "i18n");
-					this.sCurrentLocale = 'FR';
-				}
-			}
-
-		},
-		getBrowserLanguage: function () {
-			var oI18nModel = new ResourceModel({
-				bundleUrl: "i18n/i18n.properties"
-			});
-			this.getView().setModel(oI18nModel, "i18n");
-
-			var isLocaleSent = window.location.search.match(/language=([^&]*)/i);
-			if (isLocaleSent) {
-				var sSelectedLocale = window.location.search.match(/language=([^&]*)/i)[1];
-			} else {
-				var sSelectedLocale = "EN"; // default is english 
-			}
-			//selected language. 
-			// if (window.location.search == "?language=fr") {
-			if (sSelectedLocale == "fr" || sSelectedLocale == "fr/") {
-				var i18nModel = new ResourceModel({
-					bundleUrl: "i18n/i18n.properties",
-					bundleLocale: ("fr")
-				});
-				this.getView().setModel(i18nModel, "i18n");
-				this.sCurrentLocale = 'FR';
-
-			} else {
-				var i18nModel = new ResourceModel({
-					bundleUrl: "i18n/i18n.properties",
-					bundleLocale: ("en")
-				});
-				this.getView().setModel(i18nModel, "i18n");
-				this.sCurrentLocale = 'EN';
-			}
-		},
-		returnBrowserLanguage: function () {
-			var oI18nModel = new ResourceModel({
-				bundleUrl: "i18n/i18n.properties"
-			});
-			this.getView().setModel(oI18nModel, "i18n");
-
-			var isLocaleSent = window.location.search.match(/language=([^&]*)/i);
-			if (isLocaleSent) {
-				var sSelectedLocale = window.location.search.match(/language=([^&]*)/i)[1];
-			} else {
-				var sSelectedLocale = "EN"; // default is english 
-			}
-			//selected language. 
-			// if (window.location.search == "?language=fr") {
-			if (sSelectedLocale == "fr" || sSelectedLocale == "fr/"|| sSelectedLocale == "FR"|| sSelectedLocale == "FR/") {
-				var i18nModel = new ResourceModel({
-					bundleUrl: "i18n/i18n.properties",
-					bundleLocale: ("fr")
-				});
-				this.getView().setModel(i18nModel, "i18n");
-				this.sCurrentLocale = 'FR';
-
-			} else {
-				var i18nModel = new ResourceModel({
-					bundleUrl: "i18n/i18n.properties",
-					bundleLocale: ("en")
-				});
-				this.getView().setModel(i18nModel, "i18n");
-				this.sCurrentLocale = 'EN';
-			}
-			this.getView().setModel(new sap.ui.model.json.JSONModel({"Language" : this.sCurrentLocale}), "ModelLocale");
-		
-			return this.sCurrentLocale;
-		}
-
 	
 			/*var i18nModel;
 			var sLocale;

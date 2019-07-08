@@ -219,7 +219,7 @@ sap.ui.define([
 			var host = CreateVehicleGuideDialogController.nodeJsUrl;
 			var brandCB = CreateVehicleGuideDialogController.getView().byId("idVeh_brandCB");
 
-			var language = CreateVehicleGuideDialogController.language; // searchController.returnBrowserLanguage(); //"EN";
+			var language = CreateVehicleGuideDialogController.language; //"EN";
 
 			var url2 = host + "/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(Brand eq '" + brandCB.getValue() +
 				"' and Language eq '" + language + "')";

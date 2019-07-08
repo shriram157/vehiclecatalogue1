@@ -45,7 +45,7 @@ sap.ui.define([
 		},
 
 		onAfterRendering: function () {
-			this.getBrowserLanguage();
+			this.getView().setModel(this.getOwnerComponent().getModel("i18n"), "i18n");
 		},
 
 		userAPI: function () {

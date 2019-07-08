@@ -123,7 +123,7 @@ sap.ui.define([
 			var host = CreatePocketSumController.nodeJsUrl;
 			var brandCB = CreatePocketSumController.getView().byId("idPoc_brandCB");
 			var url2 = "";
-			var language = CreatePocketSumController.language; // searchController.returnBrowserLanguage(); //"EN";
+			var language = CreatePocketSumController.language; //"EN";
 
 			var url2 = host + "/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(Brand eq '" + brandCB.getValue() +
 				"' and Language eq '" + language + "')";

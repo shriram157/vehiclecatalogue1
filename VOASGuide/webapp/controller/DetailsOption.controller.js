@@ -11,12 +11,10 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 		formatter: formatter,
 		onInit: function () {
 			DetailController = this;
-			//	this.getUserLanguage();
 			var oBusyDialog = new sap.m.BusyDialog({
 				showCancelButton: false
 			});
 			oBusyDialog.open();
-			// this.getBrowserLanguage();
 			// var oSect = this.getView().byId("sect");
 			// oSect.scrollTo(0,0);
 			DetailController.oRouter = sap.ui.core.UIComponent.getRouterFor(DetailController);
@@ -25,7 +23,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 
 			//DetailController.getView().byId("manageSeriesBtnId").setEnabled(true);
 			//DetailController._readUser();
-			DetailController.language = DetailController.returnBrowserLanguage();
+			DetailController.language = this.getOwnerComponent().getModel("language").getProperty("/language");
 			oBusyDialog.close();
 		},
 		onAfterRendering: function () {

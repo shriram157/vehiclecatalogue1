@@ -1,4 +1,6 @@
 sap.ui.define([
+	"sap/ui/model/json/JSONModel",
+	"sap/ui/model/resource/ResourceModel",
 	"sap/base/i18n/ResourceBundle",
 	"sap/m/Dialog",
 	"sap/m/Text",
@@ -7,7 +9,7 @@ sap.ui.define([
 	"./model/errorHandling",
 	"com/sap/build/toyota-canada/vehiclesGuideV3/model/models",
 	"sap/ui/model/odata/v2/ODataModel"
-], function (ResourceBundle, Dialog, Text, UIComponent, Device, errorHandling, models, ODataModel) {
+], function (JSONModel, ResourceModel, ResourceBundle, Dialog, Text, UIComponent, Device, errorHandling, models, ODataModel) {
 	"use strict";
 	var navigationWithContext = {
 
@@ -37,20 +39,31 @@ sap.ui.define([
 			this.routeHandler = new sap.m.routing.RouteMatchedHandler(this.getRouter());
 			// set the device model
 			this.setModel(models.createDeviceModel(), "device");
-			var employeemodel = new sap.ui.model.json.JSONModel();
+			var employeemodel = new JSONModel();
 		/*	employeemodel.loadData("model/DataDetail.json");
 			sap.ui.getCore().setModel(employeemodel, "employee");
-			
+
 		*/
 
-			// Get resource bundle
-			var locale = jQuery.sap.getUriParameters().get('Language');
-			var bundle = !locale ? ResourceBundle.create({
-				url: './i18n/i18n.properties'
-			}): ResourceBundle.create({
-				url: './i18n/i18n.properties',
-				locale: locale
+			// Initialize language and i18n models
+			var i18nModel = this.getModel("i18n");
+			var language = jQuery.sap.getUriParameters().get("Language");
+			if (language) {
+				language = language.toLowerCase();
+			}
+			// language must be uppercase for OData calls
+			var languageModel = new JSONModel({
+				language: (language ? language : "en").toUpperCase()
 			});
+			this.setModel(languageModel, "language");
+			if (language === "en" || language === "fr") {
+				i18nModel = new ResourceModel({
+					bundleUrl: "i18n/i18n.properties",
+					bundleLocale: language
+				});
+				this.setModel(i18nModel, "i18n");
+			}
+			var bundle = i18nModel.getResourceBundle();
 
 			// Attach XHR event handler to detect 401 error responses for handling as timeout
 			var sessionExpDialog = new Dialog({

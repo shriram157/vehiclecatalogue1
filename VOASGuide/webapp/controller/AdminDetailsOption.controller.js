@@ -11,14 +11,14 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 		formatter: formatter,
 		onInit: function () {
 			AdminDetailCntroller = this;
+			AdminDetailCntroller.getView().setModel(this.getOwnerComponent().getModel("i18n"), "i18n");
 			AdminDetailCntroller.oRouter = sap.ui.core.UIComponent.getRouterFor(AdminDetailCntroller);
 			AdminDetailCntroller.oRouter.getTarget("AdminDetailsOption").attachDisplay(jQuery.proxy(AdminDetailCntroller.handleRouteMatched,
 				AdminDetailCntroller));
 			sap.ushell.components.suppTbl = AdminDetailCntroller.getView().byId("suppTbl");
 			sap.ushell.components.walkUpTbl = AdminDetailCntroller.getView().byId("walkUpTbl");
 			sap.ushell.components.whatsNewTbl = AdminDetailCntroller.getView().byId("whatsNewTbl");
-			AdminDetailCntroller.getBrowserLanguage();
-			this.lang = AdminDetailCntroller.returnBrowserLanguage();
+			this.lang = this.getOwnerComponent().getModel("language").getProperty("/language");
 			this.lang = this.lang.toUpperCase();
 		},
 		handleRouteMatched: function (oEvent) {

@@ -12,9 +12,7 @@ sap.ui.define([
 		formatter: formatter,
 		onInit: function () {
 			CDO_controller = this;
-			// this.getUserLanguage();
-			// this.getBrowserLanguage();
-			CDO_controller.language = CDO_controller.returnBrowserLanguage();
+			CDO_controller.language = this.getOwnerComponent().getModel("language").getProperty("/language");
 
 			CDO_controller.oRouter = sap.ui.core.UIComponent.getRouterFor(CDO_controller);
 

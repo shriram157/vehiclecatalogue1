@@ -212,7 +212,7 @@ sap.ui.define([
 
 			var brandCB = CreateSuppGuideController.getView().byId("idSupp_brandCB");
 			var url2 = "";
-			var language = CreateSuppGuideController.language; // searchController.returnBrowserLanguage(); //"EN";
+			var language = CreateSuppGuideController.language; //"EN";
 
 			var url2 = host + "/Z_VEHICLE_CATALOGUE_SRV/ZC_BRAND_MODEL_DETAILSSet?$filter=(Brand eq '" + brandCB.getValue() +
 				"' and Language eq '" + language + "')";
