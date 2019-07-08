@@ -72,10 +72,13 @@ sap.ui.define([
 			} else {
 				Language = "EN";
 			}
-			if (Language == "FR") {
+			if (Language == "FR" || Language === "fr") {
 				LanguageState = false;
+				Language = "FR";
+
 			} else {
 				LanguageState = true;
+				Language = "EN";
 			}
 			//	}
 			CreatePocketSumController.getView().byId("id_poc_LangSwitch").setState(LanguageState);
