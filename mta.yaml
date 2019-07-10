@@ -18,6 +18,10 @@ modules:
       XS_LOG_CONNECTION_DATA: true
       XS_LOG_REFERER: true
       XS_LOG_USER: true
+   build-parameters:
+      npm-opts:
+         config:
+            progress: false
    provides:
     - name: vehiclecatalogue-node_api
       properties:
