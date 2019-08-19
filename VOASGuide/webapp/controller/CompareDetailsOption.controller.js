@@ -2410,8 +2410,8 @@ sap.ui.define([
 				nModel.setData(arrNewData);
 				CDO_controller.getView().setModel(nModel, "compareModel");
 				sap.ui.getCore().setModel(nModel, "compareModel");
-					//var compData=CDO_controller.getView().getModel("compareModel").getData();
-					//sap.ui.getCore().getModel().setProperty("/compareModelData",compData)
+				//var compData=CDO_controller.getView().getModel("compareModel").getData();
+				//sap.ui.getCore().getModel().setProperty("/compareModelData",compData)
 
 				if (CDO_controller.getView().getModel("TblModel")) {
 					var dat = CDO_controller.getView().getModel("TblModel").getData();
@@ -2583,6 +2583,7 @@ sap.ui.define([
 							});
 						}*/
 					var dataApx = [];
+
 					for (var i = 0; i < dtApx.length; i++) {
 						var msrp = [],
 							net = [];
@@ -2618,6 +2619,7 @@ sap.ui.define([
 						var netPriceF = CDO_controller.getView().getModel("i18n").getResourceBundle().getText("DealerNetWithoutDoll");
 						var dtApxDesc = [];
 						dtApxDesc[i] = CDO_controller.formatFeatures(dtApx[i].INT_DESC);
+
 						dataApx.push({
 							"Category_en": dtApx[i].APX, //+ "\n" + dtApxDesc[i], //+ "\n"+msrpF + msrp[i] + "\n"+ netPriceF+ net[i],
 							"Cust_fac_desc_en": "", //dtApx[i].INT_DESC,
@@ -2627,6 +2629,7 @@ sap.ui.define([
 							"Vehicle4": dtApx[i].Vehicle4,
 							"Vehicle5": dtApx[i].Vehicle5
 						});
+
 					}
 
 					var dataApx1 = [];
@@ -2721,11 +2724,60 @@ sap.ui.define([
 						columns: aColumnData,
 						rows: dataDim
 					});
+
+					for (var s in dataApx) {
+						if (dataApx[s].Vehicle1 == "Y") {
+							let oText = dataApx[s].Category_en.split("/")[1];
+							dataApx[s].Vehicle1 = oText;
+						}
+						if (dataApx[s].Vehicle2 == "Y") {
+							let oText = dataApx[s].Category_en.split("/")[1];
+							dataApx[s].Vehicle2 = oText;
+						}
+						if (dataApx[s].Vehicle3 == "Y") {
+							let oText = dataApx[s].Category_en.split("/")[1];
+							dataApx[s].Vehicle3 = oText;
+						}
+						if (dataApx[s].Vehicle4 == "Y") {
+							let oText = dataApx[s].Category_en.split("/")[1];
+							dataApx[s].Vehicle4 = oText;
+						}
+						if (dataApx[s].Vehicle5 == "Y") {
+							let oText = dataApx[s].Category_en.split("/")[1];
+							dataApx[s].Vehicle5 = oText;
+						}
+
+					}
+
+					var refinedDataApx = [{
+						"Category_en": "",
+						"Cust_fac_desc_en": "", //dtApx[i].INT_DESC,
+						"Vehicle1": "",
+						"Vehicle2": "",
+						"Vehicle3": "",
+						"Vehicle4": "",
+						"Vehicle5": ""
+					}];
+					var refApx = [];
+					for (var h in dataApx) {
+						refinedDataApx[0].Category_en += dataApx[h].Category_en + " ",
+							refinedDataApx[0].Cust_fac_desc_en += dataApx[h].Cust_fac_desc_en + " ",
+							refinedDataApx[0].Vehicle1 += dataApx[h].Vehicle1 + " ",
+							refinedDataApx[0].Vehicle2 += dataApx[h].Vehicle2 + " ",
+							refinedDataApx[0].Vehicle3 += dataApx[h].Vehicle3 + " ",
+							refinedDataApx[0].Vehicle4 += dataApx[h].Vehicle4 + " ",
+							refinedDataApx[0].Vehicle5 += dataApx[h].Vehicle5 + " "
+					}
+
+					console.log(refinedDataApx);
+
 					var tblModelApx = new sap.ui.model.json.JSONModel();
 					tblModelApx.setData({
 						columns: aColumnData,
-						rows: dataApx
+						rows: refinedDataApx
 					});
+
+					console.log(dataApx);
 					var tblModelApx1 = new sap.ui.model.json.JSONModel();
 					tblModelApx1.setData({
 						columns: emptydata,
@@ -3051,24 +3103,24 @@ sap.ui.define([
 						var obj = context.getObject();
 						var row = new sap.m.ColumnListItem();
 						for (var k in obj) {
-							if (obj[k] == "Y") {
-								row.addCell(
-									new sap.m.HBox({
-										items: [new sap.m.Text({
-											text: " ",
-										}).addStyleClass("padding"), new sap.ui.core.Icon({
-											src: "sap-icon://accept",
-											color: "black"
-										})]
-									})
-								);
-							} else {
-								row.addCell(
-									new sap.m.Text({
-										text: obj[k]
-									})
-								);
-							}
+							// 			if (obj[k] == "Y") {
+							// 				row.addCell(
+							// 					new sap.m.HBox({
+							// 						items: [new sap.m.Text({
+							// 							text: " ",
+							// 						}).addStyleClass("padding"), new sap.ui.core.Icon({
+							// 							src: "sap-icon://accept",
+							// 							color: "black"
+							// 						})]
+							// 					})
+							// 				);
+							// 			} else {
+							row.addCell(
+								new sap.m.Text({
+									text: obj[k]
+								})
+							);
+							//}
 						}
 						return row;
 					});
