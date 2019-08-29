@@ -2760,7 +2760,8 @@ sap.ui.define([
 					}];
 					var refApx = [];
 					for (var h in dataApx) {
-						refinedDataApx[0].Category_en += dataApx[h].Category_en + " ",
+						// 		refinedDataApx[0].Category_en += dataApx[h].Category_en + " ",
+						refinedDataApx[0].Category_en = "APX",
 							refinedDataApx[0].Cust_fac_desc_en += dataApx[h].Cust_fac_desc_en + " ",
 							refinedDataApx[0].Vehicle1 += dataApx[h].Vehicle1 + " ",
 							refinedDataApx[0].Vehicle2 += dataApx[h].Vehicle2 + " ",
@@ -2777,7 +2778,6 @@ sap.ui.define([
 						rows: refinedDataApx
 					});
 
-					console.log(dataApx);
 					var tblModelApx1 = new sap.ui.model.json.JSONModel();
 					tblModelApx1.setData({
 						columns: emptydata,
