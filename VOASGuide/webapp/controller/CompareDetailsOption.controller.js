@@ -2724,7 +2724,7 @@ sap.ui.define([
 						columns: aColumnData,
 						rows: dataDim
 					});
-
+					//done by Minakshi
 					for (var s in dataApx) {
 						if (dataApx[s].Vehicle1 == "Y") {
 							let oText = dataApx[s].Category_en.split("/")[1];

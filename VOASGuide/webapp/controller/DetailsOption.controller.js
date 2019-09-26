@@ -83,13 +83,13 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					feat = res.split('#').join('\n');
 					feature = feat;*/
 				////
-				var slicestring = str.slice(1);
-				var res5 = slicestring.replace(/;/g, "#! ");
-				var extra = res5.split('#');
-				//	console.log(extra);
-				var len = extra.length;
-				console.log(len);
-				var lendiv = Math.floor(len / 2);
+				// var slicestring = str.slice(1);
+				// var res5 = slicestring.replace(/;/g, "#! ");
+				// var extra = res5.split('#');
+				// //	console.log(extra);
+				// var len = extra.length;
+				// console.log(len);
+				// var lendiv = Math.floor(len / 2);
 				/*var arr = [];
 				for (var i = 0; i < lendiv; i++) {
 					arr.push(extra[i]);
@@ -100,21 +100,24 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				var rturnRes1 = res9.split('#').join('\n');
 				*/
 
-				var arr2 = [];
-				for (var q = lendiv; q < len; q++) {
-					arr2.push(extra[q]);
-				}
-				console.log(arr2);
-				var string2 = arr2.toString();
-				console.log(string2);
-				var slicedStr2 = string2.slice(2);
-				console.log(slicedStr2);
-				var res2 = slicedStr2.replace(/!/g, "#- ");
-				console.log(res2);
-				var rturnRes = res2.split('#').join('\n');
+				// var arr2 = [];
+				// for (var q = lendiv; q < len; q++) {
+				// 	arr2.push(extra[q]);
+				// }
+				// console.log(arr2);
+				// var string2 = arr2.toString();
+				// console.log(string2);
+				// var slicedStr2 = string2.slice(2);
+				// console.log(slicedStr2);
+				// var res2 = slicedStr2.replace(/!/g, "#- ");
+				// console.log(res2);
+				// var rturnRes = res2.split('#').join('\n');
+				var oArr = str.split(";");
+				var rturnRes = oArr[oArr.length - 1];
 				console.log(rturnRes);
+				return "- " + rturnRes;
 			}
-			return "- " + rturnRes;
+
 		},
 		_readUser: function () {
 			var userModel = sap.ui.getCore().getModel("userModel");
@@ -334,26 +337,26 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 							if (DetailController.language.toUpperCase() === "EN") {
 								msrp[i] = "  $" + iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 							} else {
-								msrp[i] =  iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
+								msrp[i] = iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
 							}
 						} else {
-							msrp[i] = "";		
+							msrp[i] = "";
 						}
-						
+
 					} else {
 						msrp[i] = "";
 					}
 					if (dtCol[i].NETPRICE != undefined && dtCol[i].NETPRICE != null && !isNaN(dtCol[i].NETPRICE) && dtCol[i].NETPRICE != "") {
-						
+
 						var iNet = parseInt(dtCol[i].NETPRICE);
 						if (iNet !== 0) {
 							if (DetailController.language.toUpperCase() === "EN") {
 								net[i] = "  $" + iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 							} else {
-								net[i] =  iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
+								net[i] = iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
 							}
 						} else {
-							net[i] = "";		
+							net[i] = "";
 						}
 					} else {
 						net[i] = "";
@@ -397,10 +400,10 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 							if (DetailController.language.toUpperCase() === "EN") {
 								msrp[i] = "  $" + iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 							} else {
-								msrp[i] =  iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
+								msrp[i] = iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
 							}
 						} else {
-							msrp[i] = "";		
+							msrp[i] = "";
 						}
 					} else {
 						msrp[i] = "";
@@ -411,10 +414,10 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 							if (DetailController.language.toUpperCase() === "EN") {
 								net[i] = "  $" + iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 							} else {
-								net[i] =  iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
+								net[i] = iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
 							}
 						} else {
-							net[i] = "";		
+							net[i] = "";
 						}
 					} else {
 						net[i] = "";
@@ -470,15 +473,15 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					var msrp = [],
 						net = [];
 					if (dtApx[i].MSRP != undefined && dtApx[i].MSRP != null && !isNaN(dtApx[i].MSRP) && dtApx[i].MSRP != "") {
-					   var iMsrp = parseInt(dtApx[i].MSRP);
+						var iMsrp = parseInt(dtApx[i].MSRP);
 						if (iMsrp !== 0) {
 							if (DetailController.language.toUpperCase() === "EN") {
 								msrp[i] = "  $" + iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 							} else {
-								msrp[i] =  iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
+								msrp[i] = iMsrp.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
 							}
 						} else {
-							msrp[i] = "";		
+							msrp[i] = "";
 						}
 					} else {
 						msrp[i] = "";
@@ -489,10 +492,10 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 							if (DetailController.language.toUpperCase() === "EN") {
 								net[i] = "  $" + iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 							} else {
-								net[i] =  iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
+								net[i] = iNet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "  $";
 							}
 						} else {
-							net[i] = "";		
+							net[i] = "";
 						}
 					} else {
 						net[i] = "";
