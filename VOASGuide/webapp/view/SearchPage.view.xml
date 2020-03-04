@@ -81,9 +81,9 @@
 					<OverflowToolbar height="46px" enabled="true" visible="true" design="Solid">
 						<content>
 							<ToolbarSpacer width=""/>
-							<Button type="Default" text="{i18n>WhatsNew}" enabled="true" press="_onCreateWhatsNew" iconFirst="true" icon="sap-icon://pdf-attachment" iconDensityAware="false" visible="true"/>
-							<Button type="Default" text="{i18n>WalkUp}" enabled="true" press="_onCreateWalkUp" iconFirst="true" icon="sap-icon://pdf-attachment" iconDensityAware="false" visible="true"/>
-							<Button type="Default" text="{i18n>Supplemental}" enabled="true" press="_onCreateSupplemental" iconFirst="true" icon="sap-icon://pdf-attachment" iconDensityAware="false" visible="true"/>
+							<Button type="Default" text="{i18n>WhatsNew}" enabled="true" press="_onCreateWhatsNew" iconFirst="true" icon="sap-icon://pdf-attachment" iconDensityAware="false" visible="false"/>
+							<Button type="Default" text="{i18n>WalkUp}" enabled="true" press="_onCreateWalkUp" iconFirst="true" icon="sap-icon://pdf-attachment" iconDensityAware="false" visible="false"/>
+							<Button type="Default" text="{i18n>Supplemental}" enabled="true" press="_onCreateSupplemental" iconFirst="true" icon="sap-icon://pdf-attachment" iconDensityAware="false" visible="false"/>
 							<Button type="Default" text="{i18n>VehicleGuide}" enabled="true" press="_onCreateVehGuide" iconFirst="true" icon="sap-icon://pdf-attachment" iconDensityAware="false" visible="true"/>
 							<Button type="Default" text="{i18n>PocketSummary}" enabled="true" press="_onCreatePocSum" iconFirst="true" icon="sap-icon://pdf-attachment" iconDensityAware="false" visible="true"/>
 						</content>
