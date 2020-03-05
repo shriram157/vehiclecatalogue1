@@ -143,65 +143,66 @@
 					</uxap:ObjectPageSubSection>
 				</uxap:subSections>
 			</uxap:ObjectPageSection>
-			<uxap:ObjectPageSection title="Supplement Guide">
-				<uxap:subSections>
-					<uxap:ObjectPageSubSection title="{i18n>SupplementalGuide}">
-						<uxap:blocks>
-							<Table xmlns="sap.m" id="suppTbl" items="{path:'suppTblModel>/', templateShareable:true}" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="2" mode="SingleSelectLeft">
-								<headerToolbar>
-									<OverflowToolbar design="Transparent">
-										<content>
-											<ToolbarSpacer/>
-											<Button type="Transparent" text="{i18n>Upload}" press="_uploadFileSupp" iconFirst="true" icon="sap-icon://write-new">
-												<layoutData>
-													<OverflowToolbarLayoutData moveToOverflow="true"/>
-												</layoutData>
-											</Button>
-											<Button type="Transparent" text="{i18n>Delete}" press="_deleteFileSupp" iconFirst="false" icon="sap-icon://delete">
-												<layoutData>
-													<OverflowToolbarLayoutData moveToOverflow="true"/>
-												</layoutData>
-											</Button>
-										</content>
-									</OverflowToolbar>
-								</headerToolbar>
-								<columns>
-									<Column width="auto" minScreenWidth="Phone">
-										<header>
-											<Text text="{i18n>FileName}" width="auto"/>
-										</header>
-									</Column>
-									<Column width="auto" minScreenWidth="Tablet" demandPopin="true">
-										<header>
-											<Text text="{i18n>Comments}" width="auto"/>
-										</header>
-									</Column>
-									<Column width="auto" minScreenWidth="Phone">
-										<header>
-											<Text text="{i18n>LastUploaded}" width="auto"/>
-										</header>
-									</Column>
-									<Column width="auto" minScreenWidth="Phone">
-										<header>
-											<Text text="{i18n>Language}" width="auto"/>
-										</header>
-									</Column>
-								</columns>
-								<items>
-									<ColumnListItem type="Active">
-										<cells>
-											<Text text="{suppTblModel>FileName}"/>
-											<Text text="{suppTblModel>Comment}"/>
-											<Text text="{parts: [{path:'suppTblModel>Lastupdate'},{path:'suppTblModel&gt;Sytime'}] , formatter: 'formatter.formatManagePageDate'}"/>
-											<Text text="{suppTblModel>Language}"/>
-										</cells>
-									</ColumnListItem>
-								</items>
-							</Table>
-						</uxap:blocks>
-					</uxap:ObjectPageSubSection>
-				</uxap:subSections>
-			</uxap:ObjectPageSection>
+			<!--As PArt of CR1034-->
+			<!--<uxap:ObjectPageSection title="Supplement Guide">-->
+			<!--	<uxap:subSections>-->
+			<!--		<uxap:ObjectPageSubSection title="{i18n>SupplementalGuide}">-->
+			<!--			<uxap:blocks>-->
+			<!--				<Table xmlns="sap.m" id="suppTbl" items="{path:'suppTblModel>/', templateShareable:true}" width="100%" growing="false" growingScrollToLoad="true" growingThreshold="2" mode="SingleSelectLeft">-->
+			<!--					<headerToolbar>-->
+			<!--						<OverflowToolbar design="Transparent">-->
+			<!--							<content>-->
+			<!--								<ToolbarSpacer/>-->
+			<!--								<Button type="Transparent" text="{i18n>Upload}" press="_uploadFileSupp" iconFirst="true" icon="sap-icon://write-new">-->
+			<!--									<layoutData>-->
+			<!--										<OverflowToolbarLayoutData moveToOverflow="true"/>-->
+			<!--									</layoutData>-->
+			<!--								</Button>-->
+			<!--								<Button type="Transparent" text="{i18n>Delete}" press="_deleteFileSupp" iconFirst="false" icon="sap-icon://delete">-->
+			<!--									<layoutData>-->
+			<!--										<OverflowToolbarLayoutData moveToOverflow="true"/>-->
+			<!--									</layoutData>-->
+			<!--								</Button>-->
+			<!--							</content>-->
+			<!--						</OverflowToolbar>-->
+			<!--					</headerToolbar>-->
+			<!--					<columns>-->
+			<!--						<Column width="auto" minScreenWidth="Phone">-->
+			<!--							<header>-->
+			<!--								<Text text="{i18n>FileName}" width="auto"/>-->
+			<!--							</header>-->
+			<!--						</Column>-->
+			<!--						<Column width="auto" minScreenWidth="Tablet" demandPopin="true">-->
+			<!--							<header>-->
+			<!--								<Text text="{i18n>Comments}" width="auto"/>-->
+			<!--							</header>-->
+			<!--						</Column>-->
+			<!--						<Column width="auto" minScreenWidth="Phone">-->
+			<!--							<header>-->
+			<!--								<Text text="{i18n>LastUploaded}" width="auto"/>-->
+			<!--							</header>-->
+			<!--						</Column>-->
+			<!--						<Column width="auto" minScreenWidth="Phone">-->
+			<!--							<header>-->
+			<!--								<Text text="{i18n>Language}" width="auto"/>-->
+			<!--							</header>-->
+			<!--						</Column>-->
+			<!--					</columns>-->
+			<!--					<items>-->
+			<!--						<ColumnListItem type="Active">-->
+			<!--							<cells>-->
+			<!--								<Text text="{suppTblModel>FileName}"/>-->
+			<!--								<Text text="{suppTblModel>Comment}"/>-->
+			<!--								<Text text="{parts: [{path:'suppTblModel>Lastupdate'},{path:'suppTblModel&gt;Sytime'}] , formatter: 'formatter.formatManagePageDate'}"/>-->
+			<!--								<Text text="{suppTblModel>Language}"/>-->
+			<!--							</cells>-->
+			<!--						</ColumnListItem>-->
+			<!--					</items>-->
+			<!--				</Table>-->
+			<!--			</uxap:blocks>-->
+			<!--		</uxap:ObjectPageSubSection>-->
+			<!--	</uxap:subSections>-->
+			<!--</uxap:ObjectPageSection>-->
 		</uxap:sections>
 	</uxap:ObjectPageLayout>
 </mvc:View>
