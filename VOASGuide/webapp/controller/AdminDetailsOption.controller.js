@@ -27,7 +27,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			var modelDetail = new sap.ui.model.json.JSONModel(parseArg[0]);
 			AdminDetailCntroller.getView().setModel(modelDetail, "modelDetail");
 			sap.ui.getCore().setModel(modelDetail, "modelAdmin");
-			AdminDetailCntroller.suppTableOnPageLoad();
+			// AdminDetailCntroller.suppTableOnPageLoad();
 			AdminDetailCntroller.walkUpTableOnPageLoad();
 			AdminDetailCntroller.whatsNewTableOnPageLoad();
 		},
