@@ -22,9 +22,9 @@
 					<Button xmlns="sap.m" type="Default" icon="sap-icon://pdf-attachment" text="{i18n>VehicleGuide}" enabled="true" press="_onCreateVehGuide"
 						iconFirst="true"/>
 					<Button xmlns="sap.m" type="Default" icon="sap-icon://pdf-attachment" text="{i18n>WhatsNewGuide}" enabled="true" press="_onCreateWhatsNew"
-						iconFirst="true"/>
+						iconFirst="true" visible="false"/>
 					<Button xmlns="sap.m" type="Default" icon="sap-icon://pdf-attachment" text="{i18n>WalkUpGuide}" enabled="true" press="_onCreateWalkUp"
-						iconFirst="true"/>
+						iconFirst="true" visible="false"/>
 					<Button xmlns="sap.m" type="Default" icon="sap-icon://pdf-attachment" text="{i18n>Supplemental}" enabled="true"
 						press="_onCreateSupplemental" iconFirst="true" visible="false"/>
 					<Button xmlns="sap.m" type="Default" icon="sap-icon://pdf-attachment" text="{i18n>PocketSummary}" enabled="true" press="_onCreatePocSum"
