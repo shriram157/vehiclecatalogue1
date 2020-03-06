@@ -16,8 +16,8 @@
 				</uxap:navigationBar>
 				<uxap:actions>
 					<Button xmlns="sap.m" type="Default" text="{i18n>VehicleGuide}" enabled="true" press="_onCreateVehGuide" iconFirst="true" icon="sap-icon://pdf-attachment"/>
-					<Button xmlns="sap.m" type="Default" text="{i18n>WhatsNewGuide}" enabled="true" press="_onCreateWhatsNew" iconFirst="true" icon="sap-icon://pdf-attachment"/>
-					<Button xmlns="sap.m" type="Default" text="{i18n>WalkUpGuide}" enabled="true" press="_onCreateWalkUp" iconFirst="true" icon="sap-icon://pdf-attachment"/>
+					<!--<Button xmlns="sap.m" type="Default" text="{i18n>WhatsNewGuide}" enabled="true" press="_onCreateWhatsNew" iconFirst="true" icon="sap-icon://pdf-attachment" visible="false"/>-->
+					<!--<Button xmlns="sap.m" type="Default" text="{i18n>WalkUpGuide}" enabled="true" press="_onCreateWalkUp" iconFirst="true" icon="sap-icon://pdf-attachment" visible="false"/>-->
 					<!--<Button xmlns="sap.m" type="Default" text="{i18n>Supplemental}" enabled="true" press="_onCreateSupplemental" iconFirst="true" icon="sap-icon://pdf-attachment" visible="false"/>--> <!---Hiding As part of CR1034-->
 					<Button xmlns="sap.m" type="Default" text="{i18n>PocketSummary}" enabled="true" press="_onCreatePocSum" iconFirst="true" icon="sap-icon://pdf-attachment" iconDensityAware="false" visible="true"/>
 				</uxap:actions>
