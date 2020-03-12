@@ -14,7 +14,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			AdminDetailCntroller.oRouter = sap.ui.core.UIComponent.getRouterFor(AdminDetailCntroller);
 			AdminDetailCntroller.oRouter.getTarget("AdminDetailsOption").attachDisplay(jQuery.proxy(AdminDetailCntroller.handleRouteMatched,
 				AdminDetailCntroller));
-			sap.ushell.components.suppTbl = AdminDetailCntroller.getView().byId("suppTbl");
+			// sap.ushell.components.suppTbl = AdminDetailCntroller.getView().byId("suppTbl");
 			sap.ushell.components.walkUpTbl = AdminDetailCntroller.getView().byId("walkUpTbl");
 			sap.ushell.components.whatsNewTbl = AdminDetailCntroller.getView().byId("whatsNewTbl");
 			AdminDetailCntroller.getBrowserLanguage();
@@ -27,36 +27,36 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			var modelDetail = new sap.ui.model.json.JSONModel(parseArg[0]);
 			AdminDetailCntroller.getView().setModel(modelDetail, "modelDetail");
 			sap.ui.getCore().setModel(modelDetail, "modelAdmin");
-			AdminDetailCntroller.suppTableOnPageLoad();
+			// AdminDetailCntroller.suppTableOnPageLoad();
 			AdminDetailCntroller.walkUpTableOnPageLoad();
 			AdminDetailCntroller.whatsNewTableOnPageLoad();
 		},
-		suppTableOnPageLoad: function () {
-			var modelAdm = sap.ui.getCore().getModel("modelAdmin");
-			var modelAdmData = modelAdm.getData();
-			var tbl = AdminDetailCntroller.getView().byId("suppTbl");
-			var host = AdminDetailCntroller.host();
-			var oUrl4 = host + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'suppliment')";
-			var oUrl3 = host + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'suppliment' and Model eq '" + modelAdmData.modelDesc +
-				"' and Model_year eq '" + modelAdmData.moYear + "' and Tciseries eq '" + modelAdmData.series + "' and Brand eq '" + modelAdmData.brand +
-				"' and Language eq '" + this.lang + "')";
-			$.ajax({
-				url: oUrl3,
-				method: 'GET',
-				async: false,
-				dataType: "json",
-				success: function (data, textStatus, jqXHR) {
-					var tblModel = new sap.ui.model.json.JSONModel(data.d.results);
-					sap.ui.getCore().setModel(tblModel, "suppTblModel");
-					tbl.setModel(tblModel, "suppTblModel");
-				},
-				error: function (jqXHR, textStatus, errorThrown) {
-					var errMsg = AdminDetailCntroller.getView().getModel("i18n").getResourceBundle().getText("Error1");
-					sap.m.MessageBox.show(errMsg, sap.m.MessageBox.Icon.ERROR,
-						"Error", sap.m.MessageBox.Action.OK, null, null);
-				}
-			});
-		},
+		// suppTableOnPageLoad: function () {
+		// 	var modelAdm = sap.ui.getCore().getModel("modelAdmin");
+		// 	var modelAdmData = modelAdm.getData();
+		// 	var tbl = AdminDetailCntroller.getView().byId("suppTbl");
+		// 	var host = AdminDetailCntroller.host();
+		// 	var oUrl4 = host + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'suppliment')";
+		// 	var oUrl3 = host + "/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Tab eq 'suppliment' and Model eq '" + modelAdmData.modelDesc +
+		// 		"' and Model_year eq '" + modelAdmData.moYear + "' and Tciseries eq '" + modelAdmData.series + "' and Brand eq '" + modelAdmData.brand +
+		// 		"' and Language eq '" + this.lang + "')";
+		// 	$.ajax({
+		// 		url: oUrl3,
+		// 		method: 'GET',
+		// 		async: false,
+		// 		dataType: "json",
+		// 		success: function (data, textStatus, jqXHR) {
+		// 			var tblModel = new sap.ui.model.json.JSONModel(data.d.results);
+		// 			sap.ui.getCore().setModel(tblModel, "suppTblModel");
+		// 			tbl.setModel(tblModel, "suppTblModel");
+		// 		},
+		// 		error: function (jqXHR, textStatus, errorThrown) {
+		// 			var errMsg = AdminDetailCntroller.getView().getModel("i18n").getResourceBundle().getText("Error1");
+		// 			sap.m.MessageBox.show(errMsg, sap.m.MessageBox.Icon.ERROR,
+		// 				"Error", sap.m.MessageBox.Action.OK, null, null);
+		// 		}
+		// 	});
+		// },
 		walkUpTableOnPageLoad: function () {
 			var modelAdm = sap.ui.getCore().getModel("modelAdmin");
 			var modelAdmData = modelAdm.getData();
@@ -191,22 +191,22 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			oDialog.open();
 
 		},
-		_uploadFileSupp: function () {
+		// _uploadFileSupp: function () {
 
-			var sDialogName = "SuplementalDialog";
-			AdminDetailCntroller.mDialogs = AdminDetailCntroller.mDialogs || {};
-			var oDialog = AdminDetailCntroller.mDialogs[sDialogName];
+		// 	var sDialogName = "SuplementalDialog";
+		// 	AdminDetailCntroller.mDialogs = AdminDetailCntroller.mDialogs || {};
+		// 	var oDialog = AdminDetailCntroller.mDialogs[sDialogName];
 
-			if (!oDialog) {
-				oDialog = new SuplementalDialog(AdminDetailCntroller.getView());
-				AdminDetailCntroller.mDialogs[sDialogName] = oDialog;
+		// 	if (!oDialog) {
+		// 		oDialog = new SuplementalDialog(AdminDetailCntroller.getView());
+		// 		AdminDetailCntroller.mDialogs[sDialogName] = oDialog;
 
-				// For navigation.
-				oDialog.setRouter(AdminDetailCntroller.oRouter);
-			}
-			oDialog.open();
+		// 		// For navigation.
+		// 		oDialog.setRouter(AdminDetailCntroller.oRouter);
+		// 	}
+		// 	oDialog.open();
 
-		},
+		// },
 		_deleteWhatNew: function (evt) {
 			var modelAdm = sap.ui.getCore().getModel("modelAdmin");
 			var modelAdmData = modelAdm.getData();
@@ -333,79 +333,79 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					contentWidth: "10rem"
 				});
 			},*/
-		_deleteFileSupp: function (evt) {
-			var modelAdm = sap.ui.getCore().getModel("modelAdmin");
-			var modelAdmData = modelAdm.getData();
-			var host = AdminDetailCntroller.host();
-			var tbl = evt.getSource().getParent().getParent();
-			var errMsg = "Are you sure you want to Delete the selected Supplemental Guide?"; //AdminDetailCntroller.getView().getModel("i18n").getResourceBundle().getText("deleteError");
-			var title = "Delete"; //AdminDetailCntroller.getView().getModel("i18n").getResourceBundle().getText("title1");
-			sap.m.MessageBox.show(errMsg, {
-				icon: sap.m.MessageBox.Icon.WARNING,
-				title: title,
-				actions: [sap.m.MessageBox.Action.DELETE, sap.m.MessageBox.Action.CANCEL],
-				onClose: function (sAction) {
-					if (sAction === "DELETE") {
+		// _deleteFileSupp: function (evt) {
+		// 	var modelAdm = sap.ui.getCore().getModel("modelAdmin");
+		// 	var modelAdmData = modelAdm.getData();
+		// 	var host = AdminDetailCntroller.host();
+		// 	var tbl = evt.getSource().getParent().getParent();
+		// 	var errMsg = "Are you sure you want to Delete the selected Supplemental Guide?"; //AdminDetailCntroller.getView().getModel("i18n").getResourceBundle().getText("deleteError");
+		// 	var title = "Delete"; //AdminDetailCntroller.getView().getModel("i18n").getResourceBundle().getText("title1");
+		// 	sap.m.MessageBox.show(errMsg, {
+		// 		icon: sap.m.MessageBox.Icon.WARNING,
+		// 		title: title,
+		// 		actions: [sap.m.MessageBox.Action.DELETE, sap.m.MessageBox.Action.CANCEL],
+		// 		onClose: function (sAction) {
+		// 			if (sAction === "DELETE") {
 
-						var evtContext = tbl._aSelectedPaths[0];
-						if (evtContext != undefined && evtContext != null && evtContext != "") {
-							var oIndex = parseInt(evtContext.substring(evtContext.lastIndexOf('/') + 1));
-							var url = host +
-								"/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Language eq 'EN' and Lastupdate eq '20190125' and FileName eq 'lexus.png')";
-							var modelSupp = sap.ui.getCore().getModel("suppTblModel");
-							var tblData = modelSupp.getData();
-							var FileName = tblData[oIndex].FileName;
-							var Language = tblData[oIndex].Language;
-							var Lastupdate = tblData[oIndex].Lastupdate;
-							var url2 = host +
-								"/Z_VEHICLE_CATALOGUE_SRV/FileSet(Comment='X',FileName='" + FileName + "',Language='" + Language +
-								"',Lastupdate='" + Lastupdate + "',Tab='suppliment',Model='" + modelAdmData.modelDesc + "',Model_year='" + modelAdmData.moYear +
-								"',Tciseries='" + modelAdmData.series + "',Brand='" + modelAdmData.brand + "')/$value";
-							var token;
+		// 				var evtContext = tbl._aSelectedPaths[0];
+		// 				if (evtContext != undefined && evtContext != null && evtContext != "") {
+		// 					var oIndex = parseInt(evtContext.substring(evtContext.lastIndexOf('/') + 1));
+		// 					var url = host +
+		// 						"/Z_VEHICLE_CATALOGUE_SRV/FileReadSet?$filter=(Language eq 'EN' and Lastupdate eq '20190125' and FileName eq 'lexus.png')";
+		// 					var modelSupp = sap.ui.getCore().getModel("suppTblModel");
+		// 					var tblData = modelSupp.getData();
+		// 					var FileName = tblData[oIndex].FileName;
+		// 					var Language = tblData[oIndex].Language;
+		// 					var Lastupdate = tblData[oIndex].Lastupdate;
+		// 					var url2 = host +
+		// 						"/Z_VEHICLE_CATALOGUE_SRV/FileSet(Comment='X',FileName='" + FileName + "',Language='" + Language +
+		// 						"',Lastupdate='" + Lastupdate + "',Tab='suppliment',Model='" + modelAdmData.modelDesc + "',Model_year='" + modelAdmData.moYear +
+		// 						"',Tciseries='" + modelAdmData.series + "',Brand='" + modelAdmData.brand + "')/$value";
+		// 					var token;
 
-							$.ajax({
-								url: url2,
-								type: 'GET',
-								beforeSend: function (xhr) {
-									xhr.setRequestHeader("X-CSRF-Token", "Fetch");
-								},
-								complete: function (xhr) {
-									token = xhr.getResponseHeader("X-CSRF-Token");
-									//oBusyDialog.open();
-									$.ajax({
-										url: url2,
-										method: 'PUT',
-										async: false,
-										dataType: "json",
-										beforeSend: function (xhr) {
-											xhr.setRequestHeader('X-CSRF-Token', token);
-										},
-										success: function (data, textStatus, jqXHR) {
-											tblData.splice(oIndex, 1);
-											modelSupp.setData(tblData);
-											tbl.setModel(modelSupp);
-										},
-										error: function (jqXHR, textStatus, errorThrown) {
-											var errMsg = AdminDetailCntroller.getView().getModel("i18n").getResourceBundle().getText("Error1");
-											sap.m.MessageBox.show(errMsg, sap.m.MessageBox.Icon.ERROR,
-												"Error", sap.m.MessageBox.Action.OK, null, null);
-										}
+		// 					$.ajax({
+		// 						url: url2,
+		// 						type: 'GET',
+		// 						beforeSend: function (xhr) {
+		// 							xhr.setRequestHeader("X-CSRF-Token", "Fetch");
+		// 						},
+		// 						complete: function (xhr) {
+		// 							token = xhr.getResponseHeader("X-CSRF-Token");
+		// 							//oBusyDialog.open();
+		// 							$.ajax({
+		// 								url: url2,
+		// 								method: 'PUT',
+		// 								async: false,
+		// 								dataType: "json",
+		// 								beforeSend: function (xhr) {
+		// 									xhr.setRequestHeader('X-CSRF-Token', token);
+		// 								},
+		// 								success: function (data, textStatus, jqXHR) {
+		// 									tblData.splice(oIndex, 1);
+		// 									modelSupp.setData(tblData);
+		// 									tbl.setModel(modelSupp);
+		// 								},
+		// 								error: function (jqXHR, textStatus, errorThrown) {
+		// 									var errMsg = AdminDetailCntroller.getView().getModel("i18n").getResourceBundle().getText("Error1");
+		// 									sap.m.MessageBox.show(errMsg, sap.m.MessageBox.Icon.ERROR,
+		// 										"Error", sap.m.MessageBox.Action.OK, null, null);
+		// 								}
 
-									});
-								}
-							});
-						}
-						tbl.removeSelections("true");
-					} else {
-						// 
-					}
-				},
-				styleClass: "",
-				initialFocus: null,
-				textDirection: sap.ui.core.TextDirection.Inherit,
-				contentWidth: "10rem"
-			});
-		},
+		// 							});
+		// 						}
+		// 					});
+		// 				}
+		// 				tbl.removeSelections("true");
+		// 			} else {
+		// 				// 
+		// 			}
+		// 		},
+		// 		styleClass: "",
+		// 		initialFocus: null,
+		// 		textDirection: sap.ui.core.TextDirection.Inherit,
+		// 		contentWidth: "10rem"
+		// 	});
+		// },
 
 		_uploadFileWalkUp: function () {
 
