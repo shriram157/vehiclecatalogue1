@@ -138,7 +138,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			var veh = parseArg[0].veh;
 			var suffix = parseArg[0].suffix;
 			var brandCB = parseArg[0].brand;
-			var vehSuffix = veh + suffix;
+			var vehSuffix = encodeURIComponent(veh + suffix);
 			DetailController.getView().setModel(modelDetail, "modelDetail");
 			if (brandCB == "TOYOTA") {
 				sap.ui.getCore().byId("__xmlview0--idLogo").setSrc("images/Toyota.png");

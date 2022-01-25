@@ -107,11 +107,17 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				var modelYearCBVal = modelYearCB.getValue();
 				var seriesCBVal = seriesCB.getValue();
 				var modelValLen = modelCB.getSelectedItems().length;
+				var language = searchController.language; // searchController.returnBrowserLanguage(); //"EN";
 
 				if (modelCB.getSelectedItems() != "") {
 					for (var i = 0; i < modelValLen; i++) {
 						modelText[i] = modelCB.getSelectedItems()[i].mProperties.text;
-						var modelText2 = "Model eq '" + modelText[i] + "'";
+						if(language == "EN"){
+							var modelText2 = "ENModelDesc eq '" + modelText[i] + "'";
+						}else if(language == "FR"){
+							var modelText2 = "FRModelDesc eq '" + modelText[i] + "'";
+						}
+						
 						modelArr.push(modelText2);
 					}
 					modelDescString = modelArr.toString();
@@ -136,7 +142,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 				}
 				var host = searchController.host();
 				var url2 = "";
-				var language = searchController.language; // searchController.returnBrowserLanguage(); //"EN";
+				
 				if (modelDescString == "" && suffixDescString !== "") {
 					url2 = host +
 						"/Z_VEHICLE_CATALOGUE_SRV/ZC_TABLE_DATA_LOADSet?$filter=(User eq '" + searchController.user + "' and Brand eq  '" + brandCBVal +
