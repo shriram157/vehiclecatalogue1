@@ -173,7 +173,7 @@ sap.ui.define([
 					//	suffixTextVeh[i] = jsonSuffixVeh[i];
 					vehText[i] = jsonVeh[i];
 					var vehNum = i + 1;
-					var vehText2 = "IN_Vehicle" + vehNum + " eq '" + vehText[i] + suffixText[i] + "'";
+					var vehText2 = "IN_Vehicle" + vehNum + " eq '" + encodeURIComponent(vehText[i] + suffixText[i]) + "'";
 					vehArr.push(vehText2);
 				}
 				vehDescString = vehArr.toString();
@@ -1429,7 +1429,7 @@ sap.ui.define([
 					//	suffixTextVeh[i] = jsonSuffixVeh[i];
 					vehText[i] = jsonVeh[i];
 					var vehNum = i + 1;
-					var vehText2 = "IN_Vehicle" + vehNum + " eq '" + vehText[i] + suffixText[i] + "'";
+					var vehText2 = "IN_Vehicle" + vehNum + " eq '" + encodeURIComponent(vehText[i] + suffixText[i]) + "'";
 					vehArr.push(vehText2);
 				}
 				vehDescString = vehArr.toString();
@@ -2300,12 +2300,13 @@ sap.ui.define([
 				var jsonVeh = JSON.parse(parseArg[0].veh);
 				var jsonSuffix = JSON.parse(parseArg[0].suffix);
 				//var jsonSuffixVeh = JSON.parse(parseArg[0].suffix);
+				
 				for (var i = 0; i < lenVeh; i++) {
 					suffixText[i] = jsonSuffix[i];
 					//	suffixTextVeh[i] = jsonSuffixVeh[i];
 					vehText[i] = jsonVeh[i];
 					var vehNum = i + 1;
-					var vehText2 = "IN_Vehicle" + vehNum + " eq '" + vehText[i] + suffixText[i] + "'";
+					var vehText2 = "IN_Vehicle" + vehNum + " eq '" + encodeURIComponent(vehText[i] + suffixText[i]) + "'";
 					vehArr.push(vehText2);
 				}
 				vehDescString = vehArr.toString();
