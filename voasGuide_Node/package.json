@@ -1,6 +1,6 @@
 {
 	"dependencies": {
-		"cf-nodejs-logging-support": "^3.0.13",
+		"@sap/logging": "^4.1.0",
 		"@sap/xsenv": "^1.3.0",
 		"@sap/xssec": "^2.1.16",
 		"cors": "^2.8.5",
