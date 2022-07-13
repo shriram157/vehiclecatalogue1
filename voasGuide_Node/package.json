@@ -1,7 +1,7 @@
 {
 	"dependencies": {
 		"@sap/xsenv": "^3.3.2",
-		"@sap/xssec": "^2.2.4",
+		"@sap/xssec": "^3.2.13",
 		"cf-nodejs-logging-support": "^3.0.13",
 		"express": "^4.16.4",
 		"passport": "^0.4.0"
