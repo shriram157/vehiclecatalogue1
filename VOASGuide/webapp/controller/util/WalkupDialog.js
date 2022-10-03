@@ -52,9 +52,9 @@ sap.ui.define([
 		},
 
 		close: function () {
-			var comment = this._oView.byId("__component0---AdminDetailsOption--walkUp_TA_Comment"); //.getValue(); // "ok"; 
-			var filename = this._oView.byId("__component0---AdminDetailsOption--walkUpFileUploadId"); //.mProperties.value; //"abc.pdf";
-			var langSwitch = this._oView.byId("__component0---AdminDetailsOption--walkUp_Switch_Lang");
+			var comment = this._oView.byId("container-com.sap.build.toyota-canada.vehiclesGuideV3---AdminDetailsOption--walkUp_TA_Comment"); //.getValue(); // "ok"; 
+			var filename = this._oView.byId("container-com.sap.build.toyota-canada.vehiclesGuideV3---AdminDetailsOption--walkUpFileUploadId"); //.mProperties.value; //"abc.pdf";
+			var langSwitch = this._oView.byId("container-com.sap.build.toyota-canada.vehiclesGuideV3---AdminDetailsOption--walkUp_Switch_Lang");
 			comment.setValue("");
 			filename.setValue("");
 			langSwitch.setState(true);
