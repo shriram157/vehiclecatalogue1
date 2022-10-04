@@ -110,14 +110,14 @@ sap.ui.define([
 						this.sPrefix = "";
 					}
 					this.nodeJsUrl = this.sPrefix + "/node";
-					var comment = this._oView.byId("__component0---AdminDetailsOption--whatsNew_TA_Comment").getValue(); // "ok"; 
-					var filename = this._oView.byId("__component0---AdminDetailsOption--whatsNewFileUploadId").mProperties.value; //"abc.pdf";
+					var comment = this._oView.byId("container-com.sap.build.toyota-canada.vehiclesGuideV3---AdminDetailsOption--whatsNew_TA_Comment").getValue(); // "ok"; 
+					var filename = this._oView.byId("container-com.sap.build.toyota-canada.vehiclesGuideV3---AdminDetailsOption--whatsNewFileUploadId").mProperties.value; //"abc.pdf";
 					var date = new Date();
 					var date2 = sap.ui.core.format.DateFormat.getDateInstance({
 						pattern: "yyyyMMdd"
 					});
 					var date3 = date2.format(date);
-					var langSwitchState = this._oView.byId("__component0---AdminDetailsOption--whatsNew_Switch_Lang").mProperties.state;
+					var langSwitchState = this._oView.byId("container-com.sap.build.toyota-canada.vehiclesGuideV3---AdminDetailsOption--whatsNew_Switch_Lang").mProperties.state;
 					var lang = "";
 					if (langSwitchState == false) {
 						lang = "FR";
@@ -126,7 +126,7 @@ sap.ui.define([
 					}
 
 					//var oURL = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileSet('" + filename + "')/$value";
-					var oFileUploader = this._oView.byId("__component0---AdminDetailsOption--whatsNewFileUploadId");
+					var oFileUploader = this._oView.byId("container-com.sap.build.toyota-canada.vehiclesGuideV3---AdminDetailsOption--whatsNewFileUploadId");
 					var oURL4 = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileSet(Comment='" + comment + "',FileName='" + filename + "',Language='" +
 						lang + "',Lastupdate='" + date3 + "',Tab='WhatsNew')/$value";
 					var oURL2 = this.nodeJsUrl + "/Z_VEHICLE_CATALOGUE_SRV/FileSet(Brand='" + modelAdmData.brand + "',Model='" + modelAdmData.modelDesc + "',Tciseries='" + modelAdmData.series + "',Model_year='" + modelAdmData.moYear + "',Tab='WhatsNew',Language='" + lang + "',Lastupdate='" + date3 + "',Comment='" + comment + "',FileName='" + filename + "')/$value";
@@ -217,7 +217,7 @@ sap.ui.define([
 				});
 		},
 		_onButtonPress1: function () {
-			this.close();
+			this._oDialog.close();
 		},
 		/*	afterClose: function () {
 				this._oDialog.destroy();
