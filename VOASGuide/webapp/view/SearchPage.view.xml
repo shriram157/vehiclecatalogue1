@@ -4,7 +4,7 @@
 			<f:DynamicPageTitle>
 				<!--<f:heading>
 					<Image id="idLexusLogo" src="images/Lexus_EN.png" width="100px"/>
-					</f:heading>-->
+					</f:headingsgh>-->
 				<f:actions>
 					<ToolbarSpacer xmlns="sap.m"/>
 					<!--	<variants:VariantManagement/>-->

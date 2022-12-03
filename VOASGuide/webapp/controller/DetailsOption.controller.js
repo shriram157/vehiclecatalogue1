@@ -138,7 +138,7 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			var veh = parseArg[0].veh;
 			var suffix = parseArg[0].suffix;
 			var brandCB = parseArg[0].brand;
-			var vehSuffix = veh + suffix;
+			var vehSuffix = encodeURIComponent(veh + suffix);
 			DetailController.getView().setModel(modelDetail, "modelDetail");
 			if (brandCB == "TOYOTA") {
 				sap.ui.getCore().byId("__xmlview0--idLogo").setSrc("images/Toyota.png");
@@ -168,6 +168,9 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 					DetailController.getView().setModel(tblModel, "TblModel");
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
+					var tblModel = new sap.ui.model.json.JSONModel([]);
+
+					DetailController.getView().setModel(tblModel, "TblModel");
 					var errMsg = DetailController.getView().getModel("i18n").getResourceBundle().getText("Error1");
 					sap.m.MessageBox.show(errMsg, sap.m.MessageBox.Icon.ERROR, "Error",
 						sap.m.MessageBox.Action.OK, null, null);
@@ -925,6 +928,8 @@ sap.ui.define(["com/sap/build/toyota-canada/vehiclesGuideV3/controller/BaseContr
 			var oHistory = History.getInstance();
 			var sPreviousHash = oHistory.getPreviousHash();
 			var oQueryParams = DetailController.getQueryParameters(window.location);
+			var tblModel = new sap.ui.model.json.JSONModel([]);
+			DetailController.getView().setModel(tblModel, "TblModel");
 			const obj = this.byId("ObjectPage");
 			const pow = this.byId("power");
 			obj.scrollToSection(pow.getId(), 450);
