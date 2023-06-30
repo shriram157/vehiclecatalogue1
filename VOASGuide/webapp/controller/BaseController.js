@@ -67,7 +67,7 @@ sap.ui.define([
 			} else {
 				this.sPrefix = "";
 			}
-			//	this.nodeJsUrl = this.sPrefix + "/node";
+			//this.nodeJsUrl = this.sPrefix + "/node";
 			return this.sPrefix;
 		},
 		onNavBack: function (oEvent) {
