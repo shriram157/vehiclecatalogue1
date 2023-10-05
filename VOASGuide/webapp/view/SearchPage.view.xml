@@ -1,4 +1,6 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" controllerName="com.sap.build.toyota-canada.vehiclesGuideV3.controller.SearchPage" xmlns:f="sap.f" xmlns:variants="sap.ui.comp.variants" xmlns:filterbar="sap.ui.comp.filterbar">
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core"
+	controllerName="com.sap.build.toyota-canada.vehiclesGuideV3.controller.SearchPage" xmlns:f="sap.f" xmlns:variants="sap.ui.comp.variants"
+	xmlns:filterbar="sap.ui.comp.filterbar">
 	<f:DynamicPage class="sapUiSizeCompact" showFooter="true" headerExpanded="true">
 		<f:title>
 			<f:DynamicPageTitle>
@@ -16,47 +18,64 @@
 		<f:header>
 			<f:DynamicPageHeader pinnable="true">
 				<f:content>
-					<filterbar:FilterBar id="filterBar" useToolbar="false" showGoOnFB="false" search="pressGo" searchEnabled="true" showFilterConfiguration="false">
+					<filterbar:FilterBar id="filterBar" useToolbar="false" showGoOnFB="false" search="pressGo" searchEnabled="true"
+						showFilterConfiguration="false">
 						<filterbar:filterItems>
-							<filterbar:FilterItem name="Fiori_ListReport_ListReport_0-filterBars-Fiori_ListReport_FilterBar-1-filters-Fiori_ListReport_ComboBoxFilter-1538670414396---0" label="{i18n>Brand}">
+							<filterbar:FilterItem
+								name="Fiori_ListReport_ListReport_0-filterBars-Fiori_ListReport_FilterBar-1-filters-Fiori_ListReport_ComboBoxFilter-1538670414396---0"
+								label="{i18n>Brand}">
 								<filterbar:control>
-									<ComboBox xmlns="sap.m" id="id_brandCB" items="{path:'brandModel>/modelBrand', templateShareable:true}" enabled="true" required="true" change="onChange_Brand">
+									<ComboBox xmlns="sap.m" id="id_brandCB" items="{path:'brandModel>/modelBrand', templateShareable:true}" enabled="true" required="true"
+										change="onChange_Brand">
 										<items>
 											<core:Item text="{brandModel>text}" key="{brandModel>key}"/>
 										</items>
 									</ComboBox>
 								</filterbar:control>
 							</filterbar:FilterItem>
-							<filterbar:FilterItem name="Fiori_ListReport_ListReport_0-filterBars-Fiori_ListReport_FilterBar-1-filters-Fiori_ListReport_ComboBoxFilter-1538673647772---0" label="{i18n>ModelYear}">
+							<filterbar:FilterItem
+								name="Fiori_ListReport_ListReport_0-filterBars-Fiori_ListReport_FilterBar-1-filters-Fiori_ListReport_ComboBoxFilter-1538673647772---0"
+								label="{i18n>ModelYear}">
 								<filterbar:control>
-									<ComboBox xmlns="sap.m" id="id_modelYearCB" items="{path:'yearModel>/modelYear', templateShareable:true}" enabled="false" required="true" change="onChange_ModelYear">
+									<ComboBox xmlns="sap.m" id="id_modelYearCB"
+										items="{path:'yearModel>/modelYear',sorter: { path: 'yearModel>text', descending: true}, templateShareable:true}" enabled="false"
+										required="true" change="onChange_ModelYear">
 										<items>
 											<core:Item text="{yearModel>text}" key="{yearModel>key}"/>
 										</items>
 									</ComboBox>
 								</filterbar:control>
 							</filterbar:FilterItem>
-							<filterbar:FilterItem name="Fiori_ListReport_ListReport_0-filterBars-Fiori_ListReport_FilterBar-1-filters-Fiori_ListReport_ComboBoxFilter-1538673653531---0" label="{i18n>Series}">
+							<filterbar:FilterItem
+								name="Fiori_ListReport_ListReport_0-filterBars-Fiori_ListReport_FilterBar-1-filters-Fiori_ListReport_ComboBoxFilter-1538673653531---0"
+								label="{i18n>Series}">
 								<filterbar:control>
-									<ComboBox xmlns="sap.m" id="id_seriesCB" items="{path:'seriesdropDownModel>/', templateShareable:true}" enabled="false" required="true" change="onChange_Series">
+									<ComboBox xmlns="sap.m" id="id_seriesCB" items="{path:'seriesdropDownModel>/', templateShareable:true}" enabled="false" required="true"
+										change="onChange_Series">
 										<items>
 											<core:Item key="{seriesdropDownModel>key}" text="{seriesdropDownModel>value}"/>
 										</items>
 									</ComboBox>
 								</filterbar:control>
 							</filterbar:FilterItem>
-							<filterbar:FilterItem name="Fiori_ListReport_ListReport_0-filterBars-Fiori_ListReport_FilterBar-1-filters-Fiori_ListReport_ComboBoxFilter-1538673654522---0" label="{i18n>Model}">
+							<filterbar:FilterItem
+								name="Fiori_ListReport_ListReport_0-filterBars-Fiori_ListReport_FilterBar-1-filters-Fiori_ListReport_ComboBoxFilter-1538673654522---0"
+								label="{i18n>Model}">
 								<filterbar:control>
-									<MultiComboBox xmlns="sap.m" id="id_modelCB" items="{path:'dropDownModel>/', templateShareable:true}" enabled="false" selectionFinish="onChange_Model">
+									<MultiComboBox xmlns="sap.m" id="id_modelCB" items="{path:'dropDownModel>/', templateShareable:true}" enabled="false"
+										selectionFinish="onChange_Model">
 										<items>
 											<core:Item text="{dropDownModel>}" key="{dropDownModel>}"/>
 										</items>
 									</MultiComboBox>
 								</filterbar:control>
 							</filterbar:FilterItem>
-							<filterbar:FilterItem name="Fiori_ListReport_ListReport_0-filterBars-Fiori_ListReport_FilterBar-1-filters-Fiori_ListReport_ComboBoxFilter-1538673656505---0" label="{i18n>Suffix}">
+							<filterbar:FilterItem
+								name="Fiori_ListReport_ListReport_0-filterBars-Fiori_ListReport_FilterBar-1-filters-Fiori_ListReport_ComboBoxFilter-1538673656505---0"
+								label="{i18n>Suffix}">
 								<filterbar:control>
-									<MultiComboBox xmlns="sap.m" id="id_suffixCB" items="{path:'suffixdropDownModel>/', templateShareable:true}" enabled="false" selectionFinish="onChange_Suffix">
+									<MultiComboBox xmlns="sap.m" id="id_suffixCB" items="{path:'suffixdropDownModel>/', templateShareable:true}" enabled="false"
+										selectionFinish="onChange_Suffix">
 										<!--selectionFinish="onChange_Suffix" -->
 										<items>
 											<core:Item text="{suffixdropDownModel>}" key="{suffixdropDownModel>}"/>
@@ -81,14 +100,21 @@
 					<OverflowToolbar height="46px" enabled="true" visible="true" design="Solid">
 						<content>
 							<ToolbarSpacer width=""/>
-							<Button type="Default" text="{i18n>WhatsNew}" enabled="true" press="_onCreateWhatsNew" iconFirst="true" icon="sap-icon://pdf-attachment" iconDensityAware="false" visible="false"/>
-							<Button type="Default" text="{i18n>WalkUp}" enabled="true" press="_onCreateWalkUp" iconFirst="true" icon="sap-icon://pdf-attachment" iconDensityAware="false" visible="false"/>
-							<Button type="Default" text="{i18n>Supplemental}" enabled="true" press="_onCreateSupplemental" iconFirst="true" icon="sap-icon://pdf-attachment" iconDensityAware="false" visible="false"/>
-							<Button type="Default" text="{i18n>VehicleGuide}" enabled="true" press="_onCreateVehGuide" iconFirst="true" icon="sap-icon://pdf-attachment" iconDensityAware="false" visible="true"/>
-							<Button type="Default" text="{i18n>PocketSummary}" enabled="true" press="_onCreatePocSum" iconFirst="true" icon="sap-icon://pdf-attachment" iconDensityAware="false" visible="true"/>
+							<Button type="Default" text="{i18n>WhatsNew}" enabled="true" press="_onCreateWhatsNew" iconFirst="true" icon="sap-icon://pdf-attachment"
+								iconDensityAware="false" visible="false"/>
+							<Button type="Default" text="{i18n>WalkUp}" enabled="true" press="_onCreateWalkUp" iconFirst="true" icon="sap-icon://pdf-attachment"
+								iconDensityAware="false" visible="false"/>
+							<Button type="Default" text="{i18n>Supplemental}" enabled="true" press="_onCreateSupplemental" iconFirst="true"
+								icon="sap-icon://pdf-attachment" iconDensityAware="false" visible="false"/>
+							<Button type="Default" text="{i18n>VehicleGuide}" enabled="true" press="_onCreateVehGuide" iconFirst="true" icon="sap-icon://pdf-attachment"
+								iconDensityAware="false" visible="true"/>
+							<Button type="Default" text="{i18n>PocketSummary}" enabled="true" press="_onCreatePocSum" iconFirst="true" icon="sap-icon://pdf-attachment"
+								iconDensityAware="false" visible="true"/>
 						</content>
 					</OverflowToolbar>
-					<Table class="marginCornersBottom" id="idTbl_Search" items="{path:'searchTblModel>/', templateShareable:true}" width="100%" noDataText=" " growing="true" growingScrollToLoad="true" growingThreshold="25" mode="MultiSelect" itemPress="_navToDetail" updateFinished="_onSearchTableUpdate">
+					<Table class="marginCornersBottom" id="idTbl_Search" items="{path:'searchTblModel>/', templateShareable:true}" width="100%" noDataText=" "
+						growing="true" growingScrollToLoad="true" growingThreshold="25" mode="MultiSelect" itemPress="_navToDetail"
+						updateFinished="_onSearchTableUpdate">
 						<headerToolbar>
 							<OverflowToolbar design="Transparent">
 								<content>
@@ -123,11 +149,15 @@
 						<items>
 							<ColumnListItem type="Navigation">
 								<cells>
-									<ObjectIdentifier text="{parts: [{path:'searchTblModel>Modelyear'},           {path:'searchTblModel>Model'},           {path:'searchTblModel>ENModelDesc'},{path:'searchTblModel&gt;FRModelDesc'},           {path:'searchTblModel>Suffix'},           {path:'searchTblModel>suffix_desc_en'},{path:'searchTblModel&gt;suffix_desc_fr'},{path:'searchTblModel>Language'}] ,           formatter: 'formatter.formatVehicle'}"/>
+									<ObjectIdentifier
+										text="{parts: [{path:'searchTblModel>Modelyear'}, {path:'searchTblModel>Model'}, {path:'searchTblModel>ENModelDesc'},{path:'searchTblModel&gt;FRModelDesc'}, {path:'searchTblModel>Suffix'}, {path:'searchTblModel>suffix_desc_en'},{path:'searchTblModel&gt;suffix_desc_fr'},{path:'searchTblModel>Language'}] , formatter: 'formatter.formatVehicle'}"/>
 									<!--title="{searchTblModel>Vehicle}" text="{parts: [{path:'searchTblModel>Suffix'},{path:'searchTblModel>Suffix'}] , formatter: 'formatter.formatSuffix'}"/>-->
 									<!-- text="SFX- {searchTblModel>Suffix}"/>-->
-									<ObjectIdentifier text="{parts: [{path:'searchTblModel>Features'},{path:'searchTblModel&gt;Features'}] , formatter: 'formatter.formatFeatures'}"/>
-									<ObjectIdentifier title="{i18n>MSRPWithoutDoll}{parts: [{path:'searchTblModel>MSRP'},{path:'searchTblModel&gt;MSRP'}] , formatter: 'formatter.decimalFormatter'}" text="{i18n>DealerNetWithoutDoll}{parts: [{path:'searchTblModel>NETPRICE'},{path:'searchTblModel&gt;NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"/>
+									<ObjectIdentifier
+										text="{parts: [{path:'searchTblModel>Features'},{path:'searchTblModel&gt;Features'}] , formatter: 'formatter.formatFeatures'}"/>
+									<ObjectIdentifier
+										title="{i18n>MSRPWithoutDoll}{parts: [{path:'searchTblModel>MSRP'},{path:'searchTblModel&gt;MSRP'}] , formatter: 'formatter.decimalFormatter'}"
+										text="{i18n>DealerNetWithoutDoll}{parts: [{path:'searchTblModel>NETPRICE'},{path:'searchTblModel&gt;NETPRICE'}] , formatter: 'formatter.decimalFormatterDealer'}"/>
 								</cells>
 							</ColumnListItem>
 						</items>
