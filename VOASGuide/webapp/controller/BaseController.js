@@ -128,7 +128,7 @@ sap.ui.define([
 			} else {
 				var sSelectedLocale = "EN"; // default is english 
 			}
-			//selected language. 
+			//selected language. test
 			// if (window.location.search == "?language=fr") {
 			if (sSelectedLocale == "fr" || sSelectedLocale == "fr/") {
 				var i18nModel = new ResourceModel({
